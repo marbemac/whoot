@@ -1,0 +1,15 @@
+<header id="header">
+  <a class="logo" href="<%= root_path %>">
+    <%= image_tag "logo-top.png", :alt => "The Whoot" %>
+  </a>
+
+  <div class="nav">
+    <%= link_to "My Feed", root_path, :class => ('on' if controller.action_name == 'home') %>
+    <%= link_to "Open Invites", invite_posts_path, :class => ('on' if controller.controller_name == 'invite_posts' && controller.action_name == 'index') %>
+    <%= link_to "Deals", "#", :class => '' %>
+  </div>
+
+  <div class="search">
+    <input type="text" class="iclear w" data-url="{{ path('user_ajax_search') }}" autocomplete="off" value="Find someone..."/>
+  </div>
+</header>

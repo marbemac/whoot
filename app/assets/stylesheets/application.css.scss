@@ -1,0 +1,300 @@
+/*
+    Document   : application
+    Created on : Mar 30, 2011, 2:33:12 PM
+    Author     : Marc MacLeod
+    Description:
+        Master stylesheet.
+*/
+
+// Default theme variables
+@import "themes/_default";
+
+// Import compass mixins
+@import "compass";
+@import "compass/utilities";
+
+html, body {
+    margin: 0; padding: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    position: relative; z-index: 0;
+    font-family: "Helvetica Neue", Verdana, Tahoma, Arial, sans-serif;
+}
+
+body.night {
+    background-color: #091F35;
+    @include background-image(linear-gradient(#05162E, #09213B 30%, #0C2B4B 50%, #0F3762));
+}
+body.sunset {
+    background-color: #FFA45E;
+    @include background-image(linear-gradient(#995A51, #D2785E 15%, #EB885F 30%, #FFA45E 55%, #FFC681));
+}
+body.day {
+    background-color: #80B0E7;
+    @include background-image(linear-gradient(#4178A2, #73A3CD 30%, #80B0E7 60%, #A2C5E7));
+}
+
+header, footer, article, section, nav, menu, hgroup {
+   display: block;
+}
+
+h1,h2,h3,h4,h5,h6,p,div,span {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: $link-color;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+form {
+  .errors {
+    display: none;
+    font-size: 12px;
+    color: #CD070E;
+    padding: 0 5px;
+    border: 2px solid #D16A67;
+    background: #FFF9F6;
+    .error {
+      margin: 3px 0;
+    }
+  }
+
+  .field {
+      position: relative;
+      &.required label {
+        color: #CD070E;
+      }
+  }
+  .lClear {
+    label {
+      position: absolute;
+      top: 11px;
+      left: 10px;
+      font-style: italic;
+      font-size: 15px;
+      color: #999;
+      z-index: 100;
+      cursor: text;
+    }
+  }
+}
+
+input,textarea {
+    padding: 3px 6px;
+    font-size: 14px;
+    border:  1px solid #AAA;
+    width: 200px;
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+}
+input.submit {
+    @include orange-button(3px, 14px);
+}
+
+ul,ol { list-style: none; margin: 0; padding: 0; }
+#application { width: 960px; height: 100%; margin: auto; }
+#header {
+    height: $header_height; width: $header_width;
+    color: $header_color;
+    position: fixed;
+    top: 0px;
+    left: 50%;
+    margin-left: $page_width/2*-1;
+    z-index: 50;
+
+    .logo {
+        display: block;
+        position: relative;
+        margin: 11px 0 0 0;
+        color: #FFF;
+        font-size: 26px;
+        text-decoration: none;
+        float: left;
+
+        img {
+            border:  none;
+        }
+    }
+    .nav {
+        position: absolute; top: 16px; left: 330px;
+
+        a {
+            @include border-radius(4px);
+            font-size: 22px;
+            color: #FFF;
+            text-decoration: none;
+            margin: 0 5px;
+            padding: 5px 10px;
+            display: block;
+            float: left;
+        }
+        a:hover {
+            @include opacity(.5);
+            color: #000;
+            background: #FFF;
+        }
+        a.on {
+            @include opacity(1);
+            background: #FFF;
+            color: #333;
+        }
+        a.on:hover {
+            background: #FFF;
+            cursor: default;
+        }
+        .feed {
+            border-right: 1px dotted #08192E;
+        }
+        .open-invite {
+            border-left: 1px dotted #4688DA;
+            border-right: 1px dotted #08192E;
+        }
+    }
+    .search {
+        position: absolute; top: 18px; right: 5px;
+
+        input {
+            @include opacity(.7);
+            @include border-radius(5px);
+            @include background-image(linear-gradient(#1E5293, #1C5197 25%, #164F9E 75%, #134FA1));
+            background: #164F9E;
+            border: 2px solid #FFF;
+            font-size: 18px;
+            padding: 4px 8px;
+            color: #FFF;
+            width: 230px;
+        }
+        input:focus {
+            @include opacity(1);
+        }
+    }
+}
+#content {
+    padding-top: $header_height; height: 100%;
+    overflow: auto;
+}
+#page {
+    @include border-top-left-radius(10px);
+    @include border-top-right-radius(10px);
+    position: relative;
+    padding-right: $sidebar_width+$sidebar_border_width;
+    color: $page_content_color;
+    background: #FFF;
+    height: 100%;
+}
+#page_content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0 0 25px 0;
+}
+#sidebar {
+    @include border-top-right-radius(10px);
+    width: $sidebar_width;
+    position: fixed;
+    top: $header_height;
+    left: 50%;
+    margin: 0 0 0 280px;
+    z-index: 50;
+    border-left: $sidebar_border_width solid $sidebar_border_color;
+    border-top: 1px solid #FFF;
+    background: $sidebar_background-color;
+    color: $sidebar_color;
+}
+#footer {
+    @include background-image(linear-gradient(#3077CE, #2B6FC6 25%, #1B59AE 75%, #1551A5));
+    background: #1B59AE;
+    height: $footer_height;  width: $page_width - $sidebar_width;
+    color: $footer_color;
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    margin: 0 0 0 $page_width/2*-1;
+    padding: 3px 0 4px 10px;
+    font-weight: normal;
+    font-size: 14px;
+
+    a {
+        color: #fff;
+    }
+}
+#static_page {
+    padding: 10px;
+    h1 {
+
+    }
+    h3 {
+        margin-top: 10px;
+    }
+    p {
+        padding: 10px 0;
+    }
+}
+#stars-bg {
+    background: {
+        image: image-url("stars-bg.png");
+        repeat: repeat;
+        position: top left;
+    }
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    &.fade {
+        @include opacity(.4);
+    }
+}
+#city-bg {
+    background: {
+        image: image-url("city-bg.png");
+        repeat: repeat-x;
+        position: bottom left;
+        color: transparent;
+    }
+    width: 100%;
+    height: 466px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: -5;
+}
+.feed {
+    li {
+        margin: 0 10px;
+        border-top: 1px dotted #999;
+        padding: 0;
+    }
+    li.first {
+        border-top: none;
+    }
+    li.last,li.none {
+        border-bottom: 1px dotted #999;
+    }
+}
+
+.fb_edge_widget_with_comment {
+    float: right;
+    text-align: right;
+    padding: 0;
+    margin: 0;
+}
+
+@import "partials/utilities";
+@import "partials/sprite";
+@import "partials/splash";
+@import "partials/user";
+@import "partials/vote";
+@import "partials/post";
+@import "partials/invite";
+@import "partials/tag";
+@import "partials/comment";
+@import "partials/admin";
+@import "partials/llist";
+@import "partials/notification";
+@import "partials/library";

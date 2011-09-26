@@ -1,0 +1,39 @@
+/*
+    Document   : _vote
+    Created on : July 16, 2011
+    Author     : Marc MacLeod (marbemac@gmail.com
+    Description:
+        Vote definitions.
+*/
+
+.scoreC {
+    font-size: 20px;
+    position: relative;
+    padding: 0 25px 0 0;
+    text-align: right;
+    .votes {
+      float: left;
+    }
+    button {
+      float: left;
+      margin: 5px 0 0 0;
+    }
+}
+
+.voteB,
+.unvoteB {
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 16px;
+}
+.voteB {
+  .triggered {
+    display: none;
+  }
+}
+.unvoteB {
+  .default {
+    display: none;
+  }
+}

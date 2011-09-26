@@ -1,0 +1,39 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require normalize
+ *= require qtip
+ *= require colorbox
+ *= require main
+ *= require_self
+*/
+/* line 11, ../../app/assets/stylesheets/application.css.scss */
+header nav ul {
+  list-style: none;
+  margin: 0 0 2em;
+  padding: 0;
+}
+
+/* line 16, ../../app/assets/stylesheets/application.css.scss */
+header nav ul li {
+  display: inline;
+}
+
+/* line 19, ../../app/assets/stylesheets/application.css.scss */
+#flash_notice, #flash_alert {
+  padding: 5px 8px;
+  margin: 10px 0;
+}
+
+/* line 23, ../../app/assets/stylesheets/application.css.scss */
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+
+/* line 27, ../../app/assets/stylesheets/application.css.scss */
+#flash_alert {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}

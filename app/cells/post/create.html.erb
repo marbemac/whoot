@@ -1,0 +1,34 @@
+<div id="post-box" class="<%= 'hide' unless @my_post == nil %>">
+
+  <% unless @my_post == nil %>
+    <h2>You will change your current post.</h2>
+  <% else %>
+    <h2>Hey <%= @user.first_name %>, whatcha doin tonight?</h2>
+  <% end %>
+
+  <div class="container">
+
+    <div class="nav">
+      <div class="option on" data-target="#new_normal_post">
+        Normal Post
+        <div class="icon arrow-o-r-2424"></div>
+        <div class="icon arrow-r-2424"></div>
+      </div>
+      <div class="option" data-target="#new_invite_post">
+        Open Invite
+        <div class="icon arrow-o-r-2424"></div>
+        <div class="icon arrow-r-2424"></div>
+      </div>
+    </div>
+
+    <div class="forms">
+      <%= render "normal_posts/form", :normal_post => NormalPost.new %>
+      <%= render "invite_posts/form", :invite_post => InvitePost.new %>
+
+      <% unless @my_post == nil %>
+        <div class="cancel">Cancel</div>
+      <% end %>
+    </div>
+
+  </div>
+</div>

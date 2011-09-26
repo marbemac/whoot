@@ -1,0 +1,32 @@
+<div class="teaser post <%= post.night_type %>" id="post-<%= post.id %>" data-details="<%= normal_post_path post %>">
+  <a class="profile-image" href="<%= user_path post.created_by %>" title="<%= post.created_by.fullname %>">
+    <% img = default_image_url(post.created_by, [50, 50], 'square') %>
+    <%= image_tag img[:url], img[:options] %>
+  </a>
+
+  <%= user_link(post.created_by, 15) %>
+
+  <div class="what">
+    <%= post.night_type_short %>
+  </div>
+
+  <div class="tags">
+    <!--{% if post.invite is defined and post.invite %}-->
+    <% if false %>
+    <a href="{{ path('invite_show', {'inviteId': post.invite.invite}) }}">
+      @{{ post.invite.name }}
+    </a>
+    <% else %>
+      <% post.tags.each do |tag| %>
+        <%= render "tags/teaser", :tag => tag %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!--{% if post.invite is not defined or not post.invite %}-->
+  <% if post.user_id != current_user.id %>
+    <%= render "votes/button", :target => post, :current_user => current_user %>
+  <% end %>
+
+  <div class="clear"></div>
+</div>

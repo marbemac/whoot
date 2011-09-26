@@ -1,0 +1,68 @@
+<!doctype html>
+  <!--[if lt IE 7]><html class="no-js ie6 oldie" lang="en"> <![endif]-->
+  <!--[if IE 7]><html class="no-js ie7 oldie" lang="en"> <![endif]-->
+  <!--[if IE 8]><html class="no-js ie8 oldie" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>whoot</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application" %>
+    <script src="http://maps.google.com/maps/api/js?libraries=places&sensor=false"></script>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="<%= params[:controller] %> night">
+    <div id="wrapper">
+      <% if not signed_in? %>
+         <%= render 'pages/splash' %>
+      <% else %>
+        <div id="application">
+          <%= render "shared/header" %>
+          <%= render_cell :user, :sidebar %>
+          <div id="content">
+            <div id="page">
+              <%= yield :feed_filters %>
+              <%= yield :user_sidebar %>
+              <div id="page_content">
+                <!--{% render "WhootUserBundle:Profile:collectInfo" %}-->
+
+                <%= yield %>
+                <% if Rails.env.development? %>
+                  <%= debug(params) %>
+                  <div id="footnotes_holder"></div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <footer id="footer">
+            Home &#149; <a href="{{ path('about') }}">About</a> &#149; Contact Us &#149;
+            <a href="{{ path('privacy') }}">Privacy</a> &#149; <a href="{{ path('terms') }}">Terms</a>
+            {% if is_granted('ROLE_ADMIN') %}
+            &#149; <a href="{{ path('admin_home') }}">Admin Area</a>
+            {% endif %}
+            <!--<fb:like href="http://www.facebook.com/pages/Whoot/192579647454740" send="true" layout="button_count" width="80" show_faces="false" font=""></fb:like>-->
+          </footer>
+        </div>
+      <% end %>
+
+      <div id="ajax-loading">Loading...</div>
+      <div id="ajax-notice"></div>
+      <div id="ajax-success"></div>
+      <div id="ajax-error"></div>
+
+      <div style="dislay: none">
+        <div id="static-data" data-d='{"blockUserCreate":""}'></div>
+      </div>
+    </div>
+    <div id="form-submitting">Form submitting...</div>
+
+    <!--{% if calculateTimeOfDay() != 'day' %}-->
+    <div id="stars-bg" class="{{ calculateTimeOfDay() == 'sunset' ? 'fade' : '' }}">&nbsp;</div>
+    <!--{% endif %}-->
+    <div id="city-bg">&nbsp;</div>
+  </body>
+</html>

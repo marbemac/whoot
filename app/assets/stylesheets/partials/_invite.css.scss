@@ -1,0 +1,192 @@
+/*
+Document   : invite
+Created on : May 3, 2011, 9:41:00 PM
+Author     : Marc MacLeod (marbemac@gmail.com)
+Description:
+Purpose of the stylesheet follows.
+*/
+
+.invite_create {
+    margin: 15px 0 0 0 !important;
+
+    .label {
+        width: 160px !important;
+    }
+    input {
+        width: 340px !important;
+        margin: 7px 0 !important;
+    }
+    .submit {
+        width: auto !important;
+        margin: 10px !important;
+    }
+    #whoot_invite_form_file {
+        height: 43px;
+    }
+}
+
+.create_invite-head {
+    margin: 10px;
+}
+
+.teaser.invite {
+    @include clearfix();
+    position: relative;
+    padding: 10px 140px 10px 140px;
+    height: 120px;
+
+    .inviteImage {
+        @include border-radius(3px);
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+    &.working .type {
+        color: $post-working-color;
+    }
+    &.low_in .type {
+        color: $post-low_in-color;
+    }
+    &.low_out .type {
+        color: $post-low_out-color;
+    }
+    &.big_out .type {
+        color: $post-big_out-color;
+    }
+    .head {
+        
+    }
+    .attending {
+        position: absolute;
+        right: 10px;
+        top: 17px;
+
+        h5 {
+            text-align: center;
+            margin: 4px 0 0 0;
+        }
+        .container {
+            @include border-radius(4px);
+            width: 90px;
+            height: 90px;
+            overflow: hidden;
+            border: 1px solid #EEE;
+        }
+        a {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            display: block;
+            float: left;
+            line-height: 0;
+        }
+    }
+
+    .item {
+        padding: 3px 0 3px 45px;
+        position: relative;
+        .desc {
+            position: absolute;
+            top: 5px;
+            left: 0px;
+            font-size: 12px;
+            color: #999;
+        }
+        .ulink {
+            padding-left: 0px;
+        }
+    }
+}
+
+.invite_show {
+    position: relative;
+    padding: 10px;
+    
+    .left {
+        float: left;
+        position: absolute;
+        width: 200px;
+        left: 10px;
+        top: 60px;
+
+        h3 {
+            margin: 10px 0;
+        }
+    }
+
+    .right {
+        padding: 0 0 0 200px;
+    }
+
+    .cancelled {
+        color: red;
+        font-weight: bold;
+    }
+
+    .attending {
+        li {
+            margin: 5px 0 0 0;
+            border: none;
+        }
+        .none {
+            font-style: italic;
+            font-size: 12px;
+        }
+        .profile-image {
+            margin: 0;
+
+            img {
+                @include border-radius(5px);
+            }
+        }
+        .ulink {
+            margin: 0;
+            padding: 0 0 0 5px;
+            position: relative; bottom: 7px;
+        }
+    }
+
+    .inviteImage {
+        @include border-radius(4px);
+    }
+
+    &.working h1 span {
+        color: $post-working-color;
+    }
+    &.low_in h1 span {
+        color: $post-low_in-color;
+    }
+    &.low_out h1 span {
+        color: $post-low_out-color;
+    }
+    &.big_out h1 span {
+        color: $post-big_out-color;
+    }
+    .info {
+        padding: 10px 190px 0 0;
+        position: relative;
+        min-height: 200px;
+
+        .item {
+            font-size: 14px;
+        }
+        .description {
+            font-size: 18px;
+            margin: 10px 0 0 0;
+        }
+    }
+    .invite-map {
+        @include border-radius(4px);
+        border: 2px solid #EEE;
+        width: 180px;
+        height: 180px;
+        position: absolute;
+        top: 8px;
+        right: 0px;
+    }
+
+    .comment-feed {
+        border-top: 1px solid #CCC;
+        padding: 10px 0 0 0;
+    }
+}

@@ -1,0 +1,19 @@
+<%= form_for post.comments.new, :html => { :class => 'ajax' } do |f| %>
+
+  <div class="errors"></div>
+
+  <% img = default_image_url(current_user, [30, 30], 'square') %>
+  <%= image_tag img[:url], img[:options] %>
+
+
+  <%= f.hidden_field :post_id, :autocomplete => 'off' %>
+
+  <div class="field lClear">
+    <%= f.label :content, "Leave a comment..." %>
+    <%= f.text_area :content, :autocomplete => 'off' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Submit Comment", :class => 'submit', :autocomplete => 'off' %>
+  </div>
+<% end %>

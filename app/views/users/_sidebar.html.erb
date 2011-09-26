@@ -1,0 +1,44 @@
+<% if signed_in? %>
+
+  <div id="user-sidebar">
+    <h1><%= @user.fullname %></h1>
+
+    <% if signed_in? && current_user.has_role?('admin') %>
+      <div class="username">username: {{ user.username }}</div>
+      <% if @user.id != current_user.id %>
+        <a class="user-switch" href="{{ path('homepage', {'_switch_user': user.username}) }}">Impersonate User</a>
+      <% end %>
+    <% end %>
+
+
+    <div class="location">
+      New York City, NY
+    </div>
+
+    <%= render "follows/button", target_user: @user %>
+    <% img = default_image_url(@user, [130, 165]) %>
+    <%= image_tag img[:url], img[:options].merge!(:class => 'profileImage') %>
+    <ul class="nav">
+      <li>
+        <a class="{{ navSelected == 'following' ? 'on' : '' }}" href="{{ path('user_following', {'username': user.username}) }}">Following</a>
+      </li>
+      <li>
+        <a class="{{ navSelected == 'followers' ? 'on' : '' }}" href="{{ path('user_followers', {'username': user.username}) }}">Followers</a>
+      </li>
+      <% if signed_in? && current_user.id == @user.id %>
+        <li>
+          <a class="{{ navSelected == 'settings' ? 'on' : '' }}" href="{{ path('user_settings', {'username': user.username}) }}">Settings</a>
+        </li>
+      <% end %>
+    </ul>
+
+    <ul class="stats">
+      <li>Joined <%= time_ago_in_words(@user.created_at, false) %> ago</li>
+      <li>Last login <%= time_ago_in_words(@user.last_sign_in_at, false) %> ago</li>
+      <li>Following: <%= @user.following_users_count %></li>
+      <li>Followers: <%= @user.followers_count %></li>
+      <li>Lifetime Pings: <%= @user.pings_count %></li>
+    </ul>
+  </div>
+
+<% end %>

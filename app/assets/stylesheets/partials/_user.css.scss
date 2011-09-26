@@ -1,0 +1,483 @@
+/*
+    Document   : _user
+    Created on : Mar 30, 2011, 4:04:51 PM
+    Author     : Marc MacLeod
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#authenticate_box {  }
+
+.plupload {
+    cursor: pointer;
+
+    input { cursor: pointer; }
+}
+
+.profileImage {
+    border:  none;
+}
+
+#user_panel {
+    padding: 7px 5px 7px 5px;
+    margin: 0 5px;
+    border-bottom: 1px solid #F1F1F1;
+
+    .name {
+        float: left;
+        text-decoration: none;
+        display: block;
+        margin: -2px 0 3px 2px;
+    }
+    .name:hover {
+        text-decoration: underline;
+    }
+
+    .profile_image {
+        position: relative;
+        height: 65px;
+        float: left;
+
+        img {
+            @include border-radius(5px);
+            float: left;
+        }
+    }
+
+    #profile-image-upload {
+        @include border-radius(3px);
+        position: absolute;
+        top: 2px; left: 2px;
+        background: #FFF;
+        font-weight: bold;
+        font-size: 11px;
+        padding: 1px 5px;
+        color: $link-color;
+        cursor: default;
+    }
+
+    .stats {
+        float: left;
+        width: 110px;
+
+        .item {
+            clear: both;
+            margin: 3px 0 0 10px;
+            
+            .label {
+                float: left;
+                font-size: 14px;
+                color: #666;
+                margin: 0 15px 0 0;
+            }
+            .value {
+                float: left;
+                font-size: 14px;
+                color: #666;
+                font-weight: bold;
+            }
+        }
+    }
+    .small-link {
+        font-size: 12px;
+        text-decoration: none;
+        margin: 0 0 0 10px;
+        position: relative;
+    }
+    .small-link:hover {
+        text-decoration: underline;
+    }
+}
+
+#user-profile-image {
+    @include border-radius(5px);
+    margin: 10px 0 0 0;
+}
+
+#user-sidebar {
+    float: left;
+    width: 130px;
+    padding: 10px;
+    margin: 5px 0;
+
+    h1 {
+        margin: 0;
+    }
+    .location {
+        font-style: italic;
+    }
+    .followB,
+    .unfollowB {
+        @include clearfix();
+        @include orange-button(4px, 20px);
+        margin: 6px 0 0 0px;
+        padding:  2px 10px;
+        display: block;
+        float: left;
+    }
+    .profileImage {
+        @include border-radius(5px);
+        margin:  10px 0 0 0;
+    }
+    .nav {
+
+        a {
+            @include border-radius(3px);
+            display: block;
+            padding: 1px 8px;
+            margin: 3px 0;
+        }
+        a:hover {
+            background: adjust-lightness(#CC3300, 55);
+            text-decoration: none;
+        }
+        .on {
+            cursor: default;
+            color: #FFF;
+            background: #CC3300;
+        }
+        .on:hover {
+            background: #CC3300;
+        }
+    }
+    .stats {
+        font-size: 10px;
+        color: #666;
+        border-top: 1px solid #DDD;
+        padding: 5px 0 0 3px;
+
+        li {
+            margin: 2px 0;
+        }
+    }
+    .username {
+        font-size: 10px;
+        margin: 0 0 2px 3px;
+        color: red;
+    }
+    .user-switch {
+        font-size: 10px;
+        margin: 0 0 2px 3px;
+        display: block;
+    }
+}
+
+.following.feed,
+.followers.feed {
+    padding: 10px 0 0 0;
+}
+
+.teaser.user {
+    padding: 8px 5px;
+
+    img {
+        @include border-radius(5px);
+        float: left;
+        width: 30px; height: 30px;
+        margin: -5px 10px 0 0;
+    }
+    .actions {
+        float: right;
+    }
+    .follow-B,
+    .ping-B,
+    .pinged {
+        padding: 0 12px;
+    }
+}
+
+.tag.user {
+    .profile-image {
+        margin: 0;
+
+        img {
+            @include border-radius(5px);
+        }
+    }
+    .ulink {
+        margin: 0;
+        padding: 0 0 0 10px;
+        position: relative; bottom: 7px;
+    }
+}
+
+.search-result.user {
+    padding: 5px 5px 5px 45px;
+    position: relative;
+
+    .profileImage {
+        @include border-radius(3px);
+        border:  2px solid #FFF;
+        position: absolute;
+        top: 50%;
+        left: 0px;
+        margin-top: -17px;
+    }
+    .name {
+            
+    }
+    .location {
+        font-style: italic;
+    }
+}
+
+.ulink {
+    position: relative;
+    z-index: 30;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.user-hover-tab {
+    position: relative;
+    padding: 0 0 0 65px;
+
+    .profileImage {
+        @include border-radius(3px);
+        position: absolute;
+        top: -5px;
+        left: 0px;
+    }
+    .follow-B {
+        @include orange-button(3px, 10px);
+        position: absolute;
+        bottom: 0;
+        left: -5px;
+        padding: 3px 8px;
+    }
+    .name {
+        font-size: 20px;
+        margin-top: 6px;
+    }
+    .what {
+        font-size: 12px;
+        margin: 6px 0 0 0;
+    }
+    .working {
+        color: $post-working-color;
+    }
+    .low_in {
+        color: $post-low_in-color;
+    }
+    .low_out {
+        color: $post-low_out-color;
+    }
+    .big_out {
+        color: $post-big_out-color;
+    }
+    .stats {
+        @include clearfix();
+        border-top: 1px solid #AAA;
+        margin: 6px 0 0 0;
+        padding: 6px 0 2px 0;
+        font-size: 12px;
+
+        div {
+            float: left;
+            margin:  0 7px 0 0;
+        }
+    }
+}
+
+#collect-info-box {
+    @include border-top-left-radius(10px);
+
+    background: #000;
+    height: 100%;
+    position: absolute;
+    top: 0px; left: 0px;
+    width: 760px;
+    z-index: 100;
+
+    $options-w: 600px;
+    .options {
+        @include border-radius(7px);
+        @include single-box-shadow(#CCC, 1px, 1px);
+
+        background: #FFF;
+        position: absolute;
+        top: 100px; left: 50%;
+        width: $options-w;
+        margin: 0 0 0 -320px;
+        padding: 20px;
+
+        h3 {
+            text-align: center;
+            margin: 0 0 15px 0;
+        }
+
+        .label {
+            font-size: 20px;
+            color: #666;
+            margin: 8px 0 0 10px;
+            width: 85px;
+            float: left;
+        }
+        select {
+            @include border-radius(3px);
+            font-size: 18px;
+            border: 2px solid #CCC;
+            padding: 7px;
+            color: #666;
+        }
+        .submit {
+            @include orange-button(3px, 20px);
+            clear: both;
+            display: block;
+            padding: 4px 10px;
+            margin: 20px 10px 0 10px;
+        }
+    }
+}
+
+select.location {
+    .c {
+        font-weight: bold;
+    }
+    .s {
+        padding-left: 30px;
+    }
+}
+
+.new_user_invite {
+    @include clearfix();
+    border-top: 1px solid #D7D7D7;
+    border-bottom: 1px solid #F1F1F1;
+    padding: 9px 5px 5px;
+    margin: 0 5px;
+
+    h3 {
+        color: #777777;
+        cursor: default;
+        float: left;
+    }
+    .email {
+        margin: 3px 7px 0 -2px;
+        width: 100px;
+        display: block;
+        float: left;
+        clear: left;
+    }
+    .submit {
+        font-size: 12px;
+        margin: 4px 0 0 0;
+    }
+    .fb_find {
+        display: block;
+        clear: both;
+        font-size: 12px;
+        padding: 4px 0 0 0;
+    }
+}
+
+#social_friends {
+    #invite_friends {
+        @include clearfix();
+        @include border-radius(5px);
+        background: #deebfa;
+        border: 3px solid #a2c0e3;
+        float: left;
+        padding: 10px 15px 6px 15px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 20px 0 15px 243px;
+    }
+    .registered {
+        padding: 5px 1px;
+        clear: both;
+        
+        h3 {
+            text-align: center;
+            margin: 5px 0 15px 0;
+        }
+    }
+    .registered {
+        .friend {
+            width: 250px;
+            padding-right: 50px;
+
+            .follow-B {
+                position: absolute;
+                right: 10px;
+                top: 15px;
+            }
+            &:hover {
+                border-color: transparent;
+            }
+        }
+    }
+    .friend {
+        padding: 15px 5px 14px 60px;
+        position: relative;
+        float: left;
+        width: 105px;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 0 5px;
+        border: 1px solid transparent;
+
+        img {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        &.on,
+        &:hover {
+            border-color: #999;
+            background: #FFF;
+            cursor: pointer;
+        }
+        &.on {
+            border-color: red;
+        }
+    }
+    .none {
+        text-align: center;
+        font-style: italic;
+    }
+}
+
+#whoot-settings {
+    .section {
+        border-bottom: 1px solid #CCC;
+        padding: 10px 5px 15px 5px;
+        margin: 10px;
+    }
+    h3 {
+
+    }
+    .note {
+        font-size: 12px;
+        color: #666;
+    }
+    .block-userC {
+        margin: 10px 0 0 0;
+    }
+    .blocked-users {
+        @include clearfix();
+        margin: 10px 0 0 0;
+        
+        .blocked-user {
+            float: left;
+            padding: 5px 0;
+
+            img {
+                float: left;
+            }
+            a {
+                float: left;
+                padding: 5px 5px 5px 10px;
+            }
+            .unblock {
+                @include link();
+                float: left;
+                padding: 8px 20px 0 2px;
+                font-size: 12px;
+            }
+        }
+    }
+}

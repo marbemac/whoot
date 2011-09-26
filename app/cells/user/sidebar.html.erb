@@ -1,0 +1,39 @@
+<div id="sidebar">
+  <div id="user_panel">
+    <h2>
+      <a class="name" href="<%= user_path @user %>">
+        <%= @user.fullname %>
+      </a>
+
+      <div class="clear"></div>
+    </h2>
+    <div class="profile_image">
+      <% img = default_image_url(@user, [65, 65]) %>
+      <%= image_tag img[:url], img[:options] %>
+    </div>
+    <div class="stats">
+      <div class="item">
+        <div class="label"><a href="{{ path('user_following', {'username': app.user.username}) }}">Following</a></div>
+        <div class="value" id="my-following"><%= @user.following_users_count %></div>
+      </div>
+      <div class="item">
+        <div class="label"><a href="{{ path('user_followers', {'username': app.user.username}) }}">Followers</a></div>
+        <div class="value"><%= @user.followers_count %></div>
+      </div>
+    </div>
+    <a class="small-link" href="{{ path('user_settings', {'username': app.user.username}) }}">Settings</a>
+    <%= link_to('Logout', destroy_user_session_path, :method=>'delete', :class => 'small-link', :id => 'logout') %>
+    <div class="clear"></div>
+  </div>
+
+  {% render "MarbemacNotificationBundle:Notification:unreadCount" with {'userId': app.user.id} %}
+
+  <%= render "user/my_post" %>
+
+  {% include 'WhootUserBundle:Invite:new.html.twig' %}
+
+  {% render "WhootBundle:LList:list" with {'userId': app.user.id} %}
+
+  <%= render "users/undecided", :users => @undecided %>
+
+</div>

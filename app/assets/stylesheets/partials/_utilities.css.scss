@@ -1,0 +1,92 @@
+/*
+    Document   : _utilities
+    Created on : Mar 30, 2011, 4:04:51 PM
+    Author     : Marc MacLeod
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#ajax-loading {
+    display: none;
+    background: #FFF url('images/ajax-loader.gif') no-repeat;
+    border: 3px solid #000;
+    padding: 15px;
+    font-weight: bold; color: #000;
+    position: absolute; top: 50%; left: 50%; margin: -25px 0 0 -10px;
+}
+
+#form-submitting {
+    @include opacity(.8);
+    @include border-radius(2px);
+    background: #FC770D;
+    color: #FFF;
+    border: 4px solid #FCC190;
+    padding: 3px 8px;
+    font-size: 15px;
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    margin-left: -165px;
+    cursor: default;
+    display: none;
+    z-index: 10000;
+}
+
+.hide { display: none; }
+
+.dev-notice { 
+    @include border-radius(4px);
+    
+    background-color: #FFD2C7;
+    color: red;
+    font-size: 13px;
+    padding: 5px;
+    width: 90%;
+    margin: 10px auto;
+}
+
+.clear { clear: both; }
+
+// Input clearning (on click for instance)
+.iclear {
+
+    // White text
+    &.w {
+        color: #FFF !important;
+
+        &.active {
+            color: #A3B9D7 !important;
+        }
+    }
+    // Black text
+    &.b {
+        color: #666 !important;
+
+        &.active {
+            color: #BBB !important;
+        }
+    }
+}
+
+// Styling for btnps that swap
+.followB {
+  .triggered {
+    display: none;
+  }
+}
+.unfollowB {
+  .default {
+    display: none;
+  }
+}
+
+// Hovering on buttons
+.btn.hover {
+    @include single-box-shadow(#999, 1px, 1px, 3px);
+    border-color:  #888 !important;
+    text-decoration: none;
+    z-index: 200;
+}
+
+// Arrows
+.arrow-small { width: 14px; height: 8px; cursor: default; }

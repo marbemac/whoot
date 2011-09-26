@@ -1,0 +1,21 @@
+<%= form_for normal_post, :html => { :class => 'ajax' } do |f| %>
+
+  <div class="errors"></div>
+
+  <div class="type working" data-val="working">Working</div>
+  <div class="type low_in" data-val="low_in">Staying In</div>
+  <div class="type low_out" data-val="low_out">Relaxing Out</div>
+  <div class="type big_out" data-val="big_out">Partying</div>
+  <div class="clear"></div>
+
+  <%= f.hidden_field :night_type, :class => 'post_type', :autocomplete => 'off' %>
+
+  <div class="field lClear">
+    <%= f.label :tags_string, "Describe your night. However you want. You've got 0-5 words." %>
+    <%= f.text_field :tags_string, :autocomplete => 'off' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Submit Post", :class => 'submit', :autocomplete => 'off' %>
+  </div>
+<% end %>

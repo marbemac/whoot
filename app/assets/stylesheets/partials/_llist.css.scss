@@ -1,0 +1,155 @@
+/*
+    Document   : _llist
+    Created on : June 16, 2011, 2:59:21 PM
+    Author     : Marc
+    Description:
+        LList.
+*/
+
+.my-lists {
+    border-top: 1px solid #D7D7D7;
+    padding: 9px 5px 5px 5px;
+    margin: 0 5px;
+
+    h3 {
+        float: left;
+        color: #777;
+        cursor: default;
+    }
+    .list-createB {
+        float: right;
+        color: $link-color;
+        font-size: 12px;
+        margin: 0 3px 0 0;
+        font-weight: bold;
+
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+
+    ul {
+        padding: 5px 0 0 0;
+        .first { border-top: none; }
+        .last { border-bottom: none; }
+        .none {
+            border: none;
+            font-style: italic;
+        }
+    }
+    li {
+        font-size: 13px;
+        position: relative;
+        .p {
+            @include border-radius(4px);
+            display: block;
+            padding: 3px 6px;
+
+            &:hover {
+                background: #F3F3F3;
+                text-decoration: none;
+            }
+        }
+        .delete {
+            position: absolute;
+            top: 3px;
+            right: 10px;
+            font-weight: bold;
+            color: red;
+            display: none;
+        }
+        &:hover {
+            .delete { display: block; }
+        }
+    }
+    .dragging {
+        .p {
+            background: #87C07E;
+            color: #FFF;
+        }
+    }
+    .dropping {
+        .p {
+            background: green;
+            color: #FFF;
+        }
+    }
+    .list-view {
+        font-size: 12px;
+        margin: 0 0 0 2px;
+    }
+}
+
+.list_new {
+    padding:  10px;
+
+    label {
+        display: block;
+        font-weight: bold;
+        color: #777;
+        margin:  0 0 0 3px;
+    }
+    input {
+        display: block;
+    }
+    .submit {
+        margin:  10px 0 0 0;
+    }
+}
+
+.list-page {
+    $list-left-w: 175px;
+    position: relative;
+
+    h2 {
+        margin:  5px 0 10px 0;
+    }
+    .list-name {
+        margin: 10px 0 10px 15px;
+    }
+    .list-right {
+        position: absolute;
+        top: -10px; right: 0px;
+        z-index: 10;
+        .toggle {
+            @include orange-button(3px, 12px);
+            position: absolute;
+            top: 5px;
+            left: -125px;
+            padding: 2px 5px;
+        }
+        .wrapper
+        {
+            @include border-bottom-left-radius(3px);
+            @include single-box-shadow(#AAA, 0px, 0px);
+            width: $list-left-w;
+            padding:  5px 0 10px 10px;
+            background: #FFF;
+            border-left: 3px solid #999;
+            border-bottom: 3px solid #999;
+            max-height: 500px;
+            overflow: auto;
+
+            .none {
+                font-style: italic;
+            }
+            li {
+                padding-right: 25px;
+                position: relative;
+            }
+            .delete {
+                @include link();
+                position: absolute;
+                top: 10px;
+                right: 15px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+#list-add-user {
+    width: 130px;
+    margin:  -1px 0 10px 0;
+}

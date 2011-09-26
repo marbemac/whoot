@@ -1,0 +1,7 @@
+<div class="scoreC">
+  <span class="votes v-<%= target.id %>"><%= target.votes %></span>
+  <button class="btn <%= (!signed_in? || !target.has_voter?(current_user)) ? 'voteB' : 'unvoteB' %> vb-<%= target.id %>">
+    <div class="default plus-g-1616" data-url="<%= vote_create_path %>" data-d='{"id":"<%= target.id %>"}' data-m="post"></div>
+    <div class="triggered minus-r-164" data-url="<%= vote_destroy_path %>" data-d='{"id":"<%= target.id %>"}' data-m="delete"></div>
+  </button>
+</div>

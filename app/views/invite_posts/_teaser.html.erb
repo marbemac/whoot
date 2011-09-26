@@ -1,0 +1,44 @@
+<!--{% if not userBlocked(app.user, invite.createdBy) %}-->
+
+<div class="teaser invite <%= post.night_type %>" id="invite-<%= post.id %>">
+  <% if post.default_image.first %>
+  <!--{% include "MarbemacImageBundle:Image:show.html.twig" with {'groupId': invite.image, 'w': 120, 'h': 120, 'class':'inviteImage'} %}-->
+  <% else %>
+    <%= image_tag "inviteDefault.png", :class => 'inviteImage', :width => '120px' %>
+  <% end %>
+
+  <h2 class="head">
+    <a href="<%= invite_posts_path post %>">
+      <span class="type"><%= post.night_type_noun %></span> at <%= post.venue.name %>
+    </a>
+  </h2>
+
+  <div class="item">
+    <div class="desc">who</div>
+    <%= user_link post.user_snippet, 15 %>
+  </div>
+
+  <div class="item">
+    <div class="desc">where</div>
+    <%= "#{post.venue.name}: #{post.venue.address}" %>
+  </div>
+
+  <div class="item">
+    <div class="desc">when</div>
+    <%= post.time %>
+  </div>
+
+  <div class="attending">
+    <div class="container">
+      <!--TODO: Refactor this query.-->
+      <% attendees = User.where(:_id.in => post.attendees) %>
+      <% attendees.each do |attendee| %>
+      <a href="<%= user_path attendee %>" title="<%= attendee.fullname %>">
+        <% img = default_image_url(attendee, [30, 30], 'square') %>
+        <%= image_tag img[:url], img[:options] %>
+      </a>
+      <% end %>
+    </div>
+    <h5><%= post.attending_count %> attending</h5>
+  </div>
+</div>

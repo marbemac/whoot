@@ -1,0 +1,44 @@
+<%= form_for invite_post, :html => { :class => 'ajax hide' } do |f| %>
+
+  <div class="errors"></div>
+
+  <div class="type working" data-val="working">Working</div>
+  <div class="type low_in" data-val="low_in">Staying In</div>
+  <div class="type low_out" data-val="low_out">Relaxing Out</div>
+  <div class="type big_out" data-val="big_out">Partying</div>
+  <div class="clear"></div>
+
+  <%= f.hidden_field :night_type, :class => 'post_type', :autocomplete => 'off' %>
+
+  <div class="field lClear required">
+    <%= f.label :time, "Start time..." %>
+    <%= f.text_field :time, :autocomplete => 'off' %>
+  </div>
+
+  <%= f.fields_for :venue do |v| %>
+    <div class="field lClear required">
+      <%= v.label :name, "Venue name..." %>
+      <%= v.text_field :name, :autocomplete => 'off' %>
+    </div>
+
+    <div class="field lClear required">
+      <%= v.label :address, "Venue address..." %>
+      <%= v.text_field :address, :autocomplete => 'off', :placeholder => '' %>
+    </div>
+
+    <%= v.hidden_field :coordinates, :autocomplete => 'off' %>
+  <% end %>
+
+  <div class="field lClear">
+    <%= f.label :content, "Invite description..." %>
+    <%= f.text_area :content, :autocomplete => 'off' %>
+  </div>
+
+  <div class="field">
+    <%= f.file_field :image, :autocomplete => 'off' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create Invite", :class => 'submit', :autocomplete => 'off' %>
+  </div>
+<% end %>

@@ -1,0 +1,46 @@
+/*
+    Document   : _sprite
+    Created on : May 6, 2011
+    Author     : Marc MacLeod (marbemac@gmail.com
+    Description:
+        Sprite definitions.
+*/
+
+@import "icon/*.png";
+
+.handle-small { @include icon-sprite(handle-small); }
+.arrow-small {
+  @include icon-sprite(arrow-small);
+  width: 12px;
+  height: 12px;
+}
+
+.check-working { @include icon-sprite(check-working); }
+.check-low_in { @include icon-sprite(check-low_in); }
+.check-low_out { @include icon-sprite(check-low_out); }
+.check-big_out { @include icon-sprite(check-big_out); }
+
+.check-working,
+.check-low_in,
+.check-low_out,
+.check-big_out {
+    width: 16px;
+    height: 13px;
+}
+
+.arrow-o-r-2424 {
+    @include icon-sprite(arrow_orange_right_24x24);
+    width: 24px; height: 24px;
+}
+.arrow-r-2424 {
+    @include icon-sprite(arrow_grey_right_24x24);
+    width: 24px; height: 24px;
+}
+.plus-g-1616 {
+  @include icon-sprite(plus_green_16x16);
+  width: 16px; height: 16px;
+}
+.minus-r-164 {
+  @include icon-sprite(minus_red_16x4);
+  width: 16px; height: 4px;
+}

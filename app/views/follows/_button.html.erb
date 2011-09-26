@@ -1,0 +1,10 @@
+<% if current_user.id != target_user.id %>
+  <button class="btn <%= (!signed_in? || !current_user.is_following_user?(target_user.id)) && current_user.id != target_user.id ? 'followB' : 'unfollowB' %> fol_<%= target_user.id %>">
+    <span class="default" data-url="<%= user_follow_create_path %>" data-d='{"id":"<%= target_user.id %>"}' data-m="post">
+      Follow
+    </span>
+    <span class="triggered" data-url="<%= user_follow_destroy_path %>" data-d='{"id":"<%= target_user.id %>"}' data-m="delete">
+      Unfollow
+    </span>
+  </button>
+<% end %>

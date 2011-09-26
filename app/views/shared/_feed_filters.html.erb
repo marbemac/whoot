@@ -1,0 +1,51 @@
+<div id="feed-filters">
+  <div class="post-types">
+    <div class="label">Showing</div>
+    <ul class="mc-menu">
+      <li class="working <%= if session[:feed_filters][:display].include? 'working' then 'on' end %>">
+        <a href="<%= feed_display_path %>" class="ac" data-m="put" data-d='{"value":"working"}'>
+          <div class="icon check-working"></div>
+          Working
+        </a>
+      </li>
+      <li class="low_in <%= if session[:feed_filters][:display].include? 'low_in' then 'on' end %>">
+        <a href="<%= feed_display_path %>" class="ac" data-m="put" data-d='{"value":"low_in"}'>
+          <div class="icon check-low_in"></div>
+          Staying In
+        </a>
+      </li>
+      <li class="low_out <%= if session[:feed_filters][:display].include? 'low_out' then 'on' end %>">
+        <a href="<%= feed_display_path %>" class="ac" data-m="put" data-d='{"value":"low_out"}'>
+          <div class="icon check-low_out"></div>
+          Relaxing Out
+        </a>
+      </li>
+      <li class="big_out <%= if session[:feed_filters][:display].include? 'big_out' then 'on' end %>">
+        <a href="<%= feed_display_path %>" class="ac" data-m="put" data-d='{"value":"big_out"}'>
+          <div class="icon check-big_out"></div>
+          Partying
+        </a>
+      </li>
+      <li class="clear"></li>
+    </ul>
+    <a class="undecided">Undecided</a>
+  </div>
+
+  <div class="feed-sort">
+    <div class="arrow-small"></div>
+    <div class="label">Sorted</div>
+    <ul class="sc-menu">
+      <li class="<%= if session[:feed_filters][:sort][:target] == 'created_at' then 'on' else 'hide' end %>">
+        <a href="<%= feed_sort_path %>" class="ac" data-m="put" data-d='{"value":"created_at"}'>
+          Newest
+        </a>
+      </li>
+      <li class="<%= if session[:feed_filters][:sort][:target] == 'popularity' then 'on' else 'hide' end %>">
+        <a href="<%= feed_sort_path %>" class="ac" data-m="put" data-d='{"value":"votes"}'>
+          Popularity
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="clear"></div>
+</div>

@@ -1,0 +1,20 @@
+<div class="undecidedC collapsed">
+  <div class="bg"></div>
+  <div class="side-toggle" title="Hide/Show the undecided list"></div>
+  <h4>Undecided Users</h4>
+  <% users.each do |user| %>
+    <!--{% if not userBlocked(app.user, user) %}-->
+    <div class="item">
+      <a class="profile-image" href="<%= user_path user %>" title="<%= user.fullname %>">
+        <% img = default_image_url(user, [30, 30], 'square') %>
+        <%= image_tag img[:url], img[:options] %>
+      </a>
+      <%= user_link user, 12 %>
+      <!--{% include "WhootBundle:Ping:tag.html.twig" with {'toUser': user} %}-->
+    </div>
+  <% end %>
+
+  <% if users.length == 0 %>
+    <div class="none">None!</div>
+  <% end %>
+</div>

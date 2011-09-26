@@ -1,0 +1,67 @@
+/*
+    Document   : _default
+    Created on : Mar 30, 2011, 4:06:21 PM
+    Author     : Marc MacLeod
+    Description:
+        Default theme variables.
+*/
+
+$page_width: 960px;
+
+$link-color: #156CD8;
+
+$header_background-color: #FFF;
+$header_color: #000;
+$header_width: $page_width;
+$header_height: 70px;
+
+$min-page-height: 800px;
+
+$sidebar_background-color: #E4E4E4;
+$sidebar_color: #000;
+$sidebar_border_width: 1px;
+$sidebar_border_color: #CFCFCF;
+$sidebar_width: 200px - $sidebar_border_width;
+
+$page_content_background-color: #FFF;
+$page_content_color: #000;
+
+$footer_height: 20px;
+$footer_background-color: orange;
+$footer_color: #FFF;
+
+$undecided_width: 155px;
+$undecided_border_width: 5px;
+
+$post-working-color: #009966;
+$post-low_in-color: #996699;
+$post-low_out-color: #FF9900;
+$post-big_out-color: #CC3300;
+
+
+@mixin link {
+    color: $link-color;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+@mixin orange-button($radius, $font-size) {
+    @include border-radius($radius);
+    @include background-image(linear-gradient(#FF9A10, #FD8F13 25%, #FC770D 75%, #FF6600));
+    background: #FC770D;
+    color: #FFF;
+    font-weight: bold;
+    font-size: $font-size;
+    position: relative;
+    text-decoration: none;
+    cursor: pointer;
+    float: left;
+    width: auto;
+    border: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}

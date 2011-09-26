@@ -1,0 +1,95 @@
+/*
+    Document   : _splash
+    Created on : Mar 3, 2011, 4:04:51 PM
+    Author     : Marc MacLeod
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+$auth_width:  841px;
+$auth_height: 490px;
+
+html.coming-soon {
+    background-color: #FFF;
+    
+    body {
+        background-color: #FFF;
+    }
+}
+#coming-soon {
+    @include border-radius(10px);
+    padding: 20px;
+    .logo {
+       position: absolute; top: 50%; left: 50%; margin: 100px 0 0 -335px;
+    }
+}
+
+#splash {
+    position: fixed;
+    top: 50%; left: 50%;
+    margin: $auth_height/1.8*-1 0 0 $auth_width/1.9*-1;
+    width: $auth_width; height: $auth_height;
+    background: {
+        image: image-url("splash-bg.png");
+        repeat: none;
+        color: transparent;
+    }
+
+    .logo {
+        position: absolute;
+        top: 80px;
+        left: 35px;
+    }
+
+    .info {
+        position: absolute;
+        right: 25px;
+
+        &.one {
+            top: 27px;
+        }
+        &.two {
+            top: 173px;
+        }
+        &.three {
+            top: 322px;
+        }
+    }
+}
+
+#fb_login {
+    position: absolute;
+    top: 280px;
+    left: 100px;
+    width: 332px;
+    height: 56px;
+    background: {
+        image: image-url("fb_login.png");
+        position: top left;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-position: 0px 56px;
+    }
+}
+
+#auth-login {
+    @include opacity(.85);
+    @include border-radius(4px);
+    position: fixed;
+    bottom: 10px;
+    left: 20px;
+    background: #FFF;
+    padding: 20px;
+}
+
+#auth-register {
+    @include opacity(.85);
+    @include border-radius(4px);
+    position: fixed;
+    bottom: 200px;
+    left: 20px;
+    background: #FFF;
+    padding: 20px;
+}

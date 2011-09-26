@@ -1,0 +1,7 @@
+<% if signed_in? %>
+  <% content_for :feed_filters do %>
+    <%= render 'shared/feed_filters' %>
+  <% end %>
+
+  <%= render_cell :normal_post, :feed %>
+<% end %>

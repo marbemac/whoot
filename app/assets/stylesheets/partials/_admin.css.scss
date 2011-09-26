@@ -1,0 +1,91 @@
+/*
+Document   : admin
+Created on : July 17, 2011, 9:41:00 PM
+Author     : Marc MacLeod (marbemac@gmail.com)
+Description:
+Purpose of the stylesheet follows.
+*/
+
+.admin-head {
+    padding: 10px;
+}
+
+.admin-nav {
+    margin: 0 0 0 10px;
+
+    a {
+        margin: 0 15px 0 0;
+
+        &.on {
+            font-weight: bold;
+            color: #000;
+            text-decoration: none;
+        }
+    }
+}
+
+.manage-trending
+{
+    padding: 10px;
+    h4 {
+        margin: 15px 0 2px 10px;
+    }
+    ul {
+        @include border-radius(5px);
+        padding: 10px;
+        border: 2px solid #CCC;
+        max-height: 500px;
+        overflow: auto;
+
+        li {
+            @include clearfix();
+
+            a {
+                margin: 0 10px 0 0;
+            }
+        }
+        .tag {
+            width: 430px;
+            float: left;
+
+            div {
+                float: left;
+                width: 250px;
+            }
+        }
+    }
+}
+
+.location_create {
+    margin: 10px 0 0 15px;
+}
+
+.location.teaser {
+    margin: 10px; 
+    .state {
+        font-size: 20px;
+        border-bottom: 1px solid #DDD;
+        padding: 0 0 2px 5px;
+    }
+    .city {
+        margin: 10px 0 2px 15px;
+    }
+    .schools {
+        @include border-radius(3px);
+        background: #EEE;
+        margin: 0 0 10px 10px;
+
+        .add {
+            padding: 5px;
+            input {
+                font-size: 12px;
+            }
+        }
+    }
+    .school {
+        padding: 5px 0 5px 10px;
+    }
+    .none {
+        font-style: italic;
+    }
+}
