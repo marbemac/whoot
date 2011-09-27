@@ -20,6 +20,7 @@ gem 'carrierwave' # File uploads
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'resque', :require => 'resque/server' # Background jobs
 gem 'resque-loner' # Unique resque jobs
+gem 'resque-heroku-autoscaler'
 gem "geocoder"
 gem "chronic" # Date/Time management
 

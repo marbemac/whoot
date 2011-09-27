@@ -1,4 +1,7 @@
+require 'resque/plugins/resque_heroku_autoscaler'
+
 class ImageProcessor
+  extend Resque::Plugins::HerokuAutoscaler
   include Resque::Plugins::UniqueJob
   @queue = :images_queue
 
