@@ -1,6 +1,8 @@
 Whoot::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  ENV["REDISTOGO_URL"] = "redis://username:password@host:1234/"
+
   # Code is not reloaded between requests
   config.cache_classes = true
 
