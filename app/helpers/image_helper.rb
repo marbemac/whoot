@@ -8,7 +8,10 @@ module ImageHelper
       response = {url: version.image_url, options: {}}
     else
       # Queue up to process and save this image size for future requests
-      Resque.enqueue(ImageProcessor, object.class.to_s, object.id.to_s, image.id.to_s, dimensions, style)
+      #Resque.enqueue(ImageProcessor, object.class.to_s, object.id.to_s, image.id.to_s, dimensions, style)
+      #target = Kernel.const_get(target_model).find(target_id)
+      object.add_image_version image.id.to_s, dimensions, style
+      object.save
       response = {url: image.original.first.image_url, options: {:width => "#{dimensions[0]}px"}}
     end
 

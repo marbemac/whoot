@@ -14,8 +14,6 @@ end
 if Rails.env.development?
   CarrierWave.configure do |config|
     config.storage = :file
-    #config.fog_directory  = 'limelight-dev'
-    #config.fog_host = 'http://duenu7rsiu1ze.cloudfront.net'
   end
 end
 
@@ -23,14 +21,12 @@ if Rails.env.staging?
   CarrierWave.configure do |config|
     config.storage = :fog
     config.fog_directory  = 'whoot-staging'
-    config.fog_host = 'http://d27r8n3epgiojg.cloudfront.net'
+    config.fog_host = 'http://img.staging.thewhoot.com'
   end
 end
 
-if Rails.env.production?
+if Rails.env.development?
   CarrierWave.configure do |config|
-    config.storage = :fog
-    config.fog_directory  = 'whoot-production'
-    config.fog_host = 'http://d27r8n3epgiojg.cloudfront.net'
+    config.storage = :file
   end
 end

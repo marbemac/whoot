@@ -116,7 +116,15 @@ module Whoot #:nodoc:
             new_image = new_image.resize_to_fit(dimensions[0], dimensions[1])
         end
 
-        tmp_location = "/tmp/d#{dimensions[0]}x#{dimensions[1]}_#{original.filename}"
+        upload_type = original.class.name
+        if upload_type.include? 'Fog'
+          filename = original.attributes[:key].split('/')
+          filename = filename[-1]
+        else
+          filename = original.filename
+        end
+
+        tmp_location = "/tmp/d#{dimensions[0]}x#{dimensions[1]}_#{filename}"
         new_image.write tmp_location
         version = AssetImage.new(:isOriginal => false, :resizedTo => "#{dimensions[0]}x#{dimensions[1]}", :style => style, :width => new_image.columns, :height => new_image.rows)
         version.id = image.id
