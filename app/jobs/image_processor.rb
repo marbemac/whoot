@@ -1,5 +1,5 @@
 class ImageProcessor
-  include Resque::Plugins::UniqueJob
+  #include Resque::Plugins::UniqueJob
 
   @queue = :images_queue
 
