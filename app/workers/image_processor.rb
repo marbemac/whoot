@@ -1,5 +1,3 @@
-require 'resque/plugins/resque_heroku_autoscaler'
-
 class ImageProcessor
   extend HerokuResqueAutoScale if Rails.env.production? or Rails.env.staging?
   include Resque::Plugins::UniqueJob
