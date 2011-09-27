@@ -68,8 +68,4 @@ group :test do
   gem 'guard-spork'
 end
 
-if HOST_OS =~ /linux/i
-  gem 'therubyracer'
-end
-
 gem 'rmagick', :require => false # Image manipulation (put rmagick at the bottom because it's a little bitch about everything)
