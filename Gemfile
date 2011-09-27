@@ -21,7 +21,7 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'heroku'
 gem 'resque', :require => 'resque/server' # Background jobs
 gem 'resque-loner' # Unique resque jobs
-gem 'heroku-resque-auto-scale'
+gem 'hirefireapp' # Heroku web/worker auto scaling hirefireapp.com
 gem "geocoder"
 gem "chronic" # Date/Time management
 

@@ -171,15 +171,12 @@ GEM
       rest-client (~> 1.6.1)
       rubyzip
       term-ansicolor (~> 1.0.5)
-    heroku-resque-auto-scale (0.1.2)
-      heroku
-      resque (~> 1.10.0)
     hike (1.2.1)
+    hirefireapp (0.0.5)
     i18n (0.6.0)
     jquery-rails (1.0.14)
       railties (~> 3.0)
       thor (~> 0.14)
-    json (1.4.6)
     json_pure (1.6.1)
     launchy (2.0.5)
       addressable (~> 2.2.6)
@@ -264,11 +261,11 @@ GEM
     rdoc (3.9.4)
     redcarpet (1.17.2)
     redis (2.2.2)
-    redis-namespace (0.8.0)
+    redis-namespace (1.0.3)
       redis (< 3.0.0)
-    resque (1.10.0)
-      json (~> 1.4.6)
-      redis-namespace (~> 0.8.0)
+    resque (1.19.0)
+      multi_json (~> 1.0)
+      redis-namespace (~> 1.0.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
     resque-loner (1.0.1)
@@ -381,7 +378,7 @@ DEPENDENCIES
   guard-spork
   haml
   heroku
-  heroku-resque-auto-scale
+  hirefireapp
   jquery-rails
   mongoid
   mongoid-rspec

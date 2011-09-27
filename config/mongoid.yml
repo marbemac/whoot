@@ -11,7 +11,7 @@ staging:
   port: <%= ENV['MONGOID_PORT'] %>
   username: <%= ENV['MONGOID_USERNAME'] %>
   password: <%= ENV['MONGOID_PASSWORD'] %>
-  database: <%= ENV['MONGOID_DATABASE'] || 'foo' %>
+  database: <%= ENV['MONGOID_DATABASE'] %>
 
 # set these environment variables on your prod server
 production:
