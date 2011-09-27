@@ -11,9 +11,11 @@ CarrierWave.configure do |config|
   config.ensure_multipart_form = false
 end
 
-if Rails.env.development?
+if Rails.env.production?
   CarrierWave.configure do |config|
-    config.storage = :file
+    config.storage = :fog
+    config.fog_directory  = 'whoot-production'
+    config.fog_host = 'http://img.thewhoot.com'
   end
 end
 

@@ -382,7 +382,6 @@ DEPENDENCIES
   guard
   guard-rspec
   guard-spork
-  haml
   heroku
   hirefireapp
   jquery-rails

@@ -29,7 +29,6 @@ gem "chronic" # Date/Time management
 group :assets do
   gem 'compass', '~> 0.12.alpha'
   gem 'sass-rails', "  ~> 3.1.0"
-  gem 'haml' # For compass
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
 end
