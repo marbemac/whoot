@@ -18,9 +18,10 @@ gem 'redcarpet' # Markdown
 gem 'fog' # Cloud support (amazon s3, etc)
 gem 'carrierwave' # File uploads
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'heroku'
 gem 'resque', :require => 'resque/server' # Background jobs
 gem 'resque-loner' # Unique resque jobs
-gem 'resque-heroku-autoscaler'
+gem 'heroku-resque-auto-scale'
 gem "geocoder"
 gem "chronic" # Date/Time management
 

@@ -1,8 +1,9 @@
 require 'resque/plugins/resque_heroku_autoscaler'
 
 class ImageProcessor
-  extend Resque::Plugins::HerokuAutoscaler
+  extend HerokuResqueAutoScale if Rails.env.production? or Rails.env.staging?
   include Resque::Plugins::UniqueJob
+
   @queue = :images_queue
 
   def self.perform(target_model, target_id, image_id, dimensions, style)
