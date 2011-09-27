@@ -1,5 +1,4 @@
 class ImageProcessor
-  extend HerokuResqueAutoScale if Rails.env.production? or Rails.env.staging?
   include Resque::Plugins::UniqueJob
 
   @queue = :images_queue
