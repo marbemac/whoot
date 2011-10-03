@@ -95,6 +95,7 @@
 }
 
 #user-header {
+    @include border-top-left-radius(10px);
     border-bottom: 3px solid #CCC;
     background: #FAFAFA;
     position: relative;

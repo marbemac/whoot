@@ -17,8 +17,10 @@ Purpose of the stylesheet follows.
         color: #777;
         cursor: default;
     }
+    h4 {
+      margin: 3px 0;
+    }
     .tags {
-        @include clearfix();
         .tag {
             float: left;
             border-bottom: none;
@@ -164,7 +166,7 @@ Purpose of the stylesheet follows.
         select {
           margin: 0 0 10px -1px;
           border-width: 2px;
-          padding: 7px 7px 5px 7px;
+          padding: 10px 7px 6px 7px;
           font-size: 18px;
           display: block;
           border: 2px solid #AAA;
@@ -176,7 +178,9 @@ Purpose of the stylesheet follows.
     }
     .cancel {
       @include link();
-      margin: 30px 0 0 0;
+      position: absolute;
+      bottom: 25px;
+      left: 340px;
     }
 }
 
@@ -184,7 +188,7 @@ Purpose of the stylesheet follows.
 #invite-page {
     .type {
         float: left;
-        padding: 5px 15px;
+        padding: 8px 15px;
         margin: 20px -1px 10px -1px;
         font-size: 20px;
         border: 2px solid #AAA;
@@ -397,7 +401,7 @@ $post-hover-color: #E7EDFF;
 .teaser.post {
     font-size: 16px;
     position: relative;
-    padding: 1px 55px 3px 0;
+    padding: 1px 55px 3px 2px;
     height: 54px;
     margin: 0 0 0 0;
     .profile-image {
@@ -580,7 +584,7 @@ $post-hover-color: #E7EDFF;
     padding: 0 0 0 5px;
     z-index: 10;
 
-    h4 {
+    h5 {
         margin: 10px 0 8px 17px;
     }
     .bg {
@@ -682,7 +686,7 @@ $post-hover-color: #E7EDFF;
 #create-custom-venue {
   @include link();
   position: absolute;
-  top: 8px;
+  top: 13px;
   left: 260px;
 }
 
