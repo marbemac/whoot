@@ -1,7 +1,17 @@
 <%= render_cell :post, :create %>
 
-<div id="post-feed">
-  <% @posts_with_user.each do |post| %>
-    <%= render "normal_posts/teaser", :post => post, :current_user => @user %>
+<div id="feed-nav" class="toggle-nav" data-group=".feed-tabs">
+  <div class="item on" data-target="#post-feed"><div>Posts</div></div>
+  <div class="item ac" data-target="#post-map" data-url="<%= normal_post_map_path %>" data-m="get"><div>Map</div></div>
+  <% if @my_post && @my_post.venue %>
+    <div class="item ac" data-target="#post-my-venue" data-url="<%= venue_attending_path @my_post.venue.id %>" data-m="get"><div>friends going to <%= @my_post.venue.name %></div></div>
   <% end %>
+  <div class="clear"></div>
 </div>
+
+<div id="post-feed" class="feed-tabs">
+  <%= render "normal_posts/feed", :posts => @posts_with_user, :user => @user%>
+</div>
+
+<div id="post-map" class="feed-tabs"></div>
+<div id="post-my-venue" class="feed-tabs"></div>

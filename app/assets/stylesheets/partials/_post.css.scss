@@ -50,20 +50,29 @@ Purpose of the stylesheet follows.
 }
 
 #invite-cancel-confirm {
+    padding: 10px;
+    h3 {
+      margin: 0 0 10px 0;
+    }
     .num {
-        font-size: 18px;
-        margin:  0 20px 10px 5px;
+      font-size: 18px;
+      margin:  0 20px 10px 0;
     }
     .noundo {
-        font-size: 14px;
-        font-style: italic;
-        margin:  0 20px 5px 5px;
+      font-size: 14px;
+      font-style: italic;
+      margin:  0 20px 5px 0;
     }
     .submit {
-        margin: 10px 0 5px 0;
+      @include link();
+      margin: 10px 0 5px 0;
+      font-weight: bold;
+      float: left;
     }
     .cancel {
-        margin: 10px 0 5px 30px;
+      @include link();
+      margin: 10px 0 5px 20px;
+      float: left;
     }
 }
 
@@ -152,6 +161,14 @@ Purpose of the stylesheet follows.
         textarea {
           height: 60px;
         }
+        select {
+          margin: 0 0 10px -1px;
+          border-width: 2px;
+          padding: 7px 7px 5px 7px;
+          font-size: 18px;
+          display: block;
+          border: 2px solid #AAA;
+        }
         .submit {
           @include orange-button(3px, 18px);
           margin: 10px 10px 15px 0;
@@ -235,7 +252,7 @@ $feed-filters-margin-top: 5px;
     background: #EBEBEB;
     width: $page_width - $sidebar_width;
     padding: $feed-filters-margin-top 0 5px 0;
-    margin: 0 0 15px 0;
+    margin: 0;
     border-top: 1px solid #FFF;
     border-bottom: 1px solid $sidebar_border_color;
 
@@ -396,7 +413,7 @@ $post-hover-color: #E7EDFF;
     }
     .ulink {
         float: left;
-        width: 150px;
+        width: 140px;
         overflow: hidden;
         padding: 18px 0 0 20px;
         white-space: nowrap;
@@ -410,7 +427,7 @@ $post-hover-color: #E7EDFF;
     .tags {
         @include clearfix();
         float: left;
-        padding: 18px 0 0 10px;
+        padding: 18px 0 0 0;
         font-style: italic;
         width: 330px;
         overflow: hidden;
@@ -419,15 +436,17 @@ $post-hover-color: #E7EDFF;
     .tag {
         @include border-radius(2px);
         float: left;
-        margin: -4px 15px 0 0;
-        padding: 2px 7px;
-        background: $post-hover-color;
+        margin: -2px 3px 0 0;
+        padding: 0 4px;
         border: 2px dotted transparent;
 
-        &:hover {
+        &.trendable {
+          background: $post-hover-color;
+          &:hover {
             background: #164F9E;
             border: 2px solid #164F9E !important;
             color: #FFF;
+          }
         }
     }
     &.working .what {
@@ -476,6 +495,11 @@ $post-hover-color: #E7EDFF;
     .num-people {
         margin: 5px 0 10px 5px;
     }
+    .venue {
+      margin: 0 0 12px 0;
+      position: relative;
+      left: 14px;
+    }
     .voters {
         li {
             margin: 5px 0 0 0;
@@ -510,10 +534,6 @@ $post-hover-color: #E7EDFF;
     }
     .comment-feed {
         margin: 0 0 0 185px;
-    }
-
-    .location {
-        margin-bottom: 5px;
     }
 }
 
@@ -588,6 +608,7 @@ $post-hover-color: #E7EDFF;
     .item {
         padding: 5px 5px 0 40px;
         position: relative;
+        min-height: 30px;
     }
     .profile-image {
         position: absolute;
@@ -623,4 +644,109 @@ $post-hover-color: #E7EDFF;
         margin: 0 0 0 17px;
         font-style: italic;
     }
+}
+
+#feed-nav {
+  margin: 0 5px 10px 5px;
+  border-bottom: 3px solid #CCC;
+
+  .item {
+    float: left;
+    padding: 0 10px 0 0;
+    position: relative;
+    top: 3px;
+    background: #FFF;
+    cursor: pointer;
+    font-size: 12px;
+    div {
+      padding: 5px 15px;
+      border-bottom: 3px solid #CCC;
+    }
+    &:hover {
+      div {
+        border-color: #FF9900;
+      }
+    }
+    &.on {
+      font-weight: bold;
+      div {
+        border-color: #FF9900;
+      }
+      &:hover {
+        cursor: default;
+      }
+    }
+  }
+}
+
+#create-custom-venue {
+  @include link();
+  position: absolute;
+  top: 8px;
+  left: 260px;
+}
+
+.no-posts {
+  font-size: 22px;
+  font-style: italic;
+  margin: 20px 20px;
+}
+
+#post-map-canvas {
+  width: 575px;
+  height: 500px;
+}
+#post-map {
+  .map {
+    float: left;
+    width: 575px;
+  }
+
+  .venues {
+    float: left;
+    width: 165px;
+    .venue {
+      padding: 5px 10px;
+      margin: 0 0 0 5px;
+      border-bottom: 1px solid #CCC;
+      color: #333;
+      .name {
+        font-weight: bold;
+        font-size: 14px;
+      }
+      .num {
+        font-style: italic;
+        font-size: 12px;
+      }
+      &:hover {
+        cursor: pointer;
+        background: #EFEFEF;
+      }
+    }
+  }
+}
+.attending_venue_map {
+  h3 {
+    margin: 0 0 0 0;
+  }
+  .address {
+    margin: 0 0 10px 0;
+    font-size: 11px;
+    font-style: italic;
+  }
+  .user {
+    border-bottom: 1px solid #CCC;
+    padding: 3px 5px 3px 40px;
+    position: relative;
+    img {
+      position: absolute;
+      top: 2px;
+      left: 0px;
+    }
+    a {
+      font-size: 14px;
+      padding: 6px 0;
+      display: block;
+    }
+  }
 }

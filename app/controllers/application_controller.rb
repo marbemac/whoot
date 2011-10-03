@@ -3,12 +3,18 @@ class ApplicationController < ActionController::Base
   before_filter :init, :set_feed_filters, :set_user_time_zone
   layout :layout
 
-  def has_permission?(object, target, permission)
-    object.has_role?("admin") || target.has_permission?(object.id, permission)
+  def authenticate_admin_user!
+    unless signed_in? && current_user.role?('admin')
+      redirect_to root_path
+    end
+  end
+
+  def permission?(object, target, permission)
+    object.role?("admin") || target.has_permission?(object.id, permission)
   end
 
   def is_users_page?
-    if current_user.slug != params[:id] && !current_user.has_role?("admin")
+    if current_user.slug != params[:id] && !current_user.role?("admin")
       flash[:notice] = "You don't have permission to access this page!"
       redirect_to root_path
     end

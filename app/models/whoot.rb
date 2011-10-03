@@ -24,8 +24,8 @@ module Whoot #:nodoc:
     # @param [ String ] The permission to check
     #
     # @return [ bool ]
-    def has_permission?(object_id, permission)
-      self.permissions[permission] && self.permissions[permission].include?(object_id)
+    def permission?(object_id, permission)
+      permissions and permissions.instance_of? BSON::OrderedHash and permissions.has_key?(permission.to_s) and permissions[permission.to_s].include?(object_id)
     end
 
     # @example Allow the given MongoId to edit & delete this document
@@ -84,6 +84,9 @@ module Whoot #:nodoc:
 
     included do
       embeds_many :images, as: :image_assignable, :class_name => 'ImageSnippet'
+
+      attr_accessible :asset_image
+      attr_accessor :asset_image
     end
 
     def save_images
@@ -131,6 +134,16 @@ module Whoot #:nodoc:
         version.image.store!(File.open(tmp_location))
         image.versions << version
         version.save
+      end
+    end
+
+    def save_original_image
+      if valid? && @asset_image && (@asset_image["image_cache"] != '' || @asset_image["remote_image_url"] != '')
+        # Create/attach the news image
+        image_snippet = ImageSnippet.new
+        image_snippet.user_id = user.id
+        image_snippet.add_uploaded_version(@asset_image, true)
+        self.images << image_snippet
       end
     end
   end

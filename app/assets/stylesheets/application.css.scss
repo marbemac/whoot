@@ -1,9 +1,13 @@
 /*
-    Document   : application
-    Created on : Mar 30, 2011, 2:33:12 PM
-    Author     : Marc MacLeod
-    Description:
-        Master stylesheet.
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require normalize
+ *= require qtip
+ *= require colorbox
+ *= require jquery.autocomplete
+ *= require_self
+ * require_tree .
 */
 
 // Default theme variables
@@ -44,14 +48,14 @@ h1,h2,h3,h4,h5,h6,p,div,span {
     padding: 0;
 }
 
-a {
+a,
+a:visited {
     color: $link-color;
     text-decoration: none;
 }
 a:hover {
     text-decoration: underline;
 }
-
 form {
   .errors {
     display: none;

@@ -69,12 +69,14 @@
 }
 
 // Styling for btnps that swap
-.followB {
+.followB,
+.attendB {
   .triggered {
     display: none;
   }
 }
-.unfollowB {
+.unfollowB,
+.unattendB {
   .default {
     display: none;
   }

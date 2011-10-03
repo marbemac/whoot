@@ -1,20 +1,6 @@
 $(function() {
 
-  /*
-   * LOGIN/REGISTRATION
-   */
-
-  $('#login,#register').colorbox({title:"Woops, you need to login to do that!", transition: "none", opacity: .5, inline: true, href: "#auth_box"});
-
-  /*
-   * CONTRIBUTE
-   */
-
-  $('#contribute').colorbox({title:"Give us some shit!", transition: "none", opacity: .5, href: function() {
-    return $(this).attr('href') + '.xml'
-  }});
-
-  /*
+  /**
    * SPLASH PAGE
    */
 
@@ -33,6 +19,19 @@ $(function() {
       window.location = document.URL + '?_switch_user=_exit';
     }
   })
+
+//  if ($('#splash').length > 0)
+//  {
+//    $('#splash .info.one').oneTime(400, 'show', function() {
+//      $(this).fadeIn(200);
+//    })
+//    $('#splash .info.two').oneTime(600, 'show', function() {
+//      $(this).fadeIn(200);
+//    })
+//    $('#splash .info.three').oneTime(800, 'show', function() {
+//      $(this).fadeIn(200);
+//    })
+//  }
 
   /**
    * USERS
@@ -82,7 +81,7 @@ $(function() {
 
   // Show confirm button for cancel open invite post
   $('#cancel-post').livequery(function() {
-    $(this).colorbox({title:"Are you sure you want to cancel your open invite?", transition: "none", opacity: .5, inline: true, href: "#invite-cancel-confirm"});
+    $(this).colorbox({transition: "none", opacity: .5, inline: true, href: "#invite-cancel-confirm"});
   })
 
   // Toggle collapse right undecided bar
@@ -185,7 +184,7 @@ $(function() {
   // Toggle the activity of a post
   var postActivityToggle = false;
   $('.teaser.post').live('click', function(ev) {
-    if ($(ev.target).is('a') || $(ev.target).hasClass('tag') || postActivityToggle)
+    if ($(ev.target).is('a') || $(ev.target).hasClass('tag trendable') || postActivityToggle)
       return;
 
     postActivityToggle = true;
@@ -225,7 +224,7 @@ $(function() {
     google.maps.event.addListener($auto, 'place_changed', function() {
       var place = $auto.getPlace();
       $('#invite_post_venue_address').val(place.formatted_address);
-      $('#invite_post_venue_coordinates').val(place.geometry.location.lat() + ' ' + place.geometry.location.lng());
+      $('#invite_post_venue_coordinates').val(place.geometry.location.lng() + ' ' + place.geometry.location.lat());
     })
   })
 
@@ -475,7 +474,7 @@ $(function() {
     }
   });
   $(".search input").result(function(event, data, formatted) {
-    window.location = '/' + data.username + '/following';
+    window.location = data.url;
   });
 
   /*
@@ -513,5 +512,72 @@ $(function() {
       $counter.hide('scale', {}, 150);
     }
 
+  })
+
+  $('#create-custom-venue').live('click', function() {
+    if ($(this).hasClass('on'))
+    {
+      $(this).text('Add My Own Venue');
+      $('#invite_post_venue_id').removeAttr('disabled');
+    }
+    else
+    {
+      $('#invite_post_venue_id').val(0).attr('disabled', true)
+      $(this).text('Cancel Add My Own Venue');
+    }
+    $(this).toggleClass('on');
+    $('#custom-venue').toggle();
+  })
+
+  $('.toggle-nav .item').live('click', function() {
+    $($(this).parent().data('group')).hide();
+    $(this).addClass('on').siblings().removeClass('on')
+    $($(this).data('target')).show()
+  })
+
+  markers = [];
+  $('#post-map-coordinates').live('click', function() {
+    height = $('#page').height()
+    $('#post-map-canvas').height(height-95)
+    var latlng = new google.maps.LatLng($('#post-map-coordinates').data('lat'), $('#post-map-coordinates').data('lon'));
+    var myOptions = {
+      zoom: 11,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("post-map-canvas"),
+        myOptions);
+
+    $('#post-map .venue').each(function(i, val) {
+      setTimeout(function() {
+        var latlng = new google.maps.LatLng($(val).data('lat'), $(val).data('lon'));
+        var marker = new google.maps.Marker({
+          position: latlng,
+          map: map,
+          animation: google.maps.Animation.DROP,
+          title:$(val).data('name'),
+          icon: "/assets/"+$(val).data('icon')
+        });
+        markers[$(val).data('sort')] = marker
+        google.maps.event.addListener(marker, 'click', function(e) {
+          $.ajax({
+            type: 'get',
+            url: $(val).data('url'),
+            dataType: 'json',
+            success: function(data) {
+              var infowindow = new google.maps.InfoWindow({
+                  content: data.content
+              });
+              infowindow.open(map,marker);
+            }
+          })
+        });
+      }, i * 200);
+    })
+  })
+
+  $('#post-map .venue').live('click', function() {
+    console.log($(this).data('sort'))
+    google.maps.event.trigger(markers[$(this).data('sort')],"click")
   })
 })

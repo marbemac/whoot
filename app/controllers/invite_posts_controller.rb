@@ -27,6 +27,8 @@ class InvitePostsController < PostsController
   def create
     params[:invite_post][:venue].merge!(:coordinates => params[:invite_post][:venue][:coordinates].split(' '))
     @post = current_user.invite_posts.new(params[:invite_post])
+    @post.save_original_image
+    @post.save_images
 
     respond_to do |format|
       if @post.save
@@ -55,12 +57,15 @@ class InvitePostsController < PostsController
   end
 
   def destroy
-    @invitepost = Invitepost.find(params[:id])
-    @invitepost.destroy
+    @invitepost = InvitePost.find_by_encoded_id(params[:id])
+    @invitepost.cancel
+    @invitepost.save
+
+    flash[:success] = 'Open invite was successfully cancelled.'
 
     respond_to do |format|
-      format.html { redirect_to inviteposts_url }
-      format.json { head :ok }
+      format.html { redirect_to root_path }
+      format.json { render json: {:status => 'OK', :redirect => root_path} }
     end
   end
 end

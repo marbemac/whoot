@@ -1,0 +1,38 @@
+<script>
+  $(function() {
+    var invite_image_uploader = new plupload.Uploader({
+      runtimes : "gears,html5,flash,silverlight",
+      browse_button : 'invite_post_pupB',
+      max_file_size : '2mb',
+      url : "<%= upload_tmp_path %>",
+      container: 'invite_post_uploadC',
+      flash_swf_url: "/assets/javascripts/plupload/plupload.flash.swf",
+      silverlight_xap_url: "/assets/javascripts/plupload/plupload.silverlight.xap",
+      multipart: true,
+      multipart_params: {
+        "authenticity_token" : '<%= form_authenticity_token %>'
+      }
+    });
+
+    invite_image_uploader.bind('FilesAdded', function(up, files) {
+    });
+
+    invite_image_uploader.bind('QueueChanged', function() {
+      console.log('File Added');
+      invite_image_uploader.start();
+    })
+
+    invite_image_uploader.bind('UploadProgress', function(up, file) {
+      console.log(file.percent + "%");
+    });
+
+    invite_image_uploader.bind("FileUploaded", function(up, file, data) {
+      params = $.parseJSON(data.response);
+      console.log(params);
+      $('#post_image').html('<img src="/uploads/tmp/'+params.image_location+'" />')
+      $('#invite_post_asset_image_image_cache').val(params.image_path);
+    })
+
+    invite_image_uploader.init();
+  });
+</script>

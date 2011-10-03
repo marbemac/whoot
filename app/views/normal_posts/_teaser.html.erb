@@ -12,10 +12,10 @@
 
   <div class="tags">
     <!--{% if post.invite is defined and post.invite %}-->
-    <% if false %>
-    <a href="{{ path('invite_show', {'inviteId': post.invite.invite}) }}">
-      @{{ post.invite.name }}
-    </a>
+    <% if post.invite_post %>
+      <a href="<%= invite_post_path post.invite_post %>">
+        @ <%= link_to post.venue.name, invite_post_path(:id => post.invite_url) %>
+      </a>
     <% else %>
       <% post.tags.each do |tag| %>
         <%= render "tags/teaser", :tag => tag %>

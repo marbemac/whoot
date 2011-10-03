@@ -2,7 +2,7 @@ require 'rbconfig'
 HOST_OS = Config::CONFIG['host_os']
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1.rc1'
+gem 'rails', '3.1.0'
 gem 'thin'
 gem 'execjs'
 gem 'jquery-rails'
@@ -25,6 +25,11 @@ gem 'resque-loner' # Unique resque jobs
 gem 'hirefireapp' # Heroku web/worker auto scaling hirefireapp.com
 gem "geocoder"
 gem "chronic" # Date/Time management
+gem 'cancan' # authorization
+gem 'formtastic'
+gem 'state_select'
+gem 'formtastic_state_select'
+gem 'activeadmin'
 
 group :assets do
   gem 'compass', '~> 0.12.alpha'
@@ -68,6 +73,7 @@ group :test do
   gem "mongoid-rspec"
   gem "spork", "> 0.9.0.rc"
   gem 'guard-spork'
+  gem "cucumber-rails"
 end
 
 gem 'rmagick', :require => false # Image manipulation (put rmagick at the bottom because it's a little bitch about everything)

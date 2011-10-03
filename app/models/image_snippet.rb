@@ -12,18 +12,22 @@ class ImageSnippet
   def add_uploaded_version(params, isOriginal=false)
     params.merge!( {:isOriginal => isOriginal} )
     version = AssetImage.new(params)
-    version.id = self.id
+    version.id = id
+    if params[:image_cache]
+      version.image.store! params[:image_cache]
+    end
     self.versions << version
   end
 
   def find_version dimensions, style
-    self.versions.where(:resizedTo => "#{dimensions[0]}x#{dimensions[1]}", :style => style).first
+    versions.where(:resizedTo => "#{dimensions[0]}x#{dimensions[1]}", :style => style).first
   end
 
   def original
-    self.versions.each do |version|
+    versions.each do |version|
       version if version.isOriginal
     end
   end
+
 
 end

@@ -1,3 +1,5 @@
 <% content_for :user_sidebar do %>
   <%= render 'users/sidebar' %>
 <% end %>
+
+<%= render "normal_posts/teaser", :post => @user_post, :user => @user %>

@@ -1,0 +1,13 @@
+<% content_for :user_sidebar do %>
+  <%= render 'users/sidebar' %>
+<% end %>
+
+<% if !@followers.empty? %>
+  <ul class="user-list">
+    <% @followers.each do |follower| %>
+      <%= render 'users/teaser', :user => follower %>
+    <% end %>
+  </ul>
+<% else %>
+  <div class="none"><%= @user.first_name %> has no followers</div>
+<% end %>

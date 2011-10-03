@@ -1,0 +1,9 @@
+<div class="upload" id="<%= f.object.class.name.underscore %>_uploadB">Upload Image</div>
+<div class="clear"></div>
+<div class="hide">
+  <%= f.fields_for AssetImage.new do |i| %>
+    <%= i.text_field :remote_image_url, :class => 'remote_image_url', :autocomplete => 'off' %>
+    <%= i.hidden_field :image_cache, :class => "image_upload_cache" %>
+  <% end %>
+  <div id="<%= f.object.class.name.underscore %>_pupB"></div>
+</div>

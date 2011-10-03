@@ -7,12 +7,13 @@
   </h1>
 
   <div class="left">
-    <!--{% if invite.image %}-->
-    <!--{% include "MarbemacImageBundle:Image:show.html.twig" with {'groupId': invite.image, 'w': 180, 'h': 180, 'class':-->
-    <!--'inviteImage'} %}-->
-    <!--{% else %}-->
-    <%= image_tag "inviteDefault.png", :class => 'inviteImage', :width => '180px' %>
-    <!--{% endif %}-->
+
+    <% img = default_image_url(@post, [180, 180], 'square') %>
+    <% if img %>
+      <%= image_tag img[:url], img[:options].merge!(class: 'inviteImage') %>
+    <% else %>
+      <%= image_tag "inviteDefault.png", :class => 'inviteImage', :width => '180px' %>
+    <% end %>
 
     <h3><%= @post.attending_count %> attending</h3>
     <ul class="attending">
@@ -33,11 +34,11 @@
   <div class="right">
     <div class="info">
       <% if @post.status == 'Active' %>
-        <!--{% include "WhootBundle:Invite:attendingButton.html.twig" with {'invite': invite} %}-->
+        <%= render "attends/button", :target_invite => @post %>
       <% else %>
         <div class="cancelled">This invite was cancelled.</div>
       <% end %>
-
+      <div class="clear"></div>
       <div class="item">
         created by <%= user_link @post.user_snippet, 15 %>
       </div>
@@ -51,7 +52,7 @@
         <%= @post.content %>
       </div>
       <% if @post.venue.coordinates %>
-        <div id="map-<%= @post.id %>" class="invite-map" data-name="<%= @post.venue.name %>" data-lat="<%= @post.venue.coordinates[0] %>" data-lon="<%= @post.venue.coordinates[1] %>"></div>
+        <div id="map-<%= @post.id %>" class="invite-map" data-name="<%= @post.venue.name %>" data-lat="<%= @post.venue.coordinates[1] %>" data-lon="<%= @post.venue.coordinates[0] %>"></div>
       <% end %>
     </div>
     <div class="comment-feed cf-<%= @post.id %>">

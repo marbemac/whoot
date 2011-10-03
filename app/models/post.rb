@@ -9,11 +9,15 @@ class Post
   field :user_id
 
   embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
+  embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
   has_many :comments
   belongs_to :user
 
   validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing, or partying)" }
-  attr_accessible :night_type, :tags_string, :venue
+  attr_accessor :venue_id
+  attr_accessible :night_type, :tags_string, :venue, :venue_id
+  before_create :set_location_snippet
+  before_create :set_venue_snippet
 
   def tags_string
     tags_string = tags.map{|tag| tag.name}
@@ -56,6 +60,26 @@ class Post
 
   def created_by
     self[:created_by]
+  end
+
+  def set_location_snippet
+    self.location = LocationSnippet.new(
+            user.location.attributes
+    )
+  end
+
+  def set_venue_snippet
+    if @venue_id
+      venue = Venue.find(@venue_id)
+      if venue
+        self.venue = VenueSnippet.new(
+                name: venue.name,
+                address: venue.address,
+                coordinates: venue.coordinates
+        )
+        self.venue.id = venue.id
+      end
+    end
   end
 
 end

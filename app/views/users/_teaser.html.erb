@@ -1,0 +1,7 @@
+<div class="teaser user">
+  <% img = default_image_url(user, [50, 50]) %>
+  <%= image_tag img[:url], img[:options].merge!(:class => 'profileImage') %>
+  <%= user_link user %>
+  <%= render 'follows/button', :target_user => user %>
+  <div class="clear"></div>
+</div>

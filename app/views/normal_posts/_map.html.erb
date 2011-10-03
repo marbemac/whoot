@@ -1,0 +1,22 @@
+<div class="map">
+  <div id="post-map-coordinates" data-lat="<%= current_user.location.coordinates[0] %>" data-lon="<%= current_user.location.coordinates[1] %>"></div>
+  <div id="post-map-canvas"></div>
+</div>
+<div class="venues">
+  <% venues.each_with_index do |venue,i| %>
+    <div class="venue"
+         data-lat="<%= venue[:coordinates][1] %>"
+         data-lon="<%= venue[:coordinates][0] %>"
+         data-icon="<%= venue[:image] %>"
+         data-name="<%= venue[:name] + ' - ' + venue[:count].to_s + ' friends' %>"
+         data-url="<%= attending_venue_map_path venue[:id] %>"
+         data-sort="<%= i %>">
+      <div class="name">
+        <%= venue[:name] %>
+      </div>
+      <div class="num">
+        <%= venue[:count] %> friends
+      </div>
+    </div>
+  <% end %>
+</div>

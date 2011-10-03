@@ -24,4 +24,16 @@ class Tag
 
   validates :name, :uniqueness => { :case_sensitive => false }
 
+  scope :uncategorized, where(is_trendable: false, is_stopword: false)
+  scope :trendable, where(is_trendable: true)
+  scope :stopword, where(is_stopword: true)
+
+  after_save :update_denorms
+
+  def update_denorms
+    if is_trendable_changed?
+      NormalPost.where('tags._id' => id).update_all({"tags.$.is_trendable" => is_trendable})
+    end
+  end
+
 end

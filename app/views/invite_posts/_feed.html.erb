@@ -1,0 +1,7 @@
+<% posts.each do |post| %>
+  <%= render "invite_posts/teaser", :post => post, :current_user => user %>
+<% end %>
+
+<% if posts.length == 0 %>
+  <div class="no-posts">No invites to show!</div>
+<% end %>

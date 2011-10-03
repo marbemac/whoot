@@ -5,13 +5,21 @@ class NormalPost < Post
   field :invite_post_id
 
   embeds_many :tags, :as => :taggable, :class_name => 'TagSnippet'
+  embeds_one :invite, :as => :has_invite, :class_name => 'InvitePostSnippet'
+  belongs_to :invite_post
 
   validate :max_tags, :max_characters
 
-  after_create :update_user_post_snippet
-  before_create :process_tags, :disable_current_post
+  after_save :update_user_post_snippet
+  before_create :process_tags, :disable_current_post, :set_user_post_snippet, :set_invite_post_snippet
 
   attr_accessible :invite_post_id
+
+  def invite_url
+    if invite_post_id
+      "#{invite._public_id.to_i.to_s(36)}-#{venue.name}"
+    end
+  end
 
   def add_voter(user)
     unless voters.include? user.id
@@ -53,12 +61,35 @@ class NormalPost < Post
     if (current_post)
       current_post.current = false
       current_post.save
+      if current_post.invite_post
+        invite = current_post.invite_post
+        invite.attending_count -= 1
+        invite.attendees.delete user_id
+        invite.save
+      end
     end
   end
 
-  def update_user_post_snippet
+  def set_user_post_snippet
     user.current_post = PostSnippet.new(:night_type => night_type, :created_at => created_at)
     user.save
+  end
+
+  def update_user_post_snippet
+    if current_changed? && current == true
+      user.current_post = PostSnippet.new(:night_type => night_type, :created_at => created_at)
+      user.save
+    end
+  end
+
+  def set_invite_post_snippet
+    if invite_post_id
+      snippet = InvitePostSnippet.new(
+              :_public_id => invite_post._public_id
+      )
+      snippet.id = invite_post.id
+      self.invite = snippet
+    end
   end
 
   class << self

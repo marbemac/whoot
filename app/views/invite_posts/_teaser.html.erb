@@ -1,14 +1,15 @@
 <!--{% if not userBlocked(app.user, invite.createdBy) %}-->
 
 <div class="teaser invite <%= post.night_type %>" id="invite-<%= post.id %>">
-  <% if post.default_image.first %>
-  <!--{% include "MarbemacImageBundle:Image:show.html.twig" with {'groupId': invite.image, 'w': 120, 'h': 120, 'class':'inviteImage'} %}-->
+  <% img = default_image_url(post, [120, 120], 'square') %>
+  <% if img %>
+    <%= image_tag img[:url], img[:options].merge!(class: 'inviteImage') %>
   <% else %>
     <%= image_tag "inviteDefault.png", :class => 'inviteImage', :width => '120px' %>
   <% end %>
 
   <h2 class="head">
-    <a href="<%= invite_posts_path post %>">
+    <a href="<%= invite_post_path post %>">
       <span class="type"><%= post.night_type_noun %></span> at <%= post.venue.name %>
     </a>
   </h2>

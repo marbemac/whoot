@@ -1,7 +1,5 @@
 <%= render_cell :post, :create %>
 
-<div id="invite-feed">
-  <% @posts_with_user.each do |post| %>
-    <%= render "invite_posts/teaser", :post => post, :current_user => @user %>
-  <% end %>
+<div id="invite-feed" class="feed-tabs">
+  <%= render "invite_posts/feed", :posts => @posts_with_user, :user => @user%>
 </div>

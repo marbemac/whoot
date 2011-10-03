@@ -3,10 +3,11 @@
     <h3>
       <%= @my_post.night_type_short %>
     </h3>
-    <% if @invite %>
+    <% if @invite && @invite.user_id == @user.id %>
       <div id="cancel-post">Cancel</div>
       <div class="hide">
         <div id="invite-cancel-confirm">
+          <h3>Are you sure you want to cancel your open invite?</h3>
           <div class="num">
             <% if @invite.attending_count > 1 %>
               <%= @invite.attending_count - 1 %>
@@ -19,7 +20,7 @@
             You cannot undo this action!
           </div>
           <div class="actions">
-            <a class="submit ac" href="{{ path('invite_cancel') }}">Confirm Cancellation</a>
+            <div class="submit ac" data-url="<%= invite_post_path @invite %>" data-m="delete">Confirm Cancellation</div>
 
             <div class="cancel">Nevermind</div>
           </div>
@@ -30,6 +31,10 @@
     <% end %>
 
     <div class="clear"></div>
+
+    <% if @my_post.venue %>
+      <h4>@ <%= @my_post.venue.name %></h4>
+    <% end %>
 
     <% if @invite %>
       <a href="<%= invite_post_path @invite %>">

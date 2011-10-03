@@ -61,6 +61,15 @@ $(function() {
     $('#my-post').replaceWith(data.myPost);
   });
 
+  amplify.subscribe('normal_post_map_loaded', function(data) {
+    $('#post-map').html(data.content);
+    $('#post-map-coordinates').click();
+  })
+
+  amplify.subscribe('venue_attending_loaded', function(data) {
+    $('#post-my-venue').html(data.content);
+  })
+
   /*
    * VOTING
    */
@@ -76,16 +85,6 @@ $(function() {
   amplify.subscribe("comment_created", function(data) {
     $('.comment_new .content').val($('.comment_new .content').data('default'));
     $('.cf-' + data.root_id).append(data.comment);
-  });
-
-  /*
-   * WORDS
-   */
-  amplify.subscribe("make_tag_trendable", function(data) {
-    $('.w-' + data.tagId).prependTo($('#admin-trendable'));
-  });
-  amplify.subscribe("make_tag_stopword", function(data) {
-    $('.w-' + data.tagId).prependTo($('#admin-stopword'));
   });
 
   /*

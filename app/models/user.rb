@@ -24,6 +24,8 @@ class User
   # InvitePost.user_snippet.last_name
   field :last_name
 
+  slug :username
+
   field :gender
   field :birthday, :type => Date
   field :time_zone, :type => String, :default => "Eastern Time (US & Canada)"
@@ -39,6 +41,7 @@ class User
 
   embeds_many :social_connects
   embeds_one :current_post, :class_name => 'PostSnippet'
+  embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
   has_many :tags
   has_many :normal_posts
   has_many :invite_posts
@@ -49,8 +52,10 @@ class User
   validates :email, :uniqueness => { :case_sensitive => false }
   attr_accessible :first_name, :last_name, :gender, :birthday, :email, :password, :password_confirmation, :remember_me, :social_connected
 
-  before_create :generate_username
+  before_create :generate_username, :set_location_snippet
   after_create :save_profile_image
+
+  scope :inactive, where(:last_sign_in_at.lte => Chronic.parse('1 month ago'))
 
   # Return the users slug instead of their ID
   def to_param
@@ -59,6 +64,16 @@ class User
 
   def generate_username
     self.username = "#{first_name}.#{last_name}"
+  end
+
+  def set_location_snippet
+    location = City.where(name: "New York City").first
+    self.location = LocationSnippet.new(
+            city: location.name,
+            state_code: location.state_code,
+            coordinates: location.coordinates
+    )
+    self.location.id = location.id
   end
 
   # Pull image from social media, or gravatar
@@ -89,7 +104,7 @@ class User
   end
 
   # Checks to see if this user has a given role
-  def has_role?(role)
+  def role?(role)
     self.roles.include? role
   end
 
@@ -105,12 +120,12 @@ class User
     end
   end
 
-  def is_following_user?(user_id)
+  def following_user?(user_id)
     self.following_users.include? user_id
   end
 
   def toggle_follow_user(user)
-    if is_following_user? user.id
+    if following_user? user.id
       unfollow_user user
     else
       follow_user user
@@ -138,6 +153,15 @@ class User
       return social if social.name == provider
     end
     nil
+  end
+
+  def revert_to_last_post_today
+    latest_not_current_post = NormalPost.where(:user_id => id, :current => false, :status => 'Active', :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))).first
+
+    if latest_not_current_post
+      latest_not_current_post.current = true
+      latest_not_current_post.save
+    end
   end
 
   class << self

@@ -20,7 +20,9 @@
   </div>
 
   <div class="right">
-    <!--<h4 class="location">Posted in {{ post.currentLocation ? post.currentLocation.name : 'Outer Space' }}</h4>-->
+    <% if @post.venue %>
+      <h4 class="venue">@ <%= @post.venue.name %></h4>
+    <% end %>
     <div class="comment-feed cf-<%= @post.id %>">
       <%= render "comments/form", :post => @post %>
       <% @comments_with_user.each do |comment| %>

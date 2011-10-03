@@ -12,6 +12,7 @@
 //= require whoot.preload
 //= require jquery-ui.min
 //= require amplify
+//= require plupload/plupload.full
 //= require jquery.colorbox
 //= require jquery.timer
 //= require jquery.qtip
@@ -20,6 +21,7 @@
 //= require jquery.growfield
 //= require whoot.core
 //= require whoot.request
+//= require invite_posts
 //= require whoot.subscribers
 //= require whoot.action.controller
 //= require whoot.form.controller

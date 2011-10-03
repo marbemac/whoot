@@ -11,7 +11,7 @@ class UserCell < Cell::Rails
       if @my_post && @my_post.invite_post_id
         @invite = InvitePost.find(@my_post.invite_post_id)
       end
-      @undecided = User.undecided(@user)
+      @undecided = User.undecided(@user).to_a
       render
     end
   end
