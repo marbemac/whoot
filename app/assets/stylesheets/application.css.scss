@@ -3,6 +3,7 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require normalize
+ *= require reset
  *= require qtip
  *= require colorbox
  *= require jquery.autocomplete
@@ -25,7 +26,27 @@ html, body {
     position: relative; z-index: 0;
     font-family: "Helvetica Neue", Verdana, Tahoma, Arial, sans-serif;
 }
-
+h1,h2,h3,h4,h5,h6 {
+  font-weight: bold;
+}
+h1 {
+  font-size: 28px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 20px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 15px;
+}
+h6 {
+  font-size: 12px;
+}
 body.night {
     background-color: #091F35;
     @include background-image(linear-gradient(#05162E, #09213B 30%, #0C2B4B 50%, #0F3762));

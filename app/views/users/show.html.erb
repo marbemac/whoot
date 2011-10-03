@@ -2,4 +2,7 @@
   <%= render 'users/sidebar' %>
 <% end %>
 
-<%= render "normal_posts/teaser", :post => @user_post, :user => @user %>
+<div id="post-feed">
+  <%= render "normal_posts/teaser", :post => @post, :user => @user %>
+  <%= render :template => "normal_posts/show" %>
+</div>

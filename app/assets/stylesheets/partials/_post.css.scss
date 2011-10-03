@@ -262,7 +262,7 @@ $feed-filters-margin-top: 5px;
         
         .label {
             float: left;
-            margin: 7px 0 0 13px;
+            margin: 9px 0 0 13px;
             color: #999;
             font-size: 12px;
             cursor: default;
@@ -290,7 +290,7 @@ $feed-filters-margin-top: 5px;
             .icon {
                 position: absolute;
                 left: 5px;
-                top: 6px;
+                top: 7px;
                 display: none;
             }
             li.on {
@@ -300,7 +300,7 @@ $feed-filters-margin-top: 5px;
             }
             a {
                 position: relative;
-                padding: 4px 10px 4px 25px;
+                padding: 6px 10px 7px 25px;
                 color: #BBB;
                 text-decoration: none;
                 display: block;
@@ -312,7 +312,7 @@ $feed-filters-margin-top: 5px;
         }
         .undecided {
             position: relative;
-            top: 4px;
+            top: 8px;
             left: 10px;
             cursor: pointer;
         }
@@ -340,7 +340,7 @@ $feed-filters-margin-top: 5px;
             a {
                 color: #444;
                 text-decoration: none;
-                padding: 4px 10px;
+                padding: 6px 10px;
                 display: block;
             }
         }
@@ -415,19 +415,19 @@ $post-hover-color: #E7EDFF;
         float: left;
         width: 140px;
         overflow: hidden;
-        padding: 18px 0 0 20px;
+        padding: 21px 0 5px 20px;
         white-space: nowrap;
     }
     .what {
         float: left;
         width: 110px;
         overflow: hidden;
-        padding: 18px 0 0 10px;
+        padding: 21px 0 5px 10px;
     }
     .tags {
         @include clearfix();
         float: left;
-        padding: 18px 0 0 0;
+        padding: 21px 0 5px 0;
         font-style: italic;
         width: 330px;
         overflow: hidden;
@@ -464,7 +464,7 @@ $post-hover-color: #E7EDFF;
     .scoreC {
         position: absolute;
         right: -25px;
-        top: 16px;
+        top: 19px;
     }
 }
 
