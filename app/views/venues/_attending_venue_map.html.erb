@@ -6,7 +6,7 @@
   <div class="users">
     <% users.each do |user| %>
       <div class="user">
-        <% img = default_image_url(user, [30, 30]) %>
+        <% img = default_image_url(user, [30, 30], 'square') %>
         <%= image_tag img[:url], img[:options] if img %>
         <%= user_link user %>
       </div>

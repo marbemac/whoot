@@ -3,10 +3,12 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_encoded_id(params[:id])
     @post = NormalPost.current_post(@user)
-    @post = User.join([@post])[0]
-    @voters = User.where(:_id.in => @post.voters)
-    comments = Comment.where(:post_id => @post.id, :status => 'Active')
-    @comments_with_user = User.join(comments)
+    if @post
+      @post = User.join([@post])[0]
+      @voters = User.where(:_id.in => @post.voters)
+      comments = Comment.where(:post_id => @post.id, :status => 'Active')
+      @comments_with_user = User.join(comments)
+    end
   end
 
   def hover

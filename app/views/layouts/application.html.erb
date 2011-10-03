@@ -24,7 +24,7 @@
           <div id="content">
             <div id="page">
               <%= yield :feed_filters %>
-              <%= yield :user_sidebar %>
+              <%= yield :user_header %>
               <div id="page_content" class="<%= controller.action_name %>">
                 <%= yield %>
                 <% if Rails.env.development? %>
