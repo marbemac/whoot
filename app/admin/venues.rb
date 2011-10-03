@@ -22,6 +22,9 @@ ActiveAdmin.register Venue do
     column :hours
     column :phone
     column :created_at
+    column "" do |venue|
+      link_to "Edit", edit_git_er_done_venue_path(venue)
+    end
   end
 
   show do
@@ -39,7 +42,7 @@ ActiveAdmin.register Venue do
       @venue = Venue.find_by_encoded_id(params[:id])
     end
     def update
-      @venue = User.find_by_encoded_id(params[:id])
+      @venue = Venue.find_by_encoded_id(params[:id])
 
       @venue.update_attributes(params[:venue])
       @venue.save!

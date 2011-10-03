@@ -75,6 +75,7 @@ class Post
         self.venue = VenueSnippet.new(
                 name: venue.name,
                 address: venue.address,
+                _public_id: venue._public_id,
                 coordinates: venue.coordinates
         )
         self.venue.id = venue.id

@@ -1,4 +1,4 @@
-unless Rails.env.development?
+#unless Rails.env.development?
   ActiveAdmin.setup do |config|
 
     # == Site Title
@@ -104,4 +104,4 @@ unless Rails.env.development?
     config.register_javascript 'application.js'
     config.register_stylesheet 'qtip.css.scss'
   end
-end
+#end
