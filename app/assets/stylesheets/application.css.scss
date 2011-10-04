@@ -310,6 +310,14 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
     margin: 0;
 }
 
+#slt {
+  position: fixed;
+  bottom: 5px;
+  left: 5px;
+  font-size: 10px;
+  color: #FFF;
+}
+
 @import "partials/utilities";
 @import "partials/sprite";
 @import "partials/splash";
