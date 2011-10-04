@@ -40,8 +40,8 @@
             Contact Us &#149;
             <a href="{{ path('privacy') }}">Privacy</a> &#149;
             <a href="{{ path('terms') }}">Terms</a>
-            <% if current_user.role?(:admin) && ENV['RAILS_ENV'] != 'development' %>
-            &#149; <%= link_to "Admin Area", git_er_done_dashboard_path %>
+            <% if current_user.role?('admin') && ENV['RAILS_ENV'] != 'development' %>
+            &#149; test
             <% end %>
             <!--<fb:like href="http://www.facebook.com/pages/Whoot/192579647454740" send="true" layout="button_count" width="80" show_faces="false" font=""></fb:like>-->
           </footer>
@@ -67,6 +67,8 @@
     <%= javascript_include_tag "application" %>
     <script src="http://maps.google.com/maps/api/js?libraries=places&sensor=false"></script>
     <%= render "invite_posts/upload_js" %>
-    <div id="slt"><%= load_time %><br /><%= ENV['RAILS_ENV'] %></div>
+    <% if ENV['RAILS_ENV'] != 'production' %>
+      <div id="slt"><%= load_time %><br /><%= ENV['RAILS_ENV'] %></div>
+    <% end %>
   </body>
 </html>
