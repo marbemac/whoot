@@ -222,7 +222,7 @@ class User
       user_ids = objects.map{|object| object.user_id}
       users = User.where(:_id.in => user_ids)
       joined = objects.map do |object|
-        object[:created_by] = users.find(object.user_id)
+        object[:created_by] = users.detect {|u| u.id == object.user_id}
         object
       end
 

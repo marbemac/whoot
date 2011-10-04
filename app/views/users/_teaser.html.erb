@@ -3,5 +3,6 @@
   <%= image_tag img[:url], img[:options].merge!(:class => 'profileImage') %>
   <%= user_link user %>
   <%= render 'follows/button', :target_user => user %>
+  <%= render "pings/button", target_user: user %>
   <div class="clear"></div>
 </div>
