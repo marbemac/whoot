@@ -41,7 +41,7 @@
             <a href="{{ path('privacy') }}">Privacy</a> &#149;
             <a href="{{ path('terms') }}">Terms</a>
             <% if current_user.role?('admin') && ENV['RAILS_ENV'] != 'development' %>
-            &#149; test
+            &#149; Admin Area
             <% end %>
             <!--<fb:like href="http://www.facebook.com/pages/Whoot/192579647454740" send="true" layout="button_count" width="80" show_faces="false" font=""></fb:like>-->
           </footer>
