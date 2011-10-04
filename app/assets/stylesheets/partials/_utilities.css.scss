@@ -70,13 +70,15 @@
 
 // Styling for btnps that swap
 .followB,
-.attendB {
+.attendB,
+.pingB {
   .triggered {
     display: none;
   }
 }
 .unfollowB,
-.unattendB {
+.unattendB,
+.pinged {
   .default {
     display: none;
   }

@@ -35,6 +35,8 @@ class User
   field :following_users, :default => []
   field :followers_count, :type => Integer, :default => 0
   field :unread_notification_count, :type => Integer, :default => 0
+  field :pings_today_date
+  field :pings_today, :default => []
   field :pings_count, :type => Integer, :default => 0
 
   auto_increment :_public_id
@@ -105,23 +107,23 @@ class User
 
   # Checks to see if this user has a given role
   def role?(role)
-    self.roles.include? role
+    roles.include? role
   end
 
   # Adds a role to this user
   def grant_role(role)
-    self.roles << role unless self.roles.include?(role)
+    roles << role unless roles.include?(role)
   end
 
   # Removes a role from this user
   def revoke_role(role)
-    if self.roles
+    if roles
       self.roles.delete(role)
     end
   end
 
   def following_user?(user_id)
-    self.following_users.include? user_id
+    following_users.include? user_id
   end
 
   def toggle_follow_user(user)
@@ -133,7 +135,7 @@ class User
   end
 
   def follow_user(user)
-    if !self.following_users.include?(user.id)
+    if !following_users.include?(user.id)
       self.following_users << user.id
       self.following_users_count += 1
       user.followers_count += 1
@@ -141,10 +143,26 @@ class User
   end
 
   def unfollow_user(user)
-    if self.following_users.include?(user.id)
+    if following_users.include?(user.id)
       self.following_users.delete(user.id)
       self.following_users_count -= 1
       user.followers_count -= 1
+    end
+  end
+
+  def pinged_today_by?(user_id)
+    pings_today_date && pings_today_date >= Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))) && pings_today.include?(user_id)
+  end
+
+  def add_ping(user)
+    unless pinged_today_by? user.id
+      unless pings_today_date && pings_today_date >= Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))
+        self.pings_today_date = Time.now
+        self.pings_today = Array.new
+      end
+      Ping.create(:pinged_user_id => id, :user_id => user.id)
+      self.pings_today << user.id
+      self.pings_count += 1
     end
   end
 

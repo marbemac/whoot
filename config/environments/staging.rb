@@ -58,12 +58,24 @@ Whoot::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => 'yourhost.com' }
   # ActionMailer Config
   # Setup for production - deliveries, no errors raised
+  ActionMailer::Base.register_interceptor(StagingMailInterceptor)
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.default_url_options = {
+          :host => 'staging.thewhoot.com'
+  }
+  config.action_mailer.smtp_settings = {
+          :domain => 'thewhoot.com',
+          :address => 'smtp.sendgrid.net',
+          :port => 587,
+          :authentication => :plain,
+          :enable_starttls_auto => true,
+          :user_name => ENV['SENDGRID_USERNAME'],
+          :password => ENV['SENDGRID_PASSWORD']
+  }
 
 end

@@ -616,7 +616,7 @@ $post-hover-color: #E7EDFF;
     }
     .profile-image {
         position: absolute;
-        top: 9px;
+        top: 5px;
         left: 10px;
         img {
             @include border-radius(3px);
@@ -624,17 +624,23 @@ $post-hover-color: #E7EDFF;
     }
     .ulink {
         margin: 0 0 0 6px;
-        height: 10px;
+        height: 15px;
+        display: block;
         overflow: hidden;
         white-space: nowrap;
         font-size: 13px;
         color: #555;
     }
-    .ping-B,
+    .pingB,
     .pinged {
         display: block;
-        margin: -3px 0 0 7px;
+        margin: -3px 0 0 -2px;
         font-size: 13px;
+        background: transparent;
+    }
+    .pingB {
+      color: $link-color;
+      cursor: pointer;
     }
     &:hover {
         .bg {

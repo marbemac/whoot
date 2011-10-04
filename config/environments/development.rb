@@ -13,15 +13,6 @@ Whoot::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  # A dummy setup for development - no deliveries, but logged
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = false
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default :charset => "utf-8"
-
-
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
@@ -33,4 +24,24 @@ Whoot::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # ActionMailer Config
+  # Setup for development - deliveries, errors raised
+  ActionMailer::Base.register_interceptor(DevelopmentMailInterceptor)
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.default_url_options = {
+          :host => 'localhost:3002'
+  }
+  config.action_mailer.smtp_settings = {
+          :domain => 'thewhoot.com',
+          :address => 'smtp.sendgrid.net',
+          :port => 587,
+          :authentication => :plain,
+          :enable_starttls_auto => true,
+          :user_name => ENV['SENDGRID_USERNAME'],
+          :password => ENV['SENDGRID_PASSWORD']
+  }
 end

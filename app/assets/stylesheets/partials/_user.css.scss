@@ -94,6 +94,18 @@
     margin: 10px 0 0 0;
 }
 
+.pingB {
+    @include orange-button(2px, 16px);
+    padding: 4px 8px 2px 8px;
+    margin: 10px 0 0 0;
+}
+.pinged {
+    background: transparent;
+    color: #999;
+    padding: 4px 8px 2px;
+    border: none;
+}
+
 #user-header {
     @include border-top-left-radius(10px);
     border-bottom: 3px solid #CCC;

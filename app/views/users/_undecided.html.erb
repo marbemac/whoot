@@ -10,7 +10,7 @@
         <%= image_tag img[:url], img[:options] %>
       </a>
       <%= user_link user, 12 %>
-      <!--{% include "WhootBundle:Ping:tag.html.twig" with {'toUser': user} %}-->
+      <%= render "pings/button", :current_user => @user, :target_user => user %>
     </div>
   <% end %>
 
