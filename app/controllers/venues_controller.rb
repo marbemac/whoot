@@ -31,10 +31,7 @@ class VenuesController < ApplicationController
   end
 
   def autocomplete
-    matches = Venue.where(:slug => /#{params[:q].to_url}/i).asc(:slug).limit(7)
-    if params[:city]
-      matches.where(:city_id.in => params[:city])
-    end
+    matches = Venue.where(:city_id => params[:city]).where(:slug => /#{params[:q].to_url}/i).asc(:slug).limit(7)
     response = Array.new
     @venue = Venue.new(:name => "#{params[:q].capitalize} not here. Create venue named #{params[:q].capitalize}", :address => '')
     response << {id: 0, name: params[:q].capitalize, formattedItem: render_to_string(partial: 'autocomplete')}

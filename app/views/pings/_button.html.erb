@@ -1,4 +1,4 @@
-<% if current_user.id != target_user.id %>
+<% if current_user.id != target_user.id && current_user.posted_today? && !target_user.posted_today? %>
   <button class="<%= (!signed_in? || !target_user.pinged_today_by?(current_user.id)) ? 'btn pingB' : 'pinged' %> ping_<%= target_user.id %>">
     <span class="default" data-url="<%= ping_create_path %>" data-d='{"id":"<%= target_user.id %>"}' data-m="post">
       Ping

@@ -83,7 +83,8 @@ class Post
         venue = Venue.create(
                 :name => self.venue.name,
                 :address => self.venue.address,
-                :phone => self.venue.phone
+                :phone => self.venue.phone,
+                :city_id => self.user.location.id
         )
       end
     end
