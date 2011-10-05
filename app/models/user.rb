@@ -186,6 +186,10 @@ class User
     current_post && current_post.created_at >= Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))
   end
 
+  def gender_pronoun
+    if gender == 'm' then 'he' else 'she' end
+  end
+
   class << self
     def find_by_encoded_id(id)
       where(:_public_id => id.to_i(36)).first
