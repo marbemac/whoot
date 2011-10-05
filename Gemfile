@@ -30,6 +30,7 @@ gem 'formtastic'
 gem 'state_select'
 gem 'formtastic_state_select'
 gem 'activeadmin'
+gem "airbrake" # Exception notification
 
 group :assets do
   gem 'compass', '~> 0.12.alpha'
