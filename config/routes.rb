@@ -24,6 +24,11 @@ Whoot::Application.routes.draw do
   # Pinging
   post   'ping' => 'pings#create', :as => :ping_create
 
+  # Lists
+  post 'lists/:id/users' => 'lists#add_user', :as => :list_add_user
+  delete 'lists/:id/users' => 'lists#remove_user', :as => :list_remove_user
+  resources :lists
+
   # Attending
   post   'attend' => 'attends#create', :as => :invite_attend_create
   delete 'attend' => 'attends#destroy', :as => :invite_attend_destroy

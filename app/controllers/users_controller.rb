@@ -36,14 +36,14 @@ class UsersController < ApplicationController
     matches.each do |match|
       found_ids << match.id
       @user = match
-      response << {username: match.fullname, formattedItem: render_to_string(partial: 'autocomplete')}
+      response << {id: match.id, name: match.fullname, formattedItem: render_to_string(partial: 'autocomplete')}
     end
 
-    if response.length < 10
+    if response.length < 10 && !params[:only_following].present?
       matches = User.where(:_id.nin => found_ids).where(:slug => /#{params[:q].to_url}/i).asc(:username).limit(10-response.length)
       matches.each do |match|
         @user = match
-        response << {name: match.fullname, url: user_path(@user), formattedItem: render_to_string(partial: 'autocomplete')}
+        response << {id: match.id, name: match.fullname, url: user_path(@user), formattedItem: render_to_string(partial: 'autocomplete')}
       end
     end
 

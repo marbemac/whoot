@@ -112,6 +112,14 @@ class NormalPost < Post
               :night_type.in => feed_filters[:display]
       ).order_by(feed_filters[:sort][:target], feed_filters[:sort][:order])
     end
+
+    def list_feed(users)
+      where(
+              :user_id.in => users,
+              :current => true,
+              :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))
+      ).order_by(:created_at, 'desc')
+    end
   end
 
 end

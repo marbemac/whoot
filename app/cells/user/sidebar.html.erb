@@ -32,7 +32,7 @@
 
   <!--{% include 'WhootUserBundle:Invite:new.html.twig' %}-->
 
-  <!--{% render "WhootBundle:LList:list" with {'userId': app.user.id} %}-->
+  <%= render_cell :list, :sidebar_list, :user => @user %>
 
   <%= render "users/undecided", :users => @undecided %>
 

@@ -20,19 +20,6 @@ $(function() {
     }
   })
 
-//  if ($('#splash').length > 0)
-//  {
-//    $('#splash .info.one').oneTime(400, 'show', function() {
-//      $(this).fadeIn(200);
-//    })
-//    $('#splash .info.two').oneTime(600, 'show', function() {
-//      $(this).fadeIn(200);
-//    })
-//    $('#splash .info.three').oneTime(800, 'show', function() {
-//      $(this).fadeIn(200);
-//    })
-//  }
-
   /**
    * USERS
    */
@@ -385,6 +372,10 @@ $(function() {
   /*
    * LISTS
    */
+  $('.list-createB').livequery(function() {
+    $(this).colorbox({transition: "none", opacity: .5, inline: true, href: "#new_list"});
+  })
+
   $("#list-add-user").autocomplete($('#list-add-user').data('url'), {
     minChars: 3,
     width: 143,
@@ -402,15 +393,8 @@ $(function() {
     }
   });
   $("#list-add-user").result(function(event, data, formatted) {
-    console.log(data);
-    $.post($('#list-add-user').data('url-add'), {'userId': data.id}, function(data) {
+    $.post($('#list-add-user').data('url-add'), {'user_id': data.id}, function(data) {
       appUpdate(data);
-      $('#list-add-user').val($('#list-add-user').data('default'));
-
-      if (data.result != 'error') {
-        $('.list-left ul').prepend('<li>' + data.user + '</li>');
-        $('.list-left ul .none').remove();
-      }
     }, 'json');
   });
 
@@ -595,5 +579,9 @@ $(function() {
   $('#post-map .venue').live('click', function() {
     console.log($(this).data('sort'))
     google.maps.event.trigger(markers[$(this).data('sort')],"click")
+  })
+
+  $('.toggle').live('click', function() {
+    $($(this).data('target')).toggle();
   })
 })

@@ -1,0 +1,18 @@
+<div class="my-lists">
+  <h3>My Lists</h3>
+  <div class="list-createB">Create List</div>
+  <div class="hide">
+    <%= render "lists/form", :list => List.new %>
+  </div>
+  <ul>
+    <% @lists.each_with_index do |list,i| %>
+      <li>
+        <%= link_to list.name, list_path(list), :class => 'p' %>
+        <div class="delete ac" data-d='{"id":"<%= list.id %>"}' data-url="<%= list_path(list) %>" data-m="delete">X</div>
+      </li>
+    <% end %>
+    <% if @lists.length == 0 %>
+      <li class="none">Create lists to organize and keep track of your friends!</li>
+    <% end %>
+  </ul>
+</div>

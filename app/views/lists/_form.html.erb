@@ -1,0 +1,14 @@
+<%= form_for list, :html => { :class => 'ajax' } do |f| %>
+
+  <div class="errors"></div>
+
+  <div class="field lClear required">
+    <%= f.label :name, "Give your list a name..." %>
+    <%= f.text_field :name, :autocomplete => 'off' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create List", :class => 'submit', :autocomplete => 'off' %>
+  </div>
+
+<% end %>

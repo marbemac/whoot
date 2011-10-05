@@ -48,6 +48,7 @@ class User
   has_many :normal_posts
   has_many :invite_posts
   has_many :comments
+  has_many :lists
 
   validates :email, :first_name, :last_name, :gender, :presence => true
   validates :gender, :inclusion => { :in => ["m", "f"], :message => "Please enter a valid gender." }
