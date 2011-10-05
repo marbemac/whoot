@@ -14,10 +14,10 @@ class Post
   belongs_to :user
 
   validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing, or partying)" }
+  validate :valid_venue
   attr_accessor :venue_id
   attr_accessible :night_type, :tags_string, :venue, :venue_id
-  before_create :set_location_snippet
-  before_create :set_venue_snippet
+  before_create :set_location_snippet, :set_venue_snippet
 
   def tags_string
     tags_string = tags.map{|tag| tag.name}
@@ -48,6 +48,12 @@ class Post
     end
   end
 
+  def valid_venue
+    if @venue_id == '' && venue.name != '' && venue.address == ''
+      errors.add(:venue_address, "You must specify a venue address!")
+    end
+  end
+
   def night_type_short
     names = {:working => "Working", :low_in => "Staying In", :low_out => "Relaxing Out", :big_out => "Partying"}
     names[night_type.to_sym]
@@ -69,17 +75,29 @@ class Post
   end
 
   def set_venue_snippet
-    if @venue_id
+    if @venue_id != ''
       venue = Venue.find(@venue_id)
-      if venue
-        self.venue = VenueSnippet.new(
-                name: venue.name,
-                address: venue.address,
-                _public_id: venue._public_id,
-                coordinates: venue.coordinates
+    elsif self.venue.name
+      venue = Venue.where(:slug => self.venue.name.to_url).first
+      unless venue
+        venue = Venue.create(
+                :name => self.venue.name,
+                :address => self.venue.address,
+                :phone => self.venue.phone
         )
-        self.venue.id = venue.id
       end
+    end
+
+    if venue
+      self.venue = VenueSnippet.new(
+              name: venue.name,
+              address: venue.address,
+              _public_id: venue._public_id,
+              coordinates: venue.coordinates
+      )
+      self.venue.id = venue.id
+    else
+      self.venue = nil
     end
   end
 

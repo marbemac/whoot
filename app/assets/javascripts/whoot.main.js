@@ -123,54 +123,6 @@ $(function() {
     })
   })
 
-  // Submit a new post
-  var postSubmit = false;
-  $('.post_create .submit').live('click', function() {
-    if (postSubmit)
-      return;
-
-    postSubmit = true;
-    var $self = $(this);
-    var $error_flag = false;
-
-    $('#post-box .status').removeClass('error');
-    $self.text('Working...');
-
-    var $payload = {};
-    $payload[$('#whoot_post_form_type').attr('name')] = $('#whoot_post_form_type').val();
-    $payload[$('#whoot_post_form_currentLocation').attr('name')] = $('#whoot_post_form_currentLocation').val();
-
-    $tagCount = 0;
-    $.each($('input.tag'), function() {
-      if ($.trim($(this).val()).length > 0) {
-        $tagCount++;
-      }
-      $payload[$(this).attr('name')] = $(this).val();
-    })
-
-    if ($.inArray($payload[$('#whoot_post_form_type').attr('name')], ['working', 'low_in', 'low_out', 'big_out']) == -1) {
-      $error_flag = true;
-      $('#post-box .status').addClass('error');
-    }
-
-    if ($tagCount == 0) {
-      $error_flag = true;
-      $('.post_create .errors').text('You must input 1 - 5 tags! Be sure to press enter after inputting them.');
-    }
-
-    if ($error_flag) {
-      $self.text('Submit Post');
-      postSubmit = false;
-      return false;
-    }
-
-    $.post($('.post_create').attr('action'), $payload, function(data) {
-      appUpdate(data);
-      $self.text('Submit Post');
-      postSubmit = false;
-    }, 'json');
-  })
-
   // Cancel a change post
   $('#post-box .cancel').live('click', function() {
     $('#post-box').fadeOut(300);
@@ -215,19 +167,83 @@ $(function() {
     $(this).addClass('on').siblings().removeClass('on');
   })
 
+  // Search for a venue
+  $(".venue_input .name").autocomplete($('.venue_input .name').data('url'), {
+    minChars: 2,
+    width: 479,
+    matchContains: true,
+    autoFill: false,
+    searchKey: 'name',
+    mustMatch: true,
+    formatItem: function(row, i, max) {
+      return row.formattedItem;
+    },
+    formatMatch: function(row, i, max) {
+      return row.name;
+    },
+    formatResult: function(row) {
+      return row.name;
+    }
+  });
+  $(".venue_input .name").result(function(event, data, formatted) {
+    var parent = $(this).parents('.venue_input');
+    if (data.id == 0)
+    {
+      parent.find('.address_fields').show().find('.address_placeholder').val('');
+      parent.find('.venue_id').val('');
+    }
+    else
+    {
+      parent.find('.address_fields').hide().find('.address_placeholder').val('');
+      parent.find('.phone, .coordinates').val('');
+      parent.find('.venue_id').val(data.id);
+    }
+  });
+  $(".venue_input .name").blur(function(e) {
+    var parent = $(this).parents('.venue_input');
+    if (parent.find('.venue_id').val() == '')
+    {
+      parent.find('.address_fields').show();
+    }
+    if ($(this).val() == '') {
+      parent.find('.address_fields').hide();
+    }
+  })
   // Show the post-where places autocomplete
-  $('#invite_post_venue_address').livequery(function() {
+  $('.venue_input').livequery(function() {
     var $self = $(this);
-    var $auto = new google.maps.places.Autocomplete(document.getElementById('invite_post_venue_address'));
+    var $auto = new google.maps.places.Autocomplete(document.getElementById($self.find('.address_fields .address_placeholder').attr('id')));
 
     // Handle a place choice
     google.maps.event.addListener($auto, 'place_changed', function() {
       var place = $auto.getPlace();
-      $('#invite_post_venue_address').val(place.formatted_address);
-      $('#invite_post_venue_coordinates').val(place.geometry.location.lng() + ' ' + place.geometry.location.lat());
+      console.log(place);
+      $self.find('.address_fields .address').val(place.formatted_address);
+      $self.find('.coordinates').val(place.geometry.location.lng() + ' ' + place.geometry.location.lat());
+      if (place.name && ($.inArray('restaurant', place.types) > 0 || $.inArray('food', place.types) > 0 || $.inArray('establishment', place.types) > 0))
+      {
+        $self.find('.name').val(place.name)
+      }
+      if (place.formatted_phone_number)
+      {
+        $self.find('.phone').val(place.formatted_phone_number)
+      }
     })
   })
-
+  $('.venue_input .address_placeholder').live('keypress', function(e) {
+    if(window.event)
+      key = window.event.keyCode;
+    else
+      key = e.which;
+    if(key == 13)
+    {
+      e.preventDefault();
+      return false;
+    }
+  })
+  $('.venue_input .address_placeholder').live('keyup', function(e) {
+    $(this).next().val($(this).val());
+  })
   // Draw on post maps
   $('.invite-map').livequery(function() {
     var $self = $(this);

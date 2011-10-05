@@ -30,4 +30,20 @@ class VenuesController < ApplicationController
     render :json => {:status => 'OK', :content => html, :event => 'venue_attending_loaded'}
   end
 
+  def autocomplete
+    matches = Venue.where(:slug => /#{params[:q].to_url}/i).asc(:slug).limit(7)
+    if params[:city]
+      matches.where(:city_id.in => params[:city])
+    end
+    response = Array.new
+    @venue = Venue.new(:name => "#{params[:q].capitalize} not here. Create venue named #{params[:q].capitalize}", :address => '')
+    response << {id: 0, name: params[:q].capitalize, formattedItem: render_to_string(partial: 'autocomplete')}
+    matches.each do |match|
+      @venue = match
+      response << {id: match.id, name: match.name, formattedItem: render_to_string(partial: 'autocomplete')}
+    end
+
+    render json: response
+  end
+
 end

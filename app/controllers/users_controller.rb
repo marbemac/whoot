@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by_encoded_id(params[:id])
+    @title = "#{@user.fullname}" if @user
     @post = NormalPost.current_post(@user)
     if @post
       @post = User.join([@post])[0]
@@ -18,11 +19,13 @@ class UsersController < ApplicationController
 
   def following_users
     @user = User.find_by_encoded_id(params[:id])
+    @title = "#{@user.fullname} following" if @user
     @following_users = User.where(:_id.in => @user.following_users)
   end
 
   def followers
     @user = User.find_by_encoded_id(params[:id])
+    @title = "#{@user.fullname} followers" if @user
     @followers = User.where(:following_users => @user.id)
   end
 
@@ -33,14 +36,14 @@ class UsersController < ApplicationController
     matches.each do |match|
       found_ids << match.id
       @user = match
-      response << {username: match.fullname, formattedItem: render_to_string(partial: 'auto_helper')}
+      response << {username: match.fullname, formattedItem: render_to_string(partial: 'autocomplete')}
     end
 
     if response.length < 10
       matches = User.where(:_id.nin => found_ids).where(:slug => /#{params[:q].to_url}/i).asc(:username).limit(10-response.length)
       matches.each do |match|
         @user = match
-        response << {name: match.fullname, url: user_path(@user), formattedItem: render_to_string(partial: 'auto_helper')}
+        response << {name: match.fullname, url: user_path(@user), formattedItem: render_to_string(partial: 'autocomplete')}
       end
     end
 

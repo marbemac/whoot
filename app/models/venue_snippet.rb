@@ -13,4 +13,12 @@ class VenueSnippet
     "#{self._public_id.to_i.to_s(36)}-#{self.name.parameterize}"
   end
 
+  def coordinates_string
+    coordinates.join(',')
+  end
+
+  def coordinates_string=(string)
+    self.coordinates = string.split(',')
+  end
+
 end

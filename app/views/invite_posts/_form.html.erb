@@ -10,26 +10,7 @@
 
   <%= f.hidden_field :night_type, :class => 'post_type', :autocomplete => 'off' %>
 
-  <div class="field lClear" style="position: relative;">
-    <%= f.select :venue_id, @venues.map{|venue| [venue.name, venue.id]}, {:include_blank => 'Venue', :default => nil} %>
-    <div id="create-custom-venue">Add My Own Venue</div>
-  </div>
-
-  <div id="custom-venue" class="hide">
-    <%= f.fields_for :venue do |v| %>
-      <div class="field lClear required">
-        <%= v.label :name, "Venue name..." %>
-        <%= v.text_field :name, :autocomplete => 'off' %>
-      </div>
-
-      <div class="field lClear required">
-        <%= v.label :address, "Venue address..." %>
-        <%= v.text_field :address, :autocomplete => 'off', :placeholder => '' %>
-      </div>
-
-      <%= v.hidden_field :coordinates, :autocomplete => 'off' %>
-    <% end %>
-  </div>
+  <%= render "posts/venue_input", :f => f, :venue_label => "Venue name...", :venue_required => 'required' %>
 
   <div class="field lClear required">
     <%= f.label :time, "Start time..." %>

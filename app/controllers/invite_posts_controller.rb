@@ -2,6 +2,7 @@ class InvitePostsController < PostsController
   before_filter :authenticate_user!
 
   def index
+    @title = "Open Invites"
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: {} }
@@ -10,6 +11,7 @@ class InvitePostsController < PostsController
 
   def show
     @post = InvitePost.find_by_encoded_id(params[:id])
+    @title = "#{@post.venue.name}" if @post
     @attendees = User.where(:_id.in => @post.attendees)
     comments = Comment.where(:post_id => @post.id, :status => 'Active')
     @comments_with_user = User.join(comments)
@@ -25,7 +27,6 @@ class InvitePostsController < PostsController
   end
 
   def create
-    params[:invite_post][:venue].merge!(:coordinates => params[:invite_post][:venue][:coordinates].split(' '))
     @post = current_user.invite_posts.new(params[:invite_post])
     @post.save_original_image
     @post.save_images

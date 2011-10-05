@@ -8,6 +8,7 @@ Whoot::Application.routes.draw do
   resources :normal_posts
 
   # Venues
+  get 'venues/ac' => 'venues#autocomplete', :as => :venue_autocomplete
   get 'venues/:id/attending' => 'venues#attending', :as => :venue_attending
   resources :venues
 

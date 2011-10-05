@@ -15,9 +15,7 @@
     <%= f.text_field :tags_string, :autocomplete => 'off' %>
   </div>
 
-  <div class="field lClear">
-    <%= f.select :venue_id, @venues.map{|venue| [venue.name, venue.id]}, {:include_blank => 'Optional Venue', :default => nil} %>
-  </div>
+  <%= render "posts/venue_input", :f => f, :venue_label => "Venue name (optional)", :venue_required => '' %>
 
   <div class="actions">
     <%= f.submit "Submit Post", :class => 'submit', :autocomplete => 'off' %>

@@ -14,6 +14,7 @@ class Venue
   field :hours
   field :phone
   field :city_id
+  field :dedicated, :default => false
   field :coordinates, :type => Array
   index [[:coordinates, Mongo::GEO2D]], :min => -180, :max => 180
 
