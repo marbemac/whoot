@@ -72,7 +72,7 @@ class NormalPost < Post
 
   def set_user_post_snippet
     # Send emails to the users that pinged this user
-    unless user.posted_today? || pings_today_date <= Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))
+    unless user.posted_today? || user.pings_today_date <= Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))
       users = User.where(:_id.in => user.pings_today)
       users.each do |to_user|
         PingMailer.pinged_user_posted(user, to_user).deliver
