@@ -4,7 +4,7 @@
 </div>
 <div class="venues">
   <% venues.each_with_index do |venue,i| %>
-    <%= if venue[:coordinates] %>
+    <% if venue[:coordinates] %>
       <div class="venue"
            data-lat="<%= venue[:coordinates][1] %>"
            data-lon="<%= venue[:coordinates][0] %>"
