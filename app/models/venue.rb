@@ -48,6 +48,10 @@ class Venue
     end
   end
 
+  def coordinates_string
+    if coordinates then coordinates.join(',') else '--' end
+  end
+
   class << self
     def find_by_encoded_id(id)
       where(:_public_id => id.to_i(36)).first

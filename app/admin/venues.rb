@@ -22,6 +22,9 @@ ActiveAdmin.register Venue do
     column :hours
     column :phone
     column :created_at
+    column "Latitude/Longitude" do |venue|
+      venue.coordinates_string
+    end
     column "" do |venue|
       link_to "Edit", edit_git_er_done_venue_path(venue)
     end
