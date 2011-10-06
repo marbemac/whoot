@@ -1,4 +1,5 @@
 class VenuesController < ApplicationController
+  before_filter :authenticate_user!
 
   def attending_venue_map
     @venue = Venue.find(params[:id])
