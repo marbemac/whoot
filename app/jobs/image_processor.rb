@@ -1,7 +1,7 @@
 class ImageProcessor
   include Resque::Plugins::UniqueJob
 
-  @queue = :images_queue
+  @queue = :images
 
   def self.perform(target_model, target_id, image_id, dimensions, style)
     target = Kernel.const_get(target_model).find(target_id)

@@ -1,0 +1,6 @@
+send_scout_data:
+  #cron: "0 0 * * *"
+  every: 1m
+  class: SendScoutData
+  args:
+  description: "This job calls the scout executable to send log data to scout."

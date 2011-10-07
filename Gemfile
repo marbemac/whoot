@@ -21,6 +21,7 @@ gem 'carrierwave' # File uploads
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'heroku'
 gem 'resque', :require => 'resque/server' # Background jobs
+gem 'resque-scheduler', '2.0.0.e' # scheduled resque jobs
 gem 'resque-loner' # Unique resque jobs
 gem 'hirefireapp' # Heroku web/worker auto scaling hirefireapp.com
 gem "geocoder"
@@ -32,9 +33,9 @@ gem 'formtastic_state_select'
 gem 'activeadmin'
 gem "airbrake" # Exception notification
 #TODO: the rpm_contrib is being pulled from git because of a bug. Check this pull request and use gem if merged. https://github.com/newrelic/rpm_contrib/pull/13
-gem 'rpm_contrib', :git => 'git://github.com/kenn/rpm_contrib.git', :branch => 'mongo140compat' # extra instrumentation for the new relic rpm agent
-gem 'newrelic_rpm' # performance / server monitoring
-gem 'blitz' # performance load testing
+#gem 'rpm_contrib', :git => 'git://github.com/kenn/rpm_contrib.git', :branch => 'mongo140compat' # extra instrumentation for the new relic rpm agent
+#gem 'newrelic_rpm' # performance / server monitoring
+gem 'scout' # performance / server monitoring
 
 group :assets do
   gem 'compass', '~> 0.12.alpha'
