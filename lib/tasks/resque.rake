@@ -10,7 +10,7 @@ namespace :resque do
     require 'resque/scheduler'
 
     # you probably already have this somewhere
-    Resque.redis = 'localhost:6379'
+    #Resque.redis = 'localhost:6379'
 
     # The schedule doesn't need to be stored in a YAML, it just needs to
     # be a hash.  YAML is usually the easiest.
