@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   layout :layout
 
   def authenticate_admin_user!
-    unless signed_in? && current_user.role?('admin')
+    unless can? :manage, :all
       redirect_to root_path
     end
   end
