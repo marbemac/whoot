@@ -61,7 +61,7 @@ class Post
   end
 
   def valid_venue
-    if @venue_id == '' && venue.name != '' && venue.address == ''
+    if @venue_id == '' && venue && venue.name != '' && venue.address == ''
       errors.add(:venue_address, "You must specify a venue address!")
     end
   end
@@ -87,9 +87,9 @@ class Post
   end
 
   def set_venue_snippet
-    if @venue_id != ''
+    if !@venue_id.blank?
       venue = Venue.find(@venue_id)
-    elsif self.venue.name
+    elsif !self.venue.name.blank?
       venue = Venue.where(:slug => self.venue.name.to_url).first
       unless venue
         venue = Venue.create(
