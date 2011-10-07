@@ -20,6 +20,8 @@ class Tag
   field :is_stopword, :default => false
   field :user_id
 
+  index :slug, :unique => true
+
   belongs_to :user
 
   validates :name, :uniqueness => { :case_sensitive => false }

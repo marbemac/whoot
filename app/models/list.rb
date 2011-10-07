@@ -9,6 +9,13 @@ class List
   field :list_users_count, :default => 0
   field :user_id
 
+  index(
+    [
+      [ :user_id, Mongo::ASCENDING ],
+      [ :status, Mongo::ASCENDING ]
+    ]
+  )
+
   belongs_to :user
 
   validates :name, :length => { :in => 2..30 }

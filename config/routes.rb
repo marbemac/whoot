@@ -58,7 +58,6 @@ Whoot::Application.routes.draw do
   end
 
   ActiveAdmin.routes(self)
-  devise_for :admin_users, ActiveAdmin::Devise.config
   resources :users, :only => :show
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 

@@ -16,11 +16,21 @@ class Venue
   field :city_id
   field :dedicated, :default => false
   field :coordinates, :type => Array
-  index [[:coordinates, Mongo::GEO2D]], :min => -180, :max => 180
 
-  auto_increment :_public_id
+  auto_increment :public_id
 
   geocoded_by :address
+
+  index [[:coordinates, Mongo::GEO2D]], :min => -180, :max => 180
+  index :public_id
+  index :slug, :unique => true
+  index(
+    [
+      [ :city_id, Mongo::ASCENDING ],
+      [ :slug, Mongo::ASCENDING ],
+      [ :dedicated, Mongo::DESCENDING ]
+    ]
+  )
 
   validates :name, :uniqueness => { :case_sensitive => false }
 
@@ -30,7 +40,7 @@ class Venue
   after_validation :geocode
 
   def to_param
-    "#{self._public_id.to_i.to_s(36)}-#{self.name.parameterize}"
+    "#{self.public_id.to_i.to_s(36)}-#{self.name.parameterize}"
   end
 
   def update_denorms
@@ -54,7 +64,7 @@ class Venue
 
   class << self
     def find_by_encoded_id(id)
-      where(:_public_id => id.to_i(36)).first
+      where(:public_id => id.to_i(36)).first
     end
   end
 

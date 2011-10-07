@@ -8,7 +8,10 @@ class InvitePost < Post
   field :attending_count, :default => 0
   field :attendees, :default => []
 
-  auto_increment :_public_id
+  auto_increment :public_id
+
+  index :attending_count, Mongo::DESCENDING, :sparse => true
+  index :public_id, :sparse => true
 
   embeds_one :user_snippet, as: :user_assignable
 
@@ -22,7 +25,7 @@ class InvitePost < Post
   after_create :create_linked_normal_post
 
   def to_param
-    "#{self._public_id.to_i.to_s(36)}-#{self.venue.name}"
+    "#{self.public_id.to_i.to_s(36)}-#{self.venue.name}"
   end
 
   def set_user_snippet
@@ -30,7 +33,7 @@ class InvitePost < Post
             :username => user.username,
             :first_name => user.first_name,
             :last_name => user.last_name,
-            :_public_id => user._public_id
+            :public_id => user.public_id
     )
   end
 
@@ -120,7 +123,7 @@ class InvitePost < Post
 
   class << self
     def find_by_encoded_id(id)
-      where(:_public_id => id.to_i(36)).first
+      where(:public_id => id.to_i(36)).first
     end
 
     def following_feed(user, feed_filters)

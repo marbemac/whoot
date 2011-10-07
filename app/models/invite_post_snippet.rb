@@ -1,6 +1,6 @@
 class InvitePostSnippet
   include Mongoid::Document
   
-  field :_public_id
+  field :public_id
   
 end

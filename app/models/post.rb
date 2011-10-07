@@ -8,6 +8,18 @@ class Post
   field :night_type
   field :user_id
 
+  index(
+    [
+      [ :created_at, Mongo::DESCENDING ],
+      [ :user_id, Mongo::ASCENDING ],
+      [ :current, Mongo::DESCENDING ],
+      [ :night_type, Mongo::ASCENDING ]
+    ]
+  )
+  index "venue._id"
+  index [["venue.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
+  index [["location.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
+
   embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
   embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
   has_many :comments
@@ -93,7 +105,7 @@ class Post
       self.venue = VenueSnippet.new(
               name: venue.name,
               address: venue.address,
-              _public_id: venue._public_id,
+              public_id: venue.public_id,
               coordinates: venue.coordinates
       )
       self.venue.id = venue.id

@@ -5,13 +5,13 @@ class UserSnippet
   field :username
   field :first_name
   field :last_name
-  field :_public_id
+  field :public_id
 
   embedded_in :user_assignable, polymorphic: true
 
   # Return the users username instead of their ID
   def to_param
-    "#{self._public_id.to_i.to_s(36)}-#{self.fullname.parameterize}"
+    "#{self.public_id.to_i.to_s(36)}-#{self.fullname.parameterize}"
   end
 
   def fullname

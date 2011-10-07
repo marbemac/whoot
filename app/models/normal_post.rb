@@ -4,6 +4,8 @@ class NormalPost < Post
   field :voters, :default => []
   field :invite_post_id
 
+  index :votes, Mongo::DESCENDING, :sparse => true
+
   embeds_many :tags, :as => :taggable, :class_name => 'TagSnippet'
   embeds_one :invite, :as => :has_invite, :class_name => 'InvitePostSnippet'
   belongs_to :invite_post
@@ -17,7 +19,7 @@ class NormalPost < Post
 
   def invite_url
     if invite_post_id
-      "#{invite._public_id.to_i.to_s(36)}-#{venue.name}"
+      "#{invite.public_id.to_i.to_s(36)}-#{venue.name}"
     end
   end
 
@@ -92,7 +94,7 @@ class NormalPost < Post
   def set_invite_post_snippet
     if invite_post_id
       snippet = InvitePostSnippet.new(
-              :_public_id => invite_post._public_id
+              :public_id => invite_post.public_id
       )
       snippet.id = invite_post.id
       self.invite = snippet
@@ -101,23 +103,23 @@ class NormalPost < Post
 
   class << self
     def current_post(user)
-      where(:user_id => user.id, :current => true, :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))).first
+      where(:created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))), :user_id => user.id, :current => true).first
     end
 
     def following_feed(user, feed_filters)
       where(
+              :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))),
               :user_id.in => user.following_users,
               :current => true,
-              :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))),
               :night_type.in => feed_filters[:display]
       ).order_by(feed_filters[:sort][:target], feed_filters[:sort][:order])
     end
 
     def list_feed(users)
       where(
+              :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))),
               :user_id.in => users,
-              :current => true,
-              :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))
+              :current => true
       ).order_by(:created_at, 'desc')
     end
   end

@@ -39,7 +39,13 @@ class User
   field :pings_today, :default => []
   field :pings_count, :type => Integer, :default => 0
 
-  auto_increment :_public_id
+  auto_increment :public_id
+
+  index :public_id
+  index :email
+  index :current_post
+  index "current_post.created_at"
+  index [["location.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
 
   embeds_many :social_connects
   embeds_one :current_post, :class_name => 'PostSnippet'
@@ -62,7 +68,7 @@ class User
 
   # Return the users slug instead of their ID
   def to_param
-    "#{self._public_id.to_i.to_s(36)}-#{self.fullname.parameterize}"
+    "#{self.public_id.to_i.to_s(36)}-#{self.fullname.parameterize}"
   end
 
   def generate_username
@@ -193,7 +199,7 @@ class User
 
   class << self
     def find_by_encoded_id(id)
-      where(:_public_id => id.to_i(36)).first
+      where(:public_id => id.to_i(36)).first
     end
 
     def undecided(user)

@@ -8,6 +8,13 @@ class Comment
   field :user_id
   field :post_id
 
+  index(
+    [
+      [ :post_id, Mongo::DESCENDING ],
+      [ :status, Mongo::ASCENDING ],
+    ]
+  )
+
   belongs_to :user
   belongs_to :post
 

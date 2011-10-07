@@ -6,7 +6,6 @@ class LocationSnippet
   field :school
   field :school_id
   field :coordinates, :type => Array
-  index [[:coordinates, Mongo::GEO2D]], :min => -180, :max => 180
 
   embedded_in :has_location, polymorphic: true
 
