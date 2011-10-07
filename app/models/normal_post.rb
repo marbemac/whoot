@@ -4,7 +4,7 @@ class NormalPost < Post
   field :voters, :default => []
   field :invite_post_id
 
-  index :votes, Mongo::DESCENDING, :sparse => true
+  index [[:votes, Mongo::DESCENDING]], :sparse => true
 
   embeds_many :tags, :as => :taggable, :class_name => 'TagSnippet'
   embeds_one :invite, :as => :has_invite, :class_name => 'InvitePostSnippet'

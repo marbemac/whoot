@@ -10,7 +10,7 @@ class InvitePost < Post
 
   auto_increment :public_id
 
-  index :attending_count, Mongo::DESCENDING, :sparse => true
+  index [[:attending_count, Mongo::DESCENDING]], :sparse => true
   index :public_id, :sparse => true
 
   embeds_one :user_snippet, as: :user_assignable

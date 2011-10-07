@@ -44,7 +44,8 @@ class User
   index :public_id
   index :email
   index :current_post
-  index "current_post.created_at"
+  index [["current_post.created_at", Mongo::DESCENDING]]
+
   index [["location.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
 
   embeds_many :social_connects
