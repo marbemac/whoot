@@ -22,7 +22,7 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'heroku'
 gem 'resque', :require => 'resque/server' # Background jobs
 gem 'resque-loner' # Unique resque jobs
-gem 'hirefireapp' # Heroku web/worker auto scaling hirefireapp.com
+#gem 'hirefireapp' # Heroku web/worker auto scaling hirefireapp.com
 gem "geocoder"
 gem "chronic" # Date/Time management
 gem 'cancan' # authorization
@@ -31,6 +31,7 @@ gem 'state_select'
 gem 'formtastic_state_select'
 gem 'activeadmin'
 gem "airbrake" # Exception notification
+gem 'rpm_contrib' # extra instrumentation for the new relic rpm agent
 gem 'newrelic_rpm' # performance / server monitoring
 
 group :assets do

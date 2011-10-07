@@ -206,7 +206,6 @@ GEM
       rubyzip
       term-ansicolor (~> 1.0.5)
     hike (1.2.1)
-    hirefireapp (0.0.5)
     i18n (0.6.0)
     inherited_resources (1.2.2)
       has_scope (~> 0.5.0)
@@ -324,6 +323,8 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rmagick (2.13.1)
+    rpm_contrib (2.1.4)
+      newrelic_rpm (>= 3.1.1)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -439,7 +440,6 @@ DEPENDENCIES
   guard-rspec
   guard-spork
   heroku
-  hirefireapp
   jquery-rails
   mongoid
   mongoid-rspec
@@ -455,6 +455,7 @@ DEPENDENCIES
   resque
   resque-loner
   rmagick
+  rpm_contrib
   rspec
   rspec-cells
   rspec-rails
