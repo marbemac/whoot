@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/kenn/rpm_contrib.git
+  revision: 552c290245c4d9c5501902e4c99c750c6a1d43de
+  branch: mongo140compat
+  specs:
+    rpm_contrib (2.1.6.beta1)
+      newrelic_rpm (>= 3.1.1)
+      newrelic_rpm (>= 3.1.1)
+
+GIT
   remote: https://github.com/intridea/omniauth
   revision: 84b75d001ba4fbfd7b63219a5f48bc2b178ece1d
   branch: 0-3-stable
@@ -200,7 +209,7 @@ GEM
       haml (~> 3.0)
       railties (~> 3.0)
     has_scope (0.5.1)
-    heroku (2.8.5)
+    heroku (2.8.6)
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
       rubyzip
@@ -455,6 +464,7 @@ DEPENDENCIES
   resque
   resque-loner
   rmagick
+  rpm_contrib!
   rspec
   rspec-cells
   rspec-rails
