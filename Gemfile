@@ -31,7 +31,6 @@ gem 'state_select'
 gem 'formtastic_state_select'
 gem 'activeadmin'
 gem "airbrake" # Exception notification
-gem 'rpm_contrib' # extra instrumentation for the new relic rpm agent
 gem 'newrelic_rpm' # performance / server monitoring
 
 group :assets do
