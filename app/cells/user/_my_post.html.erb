@@ -40,7 +40,7 @@
       <a href="<%= invite_post_path @invite %>">
         <% if @invite.user_id == @user.id %>
           You're inviting people out to <%= @invite.venue.name %>.
-          <%= @invite.attending_count - 1 %> people are attending.
+          <%= pluralize(@invite.attending_count - 1, 'person is', 'people are') %> attending.
         <% else %>
           You're attending <%= @invite.user_snippet.fullname.pluralize %>
           open invite at <%= @invite.venue.name %>.

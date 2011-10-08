@@ -60,7 +60,9 @@ class InvitePostsController < PostsController
   def destroy
     @invitepost = InvitePost.find_by_encoded_id(params[:id])
     @invitepost.cancel
-    @invitepost.save
+    if @invitepost.save
+      PostMailer.invite_cancelled(@invitepost.user).deliver
+    end
 
     flash[:success] = 'Open invite was successfully cancelled.'
 

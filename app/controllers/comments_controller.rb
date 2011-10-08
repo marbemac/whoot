@@ -5,6 +5,11 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        post = @comment.post
+        if post
+          user = post.user
+          Notification.add(user, 'comment', true, true, false, current_user, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
+        end
         html = render_to_string :partial => 'teaser', :locals => {:comment => @comment}
         response = {:status => 'OK', :comment => html, :root_id => @comment.post_id, :event => 'comment_created' }
         format.html { redirect_to :root_path, notice: 'Comment was successfully created.' }

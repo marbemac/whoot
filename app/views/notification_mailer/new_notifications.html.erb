@@ -1,0 +1,17 @@
+<p>
+  <%= @user.first_name %>, there’s been a lot going on since you last logged in. We have a few notifications for you!
+</p>
+
+<% @notifications.each do |notification| %>
+  <% if notification.type == 'follow' %>
+    <p>
+      - You have <%= pluralize(notification.triggered_users_notify_count.to_i, 'new follower') %>!
+      <%= notification.triggered_users_notify_string %> <%= notification.triggered_users_notify_count > 1 ? 'are' : 'is' %> now following you.
+    </p>
+  <% elsif notification.type == 'comment' %>
+    <p>
+      - You have <%= pluralize(notification.triggered_users_notify_count.to_i, 'new comment') %> on your post!
+      <%= notification.triggered_users_notify_string %> commented.
+    </p>
+  <% end %>
+<% end %>

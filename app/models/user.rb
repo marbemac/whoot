@@ -56,6 +56,8 @@ class User
   has_many :invite_posts
   has_many :comments
   has_many :lists
+  has_many :notifications
+  has_many :pings
 
   validates :email, :first_name, :last_name, :gender, :presence => true
   validates :gender, :inclusion => { :in => ["m", "f"], :message => "Please enter a valid gender." }
@@ -63,7 +65,7 @@ class User
   attr_accessible :first_name, :last_name, :gender, :birthday, :email, :password, :password_confirmation, :remember_me, :social_connected
 
   before_create :generate_username, :set_location_snippet
-  after_create :save_profile_image
+  after_create :save_profile_image, :send_welcome_email
 
   scope :inactive, where(:last_sign_in_at.lte => Chronic.parse('1 month ago'))
 
@@ -109,6 +111,10 @@ class User
     self.save
   end
 
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver
+  end
+
   def fullname
     "#{self.first_name} #{self.last_name}"
   end
@@ -144,6 +150,17 @@ class User
 
   def follow_user(user)
     if !following_users.include?(user.id)
+      follow = Follow.following(id, user.id)
+      unless follow
+        follow = Follow.new(
+                :from_user_id => id,
+                :to_user_id => user.id
+        )
+      end
+      Notification.add(user, 'follow', true, false, false, self, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
+      follow.active = true
+      follow.save
+
       self.following_users << user.id
       self.following_users_count += 1
       user.followers_count += 1
@@ -152,6 +169,17 @@ class User
 
   def unfollow_user(user)
     if following_users.include?(user.id)
+      follow = Follow.following(id, user.id)
+      unless follow
+        follow = Follow.new(
+                :from_user_id => id,
+                :to_user_id => user.id
+        )
+      end
+      Notification.remove(user, 'follow', self, nil, nil)
+      follow.active = false
+      follow.save
+
       self.following_users.delete(user.id)
       self.following_users_count -= 1
       user.followers_count -= 1
@@ -196,6 +224,10 @@ class User
 
   def gender_pronoun
     if gender == 'm' then 'he' else 'she' end
+  end
+
+  def gender_possesive
+    if gender == 'm' then 'his' else 'her' end
   end
 
   class << self

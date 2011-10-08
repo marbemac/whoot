@@ -3,7 +3,7 @@ class PingMailer < ActionMailer::Base
 
   def new_ping(user)
     @user = user
-    mail(:to => "#{user.fullname} <#{user.email}>", :subject => "Someone pinged you on The Whoot!")
+    mail(:to => "#{user.fullname} <#{user.email}>", :subject => "Someone pinged you on The Whoot")
   end
 
   def pinged_user_posted(from_user, to_user)
