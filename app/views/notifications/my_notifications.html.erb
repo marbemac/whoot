@@ -1,0 +1,19 @@
+<div id="notificationsC">
+  <h4>Notifications</h4>
+  <ul>
+    <% @notifications.each do |notification| %>
+      <li class="<%= 'unread' unless notification.read %>">
+        <div class="text">
+          <%= notification_html_string(notification) %> <%= notification.action_text notification.triggered_by.length %>
+        </div>
+        <div class="date">
+          <%= time_ago_in_words notification.created_at, false %> ago
+        </div>
+      </li>
+    <% end %>
+
+    <% if @notifications.length == 0 %>
+      <li class="none">You have no notifications...</li>
+    <% end %>
+  </ul>
+</div>

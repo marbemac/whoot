@@ -21,6 +21,9 @@ Whoot::Application.routes.draw do
   delete 'follow' => 'follows#destroy', :as => :user_follow_destroy
   get    'venue/:id/attending/following' => 'venues#attending_venue_map', :as => :attending_venue_map
 
+  # Notifications
+  get    'notifications/my' => 'notifications#my_notifications', :as => :my_notifications
+
   # Pinging
   post   'ping' => 'pings#create', :as => :ping_create
 

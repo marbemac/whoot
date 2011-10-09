@@ -437,24 +437,6 @@ $(function() {
   })
 
   /*
-   * NOTIFICATIONS
-   */
-  $('#unread-notification-count').live('click', function(e) {
-    if ($(this).find('#notificationsC').length > 0) {
-      $(this).find('#notificationsC').toggle();
-    }
-    else {
-      startAction($(this), 'GET', $(this).attr('href'));
-    }
-    e.preventDefault;
-    return false;
-  })
-
-  $('#notificationsC .unread').livequery(function() {
-    $(this).removeClass("unread", 15000);
-  })
-
-  /*
    * SEARCH
    */
   $(".search input, #block-user").autocomplete($('.search input').data('url'), {

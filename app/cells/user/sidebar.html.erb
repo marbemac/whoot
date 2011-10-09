@@ -14,11 +14,11 @@
     <div class="stats">
       <div class="item">
         <div class="label"><%= link_to 'Following', user_following_users_path(@user) %></div>
-        <div class="value" id="my-following"><%= @user.following_users_count %></div>
+        <div class="value" id="my-following"><%= @user.following_users_count.to_i %></div>
       </div>
       <div class="item">
         <div class="label"><%= link_to 'Followers', user_followers_path(@user) %></div>
-        <div class="value"><%= @user.followers_count %></div>
+        <div class="value"><%= @user.followers_count.to_i %></div>
       </div>
     </div>
     <a class="small-link" href="#">Settings</a>
@@ -26,7 +26,7 @@
     <div class="clear"></div>
   </div>
 
-  <!--{% render "MarbemacNotificationBundle:Notification:unreadCount" with {'userId': app.user.id} %}-->
+  <%= render "notification/unread_count", :user => @user %>
 
   <%= render "user/my_post" %>
 

@@ -110,9 +110,15 @@ $(function() {
   /*
    * NOTIFICATIONS
    */
-  amplify.subscribe('notifications_show', function (data) {
-    $('#notificationsC').remove();
-    $('#unread-notification-count').prepend(data.notifications).find('span').removeClass('on').text('0');
+  amplify.subscribe('my_notifications', function (data) {
+    if ($('#notificationsC').length > 0) {
+      $('#notificationsC').remove();
+    }
+    else
+    {
+      $('#notificationsC').remove();
+      $('#unread-notification-count').prepend(data.content).find('span').removeClass('on').text('0');
+    }
   })
 
   /*

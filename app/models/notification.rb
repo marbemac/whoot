@@ -64,6 +64,17 @@ class Notification
     string
   end
 
+  def action_text(count)
+    case type
+      when 'follow'
+        count > 1 ? 'are following you' : 'is following you'
+      when 'comment'
+        count > 1 ? 'commented on your post' : 'commented on your post'
+      else
+        "did something weird..."
+    end
+  end
+
   def set_emailed
     self.emailed = true
     # Set each triggered to emailed
@@ -114,6 +125,7 @@ class Notification
       end
 
       if notification.notify && !trigger_notified
+        notification.read = false
         notification.emailed = false
         notification.pushed = false
       end
@@ -121,6 +133,7 @@ class Notification
       if notification.save && (new_trigger || new_notification || !trigger_notified)
         if new_notification
           target_user.unread_notification_count += 1
+          target_user.save
         end
         if notification.notify
           Resque.enqueue_in(30.minutes, SendUserNotification, target_user.id.to_s)
