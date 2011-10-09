@@ -324,16 +324,16 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
   color: #FFF;
 }
 
-@import "partials/utilities";
-@import "partials/sprite";
-@import "partials/splash";
-@import "partials/user";
-@import "partials/vote";
-@import "partials/post";
-@import "partials/invite";
-@import "partials/tag";
-@import "partials/comment";
-@import "partials/admin";
-@import "partials/llist";
-@import "partials/notification";
-@import "partials/library";
+@import "utilities";
+@import "sprite";
+@import "splash";
+@import "user";
+@import "vote";
+@import "post";
+@import "invite";
+@import "tag";
+@import "comment";
+@import "admin";
+@import "llist";
+@import "notification";
+@import "library";

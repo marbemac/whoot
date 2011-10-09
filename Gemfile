@@ -39,7 +39,7 @@ gem 'newrelic_rpm' # performance / server monitoring
 
 group :assets do
   gem 'compass', '0.12.alpha.0'
-  gem 'sass-rails', "3.1.1"
+  gem 'sass-rails', "3.1.4"
   gem 'coffee-rails', "3.1.1"
   gem 'uglifier'
 end
