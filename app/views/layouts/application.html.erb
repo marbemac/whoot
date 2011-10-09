@@ -13,7 +13,7 @@
     <%= stylesheet_link_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
-  <body class="<%= params[:controller] %> night">
+  <body class="<%= params[:controller] %> <%= calculate_time_of_day %>">
     <div id="wrapper">
       <% if not signed_in? %>
          <%= render 'pages/splash' %>
@@ -60,9 +60,9 @@
     </div>
     <div id="form-submitting">Form submitting...</div>
 
-    <!--{% if calculateTimeOfDay() != 'day' %}-->
-    <div id="stars-bg" class="{{ calculateTimeOfDay() == 'sunset' ? 'fade' : '' }}">&nbsp;</div>
-    <!--{% endif %}-->
+    <% unless calculate_time_of_day == :day %>
+      <div id="stars-bg" class="<%= 'fade' if calculate_time_of_day == :sunset %>">&nbsp;</div>
+    <% end %>
     <div id="city-bg">&nbsp;</div>
 
     <%= javascript_include_tag "application" %>

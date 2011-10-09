@@ -37,4 +37,17 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  def calculate_time_of_day
+    hour = Time.now.hour
+    case hour
+      when 5...18
+        :day
+      when 18...20
+        :sunset
+      else
+        :night
+    end
+
+  end
+
 end
