@@ -40,14 +40,10 @@ module ApplicationHelper
   def calculate_time_of_day
     hour = Time.now.hour
     case hour
-      when 5...18
-        :day
-      when 18...20
-        :sunset
-      else
-        :night
+      when 5...18 then :day
+      when 18...20 then :sunset
+      else :night
     end
-
   end
 
 end

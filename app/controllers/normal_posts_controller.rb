@@ -84,21 +84,14 @@ class NormalPostsController < PostsController
     end
 
     venues.sort_by! {|venue| venue[:count]}
+    venues.reverse!
     images = ["map_pin_fill_14x23.png","map_pin_fill_18x29.png","map_pin_fill_24x38.png","map_pin_fill_30x48.png"]
-    divider= venue_count / 4
     @venues = venues.each_with_index do |venue, i|
-      if venue_count < 5
-        venue[:image] = images[1]
-      else
-        if i < divider
-          venue[:image] = images[0]
-        elsif i < divider*2
-          venue[:image] = images[1]
-        elsif i < divider*3
-          venue[:image] = images[2]
-        else
-          venue[:image] = images[3]
-        end
+      venue[:image] = case venue[:count]
+        when 1..2 then images[0]
+        when 3..6 then images[1]
+        when 7..15 then images[2]
+        else images[3]
       end
     end
 
