@@ -1,4 +1,4 @@
 mongo:            mongod
-redis-server:     redis-server /usr/local/etc/redis.conf
+redis:            redis-server /usr/local/etc/redis.conf
 scheduler:        bundle exec rake resque:scheduler
 worker:           bundle exec rake resque:work QUEUE=images, notifications
