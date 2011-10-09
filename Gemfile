@@ -2,7 +2,7 @@ require 'rbconfig'
 HOST_OS = Config::CONFIG['host_os']
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1.rc3'
+gem 'rails', '3.1.1'
 gem 'thin'
 gem 'execjs'
 gem 'jquery-rails'
@@ -11,7 +11,7 @@ gem 'mongoid' # MongoDB
 gem 'mongoid_slug' # Automatic MongoDB slugs
 gem 'mongoid_auto_inc' # Auto incrementing fields in mongoid
 gem 'devise' # Authentication
-gem "omniauth", :git => 'https://github.com/intridea/omniauth', :branch => '0-3-stable' # Social Authentication
+gem "omniauth", '0.3.0'
 gem 'frontend-helpers'
 gem 'cells' # Components
 gem 'yajl-ruby' # json processing
@@ -38,9 +38,9 @@ gem 'rpm_contrib', :git => 'git://github.com/kenn/rpm_contrib.git', :branch => '
 gem 'newrelic_rpm' # performance / server monitoring
 
 group :assets do
-  gem 'compass', '~> 0.12.alpha'
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
+  gem 'compass', '0.12.alpha.0'
+  gem 'sass-rails', "3.1.1"
+  gem 'coffee-rails', "3.1.1"
   gem 'uglifier'
 end
 
