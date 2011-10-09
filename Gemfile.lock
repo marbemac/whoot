@@ -184,6 +184,9 @@ GEM
       rest-client (~> 1.6.1)
       rubyzip
       term-ansicolor (~> 1.0.5)
+    heroku_san (1.2.3)
+      heroku (>= 2)
+      rails (>= 2)
     hike (1.2.1)
     hirefireapp (0.0.5)
     i18n (0.6.0)
@@ -454,6 +457,7 @@ DEPENDENCIES
   guard-rspec
   guard-spork
   heroku
+  heroku_san
   hirefireapp
   jquery-rails
   mongoid

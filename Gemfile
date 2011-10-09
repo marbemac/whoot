@@ -45,6 +45,7 @@ group :assets do
 end
 
 group :development do
+  gem 'heroku_san'
   gem "pry"
   gem 'rspec-rails'
   gem 'rspec-cells'
