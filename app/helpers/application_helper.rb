@@ -38,7 +38,7 @@ module ApplicationHelper
   end
 
   def calculate_time_of_day
-    hour = Time.now.hour
+    hour = Time.now.localtime.hour
     case hour
       when 5...18 then :day
       when 18...20 then :sunset
