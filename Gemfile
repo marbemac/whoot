@@ -20,7 +20,8 @@ gem 'fog' # Cloud support (amazon s3, etc)
 gem 'carrierwave' # File uploads
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'heroku'
-gem 'resque', :require => 'resque/server' # Background jobs
+#gem 'resque', :require => 'resque/server' # Background jobs
+gem 'resque', :git => 'https://github.com/hone/resque.git', :branch => 'keepalive', :require => 'resque/server'
 gem 'resque-scheduler', '2.0.0.e' # scheduled resque jobs
 gem 'resque-loner' # Unique resque jobs
 gem 'hirefireapp' # Heroku web/worker auto scaling hirefireapp.com
