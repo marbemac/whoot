@@ -48,6 +48,7 @@ tmp/*
 /spec/views
 /specifications
 /public/uploads/*
+/config/heroku.yml
 
 # scm revert files
 **.orig
