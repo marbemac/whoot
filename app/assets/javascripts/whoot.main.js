@@ -123,7 +123,7 @@ $(function() {
   // Toggle the activity of a post
   var postActivityToggle = false;
   $('.teaser.post').live('click', function(ev) {
-    if ($(ev.target).is('a') || $(ev.target).hasClass('tag trendable') || postActivityToggle)
+    if ($(ev.target).is('a') || $(ev.target).hasClass('tag') || postActivityToggle)
       return;
 
     postActivityToggle = true;
@@ -269,103 +269,49 @@ $(function() {
    * tagS
    */
 
-  // Handle post tags
-  // How many tags are we allowed?
-  var $tagMax = 5;
-  // How many characters per tag (avg)
-  var $characterMax = 10;
-  $('.post_create .tags').live('keypress', function(e) {
-    var $code = e.which ? e.which : e.keyCode;
-    $(this).siblings('.errors').text('');
-
-    // Get the number of tags the user is trying to add
-    $tagNum = $.trim($(this).val()).split(' ').length;
-
-    // 13 enter keypress
-    if ($code == 13) {
-      e.preventDefault();
-      // Calculate how many tags the user has already added
-      $currenttags = '';
-      $.each($('input.tag'), function() {
-        if ($.trim($(this).val()).length > 0) {
-          $currenttags += $(this).val() + ' ';
-        }
-      })
-
-      if ($currenttags.replace(' ', '').length + $(this).val().replace(' ', '').length > $tagMax * $characterMax) {
-        $(this).siblings('.error').text('Stop using such big tags. You may use a maximum of ' + $tagMax * $characterMax + ' characters for your 5 tags.');
-      }
-      else if ($.trim($currenttags).split(' ').length + $tagNum > $tagMax) {
-        $(this).siblings('.errors').text('You cannot use more than ' + $tagMax + ' tags total.');
-      }
-      // Add the tag
-      else {
-        var target = $(this).siblings('.tagsC .tag:not(.on):first');
-        target.addClass('on').prepend('<div>' + $(this).val() + '</div>');
-        $(target.data('target')).val($(this).val());
-        $(this).val('');
-      }
-      e.preventDefault();
-    }
-    else {
-      // We only allow phrases of 4 or less tags...
-      if (($tagNum > 4 || ($tagNum == 4 && $code == 32)) && $code != 8 && $code != 46) {
-        e.preventDefault();
-        $(this).siblings('.errors').text('You cannot use more than four words in a single phrase');
-      }
-    }
-  })
-
-  // Used to delete an already added tag (on the submit post form)
-  $('.post_create .tag span').live('click', function() {
-    $(this).siblings().remove();
-    $($(this).parent().removeClass('on').data('target')).val('');
-  })
-
   // Filter posts by tag
-  $('.tag').live('click', function() {
+  $('#post-feed .tag').live('click', function() {
     var $self = $(this);
 
-    if ($('.tag-filters [data-id="' + $(this).data('id') + '"]').length == 0) {
-      $('.tag-filters').show();
+    if ($('#post-feed-my-tags li[data-id="' + $(this).data('id') + '"]').length == 0) {
+      $('#post-feed-my-tags').slideDown(150);
 
-      $('.tag-filters').append($(this).clone().append('<span>x</span>'));
-      $('.teaser').each(function() {
+      $('#post-feed-my-tags .tags').append('<li data-id="'+$self.data('id')+'">'+$self.text()+'<span>x</span></li>');
+      $('.post.teaser').each(function() {
         if ($(this).find('.tag[data-id="' + $self.data('id') + '"]').length == 0) {
-          $(this).parent().hide();
+          $(this).hide();
         }
       })
     }
   })
 
   // Remove a filtered tag
-  $('.tag-filters .tag').live('click', function() {
+  $('#post-feed-my-tags li').live('click', function() {
     var $tag = $(this);
 
     var $filteredFound = false;
-    var $filteredtags = '';
-    $.each($('.tag-filters .tag'), function() {
+    var $filteredTags = '';
+    $.each($('#post-feed-my-tags li'), function() {
       if ($(this).data('id') != $tag.data('id')) {
         $filteredFound = true;
-        $filteredtags += '[data-id="' + $(this).data('id') + '"], ';
+        $filteredTags += '[data-id="' + $(this).data('id') + '"], ';
       }
     })
 
     if (!$filteredFound) {
-      $('.teaser').parent().fadeIn(150);
+      $('.post.teaser').fadeIn(150);
     }
     else {
-      console.log($filteredtags);
-      $('.teaser').each(function() {
-        if ($(this).find($filteredtags).length != 0) {
-          $(this).parent().fadeIn(150);
+      $('.post.teaser').each(function() {
+        if ($(this).find($filteredTags).length != 0) {
+          $(this).fadeIn(150);
         }
       })
     }
     $(this).remove();
 
-    if ($('.tag-filters .tag').length == 0) {
-      $('.tag-filters').hide();
+    if ($('#post-feed-my-tags li').length == 0) {
+      $('#post-feed-my-tags').slideUp(150);
     }
   })
 

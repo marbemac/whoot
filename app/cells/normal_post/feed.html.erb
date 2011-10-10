@@ -7,6 +7,13 @@
   <div class="clear"></div>
 </div>
 
+<div id="post-feed-my-tags" class="hide">
+  <div class="head">posts tagged with</div>
+  <ul class="tags">
+  </ul>
+</div>
+<div class="clear"></div>
+
 <div id="post-feed" class="feed-tabs">
   <%= render "normal_posts/feed", :posts => @posts_with_user, :user => @user%>
 </div>

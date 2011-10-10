@@ -380,16 +380,12 @@ $post-border-color: #DDD;
         cursor: default;
     }
     .teaser.post {
-        &:hover,
-        &.on {
-            background: $post-hover-color;
-            border-color: $post-border-color;
-            cursor: pointer;
-
-            .tag {
-                border-color: #FFF;
-            }
-        }
+      &:hover,
+      &.on {
+        background: $post-hover-color;
+        border-color: $post-border-color;
+        cursor: pointer;
+      }
     }
 }
 
@@ -444,17 +440,12 @@ $post-border-color: #DDD;
     .tag {
         @include border-radius(2px);
         float: left;
-        margin: -2px 3px 0 0;
-        padding: 0 4px;
-        border: 2px dotted transparent;
+        margin: 0 8px 0 0;
+        padding: 0;
+        border-bottom: 2px dotted transparent;
 
-        &.trendable {
-          background: $post-hover-color;
-          &:hover {
-            background: #164F9E;
-            border: 2px solid #164F9E !important;
-            color: #FFF;
-          }
+        &:hover {
+          border-color: #999;
         }
     }
     &.working .what {

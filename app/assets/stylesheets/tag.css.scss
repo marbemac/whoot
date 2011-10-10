@@ -6,76 +6,36 @@ Description:
 Purpose of the stylesheet follows.
 */
 
-.tag {
-    &.t {
-        border-bottom: 1px dotted #BBB;
+#post-feed-my-tags {
+  @include clearfix();
+  border-bottom: 1px solid #CCC;
+  margin: -10px 5px 10px;
+  padding: 6px 10px 6px 7px;
 
-        &:hover {
-            cursor: pointer;
-            border-color: #FF9900;
-            border-width: 2px;
-        }
-    }
-}
+  .head {
+    font-size: 11px;
+    color: #666;
+    cursor: default;
+    float: left;
+    margin: 2px 8px 0 0;
+  }
+  .tags {
+    float: left;
 
-.tag-filters {
-    @include clearfix();
-    margin: 10px 0 15px 15px;
-    display: none;
-    
-    .head {
-        float: left;
-        margin: 3px 11px 0 0;
-        font-size: 12px;
-        color: #999;
-        cursor: default;
-    }
-    .tag {
-        @include border-radius(2px);
-        float: left;
+    li {
+      float: left;
+      margin: 0 5px;
+      span {
+        font-size: 11px;
+        font-weight: bold;
         position: relative;
-        margin-top: -1px;
-        margin-right: 10px;
-        border: none;
-        cursor: default;
-        padding: 2px 30px 2px 7px;
-        background: $post-hover-color;
-    }
-    span {
-        position: absolute;
-        top: 1px;
-        right: 5px;
+        top: -2px;
+        margin: 0 0 0 4px;
+      }
+      &:hover {
         cursor: pointer;
-        &:hover {
-            color: red;
-        }
+        color: red;
+      }
     }
-}
-
-.trendingtags {
-
-    .head {
-        margin: 0 0 2px 18px;
-    }
-    .tags {
-        @include border-radius(5px);
-        @include clearfix();
-        background: #f9f9f9;
-        padding: 5px 10px;
-        margin: 0 10px 10px 10px;
-    }
-    .tag {
-        float: left;
-        margin: 0 10px 0 0;
-        cursor: pointer;
-        color: $link-color;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    .none {
-        font-style: italic;
-        font-size: 12px;
-    }
+  }
 }
