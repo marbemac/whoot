@@ -136,7 +136,7 @@ Purpose of the stylesheet follows.
 
   .info {
       position: relative;
-      min-height: 200px;
+      min-height: 160px;
 
       .item {
           font-size: 14px;
@@ -206,7 +206,7 @@ Purpose of the stylesheet follows.
       @include single-box-shadow(#CCC, 1px, 1px);
       border: 2px solid #EEE;
       width: 150px;
-      height: 170px;
+      height: 180px;
       position: absolute;
       right: 0px;
       border: 1px solid #CCC;
