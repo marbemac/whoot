@@ -31,6 +31,7 @@
   <%= render "user/my_post" %>
 
   <!--{% include 'WhootUserBundle:Invite:new.html.twig' %}-->
+  <%= render "invites/form", :user => @user %>
 
   <%= render_cell :list, :sidebar_list, :user => @user %>
 

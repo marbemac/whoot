@@ -38,6 +38,8 @@ class User
   field :pings_today_date
   field :pings_today, :default => []
   field :pings_count, :type => Integer, :default => 0
+  field :invited_emails, :default => []
+  field :last_invite_time
 
   auto_increment :public_id
 
@@ -65,7 +67,7 @@ class User
   attr_accessible :first_name, :last_name, :gender, :birthday, :email, :password, :password_confirmation, :remember_me, :social_connected
 
   before_create :generate_username, :set_location_snippet
-  after_create :save_profile_image, :send_welcome_email
+  after_create :save_profile_image, :send_welcome_email, :update_invites
 
   scope :inactive, where(:last_sign_in_at.lte => Chronic.parse('1 month ago'))
 
@@ -113,6 +115,16 @@ class User
 
   def send_welcome_email
     UserMailer.welcome_email(self).deliver
+  end
+
+  def update_invites
+    inviters = User.where(:invited_emails => email)
+    inviters.each do |inviter|
+      self.follow_user(inviter)
+      inviter.follow_user(self)
+      inviter.save
+    end
+    self.save
   end
 
   def fullname
@@ -228,6 +240,31 @@ class User
 
   def gender_possesive
     if gender == 'm' then 'his' else 'her' end
+  end
+
+  def invited?(email)
+    invited_emails.include? email
+  end
+
+  def add_invited_email(email)
+    email.strip!
+    unless email =~ /^([^\s]+)((?:[-a-z0-9]\.)[a-z]{2,})$/i
+      errors.add(:invited_emails, "Please enter a valid email.")
+    else
+      if invited?(email)
+        errors.add(:invited_emails, "You have already invited this email.")
+      elsif last_invite_time && Time.now - last_invite_time <= 10
+        errors.add(:invited_emails, "Please wait at least 10 seconds before inviting another friend.")
+      else
+        target = User.where(:email => email).first
+        if target
+          errors.add(:invited_emails, "This email is already registered on The Whoot.")
+        else
+          self.invited_emails << email
+          self.last_invite_time = Time.now
+        end
+      end
+    end
   end
 
   class << self

@@ -1,0 +1,16 @@
+<form action="<%= invites_path %>" method="POST" class="ajax new_user_invite">
+  <h3>Invite Friends</h3>
+
+  <div class="clear"></div>
+  <div class="errors"></div>
+
+  <div class="field lClear">
+    <label for="invite[email]">Friend's email...</label>
+    <input type="text" autocomplete="off" name="invite[email]" class="email" />
+  </div>
+
+  <div class="actions">
+    <input type="submit" class="submit" value="Invite" />
+  </div>
+  <a class="fb_find" href="{{ path('social_friends') }}">Or Find Facebook Friends</a>
+</form>

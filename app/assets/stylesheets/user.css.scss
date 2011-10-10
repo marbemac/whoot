@@ -344,7 +344,7 @@ select.location {
     @include clearfix();
     border-top: 1px solid #D7D7D7;
     border-bottom: 1px solid #F1F1F1;
-    padding: 9px 5px 5px;
+    padding: 5px 5px 5px;
     margin: 0 5px;
 
     h3 {
@@ -352,16 +352,24 @@ select.location {
         cursor: default;
         float: left;
     }
+    .errors {
+      clear: both;
+      margin: 5px 0 0 -2px;
+    }
+    label {
+      top: 8px !important;
+      left: 5px !important;
+    }
     .email {
         margin: 3px 7px 0 -2px;
-        width: 100px;
+        width: 110px;
         display: block;
         float: left;
         clear: left;
     }
     .submit {
         font-size: 12px;
-        margin: 4px 0 0 0;
+        margin: 5px 0 0 0;
     }
     .fb_find {
         display: block;
