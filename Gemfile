@@ -3,7 +3,7 @@ HOST_OS = Config::CONFIG['host_os']
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.1'
-gem 'thin'
+gem 'unicorn'
 gem 'execjs'
 gem 'jquery-rails'
 gem 'bson_ext'
