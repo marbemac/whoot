@@ -107,35 +107,17 @@
     border: none;
 }
 
-#user-header {
-    @include border-top-left-radius(10px);
-    border-bottom: 3px solid #CCC;
-    background: #FAFAFA;
-    position: relative;
-    height: 145px;
-    margin: 0 0 35px 0;
-
-    .profileImage {
-        @include border-radius(2px);
-        @include single-box-shadow(#CCC, 1px, 1px);
-        padding: 2px;
-        border: 1px solid #CCC;
-        background: #FFF;
-        margin: 8px 0 0 8px;
-        position: relative;
-        z-index: 55;
+.users {
+  .show {
+    .none {
+      text-align: center;
+      margin: 30px 0;
+      font-size: 22px;
+      font-style: italic;
     }
+  }
+  #page-header {
     .details {
-      position: absolute;
-      top: 10px; left: 180px;
-
-      h1 {
-          margin: 0;
-      }
-      .location {
-          font-style: italic;
-          margin: 3px 0 0 2px;
-      }
       .followB,
       .unfollowB {
           @include orange-button(2px, 16px);
@@ -149,58 +131,10 @@
           margin: 10px 0 0 10px;
       }
     }
-    .nav {
-        position: absolute;
-        bottom: -3px;
-        left: 165px;
-        z-index: 40;
-        border-bottom: 3px #CCC;
-        li {
-          float: left;
-          padding: 0 5px;
-          background: #FAFAFA;
-        }
-        a {
-            display: block;
-            padding: 4px 10px;
-            border-bottom: 3px solid #CCC;
-        }
-        a:hover {
-            text-decoration: none;
-            border-color: #FC770D;
-        }
-        .on {
-            cursor: default;
-            border-color: #FC770D;
-            color: #FC770D;
-        }
-    }
-    .stats {
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      font-size: 12px;
-      color: #666;
-      border-left: 2px solid #EFEFEF;
-      padding: 0 0 0 5px;
-      height: 135px;
-
-      li {
-          margin: 7px 0;
-      }
-    }
-}
-
-.users {
-  .show {
-    .none {
-      text-align: center;
-      margin: 30px 0;
-      font-size: 22px;
-      font-style: italic;
-    }
   }
 }
+
+
 
 .following_users .teaser,
 .followers .teaser{

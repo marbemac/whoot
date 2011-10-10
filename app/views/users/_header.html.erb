@@ -1,8 +1,8 @@
 <% if signed_in? %>
 
-  <div id="user-header">
+  <div id="page-header">
     <% img = default_image_url(@user, [150, 150], 'square') %>
-    <%= image_tag img[:url], img[:options].merge!(:class => 'profileImage') %>
+    <%= image_tag img[:url], img[:options].merge!(:class => 'main-image') %>
 
     <div class="details">
       <h1><%= @user.fullname %></h1>
@@ -14,7 +14,7 @@
       <% end %>
 
 
-      <div class="location">
+      <div class="sub-head">
         <%= @user.location.full %>
       </div>
 
@@ -45,7 +45,7 @@
       <% end %>
     </ul>
 
-    <ul class="stats">
+    <ul class="right-info">
       <li>Joined <%= time_ago_in_words(@user.created_at, false) %> ago</li>
       <li>Last login <%= time_ago_in_words(@user.last_sign_in_at, false) %> ago</li>
       <li>Following: <%= @user.following_users_count.to_i %></li>

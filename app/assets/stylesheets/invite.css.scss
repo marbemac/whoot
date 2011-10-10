@@ -122,98 +122,100 @@ Purpose of the stylesheet follows.
 }
 
 .invite_show {
-    position: relative;
-    padding: 10px;
+  #page-header {
+    min-height: 165px;
+    h1 {
+      font-size: 22px;
+    }
+    .details {
+      margin-left: 205px;
+      width: 380px;
+    }
+    margin-bottom: 0px;
+  }
 
-    .attendB,
-    .unattendB {
-      margin: 0 0 10px 0;
-    }
-    .left {
-        float: left;
-        position: absolute;
-        width: 200px;
-        left: 10px;
-        top: 60px;
+  .info {
+      position: relative;
+      min-height: 200px;
 
-        h3 {
-            margin: 10px 0;
-        }
-    }
+      .item {
+          font-size: 14px;
+      }
+      .description {
+          font-size: 18px;
+          margin: 10px 0 0 0;
+      }
+  }
 
-    .right {
-        padding: 0 0 0 200px;
-    }
+  .attendB,
+  .unattendB {
+    margin: 0 0 7px 0;
+  }
 
-    .cancelled {
-        color: red;
-        font-weight: bold;
-    }
+  .cancelled {
+      color: red;
+      font-weight: bold;
+  }
+  .left {
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 10px;
+    margin-bottom: 0;
+  }
+  .attending {
+      li {
+          margin: 5px 0 0 0;
+          border: none;
+      }
+      .none {
+          font-style: italic;
+          font-size: 12px;
+      }
+      .profile-image {
+          margin: 0;
 
-    .attending {
-        li {
-            margin: 5px 0 0 0;
-            border: none;
-        }
-        .none {
-            font-style: italic;
-            font-size: 12px;
-        }
-        .profile-image {
-            margin: 0;
+          img {
+              @include border-radius(5px);
+          }
+      }
+      .ulink {
+          margin: 0;
+          padding: 0 0 0 5px;
+          position: relative; bottom: 7px;
+      }
+  }
 
-            img {
-                @include border-radius(5px);
-            }
-        }
-        .ulink {
-            margin: 0;
-            padding: 0 0 0 5px;
-            position: relative; bottom: 7px;
-        }
-    }
+  .inviteImage {
+      @include border-radius(4px);
+  }
 
-    .inviteImage {
-        @include border-radius(4px);
-    }
+  &.working h1 span {
+      color: $post-working-color;
+  }
+  &.low_in h1 span {
+      color: $post-low_in-color;
+  }
+  &.low_out h1 span {
+      color: $post-low_out-color;
+  }
+  &.big_out h1 span {
+      color: $post-big_out-color;
+  }
 
-    &.working h1 span {
-        color: $post-working-color;
-    }
-    &.low_in h1 span {
-        color: $post-low_in-color;
-    }
-    &.low_out h1 span {
-        color: $post-low_out-color;
-    }
-    &.big_out h1 span {
-        color: $post-big_out-color;
-    }
-    .info {
-        padding: 10px 190px 0 0;
-        position: relative;
-        min-height: 200px;
+  .invite-map {
+      @include border-radius(2px);
+      @include single-box-shadow(#CCC, 1px, 1px);
+      border: 2px solid #EEE;
+      width: 150px;
+      height: 170px;
+      position: absolute;
+      right: 0px;
+      border: 1px solid #CCC;
+      padding: 2px;
+      background: #FFF;
+      top: 4px;
+  }
 
-        .item {
-            font-size: 14px;
-        }
-        .description {
-            font-size: 18px;
-            margin: 10px 0 0 0;
-        }
-    }
-    .invite-map {
-        @include border-radius(4px);
-        border: 2px solid #EEE;
-        width: 180px;
-        height: 180px;
-        position: absolute;
-        top: 8px;
-        right: 0px;
-    }
-
-    .comment-feed {
-        border-top: 1px solid #CCC;
-        padding: 10px 0 0 0;
-    }
+  .comment-feed {
+      padding: 10px 0 0 0;
+  }
 }

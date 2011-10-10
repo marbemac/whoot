@@ -1,25 +1,12 @@
 <!--{% if not userBlocked(app.user, invite.createdBy) %}-->
 
-<div class="invite_show <%= @post.night_type %>">
-  <h1>
-    <span><%= @post.night_type_noun %></span>
-    at <%= @post.venue.name %>
-  </h1>
-
+<div class="invite_show <%= @post.night_type %> two-col-equal-height">
+  <%= render "invite_posts/header", :post => @post %>
   <div class="left">
-
-    <% img = default_image_url(@post, [180, 180], 'square') %>
-    <% if img %>
-      <%= image_tag img[:url], img[:options].merge!(class: 'inviteImage') %>
-    <% else %>
-      <%= image_tag "inviteDefault.png", :class => 'inviteImage', :width => '180px' %>
-    <% end %>
-
-    <h3><%= @post.attending_count %> attending</h3>
+    <h4><%= @post.attending_count %> attending</h4>
     <ul class="attending">
       <% @attendees.each do |user| %>
       <!--{% if not userBlocked(app.user, user) %}-->
-
         <li>
           <a class="profile-image" href="<%= user_path user %>" title="<%= user.fullname %>">
             <% img = default_image_url(user, [30, 30], 'square') %>
@@ -27,34 +14,10 @@
           </a>
           <%= user_link user, 15 %>
         </li>
-
       <% end %>
     </ul>
   </div>
   <div class="right">
-    <div class="info">
-      <% if @post.status == 'Active' %>
-        <%= render "attends/button", :target_invite => @post %>
-      <% else %>
-        <div class="cancelled">This invite was cancelled.</div>
-      <% end %>
-      <div class="clear"></div>
-      <div class="item">
-        created by <%= user_link @post.user_snippet, 15 %>
-      </div>
-      <div class="item">
-        <%= "#{@post.time} @ #{@post.venue.name}" %>
-      </div>
-      <div class="item">
-        <%= @post.venue.address %>
-      </div>
-      <div class="description">
-        <%= @post.content %>
-      </div>
-      <% if @post.venue.coordinates %>
-        <div id="map-<%= @post.id %>" class="invite-map" data-name="<%= @post.venue.name %>" data-lat="<%= @post.venue.coordinates[1] %>" data-lon="<%= @post.venue.coordinates[0] %>"></div>
-      <% end %>
-    </div>
     <div class="comment-feed cf-<%= @post.id %>">
       <%= render "comments/form", :post => @post %>
       <% @comments_with_user.each do |comment| %>

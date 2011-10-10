@@ -7,9 +7,6 @@ class UsersController < ApplicationController
     @post = NormalPost.current_post(@user)
     if @post
       @post = User.join([@post])[0]
-      @voters = User.where(:_id.in => @post.voters)
-      comments = Comment.where(:post_id => @post.id, :status => 'Active')
-      @comments_with_user = User.join(comments)
     end
   end
 

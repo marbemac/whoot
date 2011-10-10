@@ -366,7 +366,8 @@ $feed-filters-margin-top: 5px;
     div.big_out { color: $post-big_out-color; }
 }
 
-$post-hover-color: #E7EDFF;
+$post-hover-color: #F8F8F8;
+$post-border-color: #DDD;
 #post-feed {
     position: relative;
     width: 100%;
@@ -383,6 +384,7 @@ $post-hover-color: #E7EDFF;
         &:hover,
         &.on {
             background: $post-hover-color;
+            border-color: $post-border-color;
             cursor: pointer;
 
             .tag {
@@ -404,6 +406,9 @@ $post-hover-color: #E7EDFF;
     padding: 1px 55px 3px 2px;
     height: 54px;
     margin: 0 0 0 0;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    margin-top: -1px;
     .profile-image {
         float: left;
         position: relative;
@@ -473,34 +478,19 @@ $post-hover-color: #E7EDFF;
 }
 
 .post-details {
-    $left-column-width: 185px;
-
-    padding: 10px;
-    border: 5px solid $post-hover-color;
-    border-top: none;
-    margin-bottom: 10px;
-
+    position: relative;
+    border-bottom: 1px solid $post-border-color;
     .left {
-        float: left;
-        min-height: 75px;
-        width: $left-column-width;
 
-        .head {
-            font-weight: bold;
-        }
     }
-    .post-map {
-        @include border-radius(5px);
-        width: $left-column-width - 20px;
-        height: 175px;
-        border: 2px solid #CCC;
-        margin: 0 0 12px 0;
+    .right {
+
     }
     .num-people {
         margin: 5px 0 10px 5px;
     }
     .venue {
-      margin: 0 0 12px 0;
+      margin: 10px 0 12px 0;
       position: relative;
       left: 14px;
     }
@@ -536,16 +526,6 @@ $post-hover-color: #E7EDFF;
     .note {
         margin: 0 0 0 3px;
     }
-    .comment-feed {
-        margin: 0 0 0 185px;
-    }
-}
-
-.ping-countdown {
-    font-size: 12px;
-    color: #999;
-    margin: 0 0 0 10px;
-    cursor: default;
 }
 
 .pinged {

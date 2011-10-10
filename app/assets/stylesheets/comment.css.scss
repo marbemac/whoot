@@ -6,9 +6,13 @@ Description:
 Purpose of the stylesheet follows.
 */
 
+.comment-feed {
+  padding: 10px 0;
+}
+
 #new_comment {
     @include clearfix();
-    margin: 0 0 10px 10px;
+    margin: 0 0 10px 15px;
 
     img {
         @include border-radius(3px);
@@ -44,7 +48,7 @@ Purpose of the stylesheet follows.
 .teaser.comment {
      @include clearfix;
     margin: 5px 0 0 0;
-    padding: 2px 0;
+    padding: 3px 0;
 
     .submitted {
         float: left;
@@ -56,13 +60,13 @@ Purpose of the stylesheet follows.
         .ulink {
             font-size: 12px;
             display: block;
-            margin: 0 0 -3px 0;
+            margin: 2px 0 1px 0;
         }
         .time {
             color: #888;
             font-size: 10px;
             text-align: right;
-            margin: 2px 0 0 0;
+            margin: 0 0 0 0;
         }
         img {
             @include border-radius(3px);
@@ -79,5 +83,6 @@ Purpose of the stylesheet follows.
         font-size: 12px;
         border: 2px solid #E7E5FF;
         max-width: 345px;
+        margin: 1px 0 0 0;
     }
 }
