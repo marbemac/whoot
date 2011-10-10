@@ -27,6 +27,8 @@ class NormalPost < Post
     unless voters.include? user.id
       self.votes += 1
       self.voters << user.id
+      self.user.votes_count += 1
+      self.user.save
     end
   end
 
@@ -34,6 +36,8 @@ class NormalPost < Post
     if voters.include? user.id
       self.votes -= 1
       self.voters.delete user.id
+      self.user.votes_count -= 1
+      self.user.save
     end
   end
 

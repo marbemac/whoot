@@ -12,5 +12,5 @@
   <div class="actions">
     <input type="submit" class="submit" value="Invite" />
   </div>
-  <a class="fb_find" href="{{ path('social_friends') }}">Or Find Facebook Friends</a>
+  <%= link_to 'Or Find Facebook Friends', invites_path, :class => 'fb_find' %>
 </form>

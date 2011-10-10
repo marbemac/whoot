@@ -199,6 +199,9 @@ GEM
     kaminari (0.12.4)
       rails (>= 3.0.0)
     kgio (2.6.0)
+    koala (1.2.1)
+      faraday (~> 0.7.0)
+      multi_json (~> 1.0)
     launchy (2.0.5)
       addressable (~> 2.2.6)
     linecache19 (0.5.12)
@@ -461,6 +464,7 @@ DEPENDENCIES
   heroku_san
   hirefireapp
   jquery-rails
+  koala
   mongoid
   mongoid-rspec
   mongoid_auto_inc

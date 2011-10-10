@@ -395,11 +395,11 @@ select.location {
         background: #deebfa;
         border: 3px solid #a2c0e3;
         float: left;
-        padding: 10px 15px 6px 15px;
+        padding: 10px 20px;
         cursor: pointer;
         font-size: 18px;
         font-weight: bold;
-        margin: 20px 0 15px 243px;
+        margin: 20px 0 15px 230px;
     }
     .registered {
         padding: 5px 1px;
@@ -410,45 +410,27 @@ select.location {
             margin: 5px 0 15px 0;
         }
     }
-    .registered {
-        .friend {
-            width: 250px;
-            padding-right: 50px;
-
-            .follow-B {
-                position: absolute;
-                right: 10px;
-                top: 15px;
-            }
-            &:hover {
-                border-color: transparent;
-            }
-        }
-    }
     .friend {
-        padding: 15px 5px 14px 60px;
+        padding: 19px 5px 20px 60px;
         position: relative;
         float: left;
-        width: 105px;
+        width: 290px;
         white-space: nowrap;
         overflow: hidden;
         margin: 0 5px;
-        border: 1px solid transparent;
 
         img {
             position: absolute;
             top: 0px;
             left: 0px;
         }
-
-        &.on,
-        &:hover {
-            border-color: #999;
-            background: #FFF;
-            cursor: pointer;
-        }
-        &.on {
-            border-color: red;
+        .followB,
+        .unfollowB {
+          @include orange-button(2px, 14px);
+          position: absolute;
+          right: 10px;
+          top: 16px;
+          padding: 5px 8px 2px;
         }
     }
     .none {

@@ -38,6 +38,7 @@ class User
   field :pings_today_date
   field :pings_today, :default => []
   field :pings_count, :type => Integer, :default => 0
+  field :votes_count, :default => 0
   field :invited_emails, :default => []
   field :last_invite_time
 
@@ -47,8 +48,13 @@ class User
   index :email
   index :current_post
   index [["current_post.created_at", Mongo::DESCENDING]]
-
   index [["location.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
+  index(
+    [
+      [ "social_connects.uid", Mongo::ASCENDING ],
+      [ "social_connects.provider", Mongo::ASCENDING ]
+    ]
+  )
 
   embeds_many :social_connects
   embeds_one :current_post, :class_name => 'PostSnippet'
@@ -267,6 +273,15 @@ class User
     end
   end
 
+  def facebook
+    connection = social_connects.detect{|connection| connection.provider == 'facebook'}
+    if connection
+      @fb_user ||= Koala::Facebook::API.new(connection.token)
+    else
+      nil
+    end
+  end
+
   class << self
     def find_by_encoded_id(id)
       where(:public_id => id.to_i(36)).first
@@ -282,21 +297,36 @@ class User
     end
 
     # Omniauth providers
-    def find_for_facebook(access_token, signed_in_resource=nil)
-      data = access_token['extra']['user_hash']
-      if user = User.where(email: data["email"]).first
-        user
-      else # Create a user with a stub password.
+    def find_by_omniauth(omniauth, signed_in_resource=nil)
+      data = omniauth['extra']['user_hash']
+      user = User.where("social_connects.uid" => omniauth['uid'], 'social_connects.provider' => omniauth['provider']).first
+
+      # Try to get via email if user not found and email provided
+      unless user || !data['email']
+        user = User.where(:email => data['email']).first
+      end
+
+      # If we found the user, update their token
+      if user
+        connect = user.social_connects.detect{|connection| connection.uid == omniauth['uid'] && connection.provider == omniauth['provider']}
+        # Is this a new connection?
+        unless connect
+          connect = SocialConnect.new(:uid => omniauth["uid"], :provider => omniauth['provider'])
+          user.social_connects << connect
+        end
+        # Update the token
+        connect.token = omniauth['credentials']['token']
+      else # Create a new user with a stub password.
         gender = data["gender"] == 'male' ? 'm' : 'f'
         user = User.new(
                 first_name: data["first_name"], last_name: data["last_name"],
                 gender: gender, email: data["email"], password: Devise.friendly_token[0,20],
                 birthday: data["birthday"]
         )
-        user.social_connects << SocialConnect.new(:id => data["id"], :name => "facebook")
-        user.save
+        user.social_connects << SocialConnect.new(:uid => omniauth["uid"], :provider => omniauth['provider'], :token => omniauth['credentials']['token'])
       end
 
+      user.save
       user
     end
 

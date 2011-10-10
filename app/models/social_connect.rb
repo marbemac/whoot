@@ -1,9 +1,9 @@
 class SocialConnect
   include Mongoid::Document
 
-  identity :type => Integer
-
-  field :name
+  field :provider
+  field :uid, :type => String
+  field :token, :type => String
 
   embedded_in :user
 

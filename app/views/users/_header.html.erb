@@ -48,9 +48,10 @@
     <ul class="stats">
       <li>Joined <%= time_ago_in_words(@user.created_at, false) %> ago</li>
       <li>Last login <%= time_ago_in_words(@user.last_sign_in_at, false) %> ago</li>
-      <li>Following: <%= @user.following_users_count %></li>
-      <li>Followers: <%= @user.followers_count %></li>
-      <li>Lifetime Pings: <%= @user.pings_count %></li>
+      <li>Following: <%= @user.following_users_count.to_i %></li>
+      <li>Followers: <%= @user.followers_count.to_i %></li>
+      <li>Lifetime Pings: <%= @user.pings_count.to_i %></li>
+      <li>Lifetime +1's: <%= @user.votes_count.to_i %></li>
     </ul>
   </div>
 

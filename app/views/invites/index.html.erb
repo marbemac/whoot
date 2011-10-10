@@ -1,0 +1,20 @@
+<div id="social_friends">
+  <h3 id="invite_friends" data-uid="{{ app.user.id }}">Invite Your Facebook Friends</h3>
+  <div class="registered">
+    <h3>Follow Friends Already Using The Whoot</h3>
+    <% @registeredFriends.each do |friend| %>
+      <div class="friend">
+        <% img = default_image_url(friend, [50, 50], 'square') %>
+        <%= image_tag img[:url], img[:options] %>
+        <%= user_link friend %>
+        <%= render "follows/button", :target_user => friend %>
+      </div>
+    <% end %>
+
+    <% if @registeredFriends.length == 0 %>
+      <div class="none">
+        You don't have any Facebook friends on The Whoot yet. Click the button above to invite them!
+      </div>
+    <% end %>
+  </div>
+</div>

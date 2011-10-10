@@ -22,7 +22,7 @@ Whoot::Application.routes.draw do
   get    'venue/:id/attending/following' => 'venues#attending_venue_map', :as => :attending_venue_map
 
   # Invites
-  resources :invites, :only => [:create]
+  resources :invites, :only => [:create, :index]
 
   # Notifications
   get    'notifications/my' => 'notifications#my_notifications', :as => :my_notifications
