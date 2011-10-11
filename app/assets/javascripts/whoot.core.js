@@ -72,6 +72,7 @@
     }
 
     if (params.redirect) {
+      createGrowl(true, 'Success! Redirecting...', 'Success', 'green');
       window.location = params.redirect;
 
       return false;

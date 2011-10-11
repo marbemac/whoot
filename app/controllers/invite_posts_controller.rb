@@ -33,7 +33,7 @@ class InvitePostsController < PostsController
 
     respond_to do |format|
       if @post.save
-        response = { :redirect => invite_path(@post) }
+        response = { :redirect => invite_post_path(@post) }
         format.html { redirect_to :root_path, notice: 'Post was successfully created.' }
         format.json { render json: response, status: :created, location: @post }
       else

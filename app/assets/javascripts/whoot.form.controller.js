@@ -28,9 +28,6 @@ $(function() {
         $('#form-submitting').fadeIn(300);
       },
       success: function(data) {
-        $('#form-submitting').fadeOut(300);
-        form.find('input, textarea').removeAttr('disabled');
-        form.find('input:not([type="submit"]), textarea').val('');
         if (appUpdate(data)) {
           if (data.result == 'error') {
             form.replaceWith(data.form);
@@ -42,19 +39,18 @@ $(function() {
         }
       },
       error: function(jqXHR, textStatus, errorThrown) {
-        console.log(jqXHR)
-
         $('#form-submitting').fadeOut(300);
-        form.find('input, textarea').removeAttr('disabled');
 
         // If they need to login
         if (jqXHR.status == 401) {
+          form.find('input, textarea').removeAttr('disabled');
           $('#login').click()
           $('#user_email').focus()
           $('.qtip.ui-tooltip').qtip('hide')
         }
         // If there was a form error
         else if (jqXHR.status == 422) {
+          form.find('input, textarea').removeAttr('disabled');
           var $error_field = form.find('.errors');
           $error_field.show();
           errors = $.parseJSON(jqXHR.responseText)
@@ -63,6 +59,9 @@ $(function() {
               $error_field.append('<div class="error">' + error + '</div>');
             })
           })
+        }
+        else if (jqXHR.status == 500) {
+          createGrowl(false, 'Hmm... there was an unknown error. We\'re on it! If it continues to happen please email us.', 'Error', 'red');
         }
 
         if (error) {
