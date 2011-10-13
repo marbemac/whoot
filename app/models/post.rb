@@ -90,7 +90,7 @@ class Post
     if !@venue_id.blank?
       venue = Venue.find(@venue_id)
     elsif !self.venue.name.blank?
-      venue = Venue.where(:slug => self.venue.name.to_url).first
+      venue = Venue.any_of(:slug => self.venue.name.to_url, :address => self.venue.address).first
       unless venue
         venue = Venue.create(
                 :name => self.venue.name,

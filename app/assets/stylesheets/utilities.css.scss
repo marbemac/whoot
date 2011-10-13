@@ -144,9 +144,8 @@
   }
   .ac_over {
     @include single-box-shadow(#888, 1px, 1px, 3px);
-    background: #1551A5;
-    @include background-image(linear-gradient(#3077CE, #2B6FC6 25%, #1551A5));
-    color: #DFDFDF;
+    background: #EC822F;
+    color: #FFF;
     z-index: 100;
     strong {
       color: #FFF;

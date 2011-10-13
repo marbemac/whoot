@@ -50,14 +50,15 @@ namespace :soulmate do
     venues = Venue.where(:status => 'Active')
 
     venue_count = 0
-    grouped_venues = {}
+    grouped_venues = Hash.new
     venues.each do |venue|
       venue_count += 1
-      grouped_venues[venue.city_id.to_s] << venue_nugget(venue)
+      grouped_venues["venue#{venue.city_id.to_s}"] ||= Array.new
+      grouped_venues["venue#{venue.city_id.to_s}"] << venue_nugget(venue)
     end
 
-    grouped_venues.each_with_index do |soulmate_data, index|
-      Soulmate::Loader.new("#{index}").load(soulmate_data)
+    grouped_venues.each do |index,soulmate_data|
+      Soulmate::Loader.new(index).load(soulmate_data)
     end
 
     print "Loading #{venue_count} venues into soulmate.\n"
