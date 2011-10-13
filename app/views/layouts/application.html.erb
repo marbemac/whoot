@@ -56,7 +56,7 @@
       <div id="ajax-error"></div>
 
       <div style="dislay: none">
-        <div id="static-data" data-d='{"myId":"<%= signed_in? ? current_user.id.to_s : 0 %>","userAutoUrl":"/soul-data/search","userAutoBucket":"<%= current_user.id.to_s if signed_in? %>","venueAutoBucket":"<%= current_user.location.id.to_s if signed_in? %>","venueAutoUrl":"/soul-data/search"}'></div>
+        <div id="static-data" data-d='{"myId":"<%= signed_in? ? current_user.id.to_s : 0 %>","userAutoUrl":"/soul-data/search","userAutoBucket":"<%= current_user.id.to_s if signed_in? %>","venueAutoBucket":"venue<%= current_user.location.id.to_s if signed_in? %>","venueAutoUrl":"/soul-data/search"}'></div>
       </div>
     </div>
     <div id="form-submitting">Form submitting...</div>
