@@ -3,9 +3,13 @@ class InvitesController < ApplicationController
 
   def index
     fb = current_user.facebook
-    friends = fb.get_connections("me", "friends")
-    friends_uids = friends.map{|friend| friend['id']}
-    @registeredFriends = User.where("social_connects.uid" => {"$in" => friends_uids}, 'social_connects.provider' => 'facebook')
+    if fb
+      friends = fb.get_connections("me", "friends")
+      friends_uids = friends.map{|friend| friend['id']}
+      @registeredFriends = User.where("social_connects.uid" => {"$in" => friends_uids}, 'social_connects.provider' => 'facebook')
+    else
+      @registeredFriends = Array.new
+    end
   end
 
   def create

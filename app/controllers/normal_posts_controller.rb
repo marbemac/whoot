@@ -33,8 +33,8 @@ class NormalPostsController < PostsController
 
     respond_to do |format|
       if @post.save
-        response = { :redirect => root_path }
-        format.html { redirect_to :root_path, notice: 'Post was successfully created.' }
+        response = { :redirect => request.referer }
+        format.html { redirect_to :back, notice: 'Post was successfully created.' }
         format.json { render json: response, status: :created, location: @post }
       else
         format.html { render action: "new" }

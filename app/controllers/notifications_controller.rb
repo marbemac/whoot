@@ -1,4 +1,5 @@
 class NotificationsController < ApplicationController
+  before_filter :authenticate_user!
 
   def my_notifications
     @notifications = Notification.where(

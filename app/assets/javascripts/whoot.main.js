@@ -155,24 +155,31 @@ $(function() {
   })
 
   // Search for a venue
-  $(".venue_input .name").autocomplete($('.venue_input .name').data('url'), {
+  $(".venue_input .name").autocomplete($('#static-data').data('d').venueAutoUrl, {
     minChars: 2,
-    width: 479,
+    width: 475,
     matchContains: true,
+    matchSubset: false,
     autoFill: false,
-    searchKey: 'name',
-    mustMatch: true,
+    selectFirst: true,
+    mustMatch: false,
+    searchKey: 'term',
+    max: 10,
+    bucket: $('#static-data').data('d').venueAutoBucket,
+    bucketType: 'venue',
+    extraParams: {"types":[$('#static-data').data('d').venueAutoBucket]},
+    dataType: 'json',
+    delay: 150,
     formatItem: function(row, i, max) {
       return row.formattedItem;
     },
     formatMatch: function(row, i, max) {
-      return row.name;
+      return row.term;
     },
     formatResult: function(row) {
-      return row.name;
+      return row.term;
     }
-  });
-  $(".venue_input .name").result(function(event, data, formatted) {
+  }).result(function(event, data, formatted) {
     var parent = $(this).parents('.venue_input');
     if (data.id == 0)
     {
@@ -185,8 +192,7 @@ $(function() {
       parent.find('.phone, .coordinates').val('');
       parent.find('.venue_id').val(data.id);
     }
-  });
-  $(".venue_input .name").blur(function(e) {
+  }).blur(function(e) {
     var parent = $(this).parents('.venue_input');
     if (parent.find('.venue_id').val() == '')
     {
@@ -196,6 +202,7 @@ $(function() {
       parent.find('.address_fields').hide();
     }
   })
+
   // Show the post-where places autocomplete
   $('.venue_input').livequery(function() {
     var $self = $(this);
@@ -322,26 +329,37 @@ $(function() {
     $(this).colorbox({transition: "none", opacity: .5, inline: true, href: "#new_list"});
   })
 
-  $("#list-add-user").autocomplete($('#list-add-user').data('url'), {
-    minChars: 3,
-    width: 143,
+  $("#list-add-user").autocomplete($('#static-data').data('d').userAutoUrl, {
+    minChars: 2,
+    width: 300,
     matchContains: true,
+    matchSubset: false,
     autoFill: false,
-    searchKey: 'name',
+    selectFirst: true,
+    mustMatch: true,
+    searchKey: 'term',
+    max: 10,
+    bucket: $('#static-data').data('d').userAutoBucket,
+    bucketType: 'user',
+    extraParams: {"types":[$('#static-data').data('d').userAutoBucket]},
+    dataType: 'json',
+    delay: 150,
     formatItem: function(row, i, max) {
-      return row.name;
+      return row.formattedItem;
     },
     formatMatch: function(row, i, max) {
-      return row.name;
+      return row.term;
     },
     formatResult: function(row) {
-      return row.name;
+      return row.term;
     }
-  });
-  $("#list-add-user").result(function(event, data, formatted) {
-    $.post($('#list-add-user').data('url-add'), {'user_id': data.id}, function(data) {
-      appUpdate(data);
-    }, 'json');
+  }).result(function(event, data, formatted) {
+    if (data)
+    {
+      $.post($('#list-add-user').data('url-add'), {'user_id': data.id}, function(data) {
+        appUpdate(data);
+      }, 'json');
+    }
   });
 
   /*
@@ -385,24 +403,35 @@ $(function() {
   /*
    * SEARCH
    */
-  $(".search input, #block-user").autocomplete($('.search input').data('url'), {
-    minChars: 3,
+  $(".search input, #block-user").autocomplete($('#static-data').data('d').userAutoUrl, {
+    minChars: 2,
     width: 245,
     matchContains: true,
+    matchSubset: false,
     autoFill: false,
-    searchKey: 'name',
+    selectFirst: true,
+    mustMatch: true,
+    searchKey: 'term',
+    max: 10,
+    bucket: $('#static-data').data('d').userAutoBucket,
+    bucketType: 'user',
+    extraParams: {"types":[$('#static-data').data('d').userAutoBucket, 'user']},
+    dataType: 'json',
+    delay: 150,
     formatItem: function(row, i, max) {
       return row.formattedItem;
     },
     formatMatch: function(row, i, max) {
-      return row.name;
+      return row.term;
     },
     formatResult: function(row) {
-      return row.name;
+      return row.term;
     }
-  });
-  $(".search input").result(function(event, data, formatted) {
-    window.location = data.url;
+  }).result(function(event, data, formatted) {
+    if (data)
+    {
+      window.location = data.data.url
+    }
   });
 
   /*

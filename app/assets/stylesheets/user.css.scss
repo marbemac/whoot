@@ -185,26 +185,6 @@
     }
 }
 
-.auto-user {
-    padding: 5px 5px 5px 45px;
-    position: relative;
-
-    .profileImage {
-        @include border-radius(3px);
-        border:  2px solid #FFF;
-        position: absolute;
-        top: 50%;
-        left: 0px;
-        margin-top: -17px;
-    }
-    .name {
-            
-    }
-    .location {
-        font-style: italic;
-    }
-}
-
 .ulink {
     position: relative;
     z-index: 30;

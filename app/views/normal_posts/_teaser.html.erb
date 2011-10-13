@@ -1,7 +1,6 @@
 <div class="teaser post <%= post.night_type %>" id="post-<%= post.id %>" data-details="<%= normal_post_path post %>">
   <a class="profile-image" href="<%= user_path post.created_by %>" title="<%= post.created_by.fullname %>">
-    <% img = default_image_url(post.created_by, [50, 50], 'square') %>
-    <%= image_tag img[:url], img[:options] %>
+    <%= image_tag user_default_picture_path(post.created_by, :d => [50, 50], :s => 'square'), :style => "max-width: 50px;" %>
   </a>
 
   <%= user_link(post.created_by, 15) %>

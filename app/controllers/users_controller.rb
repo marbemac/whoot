@@ -1,13 +1,29 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+  include ImageHelper
 
   def show
     @user = User.find_by_encoded_id(params[:id])
-    @title = "#{@user.fullname}" if @user
-    @post = NormalPost.current_post(@user)
-    if @post
-      @post = User.join([@post])[0]
+    unless @user
+      redirect_to root_path
+    else
+      @title = "#{@user.fullname}" if @user
+      @post = NormalPost.current_post(@user)
+      if @post
+        @post = User.join([@post])[0]
+      end
     end
+  end
+
+  def default_picture
+    user = User.find_by_encoded_id(params[:id])
+
+    dimensions = params[:d]
+    style = params[:s]
+
+    url = default_image_url(user, dimensions, style)
+
+    render :text => open(url, "rb").read, :stream => true
   end
 
   def hover
@@ -27,25 +43,5 @@ class UsersController < ApplicationController
     @followers = User.where(:following_users => @user.id)
   end
 
-  def autocomplete
-    matches = User.where(:_id.in => current_user.following_users).where(:slug => /#{params[:q].to_url}/i).asc(:username).limit(10)
-    response = Array.new
-    found_ids = Array.new
-    matches.each do |match|
-      found_ids << match.id
-      @user = match
-      response << {id: match.id, name: match.fullname, formattedItem: render_to_string(partial: 'autocomplete')}
-    end
-
-    if response.length < 10 && !params[:only_following].present?
-      matches = User.where(:_id.nin => found_ids).where(:slug => /#{params[:q].to_url}/i).asc(:username).limit(10-response.length)
-      matches.each do |match|
-        @user = match
-        response << {id: match.id, name: match.fullname, url: user_path(@user), formattedItem: render_to_string(partial: 'autocomplete')}
-      end
-    end
-
-    render json: response
-  end
 
 end

@@ -8,8 +8,7 @@
       <div class="clear"></div>
     </h2>
     <div class="profile_image">
-      <% img = default_image_url(@user, [65, 65]) %>
-      <%= image_tag img[:url], img[:options] %>
+      <%= image_tag user_default_picture_path(@user, :d => [65, 65]), :style => "max-width: 65px;" %>
     </div>
     <div class="stats">
       <div class="item">

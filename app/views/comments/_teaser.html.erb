@@ -2,8 +2,7 @@
 
 <div class="teaser comment">
     <div class="submitted">
-        <% img = default_image_url(comment.user, [30, 30], 'square') %>
-        <%= image_tag img[:url], img[:options] %>
+        <%= image_tag user_default_picture_path(current_user, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;" %>
         <%= user_link(comment.user, 15) %>
         <div class="time"><%= time_ago_in_words comment.created_at, false %> ago</div>
     </div>

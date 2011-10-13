@@ -1,6 +1,5 @@
 <div class="teaser user">
-  <% img = default_image_url(user, [50, 50], 'square') %>
-  <%= image_tag img[:url], img[:options].merge!(:class => 'profileImage') %>
+  <%= image_tag user_default_picture_path(user, :d => [50, 50], :s => 'square'), :style => "max-width: 50px;", :class => 'profileImage' %>
   <%= user_link user %>
   <%= render 'follows/button', :target_user => user %>
   <%= render "pings/button", target_user: user %>

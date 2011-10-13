@@ -2,9 +2,7 @@
 
   <div class="errors"></div>
 
-  <% img = default_image_url(current_user, [30, 30], 'square') %>
-  <%= image_tag img[:url], img[:options] %>
-
+  <%= image_tag user_default_picture_path(current_user, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;" %>
 
   <%= f.hidden_field :post_id, :autocomplete => 'off' %>
 

@@ -38,6 +38,8 @@ class Venue
 
   after_save :update_denorms
   after_validation :geocode
+  after_create :add_to_soulmate
+  before_destroy :remove_from_soulmate
 
   def to_param
     "#{self.public_id.to_i.to_s(36)}-#{self.name.parameterize}"
@@ -60,6 +62,14 @@ class Venue
 
   def coordinates_string
     if coordinates then coordinates.join(',') else '--' end
+  end
+
+  def add_to_soulmate
+    Resque.enqueue(SmCreateVenue, id.to_s)
+  end
+
+  def remove_from_soulmate
+    Resque.enqueue(SmDestroyVenue, id.to_s, city_id)
   end
 
   class << self

@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_filter :authenticate_user!
 
   def update_feed_display
     if session[:feed_filters][:display].include? params[:value]

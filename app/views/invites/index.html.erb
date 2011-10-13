@@ -4,8 +4,7 @@
     <h3>Follow Friends Already Using The Whoot</h3>
     <% @registeredFriends.each do |friend| %>
       <div class="friend">
-        <% img = default_image_url(friend, [50, 50], 'square') %>
-        <%= image_tag img[:url], img[:options] %>
+        <%= image_tag user_default_picture_path(friend, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;" %>
         <%= user_link friend %>
         <%= render "follows/button", :target_user => friend %>
       </div>

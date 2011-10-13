@@ -1,8 +1,8 @@
 <% if signed_in? %>
 
   <div id="page-header">
-    <% img = default_image_url(@user, [150, 150], 'square') %>
-    <%= image_tag img[:url], img[:options].merge!(:class => 'main-image') %>
+
+    <%= image_tag user_default_picture_path(@user, :d => [150, 150], :s => 'square'), :style => "max-width: 150px;", :class => 'main-image' %>
 
     <div class="details">
       <h1><%= @user.fullname %></h1>

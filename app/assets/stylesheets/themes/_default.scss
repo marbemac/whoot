@@ -49,8 +49,8 @@ $post-big_out-color: #CC3300;
 
 @mixin orange-button($radius, $font-size) {
     @include border-radius($radius);
+    background-color: #FC770D;
     @include background-image(linear-gradient(#FF9A10, #FD8F13 25%, #FC770D 75%, #FF6600));
-    background: #FC770D;
     color: #FFF;
     font-weight: bold;
     font-size: $font-size;

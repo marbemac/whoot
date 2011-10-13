@@ -35,8 +35,7 @@
       <% attendees = User.where(:_id.in => post.attendees) %>
       <% attendees.each do |attendee| %>
       <a href="<%= user_path attendee %>" title="<%= attendee.fullname %>">
-        <% img = default_image_url(attendee, [30, 30], 'square') %>
-        <%= image_tag img[:url], img[:options] %>
+        <%= image_tag user_default_picture_path(attendee, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;" %>
       </a>
       <% end %>
     </div>

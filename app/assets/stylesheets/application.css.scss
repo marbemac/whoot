@@ -186,8 +186,8 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
         input {
             @include opacity(.7);
             @include border-radius(5px);
+            background-color: #164F9E;
             @include background-image(linear-gradient(#1E5293, #1C5197 25%, #164F9E 75%, #134FA1));
-            background: #164F9E;
             border: 2px solid #FFF;
             font-size: 18px;
             padding: 4px 8px;
@@ -231,8 +231,8 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
     color: $sidebar_color;
 }
 #footer {
+    background-color: #1B59AE;
     @include background-image(linear-gradient(#3077CE, #2B6FC6 25%, #1B59AE 75%, #1551A5));
-    background: #1B59AE;
     height: $footer_height;  width: $page_width - $sidebar_width;
     color: $footer_color;
     position: fixed;
@@ -431,4 +431,5 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
 @import "admin";
 @import "llist";
 @import "notification";
+@import "venue";
 @import "library";

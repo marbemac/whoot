@@ -7,6 +7,7 @@ class User
   include Mongoid::Slug
   include Whoot::Images
 
+
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
@@ -27,6 +28,7 @@ class User
   slug :username
 
   field :gender
+  field :status, :default => 'Active'
   field :birthday, :type => Date
   field :time_zone, :type => String, :default => "Eastern Time (US & Canada)"
 
@@ -73,13 +75,14 @@ class User
   attr_accessible :first_name, :last_name, :gender, :birthday, :email, :password, :password_confirmation, :remember_me, :social_connected
 
   before_create :generate_username, :set_location_snippet
-  after_create :save_profile_image, :send_welcome_email, :update_invites
+  after_create :add_to_soulmate, :save_profile_image, :send_welcome_email, :update_invites
+  before_destroy :remove_from_soulmate
 
   scope :inactive, where(:last_sign_in_at.lte => Chronic.parse('1 month ago'))
 
   # Return the users slug instead of their ID
   def to_param
-    "#{self.public_id.to_i.to_s(36)}-#{self.fullname.parameterize}"
+    "#{encoded_id}-#{self.fullname.parameterize}"
   end
 
   def generate_username
@@ -182,6 +185,7 @@ class User
       self.following_users << user.id
       self.following_users_count += 1
       user.followers_count += 1
+      Resque.enqueue(SmUserFollowUser, id.to_s, user.id.to_s)
     end
   end
 
@@ -201,6 +205,7 @@ class User
       self.following_users.delete(user.id)
       self.following_users_count -= 1
       user.followers_count -= 1
+      Resque.enqueue(SmUserUnfollowUser, id.to_s, user.id.to_s)
     end
   end
 
@@ -222,7 +227,7 @@ class User
 
   def connected_with? provider
     social_connects.each do |social|
-      return social if social.name == provider
+      return social if social.provider == provider
     end
     nil
   end
@@ -280,6 +285,18 @@ class User
     else
       nil
     end
+  end
+
+  def add_to_soulmate
+    Resque.enqueue(SmCreateUser, id.to_s)
+  end
+
+  def remove_from_soulmate
+    Resque.enqueue(SmDestroyUser, id.to_s)
+  end
+
+  def encoded_id
+    public_id.to_i.to_s(36)
   end
 
   class << self

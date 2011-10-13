@@ -14,7 +14,7 @@ gem 'devise' # Authentication
 gem 'koala' # facebook graph api support
 gem "omniauth", '0.3.0'
 gem 'frontend-helpers'
-gem 'cells' # Components
+gem 'cells', '3.6.7' # Components
 gem 'yajl-ruby' # json processing
 gem 'redcarpet' # Markdown
 gem 'fog' # Cloud support (amazon s3, etc)
@@ -37,6 +37,8 @@ gem "airbrake" # Exception notification
 #TODO: the rpm_contrib is being pulled from git because of a bug. Check this pull request and use gem if merged. https://github.com/newrelic/rpm_contrib/pull/13
 gem 'rpm_contrib', :git => 'git://github.com/kenn/rpm_contrib.git', :branch => 'mongo140compat' # extra instrumentation for the new relic rpm agent
 gem 'newrelic_rpm' # performance / server monitoring
+gem 'soulmate' # Redis based autocomplete storage
+gem 'dalli' # memcache
 
 group :assets do
   gem 'compass', '0.12.alpha.0'
