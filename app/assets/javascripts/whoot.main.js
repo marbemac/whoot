@@ -169,7 +169,7 @@ $(function() {
     bucketType: 'venue',
     extraParams: {"types":[$('#static-data').data('d').venueAutoBucket]},
     dataType: 'json',
-    delay: 150,
+    delay: 100,
     formatItem: function(row, i, max) {
       return row.formattedItem;
     },
@@ -183,12 +183,12 @@ $(function() {
     var parent = $(this).parents('.venue_input');
     if (data.id == 0)
     {
-      parent.find('.address_fields').show().find('.address_placeholder').val('');
+//      parent.find('.address_fields').show().find('.address_placeholder').val('');
       parent.find('.venue_id').val('');
     }
     else
     {
-      parent.find('.address_fields').hide().find('.address_placeholder').val('');
+//      parent.find('.address_fields').hide().find('.address_placeholder').val('');
       parent.find('.phone, .coordinates').val('');
       parent.find('.venue_id').val(data.id);
     }
@@ -196,10 +196,10 @@ $(function() {
     var parent = $(this).parents('.venue_input');
     if (parent.find('.venue_id').val() == '')
     {
-      parent.find('.address_fields').show();
+//      parent.find('.address_fields').show();
     }
     if ($(this).val() == '') {
-      parent.find('.address_fields').hide();
+//      parent.find('.address_fields').hide();
     }
   })
 
@@ -343,7 +343,7 @@ $(function() {
     bucketType: 'user',
     extraParams: {"types":[$('#static-data').data('d').userAutoBucket]},
     dataType: 'json',
-    delay: 150,
+    delay: 100,
     formatItem: function(row, i, max) {
       return row.formattedItem;
     },
@@ -417,7 +417,7 @@ $(function() {
     bucketType: 'user',
     extraParams: {"types":[$('#static-data').data('d').userAutoBucket, 'user']},
     dataType: 'json',
-    delay: 150,
+    delay: 100,
     formatItem: function(row, i, max) {
       return row.formattedItem;
     },

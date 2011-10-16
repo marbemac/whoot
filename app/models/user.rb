@@ -339,7 +339,7 @@ class User
                 first_name: data["first_name"], last_name: data["last_name"],
                 gender: gender, email: data["email"], password: Devise.friendly_token[0,20]
         )
-        user.birthday = data["birthday"] if data["birthday"]
+        user.birthday = Chronic.parse(data["birthday"]) if data["birthday"]
         user.social_connects << SocialConnect.new(:uid => omniauth["uid"], :provider => omniauth['provider'], :token => omniauth['credentials']['token'])
       end
 

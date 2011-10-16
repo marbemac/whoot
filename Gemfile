@@ -14,7 +14,7 @@ gem 'devise' # Authentication
 gem 'koala' # facebook graph api support
 gem "omniauth", '0.3.0'
 gem 'frontend-helpers'
-gem 'cells', '3.6.7' # Components
+gem 'cells' # Components
 gem 'yajl-ruby' # json processing
 gem 'redcarpet' # Markdown
 gem 'fog' # Cloud support (amazon s3, etc)

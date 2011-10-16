@@ -28,6 +28,13 @@ $(function() {
         $('#form-submitting').fadeIn(300);
       },
       success: function(data) {
+        if (!data.redirect && !data.reload)
+        {
+          $('#form-submitting').fadeOut(300);
+        }
+
+        form.find('input, textarea').removeAttr('disabled');
+
         if (appUpdate(data)) {
           if (data.result == 'error') {
             form.replaceWith(data.form);

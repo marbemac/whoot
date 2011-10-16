@@ -30,12 +30,12 @@
                 <%= yield %>
                 <% if Rails.env.development? %>
                   <%= debug(params) %>
-                  <div id="footnotes_holder"></div>
+                  <div id="debug-upload-runtime"></div>
                 <% end %>
               </div>
             </div>
           </div>
-          <footer id="footer">
+          <div id="footer">
             <%= link_to 'Home', root_path %> &#149;
             <a href="{{ path('about') }}">About</a> &#149;
             Contact Us &#149;
@@ -46,7 +46,7 @@
             <% end %>
 
             <div class="fb-like" id="footer-fb-like" data-href="http://www.facebook.com/pages/Whoot/192579647454740" data-send="false" data-layout="button_count" data-width="125" data-show-faces="true" data-font="verdana"></div>
-          </footer>
+          </div>
         </div>
       <% end %>
 

@@ -36,7 +36,7 @@ Purpose of the stylesheet follows.
     float: right;
     color: $link-color;
     font-size: 12px;
-    margin: 5px 2px 0 0;
+    margin: 2px 2px 0 0;
     font-weight: bold;
 
     &:hover {
@@ -126,7 +126,7 @@ Purpose of the stylesheet follows.
         .icon {
           display: none;
           position: absolute;
-          top: 11px;
+          top: 7px;
           right: 30px;
         }
     }
@@ -293,7 +293,7 @@ $feed-filters-margin-top: 5px;
             .icon {
                 position: absolute;
                 left: 5px;
-                top: 7px;
+                top: 9px;
                 display: none;
             }
             li.on {
@@ -325,7 +325,7 @@ $feed-filters-margin-top: 5px;
         width: 173px;
 
         .arrow-small {
-            position: absolute; top: 9px; right: 18px;
+            position: absolute; top: 12px; right: 18px;
             z-index: 10;
         }
         ul {

@@ -4,8 +4,8 @@
       <%= v.label :name, venue_label %>
       <%= v.text_field :name, :autocomplete => 'off', :class => 'name', 'data-url' => venue_autocomplete_path(:city => @user.location.id) %>
     </div>
-    <div class="field lClear required address_fields hide">
-      <%= v.label :address, "Venue address..." %>
+    <div class="field lClear address_fields <%= venue_required %>">
+      <%= v.label :address, "Venue address"+(venue_required.blank? ? ' (optional)' : '') %>
       <input type="text" id="<%= f.object.class.name.underscore %>_address_placeholder" class="address_placeholder" placeholder="" autocomplete="off" />
       <%= v.hidden_field :address, :autocomplete => 'off', :class => 'address' %>
     </div>

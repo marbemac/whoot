@@ -14,6 +14,10 @@
       }
     });
 
+    invite_image_uploader.bind('Init', function(up, params) {
+      console.log('Current runtime: '+params.runtime)
+    });
+
     invite_image_uploader.bind('FilesAdded', function(up, files) {
     });
 
@@ -33,6 +37,7 @@
       $('#invite_post_asset_image_image_cache').val(params.image_path);
     })
 
+    console.log('invite image uplaod init');
     invite_image_uploader.init();
   });
 </script>

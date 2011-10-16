@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
   include ImageHelper
 
+  caches_action :default_picture, :cache_path => Proc.new { |c| c.params }
+
   def show
     @user = User.find_by_encoded_id(params[:id])
     unless @user
@@ -21,9 +23,9 @@ class UsersController < ApplicationController
     dimensions = params[:d]
     style = params[:s]
 
-    url = default_image_url(user, dimensions, style)
+    url = default_image_url(user, dimensions, style, true)
 
-    render :text => open(url, "rb").read, :stream => true
+    render :text => open(url, "rb").read
   end
 
   def hover
