@@ -102,7 +102,7 @@ module Whoot #:nodoc:
     # @return AssetImage
     def default_image
       self.images.each do |image|
-        image if image.isDefault?
+        return image if image.isDefault?
       end
     end
 
@@ -134,6 +134,16 @@ module Whoot #:nodoc:
         version.image.store!(File.open(tmp_location))
         image.versions << version
         version.save
+      end
+    end
+
+    def set_default_image(image_id)
+      images.each do |image|
+        if image.id == image_id
+          image.isDefault = true
+        else
+          image.isDefault = false
+        end
       end
     end
 

@@ -20,7 +20,7 @@
         <div class="value"><%= @user.followers_count.to_i %></div>
       </div>
     </div>
-    <a class="small-link" href="#">Settings</a>
+    <a class="small-link" href="<%= user_settings_path(@user) %>">Settings</a>
     <%= link_to('Logout', destroy_user_session_path, :method=>'delete', :class => 'small-link', :id => 'logout') %>
     <div class="clear"></div>
   </div>

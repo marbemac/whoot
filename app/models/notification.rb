@@ -107,11 +107,11 @@ class Notification
         new_notification = true
         notification = Notification.new(
                 :user_id => target_user.id,
-                :notify => notify,
                 :type => type,
                 :message => message
         )
       end
+      notification.notify = notify
       notification.active = true
 
       if always_notify

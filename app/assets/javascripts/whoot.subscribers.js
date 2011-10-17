@@ -46,9 +46,13 @@ $(function() {
     $('.new_user_invite .email').val($('.new_user_invite .email').data('default')).effect('highlight', {}, 2000).click();
   });
 
-
   amplify.subscribe("user_unblocked", function (data) {
     $currentTarget.parent().remove();
+  });
+
+  amplify.subscribe("settings_updated", function (data) {
+    var statuses = {'off':'on','on':'off'}
+    $currentTarget.prev().find('span').text(statuses[$currentTarget.prev().find('span').text()]);
   });
 
   /*

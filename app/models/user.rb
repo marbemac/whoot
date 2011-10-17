@@ -61,6 +61,7 @@ class User
   embeds_many :social_connects
   embeds_one :current_post, :class_name => 'PostSnippet'
   embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
+  embeds_one :settings, :class_name => 'UserSettings'
   has_many :tags
   has_many :normal_posts
   has_many :invite_posts
@@ -74,7 +75,7 @@ class User
   validates :email, :uniqueness => { :case_sensitive => false }
   attr_accessible :first_name, :last_name, :gender, :birthday, :email, :password, :password_confirmation, :remember_me, :social_connected
 
-  before_create :generate_username, :set_location_snippet
+  before_create :generate_username, :set_location_snippet, :set_settings
   after_create :add_to_soulmate, :save_profile_image, :send_welcome_email, :update_invites
   before_destroy :remove_from_soulmate
 
@@ -97,6 +98,21 @@ class User
             coordinates: location.coordinates
     )
     self.location.id = location.id
+  end
+
+  def set_settings
+    self.settings = UserSettings.new
+  end
+
+  def toggle_setting(setting)
+    case setting
+      when 'email_comment'
+        self.settings.email_comment = !settings.email_comment
+      when 'email_ping'
+        self.settings.email_ping = !settings.email_ping
+      when 'email_follow'
+        self.settings.email_follow = !settings.email_follow
+    end
   end
 
   # Pull image from social media, or gravatar
@@ -178,7 +194,7 @@ class User
                 :to_user_id => user.id
         )
       end
-      Notification.add(user, 'follow', true, false, false, self, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
+      Notification.add(user, 'follow', (user.settings.email_follow ? true : false), false, false, self, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
       follow.active = true
       follow.save
 

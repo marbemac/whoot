@@ -5,7 +5,7 @@ class PingsController < ApplicationController
     target_user = User.find(params[:id])
     if target_user
       target_user.add_ping(current_user)
-      if target_user.save
+      if target_user.save && target_user.settings.email_ping
         PingMailer.new_ping(target_user).deliver
       end
       response = {:json => {:status => 'ok', :target => '.ping_'+target_user.id.to_s, :toggle_classes => ['btn pingB', 'pinged']}, :status => 201}

@@ -1,4 +1,3 @@
-unless Rails.env.development?
   ActiveAdmin.setup do |config|
 
     # == Site Title
@@ -53,55 +52,54 @@ unless Rails.env.development?
 
     # == Logging Out
     #
-    # Active Admin displays a logout link on each screen. These
-    # settings configure the location and method used for the link.
-    #
-    # This setting changes the path where the link points to. If it's
-    # a string, the strings is used as the path. If it's a Symbol, we
-    # will call the method to return the path.
-    #
-    # Default:
-    config.logout_link_path = :destroy_user_session_path
+  # Active Admin displays a logout link on each screen. These
+  # settings configure the location and method used for the link.
+  #
+  # This setting changes the path where the link points to. If it's
+  # a string, the strings is used as the path. If it's a Symbol, we
+  # will call the method to return the path.
+  #
+  # Default:
+  config.logout_link_path = :destroy_user_session_path
 
-    # This setting changes the http method used when rendering the
-    # link. For example :get, :delete, :put, etc..
-    #
-    # Default:
-    # config.logout_link_method = :get
-
-
-    # == Admin Comments
-    #
-    # Admin comments allow you to add comments to any model for admin use
-    #
-    # Admin comments are enabled by default in the default
-    # namespace only. You can turn them on in a namesapce
-    # by adding them to the comments array.
-    #
-    # Default:
-    # config.allow_comments_in = [:admin]
+  # This setting changes the http method used when rendering the
+  # link. For example :get, :delete, :put, etc..
+  #
+  # Default:
+  # config.logout_link_method = :get
 
 
-    # == Controller Filters
-    #
-    # You can add before, after and around filters to all of your
-    # Active Admin resources from here.
-    #
-    # config.before_filter :do_something_awesome
+  # == Admin Comments
+  #
+  # Admin comments allow you to add comments to any model for admin use
+  #
+  # Admin comments are enabled by default in the default
+  # namespace only. You can turn them on in a namesapce
+  # by adding them to the comments array.
+  #
+  # Default:
+  # config.allow_comments_in = [:admin]
 
 
-    # == Register Stylesheets & Javascripts
-    #
-    # We recommend using the built in Active Admin layout and loading
-    # up your own stylesheets / javascripts to customize the look
-    # and feel.
-    #
-    # To load a stylesheet:
-    #   config.register_stylesheet 'my_stylesheet.css'
-    #
-    # To load a javascript file:
-    #   config.register_javascript 'my_javascript.js'
-    config.register_javascript 'application.js'
-    config.register_stylesheet 'qtip.css.scss'
-  end
+  # == Controller Filters
+  #
+  # You can add before, after and around filters to all of your
+  # Active Admin resources from here.
+  #
+  # config.before_filter :do_something_awesome
+
+
+  # == Register Stylesheets & Javascripts
+  #
+  # We recommend using the built in Active Admin layout and loading
+  # up your own stylesheets / javascripts to customize the look
+  # and feel.
+  #
+  # To load a stylesheet:
+  #   config.register_stylesheet 'my_stylesheet.css'
+  #
+  # To load a javascript file:
+  #   config.register_javascript 'my_javascript.js'
+  config.register_javascript 'application.js'
+  config.register_stylesheet 'qtip.css.scss'
 end

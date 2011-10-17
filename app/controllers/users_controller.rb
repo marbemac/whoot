@@ -45,5 +45,30 @@ class UsersController < ApplicationController
     @followers = User.where(:following_users => @user.id)
   end
 
+  def settings
+    @user = User.find_by_encoded_id(params[:id])
+    if !signed_in? || current_user.id != @user.id
+      redirect_to :root
+    end
+  end
+
+  def settings_update
+    current_user.toggle_setting(params[:setting])
+    current_user.save
+    render :json => {:status => 'ok', :event => 'settings_updated', :target => '.setting-'+params[:setting], :toggle_classes => ['setB', 'unsetB']}, :status => 201
+  end
+
+  def picture_update
+    image = current_user.images.create(:user_id => current_user.id)
+    version = AssetImage.new(:isOriginal => true)
+    version.id = image.id
+    version.image.store!(params[:image_location])
+    image.versions << version
+    version.save
+    current_user.set_default_image(image.id)
+    current_user.save
+
+    render :json => {:status => 'ok'}
+  end
 
 end

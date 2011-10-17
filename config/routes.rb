@@ -63,6 +63,9 @@ Whoot::Application.routes.draw do
     get 'ac' => 'users#autocomplete', :as => :user_autocomplete
     get ':id/following' => 'users#following_users', :as => :user_following_users
     get ':id/followers' => 'users#followers', :as => :user_followers
+    put "/picture" => "users#picture_update", :as => :user_picture_update
+    get ':id/settings' => 'users#settings', :as => :user_settings
+    put ':id/settings' => 'users#settings_update', :as => :user_settings_update
     get ':id/hover' => 'users#hover' , :as => :user_hover
     get ':id/picture' => 'users#default_picture', :as => :user_default_picture
   end

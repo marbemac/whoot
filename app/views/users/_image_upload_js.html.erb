@@ -1,0 +1,50 @@
+<script>
+  $(function() {
+    var user_image_uploader = new plupload.Uploader({
+      runtimes : "gears,silverlight,flash,browserplus,html5",
+      browse_button : 'user_uploadB',
+      max_file_size : '2mb',
+      url : "<%= upload_tmp_path %>",
+      container: 'user_uploadB',
+      flash_swf_url: "/assets/javascripts/plupload/plupload.flash.swf",
+      silverlight_xap_url: "/assets/javascripts/plupload/plupload.silverlight.xap",
+      multipart: true,
+      multipart_params: {
+        "authenticity_token" : '<%= form_authenticity_token %>'
+      }
+    });
+
+    user_image_uploader.bind('FilesAdded', function(up, files) {
+    });
+
+    user_image_uploader.bind('QueueChanged', function() {
+      console.log('File Added');
+      user_image_uploader.start();
+    })
+
+    user_image_uploader.bind('UploadProgress', function(up, file) {
+      console.log(file.percent + "%");
+    });
+
+    user_image_uploader.bind("FileUploaded", function(up, file, data) {
+      params = $.parseJSON(data.response);
+      console.log(data);
+      console.log(params);
+      $.ajax({
+        url: '<%= user_upload_path %>',
+        dataType: 'json',
+        type: 'put',
+        data: {image_location: params.image_path},
+        success: function(response) {
+          $('#page-header .main-image,#sidebar .profile_image img').each(function(i,val) {
+            var img_src = $(val).attr('src');
+            var timestamp = new Date().getTime();
+            $(val).attr('src',img_src+'&'+timestamp);
+          });
+        }
+      })
+    })
+
+    user_image_uploader.init();
+  });
+</script>

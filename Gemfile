@@ -48,6 +48,7 @@ group :assets do
 end
 
 group :development do
+  gem 'rails-dev-tweaks'
   gem 'heroku_san'
   gem "pry"
   gem 'rspec-rails'
@@ -57,20 +58,6 @@ group :development do
   gem "rails-footnotes"
   gem "ruby-debug19"
   gem "foreman"
-
-  #case HOST_OS
-  #  when /darwin/i
-  #    gem 'rb-fsevent'
-  #    gem 'growl'
-  #  when /linux/i
-  #    gem 'libnotify'
-  #    gem 'rb-inotify'
-  #  when /mswin|windows/i
-  #    gem 'rb-fchange'
-  #    gem 'win32console'
-  #    gem 'rb-notifu'
-  #end
-
 end
 
 group :test do

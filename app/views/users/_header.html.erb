@@ -40,7 +40,7 @@
       </li>
       <% if signed_in? && current_user.id == @user.id %>
         <li>
-          <a class="<%= controller.action_name == 'settings' ? 'on' : '' %>" href="#">Settings</a>
+          <a class="<%= controller.action_name == 'settings' ? 'on' : '' %>" href="<%= user_settings_path(@user) %>">Settings</a>
         </li>
       <% end %>
     </ul>

@@ -1,0 +1,49 @@
+<% content_for :user_header do %>
+  <%= render 'users/header' %>
+<% end %>
+
+<% content_for :js do %>
+  <%= render "users/image_upload_js", :upload_tmp_path => upload_tmp_path, :user_upload_path => user_picture_update_path %>
+<% end %>
+
+<div class="upload" id="user_uploadB">Change Profile Image</div>
+<div class="clear"></div>
+<div class="setting">
+  <div class="content">
+    Email me when someone comments on my post: <span class="status"><%= @user.settings.email_comment ? 'on' : 'off' %></span>
+  </div>
+  <button class="btn <%= @user.settings.email_comment ? 'unsetB' : 'setB' %> setting-email_comment %>">
+    <span class="default" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_comment"}' data-m="put">
+      turn on
+    </span>
+    <span class="triggered" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_comment"}' data-m="put">
+      turn off
+    </span>
+  </button>
+</div>
+<div class="setting">
+  <div class="content">
+    Email me when someone pings me: <span class="status"><%= @user.settings.email_ping ? 'on' : 'off' %></span>
+  </div>
+  <button class="btn <%= @user.settings.email_ping ? 'unsetB' : 'setB' %> setting-email_ping %>">
+    <span class="default" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_ping"}' data-m="put">
+      turn on
+    </span>
+    <span class="triggered" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_ping"}' data-m="put">
+      turn off
+    </span>
+  </button>
+</div>
+<div class="setting">
+  <div class="content">
+    Email me when someone follows me: <span class="status"><%= @user.settings.email_follow ? 'on' : 'off' %></span>
+  </div>
+  <button class="btn <%= @user.settings.email_follow ? 'unsetB' : 'setB' %> setting-email_follow %>">
+    <span class="default" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_follow"}' data-m="put">
+      turn on
+    </span>
+    <span class="triggered" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_follow"}' data-m="put">
+      turn off
+    </span>
+  </button>
+</div>

@@ -132,6 +132,69 @@
       }
     }
   }
+  .settings {
+    .section {
+        border-bottom: 1px solid #CCC;
+        padding: 10px 5px 15px 5px;
+        margin: 10px;
+    }
+    h3 {
+
+    }
+    .note {
+        font-size: 12px;
+        color: #666;
+    }
+    .block-userC {
+        margin: 10px 0 0 0;
+    }
+    .blocked-users {
+        @include clearfix();
+        margin: 10px 0 0 0;
+
+        .blocked-user {
+            float: left;
+            padding: 5px 0;
+
+            img {
+                float: left;
+            }
+            a {
+                float: left;
+                padding: 5px 5px 5px 10px;
+            }
+            .unblock {
+                @include link();
+                float: left;
+                padding: 8px 20px 0 2px;
+                font-size: 12px;
+            }
+        }
+    }
+    .upload {
+      @include orange-button(2px, 14px);
+      padding: 3px 8px;
+      margin: 0 0 0 10px;
+    }
+    .setting {
+      @include clearfix();
+      margin: 10px 0 0 10px;
+      .content {
+        width: 500px;
+        float: left;
+      }
+      .status {
+        font-weight: bold;
+      }
+      .btn {
+        @include link();
+        border: none;
+        background: transparent;
+        float: left;
+        margin: 1px 0 0 0;
+      }
+    }
+  }
 }
 
 
@@ -350,46 +413,5 @@ select.location {
     .none {
         text-align: center;
         font-style: italic;
-    }
-}
-
-#whoot-settings {
-    .section {
-        border-bottom: 1px solid #CCC;
-        padding: 10px 5px 15px 5px;
-        margin: 10px;
-    }
-    h3 {
-
-    }
-    .note {
-        font-size: 12px;
-        color: #666;
-    }
-    .block-userC {
-        margin: 10px 0 0 0;
-    }
-    .blocked-users {
-        @include clearfix();
-        margin: 10px 0 0 0;
-        
-        .blocked-user {
-            float: left;
-            padding: 5px 0;
-
-            img {
-                float: left;
-            }
-            a {
-                float: left;
-                padding: 5px 5px 5px 10px;
-            }
-            .unblock {
-                @include link();
-                float: left;
-                padding: 8px 20px 0 2px;
-                font-size: 12px;
-            }
-        }
     }
 }

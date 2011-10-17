@@ -41,7 +41,7 @@
             Contact Us &#149;
             <a href="{{ path('privacy') }}">Privacy</a> &#149;
             <a href="{{ path('terms') }}">Terms</a>
-            <% if current_user.role?('admin') && ENV['RAILS_ENV'] != 'development' %>
+            <% if current_user.role?('admin') %>
             &#149; <%= link_to 'Admin Area', git_er_done_dashboard_path %>
             <% end %>
 
@@ -91,6 +91,34 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
     </script>
+
+    <!-- Start of Woopra Code -->
+    <script type="text/javascript">
+      function woopraReady(tracker) {
+          tracker.setDomain('thewhoot.com');
+          tracker.setIdleTimeout(300000);
+
+          <% if signed_in? %>
+              tracker.addVisitorProperty('name', '<%= current_user.fullname %>');
+              tracker.addVisitorProperty('email', '<%= current_user.email %>');
+          <% end %>
+
+          tracker.track();
+
+          return false;
+      }
+      (function() {
+          var wsc = document.createElement('script');
+          wsc.src = document.location.protocol+'//static.woopra.com/js/woopra.js';
+          wsc.type = 'text/javascript';
+          wsc.async = true;
+          var ssc = document.getElementsByTagName('script')[0];
+          ssc.parentNode.insertBefore(wsc, ssc);
+      })();
+    </script>
+    <!-- End of Woopra Code -->
+
+    <%= yield :js %>
 
     <% if ENV['RAILS_ENV'] != 'production' %>
       <div id="slt"><%= load_time %><br /><%= ENV['RAILS_ENV'] %></div>

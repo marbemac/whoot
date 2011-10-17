@@ -2,8 +2,7 @@ module ImageHelper
   def default_image_url(object, dimensions, style='default', createNow=false)
     # make sure dimensions are integers
     dimensions = dimensions.map(&:to_i)
-    # TODO: WTF does object.default_image return an array with 1 object in it. Return JUST the object. This applies to ALL uses of .first below...
-    image = object.default_image.first
+    image = object.default_image
     version = if image then image.find_version dimensions, style else nil end
 
     if version
@@ -12,7 +11,7 @@ module ImageHelper
       if createNow
         object.add_image_version image.id, dimensions, style
         object.save
-        image = object.default_image.first
+        image = object.default_image
         version = if image then image.find_version dimensions, style else nil end
         url = version.image_url
       else
