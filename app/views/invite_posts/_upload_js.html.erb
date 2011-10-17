@@ -1,7 +1,7 @@
 <script>
   $(function() {
     var invite_image_uploader = new plupload.Uploader({
-      runtimes : "gears,silverlight,flash,browserplus,html5",
+      runtimes : "html5,flash,gears,silverlight,browserplus",
       browse_button : 'invite_post_uploadB',
       max_file_size : '2mb',
       url : "<%= upload_tmp_path %>",
