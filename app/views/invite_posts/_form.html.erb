@@ -32,3 +32,7 @@
 
   <div id="<%= f.object.class.name.underscore %>_uploadC"></div>
 <% end %>
+
+<% content_for :js do %>
+  <%= render "invite_posts/upload_js" %>
+<% end %>
