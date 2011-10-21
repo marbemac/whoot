@@ -183,12 +183,10 @@ $(function() {
     var parent = $(this).parents('.venue_input');
     if (data.id == 0)
     {
-//      parent.find('.address_fields').show().find('.address_placeholder').val('');
       parent.find('.venue_id').val('');
     }
     else
     {
-//      parent.find('.address_fields').hide().find('.address_placeholder').val('');
       parent.find('.phone, .coordinates').val('');
       parent.find('.venue_id').val(data.id);
     }
@@ -223,20 +221,6 @@ $(function() {
         $self.find('.phone').val(place.formatted_phone_number)
       }
     })
-  })
-  $('.venue_input .address_placeholder').live('keypress', function(e) {
-    if(window.event)
-      key = window.event.keyCode;
-    else
-      key = e.which;
-    if(key == 13)
-    {
-      e.preventDefault();
-      return false;
-    }
-  })
-  $('.venue_input .address_placeholder').live('keyup', function(e) {
-    $(this).next().val($(this).val());
   })
   // Draw on post maps
   $('.invite-map').livequery(function() {

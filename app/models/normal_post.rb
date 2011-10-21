@@ -126,6 +126,10 @@ class NormalPost < Post
               :current => true
       ).order_by(:created_at, 'desc')
     end
+
+    def todays_post
+      where(:created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))), :current => true)
+    end
   end
 
 end

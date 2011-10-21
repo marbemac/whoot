@@ -3,7 +3,9 @@
     <%= image_tag user_default_picture_path(post.created_by, :d => [50, 50], :s => 'square'), :style => "max-width: 50px;" %>
   </a>
 
-  <%= user_link(post.created_by, 15) %>
+  <div class="ulink-wrap">
+    <%= user_link(post.created_by, 15) %>
+  </div>
 
   <div class="what">
     <%= post.night_type_short %>

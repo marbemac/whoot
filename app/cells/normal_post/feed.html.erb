@@ -2,7 +2,7 @@
   <div class="item on" data-target="#post-feed"><div>Posts</div></div>
   <div class="item ac" data-target="#post-map" data-url="<%= normal_post_map_path %>" data-m="get"><div>Map</div></div>
   <% if @my_post && @my_post.venue %>
-    <div class="item ac" data-target="#post-my-venue" data-url="<%= venue_attending_path @my_post.venue.id %>" data-m="get"><div>friends going to <%= @my_post.venue.name %></div></div>
+    <div class="item ac" data-target="#post-my-venue" data-url="<%= venue_attending_path @my_post.venue.id %>" data-m="get"><div>Friends going to <%= @my_post.venue.name %></div></div>
   <% end %>
   <div class="clear"></div>
 </div>

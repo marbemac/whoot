@@ -72,12 +72,14 @@ h1,h2,h3,h4,h5,h6,p,div,span {
 }
 
 a,
-a:visited {
-    color: $link-color;
-    text-decoration: none;
+a:visited,
+a:hover {
+  color: $link-color;
+  text-decoration: none;
+  outline: none;
 }
 a:hover {
-    text-decoration: underline;
+  color: #156CD8;
 }
 form {
   .errors {
@@ -220,34 +222,35 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
     margin: 0 0 25px 0;
 }
 #sidebar {
-    @include border-top-right-radius(10px);
-    width: $sidebar_width;
-    position: fixed;
-    top: $header_height;
-    left: 50%;
-    margin: 0 0 0 280px;
-    z-index: 50;
-    border-left: $sidebar_border_width solid $sidebar_border_color;
-    border-top: 1px solid #FFF;
-    background: $sidebar_background-color;
-    color: $sidebar_color;
+  @include single-box-shadow(#999, -1px, 1px, 2px);
+  @include border-top-right-radius(10px);
+  width: $sidebar_width;
+  position: fixed;
+  top: $header_height;
+  left: 50%;
+  margin: 0 0 0 280px;
+  z-index: 50;
+  border-left: $sidebar_border_width solid $sidebar_border_color;
+  border-top: 1px solid #FFF;
+  background: $sidebar_background-color;
+  color: $sidebar_color;
 }
 #footer {
-    background-color: #1B59AE;
-    @include background-image(linear-gradient(#3077CE, #2B6FC6 25%, #1B59AE 75%, #1551A5));
-    height: $footer_height;  width: $page_width - $sidebar_width;
-    color: $footer_color;
-    position: fixed;
-    bottom: 0px;
-    left: 50%;
-    margin: 0 0 0 $page_width/2*-1;
-    padding: 5px 0 1px 10px;
-    font-weight: normal;
-    font-size: 14px;
+  background-color: #1B59AE;
+  @include background-image(linear-gradient(#3077CE, #2B6FC6 25%, #1B59AE 75%, #1551A5));
+  height: $footer_height;  width: $page_width - $sidebar_width;
+  color: $footer_color;
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  margin: 0 0 0 $page_width/2*-1;
+  padding: 3px 0 3px 10px;
+  font-weight: normal;
+  font-size: 14px;
 
-    a {
-        color: #fff;
-    }
+  a {
+      color: #fff;
+  }
 }
 #static_page {
     padding: 10px;
@@ -320,7 +323,7 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
 
 #slt {
   position: fixed;
-  bottom: 5px;
+  bottom: 45px;
   left: 5px;
   font-size: 10px;
   color: #FFF;
@@ -408,7 +411,7 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
       position: absolute;
       top: 5px;
       right: 10px;
-      width: 130px;
+      width: 170px;
       font-size: 12px;
       color: #666;
       border-left: 2px solid #EFEFEF;

@@ -8,6 +8,7 @@
 //= require jquery_ujs
 //= require modernizr
 //= require json2
+//= require swfobject
 //= require jquery.livequery
 //= require whoot.preload
 //= require jquery-ui.min
@@ -19,6 +20,7 @@
 //= require jquery.autocomplete
 //= require jquery.scroll
 //= require jquery.growfield
+//= require jquery.label
 //= require whoot.core
 //= require whoot.request
 //= require invite_posts

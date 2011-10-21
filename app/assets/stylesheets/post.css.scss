@@ -12,12 +12,12 @@ Purpose of the stylesheet follows.
     padding: 5px;
     margin: 0 5px;
 
-    h3 {
+    h5 {
         float: left;
         color: #777;
         cursor: default;
     }
-    h5 {
+    h6 {
       margin: 5px 0 2px 0;
     }
     .tags {
@@ -35,13 +35,12 @@ Purpose of the stylesheet follows.
 #cancel-post {
     float: right;
     color: $link-color;
-    font-size: 12px;
-    margin: 2px 2px 0 0;
+    font-size: 11px;
+    margin: -1px 2px 0 0;
     font-weight: bold;
 
     &:hover {
         cursor: pointer;
-        text-decoration: underline;
     }
 }
 
@@ -249,6 +248,7 @@ $feed-filters-margin-top: 5px;
     $feed-filter-border-color: #CCC;
     $feed-filter-border-width: 2px;
     $feed-filter-background: #FFF;
+    @include single-box-shadow(#BBB, 1px, 1px, 2px);
     background-color: #EBEBEB;
     @include background-image(linear-gradient(#F9F9F9, #F6F6F6 25%, #EBEBEB 75%, #E8E8E8));
     @include border-top-left-radius(10px);
@@ -314,10 +314,12 @@ $feed-filters-margin-top: 5px;
             li.on.big_out a { color: $post-big_out-color; }
         }
         .undecided {
-            position: relative;
-            top: 8px;
-            left: 10px;
-            cursor: pointer;
+          @include blue-button(2px, 12px);
+          position: relative;
+          top: 8px;
+          left: 10px;
+          cursor: pointer;
+          padding: 3px 8px;
         }
     }
     .feed-sort {
@@ -415,7 +417,7 @@ $post-border-color: #DDD;
             @include border-radius(5px);
         }
     }
-    .ulink {
+    .ulink-wrap {
         float: left;
         width: 140px;
         overflow: hidden;
@@ -436,16 +438,16 @@ $post-border-color: #DDD;
         width: 330px;
         overflow: hidden;
         white-space: nowrap;
+        font-size: 13px;
     }
     .tag {
         @include border-radius(2px);
         float: left;
         margin: 0 8px 0 0;
         padding: 0;
-        border-bottom: 2px dotted transparent;
 
         &:hover {
-          border-color: #999;
+          color: #FC770D;
         }
     }
     &.working .what {
@@ -462,8 +464,8 @@ $post-border-color: #DDD;
     }
     .scoreC {
         position: absolute;
-        right: -25px;
-        top: 19px;
+        right: 10px;
+        top: 17px;
     }
 }
 

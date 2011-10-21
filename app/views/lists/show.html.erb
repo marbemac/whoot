@@ -2,7 +2,7 @@
   <div class="list-right">
     <div class="toggle" data-target="#list-user-panel">Toggle User Panel</div>
     <div class="wrapper" id="list-user-panel">
-      <h2>List Users</h2>
+      <h2>Group Users</h2>
       <input id="list-add-user" data-url-add="<%= list_add_user_path @list %>" type="text" class="iclear b" data-url="<%= user_autocomplete_path(:only_following => true) %>" autocomplete="off" value="Add a friend..."/>
       <ul>
         <% @users.each do |user| %>
@@ -12,7 +12,7 @@
           </li>
         <% end %>
         <% if @users.length == 0 %>
-          <li class="none">You have not added any friends to this list.</li>
+          <li class="none">You have not added any friends to this group.</li>
         <% end %>
       </ul>
     </div>

@@ -1,6 +1,6 @@
 <div class="my-lists">
-  <h3>My Lists</h3>
-  <div class="list-createB">Create List</div>
+  <h5>My Groups</h5>
+  <div class="list-createB">Create Group</div>
   <div class="hide">
     <%= render "lists/form", :list => List.new %>
   </div>
@@ -12,7 +12,7 @@
       </li>
     <% end %>
     <% if @lists.length == 0 %>
-      <li class="none">Create lists to organize and keep track of your friends!</li>
+      <li class="none">Create groups to organize and keep track of your friends!</li>
     <% end %>
   </ul>
 </div>

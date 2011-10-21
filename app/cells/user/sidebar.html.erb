@@ -1,16 +1,14 @@
 <div id="sidebar">
   <div id="user_panel">
-    <h2>
-      <a class="name" href="<%= user_path @user %>">
-        <%= @user.fullname %>
-      </a>
-
-      <div class="clear"></div>
-    </h2>
     <div class="profile_image">
       <%= image_tag user_default_picture_path(@user, :d => [65, 65]), :style => "max-width: 65px;" %>
     </div>
     <div class="stats">
+      <h4>
+        <a class="name" href="<%= user_path @user %>">
+          <%= @user.fullname %>
+        </a>
+      </h4>
       <div class="item">
         <div class="label"><%= link_to 'Following', user_following_users_path(@user) %></div>
         <div class="value" id="my-following"><%= @user.following_users_count.to_i %></div>

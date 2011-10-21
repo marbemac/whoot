@@ -96,6 +96,10 @@ class Notification
     # date_range_aggregate = array[from, to]. If specified, will attempt to only create one notification of a given type between this range
     # message = optional message
     def add(target_user, type, notify, always_notify=false, create_new=false, triggered_by_user=nil, date_range_aggregate=nil, message=nil)
+      if target_user.id == triggered_by_user.id
+        return
+      end
+
       notification = Notification.where(:user_id => target_user.id)
       if date_range_aggregate
         notification = notification.where(:created_at.gte => date_range_aggregate[0], :created_at.lte => date_range_aggregate[1])

@@ -38,10 +38,11 @@
 #unread-notification-count {
     display: block;
     border-bottom: 1px solid #F1F1F1;
-    margin: 0 5px;
-    padding: 5px;
+    margin: 0 6px;
+    padding: 3px 5px;
     color: #000;
     position: relative;
+    font-size: 14px;
 
     .on {
         color: red;

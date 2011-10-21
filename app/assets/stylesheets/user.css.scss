@@ -23,19 +23,9 @@
     margin: 0 5px;
     border-bottom: 1px solid #F1F1F1;
 
-    .name {
-        float: left;
-        text-decoration: none;
-        display: block;
-        margin: -2px 0 3px 2px;
-    }
-    .name:hover {
-        text-decoration: underline;
-    }
-
     .profile_image {
         position: relative;
-        height: 65px;
+        height: 75px;
         float: left;
 
         img {
@@ -59,34 +49,33 @@
     .stats {
         float: left;
         width: 110px;
-
+        h4 {
+          margin: 2px 0 4px 9px;
+        }
         .item {
             clear: both;
-            margin: 3px 0 0 10px;
+            margin: 0 0 0 10px;
+            line-height: 1em;
             
             .label {
                 float: left;
-                font-size: 14px;
+                font-size: 12px;
                 color: #666;
-                margin: 3px 15px 3px 0;
+                margin: 0 15px 0 0;
             }
             .value {
                 float: left;
-                font-size: 14px;
+                font-size: 12px;
                 color: #666;
                 font-weight: bold;
-                margin: 4px 0 0 0;
+                margin: 0;
             }
         }
     }
     .small-link {
         font-size: 12px;
-        text-decoration: none;
         margin: 0 0 0 10px;
         position: relative;
-    }
-    .small-link:hover {
-        text-decoration: underline;
     }
 }
 
@@ -324,7 +313,7 @@ select.location {
     padding: 5px 5px 5px;
     margin: 0 5px;
 
-    h3 {
+    h5 {
         color: #777777;
         cursor: default;
         float: left;
@@ -334,25 +323,35 @@ select.location {
       margin: 5px 0 0 -2px;
     }
     label {
-      top: 8px !important;
+      top: 5px !important;
       left: 5px !important;
+      font-size: 11px !important;
     }
     .email {
-        margin: 3px 7px 0 -2px;
-        width: 110px;
-        display: block;
-        float: left;
-        clear: left;
+      @include border-radius(2px);
+      margin: 3px 7px 0 -4px;
+      width: 115px;
+      display: block;
+      float: left;
+      clear: left;
+      font-size: 11px;
+      border-color: #CCC;
     }
     .submit {
-        font-size: 12px;
-        margin: 5px 0 0 0;
+        font-size: 11px;
+        margin: 4px 0 0 0;
     }
     .fb_find {
         display: block;
         clear: both;
-        font-size: 12px;
-        padding: 4px 0 0 0;
+        font-size: 11px;
+        padding: 13px 0 5px 25px;
+        position: relative;
+        .fb-icon {
+          position: absolute;
+          top: 11px;
+          left: -2px;
+        }
     }
 }
 

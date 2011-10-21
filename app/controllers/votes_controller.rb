@@ -6,7 +6,7 @@ class VotesController < ApplicationController
     if target_post
       target_post.add_voter(current_user)
       target_post.save
-      response = {:json => {:status => 'ok', :target => '.vb-'+target_post.id.to_s, :toggle_classes => ['voteB', 'unvoteB'], :update_target => '.v-'+target_post.id.to_s, :update_value => target_post.votes}, :status => 201}
+      response = {:json => {:status => 'ok', :target => '.vb-'+target_post.id.to_s, :toggle_classes => ['voteB', 'unvoteB', 'btn'], :update_target => '.v-'+target_post.id.to_s, :update_value => target_post.votes}, :status => 201}
     else
       response = {:json => {:status => 'error', :message => 'Target post not found!'}, :status => 404}
     end

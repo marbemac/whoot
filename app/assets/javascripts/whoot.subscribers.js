@@ -115,14 +115,13 @@ $(function() {
    * NOTIFICATIONS
    */
   amplify.subscribe('my_notifications', function (data) {
-    if ($('#notificationsC').length > 0) {
-      $('#notificationsC').remove();
-    }
-    else
-    {
-      $('#notificationsC').remove();
-      $('#unread-notification-count').prepend(data.content).find('span').removeClass('on').text('0');
-    }
+    $('#unread-notification-count').removeClass('ac').prepend(data.content).find('span').removeClass('on').text('0');
+    $('#unread-notification-count').live('click', function(e) {
+      if (e.target.tagName != 'a')
+      {
+        $('#notificationsC').toggle();
+      }
+    })
   })
 
   /*

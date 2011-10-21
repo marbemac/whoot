@@ -8,7 +8,7 @@
 
 $page_width: 960px;
 
-$link-color: #156CD8;
+$link-color: #154685;
 
 $header_background-color: #FFF;
 $header_color: #000;
@@ -61,6 +61,27 @@ $post-big_out-color: #CC3300;
     width: auto;
     border: none;
 
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+@mixin blue-button($radius, $font-size) {
+    @include border-radius($radius);
+    background-color: #2061B6;
+    @include background-image(linear-gradient(#1B59AE, #1C62C0 25%, #1B59AE 75%, #1551A5));
+    color: #FFF;
+    font-weight: bold;
+    font-size: $font-size;
+    position: relative;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+
+    a {
+        color: #FFF;
+        text-decoration: none;
+    }
     &:hover {
         text-decoration: none;
     }

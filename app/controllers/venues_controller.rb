@@ -4,7 +4,7 @@ class VenuesController < ApplicationController
   def attending_venue_map
     @venue = Venue.find(params[:id])
     if @venue
-      posts = NormalPost.where('venue._id' => @venue.id)
+      posts = NormalPost.todays_post.where('venue._id' => @venue.id)
       user_ids = Array.new
       posts.each do |post|
         user_ids << post.user_id

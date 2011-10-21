@@ -1,8 +1,8 @@
 <% unless @my_post == nil %>
   <div id="my-post" class="{{ myPost.invite.id is defined ? 'invite' : '' }}">
-    <h3>
+    <h5>
       <%= @my_post.night_type_short %>
-    </h3>
+    </h5>
     <% if @invite && @invite.user_id == @user.id %>
       <div id="cancel-post">Cancel</div>
       <div class="hide">
@@ -33,7 +33,7 @@
     <div class="clear"></div>
 
     <% if @my_post.venue %>
-      <h5>@ <%= @my_post.venue.name %></h5>
+      <h6>@ <%= @my_post.venue.name %></h6>
     <% end %>
 
     <% if @invite %>

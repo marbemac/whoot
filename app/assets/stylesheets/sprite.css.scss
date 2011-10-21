@@ -32,6 +32,11 @@
     @include icon-sprite(arrow_orange_right_24x24);
     width: 24px; height: 24px;
 }
+.fb-icon {
+    @include icon-sprite(fb);
+    width: 20px;
+    height: 20px;
+}
 .arrow-r-2424 {
     @include icon-sprite(arrow_grey_right_24x24);
     width: 24px; height: 24px;

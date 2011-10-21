@@ -1,16 +1,16 @@
 <form action="<%= invites_path %>" method="POST" class="ajax new_user_invite">
-  <h3>Invite Friends</h3>
+  <h5>Invite Friends</h5>
 
   <div class="clear"></div>
   <div class="errors"></div>
 
   <div class="field lClear">
-    <label for="invite[email]">Friend's email...</label>
-    <input type="text" autocomplete="off" name="invite[email]" class="email" />
+    <label for="invite_email">Friend's email...</label>
+    <input id="invite_email" type="text" autocomplete="off" name="invite[email]" class="email" />
   </div>
 
   <div class="actions">
     <input type="submit" class="submit" value="Invite" />
   </div>
-  <%= link_to 'Or Find Facebook Friends', invites_path, :class => 'fb_find' %>
+  <%= link_to '<div class="fb-icon"></div>Or Find Facebook Friends'.html_safe, invites_path, :class => 'fb_find' %>
 </form>
