@@ -74,6 +74,12 @@ Whoot::Application.routes.draw do
   resources :users, :only => :show
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
+  # pages
+  get 'about' => 'pages#about', :as => :about
+  get 'contact' => 'pages#contact', :as => :contact
+  get 'terms' => 'pages#terms', :as => :terms
+  get 'privacy' => 'pages#privacy', :as => :privacy
+
   root :to => "pages#home"
 
   # The priority is based upon order of creation:

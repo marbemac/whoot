@@ -37,10 +37,10 @@
           </div>
           <div id="footer">
             <%= link_to 'Home', root_path %> &#149;
-            <a href="{{ path('about') }}">About</a> &#149;
-            Contact Us &#149;
-            <a href="{{ path('privacy') }}">Privacy</a> &#149;
-            <a href="{{ path('terms') }}">Terms</a>
+            <%= link_to 'About', about_path %> &#149;
+            <%= link_to 'Contact', contact_path %> &#149;
+            <%= link_to 'Terms', terms_path %> &#149;
+            <%= link_to 'Privacy', privacy_path %>
             <% if current_user.role?('admin') %>
             &#149; <%= link_to 'Admin Area', git_er_done_dashboard_path %>
             <% end %>
@@ -94,7 +94,7 @@
     <!-- Start of Woopra Code -->
     <script type="text/javascript">
       function woopraReady(tracker) {
-          tracker.setDomain('thewhoot.com');
+          tracker.setDomain('<%= Rails.env.staging? ? 'staging.thewhoot.com' : 'thewhoot.com' %>');
           tracker.setIdleTimeout(300000);
 
           <% if signed_in? %>
@@ -127,6 +127,8 @@
     </script>
 
     <%= yield :js %>
+
+    <%= render "invite_posts/upload_js" if signed_in? %>
 
     <% if ENV['RAILS_ENV'] != 'production' %>
       <div id="slt"><%= load_time %><br /><%= ENV['RAILS_ENV'] %></div>
