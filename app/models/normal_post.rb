@@ -127,6 +127,10 @@ class NormalPost < Post
       ).order_by(:created_at, 'desc')
     end
 
+    def following(user)
+      where(:user_id.in => user.following_users)
+    end
+
     def todays_post
       where(:created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))), :current => true)
     end
