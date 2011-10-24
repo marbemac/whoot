@@ -1,0 +1,26 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ * require_tree .
+*/
+
+// Import compass mixins
+@import "compass";
+@import "compass/utilities";
+
+#fb_login {
+    width: 332px;
+    height: 56px;
+    display: block;
+    background: {
+        image: image-url("fb_login.png");
+        position: top left;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-position: 0px 56px;
+    }
+}

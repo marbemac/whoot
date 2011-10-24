@@ -59,6 +59,9 @@ Whoot::Application.routes.draw do
   # Soulmate api
   mount Soulmate::Server, :at => "/soul-data"
 
+  # Mobile
+  get 'm/login' => 'mobile#login', :as => :mobile_login
+
   scope "/users" do
     get 'ac' => 'users#autocomplete', :as => :user_autocomplete
     get ':id/following' => 'users#following_users', :as => :user_following_users
