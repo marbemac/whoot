@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :init, :set_feed_filters, :set_user_time_zone
+  before_filter :init, :set_feed_filters, :set_user_time_zone, :prepare_for_mobile
   layout :layout
 
   def authenticate_admin_user!
@@ -45,6 +45,20 @@ class ApplicationController < ActionController::Base
   def layout
     # use ajax layout for ajax requests
     request.xhr? ? "ajax" : "application"
+  end
+
+  def mobile_device?
+    if session[:mobile_param]
+      session[:mobile_param] == "1"
+    else
+      request.user_agent =~ /Mobile|webOS/
+    end
+  end
+  helper_method :mobile_device?
+
+  def prepare_for_mobile
+    session[:mobile_param] = params[:mobile] if params[:mobile]
+    request.format = :mobile if mobile_device?
   end
 
 end

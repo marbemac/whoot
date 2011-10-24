@@ -27,6 +27,13 @@ html, body {
     font-family: "Helvetica Neue", Tahoma, Arial, sans-serif;
     line-height: 1.125em;
 }
+#wrapper {
+  min-width: 960px;
+  min-height: 600px;
+  position: relative;
+  margin: auto;
+  width: 100%;
+}
 h1,h2,h3,h4,h5,h6 {
   font-weight: bold;
   line-height: 1em;

@@ -25,7 +25,7 @@ html.coming-soon {
 }
 
 #splash {
-    position: fixed;
+    position: absolute;;
     top: 50%; left: 50%;
     margin: $auth_height/1.8*-1 0 0 $auth_width/1.9*-1;
     width: $auth_width; height: $auth_height;

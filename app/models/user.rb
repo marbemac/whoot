@@ -83,11 +83,11 @@ class User
 
   # Return the users slug instead of their ID
   def to_param
-    "#{encoded_id}-#{self.fullname.parameterize}"
+    "#{encoded_id}-#{fullname.parameterize}"
   end
 
   def generate_username
-    self.username = "#{first_name}.#{last_name}"
+    self.username = "#{first_name.downcase}.#{last_name.downcase}"
   end
 
   def set_location_snippet
@@ -118,9 +118,10 @@ class User
   # Pull image from social media, or gravatar
   def save_profile_image
     hash = Digest::MD5.hexdigest(email.downcase)+'.jpeg'
+    facebook = get_social_connect 'facebook'
 
-    image_url = if connected_with? 'facebook'
-                  "http://graph.facebook.com/#{username}/picture?type=large"
+    image_url = if facebook
+                  "http://graph.facebook.com/#{facebook.uid}/picture?type=large"
                 else
                   "http://www.gravatar.com/avatar/#{hash}?s=500&d=monsterid"
                 end
@@ -241,7 +242,7 @@ class User
     end
   end
 
-  def connected_with? provider
+  def get_social_connect provider
     social_connects.each do |social|
       return social if social.provider == provider
     end
