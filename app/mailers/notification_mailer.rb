@@ -1,5 +1,6 @@
 class NotificationMailer < ActionMailer::Base
   default :from => "support@thewhoot.com"
+  layout 'email'
 
   def new_notifications(user, notifications)
     @user = user

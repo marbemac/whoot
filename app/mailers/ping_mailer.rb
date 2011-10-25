@@ -1,5 +1,6 @@
 class PingMailer < ActionMailer::Base
   default :from => "support@thewhoot.com"
+  layout 'email'
 
   def new_ping(user)
     @user = user

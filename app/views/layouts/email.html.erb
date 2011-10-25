@@ -1,0 +1,48 @@
+<%
+  if Rails.env.development?
+    base = 'http://localhost:3002/assets'
+  elsif Rails.env.staging?
+    base = 'http://staging.thewhoot.com/assets'
+  else
+    base = 'http://www.thewhoot.com/assets'
+  end
+%>
+
+
+<table style="width: 600px; border: 5px solid #ACCAFA; background: #4E73B3; padding: 20px; margin: auto; font-family: tahoma, sans-serif" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+      <table style="background: #333333; height: 75px; width: 600px; padding: 0px; margin: 0px;" cellpadding="0" cellspacing="0">
+        <tr style="">
+          <td style="border-bottom: 3px solid #FF9900; width: 480px;">
+            <a href="<%= root_url %>" style="display: block; margin:  3px 0 0 10px;">
+              <img src="<%= image_path("#{base}/logo-email.png") %>" />
+            </a>
+          </td>
+          <td style="border-bottom: 3px solid #FF9900; width: 120px;">
+            <div style="color: #FFF; font-size: 12px; cursor: default; float: left; margin:  45px 0 0 0;">follow us:</div>
+            <a href="http://www.facebook.com/pages/Whoot/192579647454740" style="display: block; float: left; margin:  43px 0 0 10px;">
+              <img src="<%= image_path("#{base}/icon/fb.png") %>" />
+            </a>
+            <a href="https://twitter.com/thewhoot" style="display: block; float: left; margin:  43px 0 0 7px;">
+              <img src="<%= image_path("#{base}/icon/twitter.png") %>" />
+            </a>
+          </td>
+        </tr>
+      </table>
+      <table style="background: #FFF; width: 600px; padding: 0px; margin: 0px;" cellpadding="0" cellspacing="0">
+        <tr>
+          <td style="padding:  10px; min-height: 300px;">
+            <div style="font-size: 16px;">
+              <%= yield %>
+            </div>
+            <div style="font-size: 13px; color: #777; margin: 10px 0 0 0; cursor: default;">
+              <div>Marc, Ryan, and Will</div>
+              <div>- The Whoot Team</div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

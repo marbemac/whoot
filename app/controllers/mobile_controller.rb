@@ -6,7 +6,7 @@ class MobileController < ApplicationController
 
     fb = Koala::Facebook::API.new(social_token)
     me = fb.get_object("me")
-    if me
+    if fb && me
       user = User.where("social_connects.uid" => me['id'], 'social_connects.provider' => 'facebook').first
       user.reset_authentication_token!
       token = {:token => user.authentication_token}
@@ -14,7 +14,6 @@ class MobileController < ApplicationController
       token = {:token => nil}
     end
 
-    render :json => token
   end
 
   private

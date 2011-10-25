@@ -25,6 +25,8 @@ Whoot::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  config.action_controller.asset_host = "http://localhost:3002"
+
   # ActionMailer Config
   # Setup for development - deliveries, errors raised
   ActionMailer::Base.register_interceptor(DevelopmentMailInterceptor)
@@ -43,7 +45,7 @@ Whoot::Application.configure do
           :enable_starttls_auto => true,
           #:user_name => ENV['SENDGRID_USERNAME'],
           #:password => ENV['SENDGRID_PASSWORD']
-          :user_name => 'whoot',
-          :password => 'crazy88'
+          :user_name => 'app1340105@heroku.com',
+          :password => '2nczsq6j'
   }
 end

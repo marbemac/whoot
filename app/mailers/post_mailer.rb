@@ -1,5 +1,6 @@
 class PostMailer < ActionMailer::Base
   default :from => "support@thewhoot.com"
+  layout 'email'
 
   def invite_cancelled(user)
     @user = user

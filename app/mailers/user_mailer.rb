@@ -1,5 +1,6 @@
 class UserMailer < ActionMailer::Base
   default :from => "support@thewhoot.com"
+  layout 'email'
 
   def welcome_email(user)
     @user = user
