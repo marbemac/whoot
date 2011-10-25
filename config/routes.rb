@@ -60,7 +60,7 @@ Whoot::Application.routes.draw do
   mount Soulmate::Server, :at => "/soul-data"
 
   # Mobile
-  get 'm/login' => 'mobile#login', :as => :mobile_login
+  get 'm/get_token' => 'mobile#get_token', :as => :mobile_get_token
 
   scope "/users" do
     get 'ac' => 'users#autocomplete', :as => :user_autocomplete

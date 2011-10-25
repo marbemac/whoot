@@ -1,8 +1,20 @@
 class MobileController < ApplicationController
   before_filter :set_mobile
 
-  def login
+  def get_token
+    social_token = params[:token]
 
+    fb = Koala::Facebook::API.new(social_token)
+    me = fb.get_object("me")
+    if me
+      user = User.where("social_connects.uid" => me['id'], 'social_connects.provider' => 'facebook').first
+      user.reset_authentication_token!
+      token = {:token => user.authentication_token}
+    else
+      token = {:token => nil}
+    end
+
+    render :json => token
   end
 
   private
