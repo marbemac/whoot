@@ -1,7 +1,7 @@
 class MobileController < ApplicationController
   before_filter :set_mobile
 
-  def get_token
+  def generate_token
     social_token = params[:token]
 
     fb = Koala::Facebook::API.new(social_token)

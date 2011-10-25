@@ -1,7 +1,7 @@
 <div id="page-header">
   <% img = default_image_url(post, [180, 180], 'square') %>
   <% if img %>
-    <%= image_tag img[:url], img[:options].merge!(class: 'main-image') %>
+    <%= image_tag img, class: 'main-image' %>
   <% else %>
     <%= image_tag "inviteDefault.png", :class => 'main-image', :width => '180px' %>
   <% end %>

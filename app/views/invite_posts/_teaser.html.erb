@@ -3,7 +3,7 @@
 <div class="teaser invite <%= post.night_type %>" id="invite-<%= post.id %>">
   <% img = default_image_url(post, [120, 120], 'square') %>
   <% if img %>
-    <%= image_tag img[:url], img[:options].merge!(class: 'inviteImage') %>
+    <%= image_tag img, class: 'inviteImage' %>
   <% else %>
     <%= image_tag "inviteDefault.png", :class => 'inviteImage', :width => '120px' %>
   <% end %>
