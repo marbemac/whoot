@@ -27,6 +27,22 @@ class UsersController < ApplicationController
     render :text => open(url, "rb").read, :stream => true
   end
 
+  def picture_update
+    image = current_user.images.create(:user_id => current_user.id)
+    version = AssetImage.new(:isOriginal => true)
+    version.id = image.id
+    version.image.store!(params[:image_location])
+    image.versions << version
+    version.save
+    current_user.set_default_image(image.id)
+
+    if current_user.save
+      expire_action :action => :default_picture, :id => current_user.encoded_id
+    end
+
+    render :json => {:status => 'ok'}
+  end
+
   def hover
     @user = User.find_by_slug(params[:id])
     render :partial => 'hover_tab', :user => @user
@@ -55,22 +71,6 @@ class UsersController < ApplicationController
     current_user.toggle_setting(params[:setting])
     current_user.save
     render :json => {:status => 'ok', :event => 'settings_updated', :target => '.setting-'+params[:setting], :toggle_classes => ['setB', 'unsetB']}, :status => 201
-  end
-
-  def picture_update
-    image = current_user.images.create(:user_id => current_user.id)
-    version = AssetImage.new(:isOriginal => true)
-    version.id = image.id
-    version.image.store!(params[:image_location])
-    image.versions << version
-    version.save
-    current_user.set_default_image(image.id)
-
-    if current_user.save
-      expire_action :action => :default_picture, :id => current_user.encoded_id
-    end
-
-    render :json => {:status => 'ok'}
   end
 
 end

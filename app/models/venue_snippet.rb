@@ -4,6 +4,7 @@ class VenueSnippet
   field :name
   field :address
   field :public_id
+  field :private
   field :coordinates, :type => Array
 
   embedded_in :has_venue, polymorphic: true

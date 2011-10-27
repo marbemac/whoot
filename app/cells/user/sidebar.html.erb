@@ -31,6 +31,8 @@
 
   <%= render_cell :list, :sidebar_list %>
 
-  <%= render "users/undecided", :users => @undecided %>
+  <% if @my_post %>
+    <%= render "users/undecided", :users => @undecided %>
+  <% end %>
 
 </div>

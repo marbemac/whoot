@@ -116,7 +116,7 @@ form {
       font-style: italic;
       font-size: 15px;
       color: #999;
-      z-index: 100;
+      z-index: 45;
       cursor: text;
     }
   }
@@ -327,6 +327,11 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
   position: absolute;
   bottom: 3px;
   right: 5px;
+}
+
+.twitter-follow-button {
+  position: absolute;
+  right: 110px;
 }
 
 #slt {

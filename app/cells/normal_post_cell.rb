@@ -3,7 +3,7 @@ class NormalPostCell < PostCell
   def feed
     @user = current_user
     @my_post = NormalPost.current_post(@user)
-    posts = NormalPost.following_feed(current_user, session[:feed_filters])
+    posts = NormalPost.following_feed(current_user, session[:feed_filters], true)
     @posts_with_user = User.join(posts)
 
     venues = Array.new

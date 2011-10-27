@@ -154,6 +154,24 @@ $(function() {
     $(this).addClass('on').siblings().removeClass('on');
   })
 
+  // Venue private help ?
+  $('.venue-private-help').livequery(function() {
+    var $self = $(this);
+    $self.qtip({
+      content: {
+        text: 'If the venue you are adding is your house/apartment/dorm room mark it as private to keep it from showing up when other users search for venues.'
+      },
+      style: {classes: 'ui-tooltip-shadow ui-tooltip-light', tip: true},
+      position: {
+        my: 'middle left',
+        at: 'middle right',
+        viewport: $(window)
+      },
+      show: {delay: 100},
+      hide: {delay: 200, fixed: false}
+    })
+  })
+
   // Search for a venue
   $(".venue_input .name").autocomplete($('#static-data').data('d').venueAutoUrl, {
     minChars: 2,
@@ -165,9 +183,11 @@ $(function() {
     mustMatch: false,
     searchKey: 'term',
     max: 10,
-    bucket: $('#static-data').data('d').venueAutoBucket,
-    bucketType: 'venue',
-    extraParams: {"types":[$('#static-data').data('d').venueAutoBucket]},
+    buckets: [['venue', $('#static-data').data('d').userVenueAutoBucket, 'MY VENUES'], ['venue', $('#static-data').data('d').venueAutoBucket, 'VENUES']],
+    extraParams: {"types":[$('#static-data').data('d').userVenueAutoBucket,$('#static-data').data('d').venueAutoBucket]},
+    allowNew: true,
+    allowNewName: 'venue',
+    allowNewType: 'venue',
     dataType: 'json',
     delay: 100,
     formatItem: function(row, i, max) {
@@ -184,20 +204,22 @@ $(function() {
     if (data.id == 0)
     {
       parent.find('.venue_id').val('');
+      parent.find('.private').show();
     }
     else
     {
       parent.find('.phone, .coordinates').val('');
       parent.find('.venue_id').val(data.id);
+      parent.find('.private').hide();
+      parent.find('.address_fields label').hide();
+      parent.find('.address_placeholder').val(data.data.address);
     }
   }).blur(function(e) {
     var parent = $(this).parents('.venue_input');
     if (parent.find('.venue_id').val() == '')
     {
-//      parent.find('.address_fields').show();
     }
     if ($(this).val() == '') {
-//      parent.find('.address_fields').hide();
     }
   })
 
@@ -323,8 +345,7 @@ $(function() {
     mustMatch: true,
     searchKey: 'term',
     max: 10,
-    bucket: $('#static-data').data('d').userAutoBucket,
-    bucketType: 'user',
+    buckets: [['user', $('#static-data').data('d').userAutoBucket, 'FOLLOWING']],
     extraParams: {"types":[$('#static-data').data('d').userAutoBucket]},
     dataType: 'json',
     delay: 100,
@@ -397,8 +418,7 @@ $(function() {
     mustMatch: true,
     searchKey: 'term',
     max: 10,
-    bucket: $('#static-data').data('d').userAutoBucket,
-    bucketType: 'user',
+    buckets: [['user', $('#static-data').data('d').userAutoBucket, 'FOLLOWING']],
     extraParams: {"types":[$('#static-data').data('d').userAutoBucket, 'user']},
     dataType: 'json',
     delay: 100,

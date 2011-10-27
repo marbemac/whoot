@@ -14,8 +14,11 @@ class Venue
   field :hours
   field :phone
   field :city_id
+  field :user_id
+  field :private, :default => false, :type => Boolean
   field :dedicated, :default => false
   field :coordinates, :type => Array
+  field :aliases, :default => []
 
   auto_increment :public_id
 
@@ -35,14 +38,29 @@ class Venue
   validates :name, :uniqueness => { :case_sensitive => false }
 
   belongs_to :city
+  belongs_to :user
 
+  before_create :set_self_alias
   after_save :update_denorms
   after_validation :geocode
-  after_create :add_to_soulmate
+  after_create :check_duplicate
   before_destroy :remove_from_soulmate
+
+  attr_accessible :name, :type, :address, :price, :hours, :phone, :city_id, :private, :dedicated, :coordinates, :coordinates_string
 
   def to_param
     "#{self.public_id.to_i.to_s(36)}-#{self.name.parameterize}"
+  end
+
+  def set_self_alias
+    self.aliases ||= []
+    add_alias(name, false)
+  end
+
+  def add_alias(content, add_soulmate=true)
+    url = content.to_url
+    self.aliases << url unless self.aliases.include?(url)
+    Resque.enqueue(SmCreateVenue, id.to_s) if add_soulmate
   end
 
   def update_denorms
@@ -64,8 +82,26 @@ class Venue
     if coordinates then coordinates.join(',') else '--' end
   end
 
-  def add_to_soulmate
-    Resque.enqueue(SmCreateVenue, id.to_s)
+  def check_duplicate
+    if private == false
+      found = Venue.where(:coordinates => coordinates[0], :coordinates => coordinates[1], :_id.ne => id).first
+      if found
+        Post.where("venue._id" => id).update_all(
+                "venue._id" => found.id,
+                "venue.address" => found.address,
+                "venue.public_id" => found.public_id,
+                "venue.private" => found.private,
+                "venue.coordinates" => found.coordinates
+        )
+        found.add_alias(name)
+        found.save
+        self.delete
+      else
+        Resque.enqueue(SmCreateVenue, id.to_s)
+      end
+    else
+      Resque.enqueue(SmCreateVenue, id.to_s)
+    end
   end
 
   def remove_from_soulmate

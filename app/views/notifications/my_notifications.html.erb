@@ -1,5 +1,6 @@
 <div id="notificationsC">
   <h4>Notifications</h4>
+  <div class="remove">X</div>
   <ul>
     <% @notifications.each do |notification| %>
       <li class="<%= 'unread' unless notification.read %>">

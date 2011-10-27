@@ -69,6 +69,7 @@ class User
   has_many :lists
   has_many :notifications
   has_many :pings
+  has_many :venues
 
   validates :email, :first_name, :last_name, :gender, :presence => true
   validates :gender, :inclusion => { :in => ["m", "f"], :message => "Please enter a valid gender." }

@@ -39,6 +39,7 @@ gem "airbrake" # Exception notification
 #gem 'newrelic_rpm' # performance / server monitoring
 gem 'soulmate' # Redis based autocomplete storage
 gem 'dalli' # memcache
+gem 'pusher' # pusher publish/subscribe system
 
 group :assets do
   gem 'compass', '0.12.alpha.0'

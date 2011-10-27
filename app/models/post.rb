@@ -45,7 +45,7 @@ class Post
 
   def max_tags
     if tags.length > 5
-      errors.add(:tags, "You can only use 5 words! You inputted #{tags.length} words.")
+      errors.add(:tags, "You can only use 5 words! You posted #{tags.length} words.")
     end
   end
 
@@ -56,7 +56,7 @@ class Post
     end
 
     if count > 40
-      errors.add(:tags, "You can only use 40 characters! You inputted #{count} characters.")
+      errors.add(:tags, "You can only use 40 characters! You posted #{count} characters.")
     end
   end
 
@@ -87,28 +87,35 @@ class Post
   end
 
   def set_venue_snippet
+    target_venue = nil
     if !@venue_id.blank?
-      venue = Venue.find(@venue_id)
+      target_venue = Venue.find(@venue_id)
     elsif !self.venue.name.blank?
-      venue = Venue.any_of({:slug => self.venue.name.to_url}, {:address => self.venue.address}).first
-      unless venue
-        venue = Venue.create(
-                :name => self.venue.name,
-                :address => self.venue.address,
-                :phone => self.venue.phone,
-                :city_id => self.user.location.id
+      target_venue = Venue.where(:private => false).any_of({:slug => venue.name.to_url}, {:address => venue.address}).first
+      if target_venue
+        target_venue.add_alias(venue.name)
+      else
+        target_venue = Venue.new(
+                :name => venue.name,
+                :address => venue.address,
+                :phone => venue.phone,
+                :city_id => user.location.id,
+                :private => venue.private
         )
+        target_venue.user_id = user.id
       end
     end
 
-    if venue
+    if target_venue
+      target_venue.save
       self.venue = VenueSnippet.new(
-              name: venue.name,
-              address: venue.address,
-              public_id: venue.public_id,
-              coordinates: venue.coordinates
+              name: target_venue.name,
+              address: target_venue.address,
+              public_id: target_venue.public_id,
+              coordinates: target_venue.coordinates,
+              private: target_venue.private
       )
-      self.venue.id = venue.id
+      self.venue.id = target_venue.id
     else
       self.venue = nil
     end

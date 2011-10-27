@@ -15,7 +15,7 @@ class VenuesController < ApplicationController
       html = '<div>error</div>'
     end
 
-    render :json => {:status => 'OK', :content => html}
+    render :json => {:status => :ok, :content => html}
   end
 
   def attending
@@ -28,7 +28,7 @@ class VenuesController < ApplicationController
       html = '<div>error</div>'
     end
 
-    render :json => {:status => 'OK', :content => html, :event => 'venue_attending_loaded'}
+    render :json => {:status => :ok, :content => html, :event => 'venue_attending_loaded'}
   end
 
   def autocomplete

@@ -37,6 +37,18 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  def static_data
+    data = {
+            :myId => signed_in? ? current_user.id.to_s : 0,
+            :userAutoUrl => '/soul-data/search',
+            :userAutoBucket => signed_in? ? current_user.id.to_s : '',
+            :userVenueAutoBucket => signed_in? ? "venue#{current_user.id.to_s}" : '',
+            :venueAutoBucket => signed_in? ? "venue#{current_user.location.id.to_s}" : '',
+            :venueAutoUrl => '/soul-data/search'
+    }
+    Yajl::Encoder.encode(data)
+  end
+
   def calculate_time_of_day
     hour = Time.zone.now.hour
     case hour

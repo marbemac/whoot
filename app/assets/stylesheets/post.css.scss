@@ -173,6 +173,25 @@ Purpose of the stylesheet follows.
           @include orange-button(3px, 18px);
           margin: 10px 10px 15px 0;
         }
+        .venue-private {
+          float: left;
+          margin: 2px 5px 0 3px;
+          width: auto;
+        }
+        .venue-private-help {
+          font-size: 16px;
+          font-weight: bold;
+          float: left;
+          margin: 0 0 0 10px;
+          color: #FF6600;
+          cursor: default;
+        }
+        .checkbox-label {
+          float: left;
+          color: #333;
+          font-size: 13px;
+          margin: 0 0 10px 0;
+        }
     }
     .cancel {
       @include link();
@@ -644,6 +663,9 @@ $post-border-color: #DDD;
       padding: 5px 15px;
       border-bottom: 3px solid #CCC;
     }
+    span {
+      font-style: italic;
+    }
     &:hover {
       div {
         border-color: #FF9900;
@@ -683,7 +705,9 @@ $post-border-color: #DDD;
     float: left;
     width: 575px;
   }
-
+  h6 {
+    text-align: center;
+  }
   .venues {
     float: left;
     width: 165px;

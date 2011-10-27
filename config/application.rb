@@ -12,6 +12,7 @@ require 'uri'
 require 'open-uri'
 require 'chronic'
 require 'resque-loner'
+require 'pusher'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line

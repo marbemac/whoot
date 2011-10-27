@@ -25,7 +25,10 @@ Whoot::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.action_controller.asset_host = "http://localhost:3002"
+  # Pusher
+  Pusher.app_id = 10183
+  Pusher.key = 'b1baa27e571a745580f2'
+  Pusher.secret = '295e513628e3491316a9'
 
   # ActionMailer Config
   # Setup for development - deliveries, errors raised

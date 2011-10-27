@@ -31,7 +31,7 @@
       console.log(data);
       console.log(params);
       $.ajax({
-        url: '<%= user_upload_path %>',
+        url: '<%= user_picture_update_path %>',
         dataType: 'json',
         type: 'put',
         data: {image_location: params.image_path},

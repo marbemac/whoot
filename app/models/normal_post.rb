@@ -110,10 +110,10 @@ class NormalPost < Post
       where(:created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))), :user_id => user.id, :current => true).first
     end
 
-    def following_feed(user, feed_filters)
+    def following_feed(user, feed_filters, include_self = false)
       where(
               :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))),
-              :user_id.in => user.following_users,
+              :user_id.in => (include_self ? user.following_users << user.id : user.following_users),
               :current => true,
               :night_type.in => feed_filters[:display]
       ).order_by(feed_filters[:sort][:target], feed_filters[:sort][:order])

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :init, :set_feed_filters, :set_user_time_zone, :prepare_for_mobile
+  before_filter :init, :set_feed_filters, :set_user_time_zone
   layout :layout
 
   def authenticate_admin_user!

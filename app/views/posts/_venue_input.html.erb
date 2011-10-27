@@ -4,6 +4,11 @@
       <%= v.label :name, venue_label %>
       <%= v.text_field :name, :autocomplete => 'off', :class => 'name', 'data-url' => venue_autocomplete_path(:city => @user.location.id) %>
     </div>
+    <div class="field private hide">
+      <%= v.check_box :private, :autocomplete => 'off', :class => 'venue-private' %>
+      <div class="checkbox-label">this is a private venue</div><div class="venue-private-help">?</div>
+      <div class="clear"></div>
+    </div>
     <div class="field lClear address_fields <%= venue_required %>">
       <%= v.label :address, "Venue address"+(venue_required.blank? ? ' (optional)' : '') %>
       <%= v.text_field :address, :autocomplete => 'off', :class => 'address_placeholder', :placeholder => '' %>

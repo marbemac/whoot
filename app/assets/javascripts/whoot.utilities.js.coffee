@@ -35,7 +35,7 @@ jQuery ->
     $(@).attr 'autocomplete', 'off'
 
   $('.lClear label').livequery ->
-    $(@).inFieldLabels()
+    $(@).inFieldLabels({ fadeDuration: 100 })
 
   # Automatic clearing of help text in inputs
   $('.iclear').live 'focus', (e) ->

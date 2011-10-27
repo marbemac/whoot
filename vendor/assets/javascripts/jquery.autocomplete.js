@@ -360,7 +360,7 @@
                     }
                     else {
                       $input.val("");
-//                      $input.trigger("result", null);
+                      $input.trigger("result", null);
                     }
                   }
                 }
@@ -422,40 +422,45 @@
           }, extraParams),
           success: function(acData) {
             // Used for soulmate redis store
-            if (options.bucket)
+            // APPLICATION SPECIFIC
+            var buckets=[],
+                tmpData={},
+                data={};
+
+            if (options.buckets.length > 0)
             {
-              // APPLICATION SPECIFIC
-              var tmpData,
-                  data;
-              tmpData = acData.results[options.bucket];
-              if (options.bucketType == 'user')
+              if (options.allowNew)
               {
-                tmpData = {'FOLLOWING': tmpData, 'OTHER USERS':acData.results['user']}
-                data = {'FOLLOWING':[], 'OTHER USERS':[]}
-              }
-              else
-              {
-                tmpData = {'CREATE':[{'id':0,'term':acData.term,'showName':'create a new venue: <span class="term">'+acData.term+'</span>'}], 'VENUES': tmpData}
-                data = {'CREATE':[], 'VENUES': []}
+                buckets.push(options.allowNewType);
+                tmpData['CREATE'] = [{'id':0,'term':acData.term,'showName':'create a new '+options.allowNewName+': <span class="term">'+acData.term+'</span>'}];
+                data['CREATE'] = [];
               }
 
-              var used_ids = [];
-              var my_id = $('#static-data').data('d').myId
-              for (bucket in tmpData)
-              {
-                $(tmpData[bucket]).each(function(i2, val) {
-                  // If we have not used this id yet
-                  if ($.inArray(val.id, used_ids) == -1 && val.id != my_id)
-                  {
-                    used_ids.push(val.id);
-                    val.formattedItem = formatItem(val);
-                    val.bucketType = options.bucketType;
-                    val.bucket = options.bucket;
-                    data[bucket].push(val);
-                  }
-                })
-              }
+              $(options.buckets).each(function(i,val) {
+                buckets.push(val[0]);
+                tmpData[val[2]] = acData.results[val[1]];
+                data[val[2]] = [];
+              })
             }
+
+            var used_ids = [];
+            var my_id = $('#static-data').data('d').myId
+            var x = 0;
+
+            $.each( tmpData, function(i, bucket)
+            {
+              $.each(tmpData[i], function(i2, val) {
+                // If we have not used this id yet
+                if ($.inArray(val.id, used_ids) == -1 && val.id != my_id)
+                {
+                  used_ids.push(val.id);
+                  val.bucketType = buckets[x];
+                  val.formattedItem = formatItem(val);
+                  data[i].push(val);
+                }
+              })
+              x++;
+            })
 
             var parsed = options.parse && options.parse(data) || parse(data);
             cache.add(term, parsed);
@@ -477,12 +482,12 @@
     // APPLICATION SPECIFIC
     function formatItem(data)
     {
-      if (options.bucketType == 'user')
+      if (data.bucketType == 'user')
       {
         image = '<img style="max-width: 25px" src="/users/'+data.data.encoded_id+'/picture?d[]=25&d[]=25&s=square" />';
         return '<div class="auto-user">'+image+'<div class="name">'+data.term+'</div><div class="location">'+data.data.location+'</div></div>';
       }
-      else if (options.bucketType == 'venue')
+      else if (data.bucketType == 'venue')
       {
         var name = '<span class="term">'+data.term+'</span>',
             address = false;
@@ -555,16 +560,18 @@
     highlight: function(value, term) {
       term = term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1")
       target = $(value);
-      target.find('.term').html(target.find('.term').text().replace(/(" + term.split(' ').join('|') + ")/gi, "<strong>$1</strong>"));
+      target.find('.term').html(target.find('.term').text().replace(new RegExp("(" + term.split(' ').join('|') + ")", "gi"), "<strong>$1</strong>"));
 
       return target[0];
     },
     scroll: true,
     scrollHeight: 180,
     scrollJumpPosition: true,
-    bucket: false,
-    bucketType: '',
-    searchKey: 'name'
+    buckets: [],
+    searchKey: 'name',
+    allowNew: false,
+    allowNewName: '',
+    allowNewType: ''
   };
 
   $.Autocompleter.Cache = function(options) {
@@ -831,6 +838,7 @@
           var formatted = options.formatItem(data[bucket][i].data, i + 1, max, data[bucket][i].value, term);
           if (formatted === false)
             continue;
+
           var li = $("<li/>").html(options.highlight(formatted, term)).addClass(i % 2 == 0 ? "ac_even" : "ac_odd").appendTo(sublist_content)[0];
           $.data(li, "ac_data", data[bucket][i]);
         }

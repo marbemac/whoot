@@ -24,6 +24,10 @@ module SoulmateHelper
               }
     }
 
+    if venue.aliases.length > 0
+      nugget['aliases'] = venue.aliases
+    end
+
     nugget
   end
 end

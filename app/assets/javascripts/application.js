@@ -21,6 +21,7 @@
 //= require jquery.scroll
 //= require jquery.growfield
 //= require jquery.label
+//= require pusher
 //= require whoot.core
 //= require whoot.request
 //= require invite_posts
