@@ -46,5 +46,6 @@ jQuery ->
         if (target.length > 0)
           target.find('.votes').text(data.votes).effect("highlight", {color: '#FC770D'}, 2000);
 
-  pusher.subscribe($('#static-data').data('d').myId).bind 'notification', (data) ->
-    createGrowl(false, data.content, '', 'green');
+  if ($('#static-data').data('d').myId != 0)
+    pusher.subscribe($('#static-data').data('d').myId).bind 'notification', (data) ->
+      createGrowl(false, data.content, '', 'green');
