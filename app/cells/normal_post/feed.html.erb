@@ -20,3 +20,6 @@
 
 <div id="post-map" class="feed-tabs"></div>
 <div id="post-my-venue" class="feed-tabs"></div>
+
+<div id="subscribe-users" data-ids='<%= Yajl::Encoder.encode(@user.following_users.map{|id| id.to_s}) %>'></div>
+<%= render "normal_posts/teaser", :post => nil, :current_user => nil %>

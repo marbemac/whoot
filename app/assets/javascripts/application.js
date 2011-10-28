@@ -23,7 +23,6 @@
 //= require jquery.label
 //= require pusher
 //= require whoot.core
-//= require whoot.request
 //= require invite_posts
 //= require whoot.subscribers
 //= require whoot.action.controller

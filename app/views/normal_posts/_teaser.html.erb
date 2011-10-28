@@ -1,31 +1,28 @@
-<div class="teaser post <%= post.night_type %>" id="post-<%= post.id %>" data-details="<%= normal_post_path post %>">
-  <a class="profile-image" href="<%= user_path post.created_by %>" title="<%= post.created_by.fullname %>">
-    <%= image_tag user_default_picture_path(post.created_by, :d => [50, 50], :s => 'square'), :style => "max-width: 50px;" %>
+<div class="teaser post <%= post ? post.night_type : 'hide' %>" id="<%= post ? "post-#{post.created_by.id}" : 'post-dummy' %>" data-details="<%= normal_post_path post if post %>">
+  <a class="profile-image" href="<%= user_path post.created_by if post %>" title="<%= post.created_by.fullname if post %>">
+    <%= image_tag user_default_picture_path(post.created_by, :d => [50, 50], :s => 'square'), :style => "max-width: 50px;" if post %>
   </a>
 
   <div class="ulink-wrap">
-    <%= user_link(post.created_by, 15) %>
+    <%= user_link(post.created_by, 15) if post %>
   </div>
 
   <div class="what">
-    <%= post.night_type_short %>
+    <%= post.night_type_short if post %>
   </div>
 
   <div class="tags">
     <!--{% if post.invite is defined and post.invite %}-->
-    <% if post.invite_post %>
+    <% if post && post.invite_post %>
       @ <%= link_to post.venue.name, invite_post_path(:id => post.invite_url) %>
-    <% else %>
+    <% elsif post %>
       <% post.tags.each do |tag| %>
         <%= render "tags/teaser", :tag => tag %>
       <% end %>
     <% end %>
   </div>
 
-  <!--{% if post.invite is not defined or not post.invite %}-->
-  <% if post.user_id != current_user.id %>
-    <%= render "votes/button", :target => post, :current_user => current_user %>
-  <% end %>
+  <%= render "votes/button", :target => post, :current_user => current_user %>
 
   <div class="clear"></div>
 </div>

@@ -84,20 +84,44 @@
   /*
    * Main site-wide action functions.
    */
-  doAction = function(params, success, error) {
-    console.log('Action:' + params.url);
+  doAction = function(url, requestType, params, success, error) {
+    try {
+      params = JSON.parse(params)
+    } catch (e) {}
 
-    var $action = params.requestType.toLowerCase() + 'Action';
-    var $payload = params.payload ? params.payload : {};
-    $payload['url'] = params.url;
+    $.ajax({
+      url: url,
+      type: requestType,
+      dataType: 'json',
+      data: params,
+      success: function(data) {
+        $currentTarget.data('processing', false);
+        appUpdate(data);
+        if (success) {
+          success(params, data);
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        var data = JSON.parse(jqXHR.responseText)
+        appUpdate(data);
 
-    amplify.request($action, $payload, function (data) {
-      appUpdate(data);
-      if (success) {
-        success({'url': params.url}, data);
+        if (jqXHR.status == 401 && $('#login').length > 0)
+        {
+          $('#login').click()
+          createGrowl(false, 'You need to be logged in to do that.', '', 'red');
+        }
+        else if (jqXHR.status == 500)
+        {
+          createGrowl(false, 'Woops! There was an error. We\'ve been notified and will look into it ASAP.', '', 'red');
+        }
+
+        if (error) {
+          error(params, data);
+        }
       }
     })
   };
+
   feedReload = function($url) {
     $.get($url, {}, function(html) {
       $('#post-feed').fadeOut(500, function() {

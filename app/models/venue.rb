@@ -83,7 +83,7 @@ class Venue
   end
 
   def check_duplicate
-    if private == false
+    if private == false && coordinates
       found = Venue.where(:coordinates => coordinates[0], :coordinates => coordinates[1], :_id.ne => id).first
       if found
         Post.where("venue._id" => id).update_all(

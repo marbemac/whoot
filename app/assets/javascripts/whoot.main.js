@@ -408,17 +408,16 @@ $(function() {
   /*
    * SEARCH
    */
-  $(".search input, #block-user").autocomplete($('#static-data').data('d').userAutoUrl, {
+  $("#header .search input, #block-user").autocomplete($('#static-data').data('d').userAutoUrl, {
     minChars: 2,
     width: 245,
-    matchContains: true,
     matchSubset: false,
     autoFill: false,
     selectFirst: true,
     mustMatch: true,
     searchKey: 'term',
     max: 10,
-    buckets: [['user', $('#static-data').data('d').userAutoBucket, 'FOLLOWING']],
+    buckets: [['user', $('#static-data').data('d').userAutoBucket, 'FOLLOWING'], ['user', 'user', 'OTHER USERS']],
     extraParams: {"types":[$('#static-data').data('d').userAutoBucket, 'user']},
     dataType: 'json',
     delay: 100,

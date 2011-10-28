@@ -20,6 +20,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Publish a pusher message
+  def pusher_publish(channel, event, message)
+    Pusher[channel].trigger(event, message)
+  end
+
   private
 
   # Used to display the page load time on each page

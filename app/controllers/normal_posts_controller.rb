@@ -33,6 +33,21 @@ class NormalPostsController < PostsController
 
     respond_to do |format|
       if @post.save
+        pusher_message = {
+                :fullname => current_user.fullname,
+                :user_slug => current_user.fullname.to_url,
+                :encoded_id => current_user.encoded_id,
+                :user_id => current_user.id.to_s,
+                :what => @post.night_type_short,
+                :night_type => @post.night_type,
+                :id => @post.id.to_s,
+                :tags => []
+        }
+        @post.tags.each do |tag|
+          pusher_message[:tags] << {:id => tag.id, :name => tag.name}
+        end
+        pusher_publish(current_user.id.to_s, 'post_changed', pusher_message)
+
         response = { :redirect => request.referer }
         format.html { redirect_to :back, notice: 'Post was successfully created.' }
         format.json { render json: response, status: :created, location: @post }

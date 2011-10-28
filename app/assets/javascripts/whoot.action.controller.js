@@ -3,33 +3,46 @@ $(function() {
 
   // Perform an action. .ac for POST actions, .acg for GET actions.
   $('.ac').live('click', function(event) {
-    $currentTarget = $this;
 
     var $this = $(this),
         $url = $this.attr('href') ? $this.attr('href') : $this.data('url')
         $requestType = $this.data('m');
         $payload = $this.data('d');
 
+    if ($this.data('processing'))
+    {
+      return false;
+    }
+
+    $this.data('processing', true);
+
+    $currentTarget = $this;
     event.preventDefault();
 
-    doAction({requestType: $requestType, payload: $payload, url: $url}, null, null);
+    doAction($url, $requestType, $payload, null, null);
 
     return false;
   });
 
   // Perform a button action
   $('.btn').live('click', function(event) {
-
     // Ajaxify this link
     var $this = $(this),
         $url = $this.children(':visible').data('url'),
         $requestType = $this.children(':visible').data('m'),
         $payload = $this.children(':visible').data('d');
 
+    if ($this.data('processing'))
+    {
+      return false;
+    }
+
+    $this.data('processing', true);
+
     $currentTarget = $this;
 
     event.preventDefault();
-    doAction({requestType: $requestType, payload: $payload, url: $url}, toggleButton, null);
+    doAction($url, $requestType, $payload, toggleButton, rollbackButton);
 
     $currentTarget.fadeTo(100, .5).css('cursor', 'default');
 
@@ -50,6 +63,11 @@ $(function() {
     else {
       alert('error (fill this)')
     }
+    $currentTarget.fadeTo(100, 1).css('cursor', 'pointer');
+  }
+
+  function rollbackButton(params, data)
+  {
     $currentTarget.fadeTo(100, 1).css('cursor', 'pointer');
   }
 
