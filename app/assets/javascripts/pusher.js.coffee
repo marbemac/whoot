@@ -10,7 +10,6 @@ jQuery ->
     $(data.tags).each (i, val) ->
       tags.append('<div class="tag" data-id="'+val.id+'">'+val.name+'</div>')
 
-
   if ($('#subscribe-users').length > 0)
     $($('#subscribe-users').data('ids')).each (index, val) ->
       channel = pusher.subscribe(val);
@@ -36,10 +35,7 @@ jQuery ->
           target.find('.voteB').addClass('vb-'+data.id).find('.default').data('d', '{"id":"'+data.id+'"}')
           $('#post-feed').prepend(target)
 
-
         target.effect("highlight", {color: '#FC770D'}, 2000)
-
-
 
       channel.bind 'voted', (data) ->
         target = $('#post-'+data.user_id)

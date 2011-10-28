@@ -95,13 +95,7 @@ class Post
       if target_venue
         target_venue.add_alias(venue.name)
       else
-        target_venue = Venue.new(
-                :name => venue.name,
-                :address => venue.address,
-                :phone => venue.phone,
-                :city_id => user.location.id,
-                :private => venue.private
-        )
+        target_venue = Venue.new(venue.attributes)
         target_venue.user_id = user.id
       end
     end
