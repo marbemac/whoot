@@ -3,7 +3,7 @@
 <div class="teaser invite <%= post.night_type %>" id="invite-<%= post.id %>">
   <% img = default_image_url(post, [120, 120], 'square') %>
   <% if img %>
-    <%= image_tag img, class: 'inviteImage' %>
+    <%= image_tag img, class: 'inviteImage', :alt => '' %>
   <% else %>
     <%= image_tag "inviteDefault.png", :class => 'inviteImage', :width => '120px' %>
   <% end %>
@@ -35,7 +35,7 @@
       <% attendees = User.where(:_id.in => post.attendees) %>
       <% attendees.each do |attendee| %>
       <a href="<%= user_path attendee %>" title="<%= attendee.fullname %>">
-        <%= image_tag user_default_picture_path(attendee, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;" %>
+        <%= image_tag user_default_picture_path(attendee, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
       </a>
       <% end %>
     </div>

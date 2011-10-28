@@ -61,7 +61,10 @@ class InvitePostsController < PostsController
     @invitepost = InvitePost.find_by_encoded_id(params[:id])
     @invitepost.cancel
     if @invitepost.save
-      PostMailer.invite_cancelled(@invitepost.user).deliver
+      attendees = User.where(:_id.in => @invitepost.attendees)
+      attendees.each do |user|
+        PostMailer.invite_cancelled(@invitepost.user).deliver if user.id != current_user.id
+      end
     end
 
     flash[:success] = 'Open invite was successfully cancelled.'

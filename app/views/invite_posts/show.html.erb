@@ -9,7 +9,7 @@
       <!--{% if not userBlocked(app.user, user) %}-->
         <li>
           <a class="profile-image" href="<%= user_path user %>" title="<%= user.fullname %>">
-            <%= image_tag user_default_picture_path(user, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;" %>
+            <%= image_tag user_default_picture_path(user, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
           </a>
           <%= user_link user, 15 %>
         </li>

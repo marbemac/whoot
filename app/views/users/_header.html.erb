@@ -2,7 +2,7 @@
 
   <div id="page-header">
 
-    <%= image_tag user_default_picture_path(@user, :d => [150, 150], :s => 'square'), :style => "max-width: 150px;", :class => 'main-image' %>
+    <%= image_tag user_default_picture_path(@user, :d => [150, 150], :s => 'square'), :style => "max-width: 150px;", :class => 'main-image', :alt => '' %>
 
     <div class="details">
       <h1><%= @user.fullname %></h1>

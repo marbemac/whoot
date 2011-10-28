@@ -59,13 +59,10 @@ class InvitePost < Post
         post = user.normal_posts.new(
                 :night_type => night_type,
                 :invite_post_id => id,
-                :venue => {
-                        :name => venue.name,
-                        :address => venue.address,
-                        :coordinates => venue.coordinates
-                }
+                :venue_id => venue.id,
+                :venue => venue.attributes
         )
-        post.venue.id = venue.id
+        post.venue.id = self.venue.id
       end
 
       if (current_post)

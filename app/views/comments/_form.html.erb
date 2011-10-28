@@ -2,7 +2,7 @@
 
   <div class="errors"></div>
 
-  <%= image_tag user_default_picture_path(current_user, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;" %>
+  <%= image_tag user_default_picture_path(current_user, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
 
   <%= f.hidden_field :post_id, :autocomplete => 'off' %>
 

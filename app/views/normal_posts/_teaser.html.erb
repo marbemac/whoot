@@ -1,6 +1,6 @@
 <div class="teaser post <%= post ? post.night_type : 'hide' %>" id="<%= post ? "post-#{post.created_by.id}" : 'post-dummy' %>" data-details="<%= normal_post_path post if post %>">
   <a class="profile-image" href="<%= user_path post.created_by if post %>" title="<%= post.created_by.fullname if post %>">
-    <%= image_tag user_default_picture_path(post.created_by, :d => [50, 50], :s => 'square'), :style => "max-width: 50px;" if post %>
+    <%= image_tag user_default_picture_path(post.created_by, :d => [50, 50], :s => 'square'), :style => "max-width: 50px;", :alt => '' if post %>
   </a>
 
   <div class="ulink-wrap">

@@ -1,5 +1,5 @@
 <div class="teaser user">
-  <%= image_tag user_default_picture_path(user, :d => [50, 50], :s => 'square'), :style => "max-width: 50px;", :class => 'profileImage' %>
+  <%= image_tag user_default_picture_path(user, :d => [50, 50], :s => 'square'), :style => "max-width: 50px;", :class => 'profileImage', :alt => '' %>
   <%= user_link user %>
   <%= render 'follows/button', :target_user => user %>
   <%= render "pings/button", target_user: user %>

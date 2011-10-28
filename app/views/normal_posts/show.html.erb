@@ -6,7 +6,7 @@
       <% @voters.each do |voter| %>
       <li>
         <a class="profile-image" href="<%= user_path voter %>" title="<%= voter.fullname %>">
-          <%= image_tag user_default_picture_path(voter, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;" %>
+          <%= image_tag user_default_picture_path(voter, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
         </a>
         <%= user_link(voter, 15) %>
       </li>

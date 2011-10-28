@@ -91,7 +91,7 @@ class Post
     if !@venue_id.blank?
       target_venue = Venue.find(@venue_id)
     elsif !self.venue.name.blank?
-      target_venue = Venue.where(:private => false).any_of({:slug => venue.name.to_url}, {:address => venue.address}).first
+      target_venue = Venue.where(:private => false).any_of({:aliases => venue.name.to_url}, {:address => venue.address}).first
       if target_venue
         target_venue.add_alias(venue.name)
       else

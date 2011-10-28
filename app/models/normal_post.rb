@@ -96,7 +96,7 @@ class NormalPost < Post
   end
 
   def set_invite_post_snippet
-    if invite_post_id
+    if invite_post
       snippet = InvitePostSnippet.new(
               :public_id => invite_post.public_id
       )
