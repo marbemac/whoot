@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
         post = @comment.post
         if post
           user = post.user
-          pusher_publish(user_id.to_s, 'notification', {:content => "#{current_user.fullname} commented on your post."})
+          pusher_publish(user.id.to_s, 'notification', {:content => "#{current_user.fullname} commented on your post."}) if user
           Notification.add(user, 'comment', (user.settings.email_comment ? true : false), true, false, current_user, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
         end
         html = render_to_string :partial => 'teaser', :locals => {:comment => @comment}
