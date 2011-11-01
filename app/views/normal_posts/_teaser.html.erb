@@ -12,7 +12,6 @@
   </div>
 
   <div class="tags">
-    <!--{% if post.invite is defined and post.invite %}-->
     <% if post && post.invite_post %>
       @ <%= link_to post.venue.name, invite_post_path(:id => post.invite_url) %>
     <% elsif post %>
@@ -22,6 +21,10 @@
     <% end %>
   </div>
 
+  <div class="comments_count">
+    <div class="icon comment-grey-1614"></div>
+    <span><%= post ? post.comment_count : 0 %></span>
+  </div>
   <%= render "votes/button", :target => post, :current_user => current_user %>
 
   <div class="clear"></div>

@@ -4,15 +4,15 @@ ActiveAdmin.register City do
     f.inputs "Details" do
       f.input :name
       f.input :state_code
-      f.input :coordinates_string, :label => "Latitude,Longitude"
     end
+    f.buttons
   end
 
   index do
     column :name
     column :state_code
     column "Lat/Lon" do |city|
-      "#{city.coordinates[0]}, #{city.coordinates[1]}"
+      "#{city.coordinates[0]}, #{city.coordinates[1]}" if city.coordinates
     end
     column :created_at
     #default_actions

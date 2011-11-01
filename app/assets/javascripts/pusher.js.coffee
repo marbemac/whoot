@@ -42,6 +42,11 @@ jQuery ->
         if (target.length > 0)
           target.find('.votes').text(data.votes).effect("highlight", {color: '#FC770D'}, 2000);
 
+      channel.bind 'comment_added', (data) ->
+        target = $('#post-'+data.user_id)
+        target.find('.comments_count span').text(data.count).effect("highlight", {color: '#FC770D'}, 2000);
+
+
   if ($('#static-data').data('d').myId != 0)
-    pusher.subscribe($('#static-data').data('d').myId).bind 'notification', (data) ->
+    pusher.subscribe($('#static-data').data('d').myId+'_private').bind 'notification', (data) ->
       createGrowl(false, data.content, '', 'green');

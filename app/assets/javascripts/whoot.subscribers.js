@@ -89,6 +89,8 @@ $(function() {
   amplify.subscribe("comment_created", function(data) {
     $('.comment_new .content').val($('.comment_new .content').data('default'));
     $('.cf-' + data.root_id).append(data.comment);
+    $('.cf-' + data.root_id).find('#comment_content').val('').blur();
+
   });
 
   /*

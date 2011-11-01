@@ -290,9 +290,11 @@ $(function() {
       $('#post-feed-my-tags').slideDown(150);
 
       $('#post-feed-my-tags .tags').append('<li data-id="'+$self.data('id')+'">'+$self.text()+'<span>x</span></li>');
-      $('.post.teaser').each(function() {
+      $('.post.teaser:not(#post-dummy)').each(function() {
         if ($(this).find('.tag[data-id="' + $self.data('id') + '"]').length == 0) {
           $(this).hide();
+          if ($(this).next().hasClass('post-details'))
+            $(this).next().hide()
         }
       })
     }
@@ -312,12 +314,14 @@ $(function() {
     })
 
     if (!$filteredFound) {
-      $('.post.teaser').fadeIn(150);
+      $('.post.teaser:not(#post-dummy),.post-details').fadeIn(150);
     }
     else {
-      $('.post.teaser').each(function() {
+      $('.post.teaser:not(#post-dummy)').each(function() {
         if ($(this).find($filteredTags).length != 0) {
           $(this).fadeIn(150);
+          if ($(this).next().hasClass('post-details'))
+            $(this).next().fadeIn(150)
         }
       })
     }

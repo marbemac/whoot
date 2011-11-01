@@ -1,3 +1,3 @@
-<div id="unread-notification-count" class="ac" data-url="<%= my_notifications_path %>" data-m="get">
+<div id="unread-notification-count" class="<%= 'ac' if my_post %>" data-url="<%= my_notifications_path %>" data-m="get">
     Notifications <span class="<%= 'on' if user.unread_notification_count > 0 %>"><%= user.unread_notification_count.to_i %></span>
 </div>

@@ -10,6 +10,4 @@ class PostCell < Cell::Rails
     @venues = Venue.where(:status => 'Active', :city_id => @user.location.id).order(:slug, :asc)
     render
   end
-
-
 end

@@ -18,6 +18,13 @@
     border:  none;
 }
 
+.following_users,
+.followers {
+  .user-list {
+    padding: 0 0 200px 0;
+  }
+}
+
 #user_panel {
     padding: 7px 5px 7px 5px;
     margin: 0 5px;

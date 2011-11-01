@@ -75,10 +75,12 @@ class User
   validates :gender, :inclusion => { :in => ["m", "f"], :message => "Please enter a valid gender." }
   validates :email, :uniqueness => { :case_sensitive => false }
   attr_accessible :first_name, :last_name, :gender, :birthday, :email, :password, :password_confirmation, :remember_me, :social_connected
+  attr_accessor :current_ip
 
-  before_create :generate_username, :set_location_snippet, :set_settings
+  before_create :generate_username, :set_settings
   after_create :add_to_soulmate, :save_profile_image, :send_welcome_email, :update_invites
   before_destroy :remove_from_soulmate
+  before_save :set_location_snippet
 
   scope :inactive, where(:last_sign_in_at.lte => Chronic.parse('1 month ago'))
 
@@ -92,13 +94,21 @@ class User
   end
 
   def set_location_snippet
-    location = City.where(name: "New York City").first
-    self.location = LocationSnippet.new(
-            city: location.name,
-            state_code: location.state_code,
-            coordinates: location.coordinates
-    )
-    self.location.id = location.id
+    if (current_sign_in_ip_changed? || Rails.env.development?)
+      my_location = Geocoder.address(Rails.env.development? ? '75.69.89.109' : current_sign_in_ip)
+      if my_location
+        found_location = City.near(my_location).first
+      end
+      unless defined?(found_location) && found_location
+        found_location = City.where(name: "New York City").first
+      end
+      self.location = LocationSnippet.new(
+              city: found_location.name,
+              state_code: found_location.state_code,
+              coordinates: found_location.coordinates
+      )
+      self.location.id = found_location.id
+    end
   end
 
   def set_settings

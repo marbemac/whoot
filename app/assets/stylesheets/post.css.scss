@@ -469,6 +469,19 @@ $post-border-color: #DDD;
           color: #FC770D;
         }
     }
+    .comments_count {
+      padding: 0 23px 0 0;
+      position: relative;
+      font-size: 16px;
+      font-weight: bold;
+      float: right;
+      margin: 20px 5px 0 0;
+      .icon {
+        position: absolute;
+        top: 2px;
+        right: 0px;
+      }
+    }
     &.working .what {
         color: $post-working-color;
     }
@@ -650,6 +663,7 @@ $post-border-color: #DDD;
 #feed-nav {
   margin: 0 5px 10px 5px;
   border-bottom: 3px solid #CCC;
+  position: relative;
 
   .item {
     float: left;
@@ -680,6 +694,14 @@ $post-border-color: #DDD;
         cursor: default;
       }
     }
+  }
+  .location {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    font-size: 12px;
+    color: #444;
+    cursor: default;
   }
 }
 

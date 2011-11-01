@@ -28,8 +28,6 @@
 
     user_image_uploader.bind("FileUploaded", function(up, file, data) {
       params = $.parseJSON(data.response);
-      console.log(data);
-      console.log(params);
       $.ajax({
         url: '<%= user_picture_update_path %>',
         dataType: 'json',

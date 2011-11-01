@@ -62,7 +62,6 @@ class InvitePost < Post
                 :venue_id => venue.id,
                 :venue => venue.attributes
         )
-        post.venue.id = self.venue.id
       end
 
       if (current_post)

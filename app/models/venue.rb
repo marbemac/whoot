@@ -35,8 +35,6 @@ class Venue
     ]
   )
 
-  validates :name, :uniqueness => { :case_sensitive => false }
-
   belongs_to :city
   belongs_to :user
 
@@ -59,8 +57,10 @@ class Venue
 
   def add_alias(content, add_soulmate=true)
     url = content.to_url
-    self.aliases << url unless self.aliases.include?(url)
-    Resque.enqueue(SmCreateVenue, id.to_s) if add_soulmate
+    unless self.aliases.include?(url)
+      self.aliases << url
+      Resque.enqueue(SmCreateVenue, id.to_s) if add_soulmate
+    end
   end
 
   def update_denorms

@@ -6,6 +6,7 @@ class Post
   field :status, :default => 'Active'
   field :current, :default => true
   field :night_type
+  field :comment_count, :default => 0
   field :user_id
 
   index(
@@ -16,6 +17,7 @@ class Post
       [ :night_type, Mongo::ASCENDING ]
     ]
   )
+  index :comment_count
   index "venue._id"
   index [["venue.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
   index [["location.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
@@ -101,7 +103,7 @@ class Post
     end
 
     if target_venue
-      target_venue.save
+      target_venue.save!
       self.venue = VenueSnippet.new(
               name: target_venue.name,
               address: target_venue.address,

@@ -49,3 +49,8 @@
   @include icon-sprite(minus_red_16x4);
   width: 16px; height: 4px;
 }
+.comment-grey-1614 {
+  @include icon-sprite(comment_grey_16x14);
+  width: 16px;
+  height: 14px;
+}

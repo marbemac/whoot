@@ -7,7 +7,7 @@ class VotesController < ApplicationController
       target_post.add_voter(current_user)
       if target_post.save
         pusher_publish(target_post.user_id.to_s, 'voted', {:user_id => target_post.user_id.to_s, :votes => target_post.votes, :message => "#{current_user.fullname} +1'd your post.'"})
-        pusher_publish(target_post.user_id.to_s, 'notification', {:content => "#{current_user.fullname} +1'd your post."})
+        pusher_publish(target_post.user_id.to_s+'_private', 'notification', {:content => "#{current_user.fullname} +1'd your post."})
       end
       response = {:json => {:status => 'ok', :target => '.vb-'+target_post.id.to_s, :toggle_classes => ['voteB', 'unvoteB', 'btn'], :update_target => '.v-'+target_post.id.to_s, :update_value => target_post.votes}, :status => 201}
     else

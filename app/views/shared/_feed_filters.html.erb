@@ -40,9 +40,14 @@
           Newest
         </a>
       </li>
-      <li class="<%= if session[:feed_filters][:sort][:target] == 'popularity' then 'on' else 'hide' end %>">
+      <li class="<%= if session[:feed_filters][:sort][:target] == 'votes' then 'on' else 'hide' end %>">
         <a href="<%= feed_sort_path %>" class="ac" data-m="put" data-d='{"value":"votes"}'>
           Popularity
+        </a>
+      </li>
+      <li class="<%= if session[:feed_filters][:sort][:target] == 'comment_count' then 'on' else 'hide' end %>">
+        <a href="<%= feed_sort_path %>" class="ac" data-m="put" data-d='{"value":"comment_count"}'>
+          Comments
         </a>
       </li>
     </ul>
