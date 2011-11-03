@@ -78,7 +78,7 @@ class User
   attr_accessor :current_ip
 
   before_create :generate_username, :set_settings
-  after_create :add_to_soulmate, :save_profile_image, :send_welcome_email, :update_invites
+  after_create :add_to_soulmate, :save_profile_image, :send_welcome_email, :update_invites, :follow_admins
   before_destroy :remove_from_soulmate
   before_save :set_location_snippet
 
@@ -162,6 +162,13 @@ class User
       inviter.save
     end
     self.save
+  end
+
+  def follow_admins
+    admins = User.where(:roles => 'admin')
+    admins.each do |admin|
+      follow_user(admin)
+    end
   end
 
   def fullname
