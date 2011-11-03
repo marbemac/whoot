@@ -168,6 +168,7 @@ class User
     admins = User.where(:roles => 'admin')
     admins.each do |admin|
       follow_user(admin)
+      admin.save
     end
     self.save
   end
