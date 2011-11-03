@@ -23,7 +23,7 @@
 
   <div class="comments_count">
     <div class="icon comment-grey-1614"></div>
-    <span><%= post ? post.comment_count : 0 %></span>
+    <span><%= post ? post.comment_count.to_i : 0 %></span>
   </div>
   <%= render "votes/button", :target => post, :current_user => current_user %>
 

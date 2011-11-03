@@ -3,23 +3,26 @@
   <div id="post-map-canvas"></div>
 </div>
 <div class="venues">
-  <h6>Where Your Friends Are Going</h6>
-  <% venues.each_with_index do |venue,i| %>
-    <% if venue[:coordinates] %>
-      <div class="venue"
-           data-lat="<%= venue[:coordinates][1] %>"
-           data-lon="<%= venue[:coordinates][0] %>"
-           data-icon="<%= venue[:image] %>"
-           data-name="<%= venue[:name] + ' - ' + venue[:count].to_s + ' friends' %>"
-           data-url="<%= attending_venue_map_path venue[:id] %>"
-           data-sort="<%= i %>">
-        <div class="name">
-          <%= venue[:name] %>
+  <h5>Where Your Friends Are Going</h5>
+  <% locations.each do |location,venues| %>
+    <h6><%= location %></h6>
+    <% venues.each_with_index do |venue,i| %>
+      <% if venue[:coordinates] %>
+        <div class="venue"
+             data-lat="<%= venue[:coordinates][1] %>"
+             data-lon="<%= venue[:coordinates][0] %>"
+             data-icon="<%= venue[:image] %>"
+             data-name="<%= venue[:name] + ' - ' + venue[:count].to_s + ' friends' %>"
+             data-url="<%= attending_venue_map_path venue[:id] %>"
+             data-sort="<%= i %>">
+          <div class="name">
+            <%= venue[:name] %>
+          </div>
+          <div class="num">
+            <%= venue[:count] %> friends
+          </div>
         </div>
-        <div class="num">
-          <%= venue[:count] %> friends
-        </div>
-      </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>

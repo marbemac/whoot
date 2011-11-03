@@ -91,7 +91,7 @@ class NormalPostsController < PostsController
       if post.venue
         unless venue_ids.key? post.venue.id
           venue_ids[post.venue.id] = venues.length
-          venues << {:id => post.venue.id, :coordinates => post.venue.coordinates, :count => 0, :name => post.venue.name}
+          venues << {:id => post.venue.id, :coordinates => post.venue.coordinates, :count => 0, :name => post.venue.name, :location => post.location.full}
           venue_count += 1
         end
         venues[venue_ids[post.venue.id]][:count] += 1
@@ -101,7 +101,7 @@ class NormalPostsController < PostsController
     venues.sort_by! {|venue| venue[:count]}
     venues.reverse!
     images = ["map_pin_fill_14x23.png","map_pin_fill_18x29.png","map_pin_fill_24x38.png","map_pin_fill_30x48.png"]
-    @venues = venues.each_with_index do |venue, i|
+    venues_with_image = venues.each_with_index do |venue, i|
       venue[:image] = case venue[:count]
         when 1..2 then images[0]
         when 3..6 then images[1]
@@ -110,7 +110,14 @@ class NormalPostsController < PostsController
       end
     end
 
-    html = render_to_string :partial => 'map', :locals => {:venues => venues}
+    venues = Hash.new
+
+    venues_with_image.map do |venue|
+      venues[venue[:location]] ||= Array.new
+      venues[venue[:location]] << venue
+    end
+
+    html = render_to_string :partial => 'map', :locals => {:locations => venues}
     render :json => {:status => 'OK', :content => html, :event => 'normal_post_map_loaded'}
   end
 end

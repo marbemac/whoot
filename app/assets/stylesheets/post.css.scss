@@ -727,24 +727,32 @@ $post-border-color: #DDD;
     float: left;
     width: 575px;
   }
-  h6 {
+  h5 {
     text-align: center;
+    font-size: 16px;
   }
   .venues {
+    h6 {
+      font-size: 14px;
+      padding: 5px;
+      margin: 7px 0 0 5px;
+      border-bottom: 2px solid #666;
+    }
+
     float: left;
     width: 165px;
     .venue {
-      padding: 5px 10px;
+      padding: 3px 5px;
       margin: 0 0 0 5px;
       border-bottom: 1px solid #CCC;
       color: #333;
       .name {
         font-weight: bold;
-        font-size: 14px;
+        font-size: 12px;
       }
       .num {
         font-style: italic;
-        font-size: 12px;
+        font-size: 11px;
       }
       &:hover {
         cursor: pointer;
