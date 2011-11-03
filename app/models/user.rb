@@ -169,6 +169,7 @@ class User
     admins.each do |admin|
       follow_user(admin)
     end
+    self.save
   end
 
   def fullname
