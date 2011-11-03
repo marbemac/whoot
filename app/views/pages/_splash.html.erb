@@ -4,6 +4,13 @@
   <%= image_tag "splash-logo-small.png", :class => "logo", :alt => "The Whoot" %>
   <%= image_tag "splash-map.png", :class => "map", :alt => "Post what you are up to tonight" %>
 
+  <div class="static_pages">
+    <div class="" data-url="<%= about_path %>">About</div>
+    <div class="" data-url="<%= contact_path %>">Contact</div>
+    <div class="" data-url="<%= terms_path %>">Terms</div>
+    <div class="" data-url="<%= privacy_path %>">Privacy</div>
+  </div>
+
   <div id="auth-login" class="hide">
     <%= render "users/sessions/new" %>
   </div>

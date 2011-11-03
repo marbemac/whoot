@@ -37,6 +37,15 @@ $(function() {
     hide: {delay: 200, fixed: false}
   })
 
+  $('#splash .static_pages div').each(function(i,val) {
+    var self = $(this);
+    self.colorbox({
+      href:self.data('url'),
+      maxWidth: '80%',
+      maxHeight: '80%'
+    });
+  })
+
   /**
    * USERS
    */

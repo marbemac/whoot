@@ -46,6 +46,19 @@ html.coming-soon {
         right: 7px;
         top: 3px;
     }
+
+    .static_pages {
+      position: absolute;
+      bottom: -17px;
+      left: 522px;
+      div {
+        color: #FFF;
+        cursor: pointer;
+        float: left;
+        font-size: 13px;
+        margin: 0 15px;
+      }
+    }
 }
 
 #fb_login {
