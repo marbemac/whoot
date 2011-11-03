@@ -96,20 +96,6 @@ $(function() {
     $(this).parent().find('.post_type').val($(this).data('val'));
   })
 
-  // Scroll to my post
-  $('#my-post:not(.invite)').live('click', function(ev) {
-    if ($(ev.target).attr('id') == 'change-post' || $(ev.target).attr('id') == 'cancel-post')
-      return;
-
-    var $self = $(this);
-    $.scrollTo($self.data('target'), {
-      duration: 500,
-      onAfter: function() {
-        $($self.data('target')).click();
-      }
-    })
-  })
-
   // Cancel a change post
   $('#post-box .cancel').live('click', function() {
     $('#post-box').fadeOut(300);
@@ -236,7 +222,7 @@ $(function() {
       $self.find('.coordinates').val(place.geometry.location.lng() + ' ' + place.geometry.location.lat());
       if (place.name && ($.inArray('restaurant', place.types) > 0 || $.inArray('food', place.types) > 0 || $.inArray('establishment', place.types) > 0))
       {
-        $self.find('.name').val(place.name)
+        $self.find('.name').focus().val(place.name).blur()
       }
       if (place.formatted_phone_number)
       {
@@ -244,6 +230,14 @@ $(function() {
       }
     })
   })
+
+  $('.address_placeholder').live('keypress', function(e) {
+    if (e.keyCode == 13)
+    {
+      return false;
+    }
+  })
+
   // Draw on post maps
   $('.invite-map').livequery(function() {
     var $self = $(this);

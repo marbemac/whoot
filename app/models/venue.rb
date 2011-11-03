@@ -23,6 +23,7 @@ class Venue
   auto_increment :public_id
 
   geocoded_by :address
+  after_validation :reverse_geocode
 
   index [[:coordinates, Mongo::GEO2D]], :min => -180, :max => 180
   index :public_id
@@ -40,7 +41,7 @@ class Venue
 
   before_create :set_self_alias
   after_save :update_denorms
-  after_validation :geocode
+  after_validation :geocode, :if => lambda{ |obj| obj.address_changed? }
   after_create :check_duplicate
   before_destroy :remove_from_soulmate
 
@@ -84,7 +85,7 @@ class Venue
 
   def check_duplicate
     if private == false && coordinates
-      found = Venue.where(:coordinates => coordinates[0], :coordinates => coordinates[1], :_id.ne => id).first
+      found = Venue.where(:coordinates => coordinates[0], :coordinates => coordinates[1], :private => false, :_id.ne => id).first
       if found
         Post.where("venue._id" => id).update_all(
                 "venue._id" => found.id,

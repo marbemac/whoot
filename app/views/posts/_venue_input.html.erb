@@ -10,8 +10,9 @@
       <div class="clear"></div>
     </div>
     <div class="field lClear address_fields <%= venue_required %>">
-      <%= v.label :address, "Venue address"+(venue_required.blank? ? ' (optional)' : '') %>
-      <%= v.text_field :address, :autocomplete => 'off', :class => 'address_placeholder', :placeholder => '' %>
+      <%= v.label :address, "Venue address"+(venue_required.blank? ? ' (optional)' : ''), :for => "#{f.object.class.name.underscore}_address_placeholder" %>
+      <input type="text" id="<%= "#{f.object.class.name.underscore}_address_placeholder" %>" class="address_placeholder" placeholder="" autocomplete="off" />
+      <%= v.hidden_field :address, :autocomplete => 'off', :class => 'address' %>
     </div>
     <%= v.hidden_field :coordinates_string, :autocomplete => 'off', :class => 'coordinates' %>
     <%= v.hidden_field :phone, :autocomplete => 'off', :class => 'phone' %>

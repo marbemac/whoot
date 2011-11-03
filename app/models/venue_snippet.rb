@@ -14,11 +14,11 @@ class VenueSnippet
   end
 
   def coordinates_string
-    coordinates.join(',')
+    coordinates.join(' ')
   end
 
   def coordinates_string=(string)
-    self.coordinates = string.split(',')
+    self.coordinates = string.split(' ')
   end
 
 end
