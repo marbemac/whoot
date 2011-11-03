@@ -334,9 +334,9 @@ $feed-filters-margin-top: 5px;
         }
         .undecided {
           @include blue-button(2px, 12px);
-          position: relative;
-          top: 8px;
-          left: 10px;
+          position: absolute;
+          top: 5px;
+          left: 470px;
           cursor: pointer;
           padding: 3px 8px;
         }
