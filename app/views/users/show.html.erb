@@ -9,3 +9,5 @@
 <% else %>
   <div class="none"><%= @user.first_name %> has not posted for tonight</div>
 <% end %>
+
+<div id="subscribe-users" data-ids='<%= Yajl::Encoder.encode([@user.id.to_s]) %>'></div>
