@@ -541,7 +541,7 @@ $(function() {
           title:$(val).data('name'),
           icon: "/assets/"+$(val).data('icon')
         });
-        markers[$(val).data('sort')] = marker
+        markers[$(val).data('id')] = marker
         google.maps.event.addListener(marker, 'click', function(e) {
           $.ajax({
             type: 'get',
@@ -564,7 +564,7 @@ $(function() {
   })
 
   $('#post-map .venue').live('click', function() {
-    google.maps.event.trigger(markers[$(this).data('sort')],"click")
+    google.maps.event.trigger(markers[$(this).data('id')],"click")
   })
 
   $('.toggle').live('click', function() {

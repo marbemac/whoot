@@ -91,7 +91,7 @@ class NormalPostsController < PostsController
       if post.venue
         unless venue_ids.key? post.venue.id
           venue_ids[post.venue.id] = venues.length
-          venues << {:id => post.venue.id, :coordinates => post.venue.coordinates, :count => 0, :name => post.venue.name, :location => post.location.full}
+          venues << {:id => post.venue.id.to_s, :coordinates => post.venue.coordinates, :count => 0, :name => post.venue.name, :location => post.location.full}
           venue_count += 1
         end
         venues[venue_ids[post.venue.id]][:count] += 1
