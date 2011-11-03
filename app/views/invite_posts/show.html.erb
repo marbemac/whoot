@@ -19,9 +19,7 @@
   <div class="right">
     <div class="comment-feed cf-<%= @post.id %>">
       <%= render "comments/form", :post => @post %>
-      <% @comments_with_user.each do |comment| %>
-        <%= render "comments/teaser", :comment => comment %>
-      <% end %>
+      <%= render "comments/feed", :comments => @comments_with_user %>
     </div>
   </div>
 </div>

@@ -42,8 +42,14 @@ Whoot::Application.routes.draw do
   # Voting
   post   'vote' => 'votes#create', :as => :vote_create
   delete 'vote' => 'votes#destroy', :as => :vote_destroy
+  scope 'votes' do
+    get 'ajax' => 'votes#ajax', :as => :votes_ajax
+  end
 
   # Comments
+  scope 'comments' do
+    get 'ajax' => 'comments#ajax', :as => :comments_ajax
+  end
   resources :comments, :only => :create
 
   # Uploads

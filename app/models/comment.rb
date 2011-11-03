@@ -25,7 +25,7 @@ class Comment
   def update_post_comments
     post.comment_count += 1
     post.save
-    Pusher[post.user_id].trigger('comment_added', {:user_id => post.user_id.to_s, :count => post.comment_count})
+    Pusher[post.user_id].trigger('comment_added', {:user_id => post.user_id.to_s, :post_id => post_id.to_s, :count => post.comment_count})
   end
 
 end

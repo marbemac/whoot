@@ -17,6 +17,8 @@ jQuery ->
         target = $('#post-'+data.user_id)
         if (target.length > 0)
           rebuildPost(target, data)
+          if (target.next().hasClass('post-details'))
+            target.removeClass('on').next().remove()
         else
           target = $('#post-dummy').clone()
           rebuildPost(target, data)
@@ -41,10 +43,41 @@ jQuery ->
         target = $('#post-'+data.user_id)
         if (target.length > 0)
           target.find('.votes').text(data.votes).effect("highlight", {color: '#FC770D'}, 2000);
+          details = target.next()
+          if (details.hasClass('post-details'))
+            if (target.hasClass('on'))
+              $.ajax({
+                url: $('#static-data').data('d').votesAjaxPath,
+                data: {post_id: data.post_id},
+                dataType: 'json',
+                type: 'GET',
+                success: (voterData) ->
+                  voters = details.find('.voters')
+                  voters.find('div,a').remove()
+                  voters.append(voterData.content)
+              })
+            else
+              details.remove()
 
       channel.bind 'comment_added', (data) ->
         target = $('#post-'+data.user_id)
-        target.find('.comments_count span').text(data.count).effect("highlight", {color: '#FC770D'}, 2000);
+        if (target.length > 0)
+          target.find('.comments_count span').text(data.count).effect("highlight", {color: '#FC770D'}, 2000);
+          details = target.next()
+          if (details.hasClass('post-details'))
+            if (target.hasClass('on'))
+              $.ajax({
+                url: $('#static-data').data('d').commentAjaxPath,
+                data: {post_id: data.post_id},
+                dataType: 'json',
+                type: 'GET',
+                success: (commentData) ->
+                  feed = details.find('.comment-feed')
+                  feed.find('.teaser').remove()
+                  feed.append(commentData.content)
+              })
+            else
+              details.remove()
 
 
   if ($('#static-data').data('d').myId != 0)

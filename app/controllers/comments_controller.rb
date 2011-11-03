@@ -22,4 +22,12 @@ class CommentsController < ApplicationController
     end
   end
 
+  def ajax
+    comments = Comment.where(:post_id => params[:post_id], :status => 'Active')
+    @comments_with_user = User.join(comments)
+    html = render_to_string :partial => 'feed', :locals => {:comments => @comments_with_user}
+    response = {:status => 'OK', :content => html }
+    render json: response, status: 200
+  end
+
 end

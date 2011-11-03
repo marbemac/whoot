@@ -454,7 +454,7 @@ $post-border-color: #AAA;
         float: left;
         padding: 21px 0 5px 0;
         font-style: italic;
-        width: 330px;
+        width: 300px;
         overflow: hidden;
         white-space: nowrap;
         font-size: 13px;
@@ -504,6 +504,7 @@ $post-border-color: #AAA;
 .post-details {
     position: relative;
     border-bottom: 1px solid $post-border-color;
+    width: 740px;
     .left {
 
     }

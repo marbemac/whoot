@@ -2,13 +2,7 @@
   <div class="left voters">
     <!--{% if post.invite is not defined or not post.invite %}-->
     <h4>+1's</h4>
-    <% @voters.each do |voter| %>
-      <%= user_link(voter, 15) %>
-    <% end %>
-
-    <% if @voters.length == 0 %>
-    <div class="none">No +1's yet</div>
-    <% end %>
+    <%= render "votes/voters", :voters => @voters %>
   </div>
 
   <div class="right">
@@ -17,9 +11,7 @@
     <% end %>
     <div class="comment-feed cf-<%= @post.id %>">
       <%= render "comments/form", :post => @post %>
-      <% @comments_with_user.each do |comment| %>
-        <%= render "comments/teaser", :comment => comment %>
-      <% end %>
+      <%= render "comments/feed", :comments => @comments_with_user %>
     </div>
   </div>
   <div class="clear"></div>
