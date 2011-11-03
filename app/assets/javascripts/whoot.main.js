@@ -518,6 +518,7 @@ $(function() {
   })
 
   markers = [];
+  currentInfoWindow = null;
   $('#post-map-coordinates').live('click', function() {
     height = $('#page').height()
     $('#post-map-canvas').height(height-95)
@@ -550,7 +551,11 @@ $(function() {
               var infowindow = new google.maps.InfoWindow({
                   content: data.content
               });
-              infowindow.open(map,marker);
+              if (currentInfoWindow != null) {
+                  currentInfoWindow.close();
+              }
+              infowindow.open(map, marker);
+              currentInfoWindow = infowindow;
             }
           })
         });
@@ -559,7 +564,6 @@ $(function() {
   })
 
   $('#post-map .venue').live('click', function() {
-    console.log($(this).data('sort'))
     google.maps.event.trigger(markers[$(this).data('sort')],"click")
   })
 
