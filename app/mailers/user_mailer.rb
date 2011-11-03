@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "support@thewhoot.com"
+  default :from => "The Whoot <support@thewhoot.com>"
   layout 'email'
 
   def welcome_email(user)

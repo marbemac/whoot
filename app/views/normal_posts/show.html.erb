@@ -1,21 +1,14 @@
 <div class="post-details normal two-col-equal-height">
-  <div class="left">
+  <div class="left voters">
     <!--{% if post.invite is not defined or not post.invite %}-->
     <h4>+1's</h4>
-    <ul class="voters">
-      <% @voters.each do |voter| %>
-      <li>
-        <a class="profile-image" href="<%= user_path voter %>" title="<%= voter.fullname %>">
-          <%= image_tag user_default_picture_path(voter, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
-        </a>
-        <%= user_link(voter, 15) %>
-      </li>
-      <% end %>
+    <% @voters.each do |voter| %>
+      <%= user_link(voter, 15) %>
+    <% end %>
 
-      <% if @voters.length == 0 %>
-      <li class="none">No +1's yet</li>
-      <% end %>
-    </ul>
+    <% if @voters.length == 0 %>
+    <div class="none">No +1's yet</div>
+    <% end %>
   </div>
 
   <div class="right">

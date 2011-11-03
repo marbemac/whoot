@@ -22,10 +22,8 @@ $(function() {
 
   $('#why_facebook').qtip({
     content: {
-      text: 'A Facebook profile is required to login to The Whoot. Partnering with Facebook provides ' +
-              'Whoot users with secure account access in a seamless social environment. Best of all, ' +
-              'integration with Facebook makes it easier than ever to connect with your pre-existing ' +
-              'Facebook network on The Whoot.'
+      text: 'Partnering with Facebook provides Whoot users with secure account access ' +
+              'and makes it easier than ever to connect with your pre-existing Facebook network on The Whoot.'
     },
     style: {classes: 'ui-tooltip-shadow ui-tooltip-light', tip: true},
     position: {
