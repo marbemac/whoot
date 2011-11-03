@@ -65,6 +65,15 @@ html.coming-soon {
     }
 }
 
+#why_facebook {
+  position: absolute;
+  top: 345px;
+  left: 107px;
+  font-size: 12px;
+  color: #444;
+  cursor: pointer;
+}
+
 #auth-login {
     @include opacity(.85);
     @include border-radius(4px);

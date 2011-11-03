@@ -1,12 +1,13 @@
 <div id="splash">
-    <%= link_to "", user_omniauth_authorize_path(:facebook), :id => 'fb_login' %>
-    <%= image_tag "splash-logo-small.png", :class => "logo", :alt => "The Whoot" %>
-    <%= image_tag "splash-map.png", :class => "map", :alt => "Post what you are up to tonight" %>
+  <%= link_to "", user_omniauth_authorize_path(:facebook), :id => 'fb_login' %>
+  <div id="why_facebook">Why is a Facebook account required to access The Whoot?</div>
+  <%= image_tag "splash-logo-small.png", :class => "logo", :alt => "The Whoot" %>
+  <%= image_tag "splash-map.png", :class => "map", :alt => "Post what you are up to tonight" %>
 
-    <div id="auth-login" class="hide">
-        <%= render "users/sessions/new" %>
-    </div>
-    <div id="auth-register" class="hide">
-        <%= render "users/registrations/new" %>
-    </div>
+  <div id="auth-login" class="hide">
+    <%= render "users/sessions/new" %>
+  </div>
+  <div id="auth-register" class="hide">
+    <%= render "users/registrations/new" %>
+  </div>
 </div>
