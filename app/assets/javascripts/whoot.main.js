@@ -547,6 +547,7 @@ $(function() {
             type: 'get',
             url: $(val).data('url'),
             dataType: 'json',
+            cache: false,
             success: function(data) {
               var infowindow = new google.maps.InfoWindow({
                   content: data.content

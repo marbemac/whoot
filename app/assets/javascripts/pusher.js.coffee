@@ -51,6 +51,7 @@ jQuery ->
                 data: {post_id: data.post_id},
                 dataType: 'json',
                 type: 'GET',
+                cache: false,
                 success: (voterData) ->
                   voters = details.find('.voters')
                   voters.find('div,a').remove()
@@ -71,6 +72,7 @@ jQuery ->
                 data: {post_id: data.post_id},
                 dataType: 'json',
                 type: 'GET',
+                cache: false,
                 success: (commentData) ->
                   feed = details.find('.comment-feed')
                   feed.find('.teaser').remove()

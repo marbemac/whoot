@@ -94,6 +94,7 @@
       type: requestType,
       dataType: 'json',
       data: params,
+      cache: false,
       success: function(data) {
         $currentTarget.data('processing', false);
         appUpdate(data);
