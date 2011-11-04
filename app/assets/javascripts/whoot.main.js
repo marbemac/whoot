@@ -422,11 +422,6 @@ $(function() {
     $(this).parent().addClass('on').siblings().removeClass('on');
   })
 
-  // Multiple choice menu
-  $('.mc-menu a').live('click', function() {
-    $(this).parent().toggleClass('on');
-  })
-
   /*
    * SEARCH
    */

@@ -8,7 +8,7 @@ module ImageHelper
 
     if version
       url = version.image_url
-    elsif image
+    elsif image && image.versions
       if createNow
         object.add_image_version image.id, dimensions, style
         object.save

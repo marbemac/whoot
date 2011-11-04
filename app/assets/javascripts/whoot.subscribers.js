@@ -74,6 +74,10 @@ $(function() {
     $('#post-my-venue').html(data.content);
   })
 
+  amplify.subscribe('updated_feed_filters', function(data) {
+    $currentTarget.parent().toggleClass('on');
+  })
+
   /*
    * VOTING
    */

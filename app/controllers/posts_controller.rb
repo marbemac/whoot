@@ -8,7 +8,7 @@ class PostsController < ApplicationController
       session[:feed_filters][:display] << params[:value]
     end
 
-    render json: {:replace_target => '#page_content', :content => render_cell(:normal_post, :feed)}
+    render json: {:replace_target => '#page_content', :content => render_cell(:normal_post, :feed), :event => 'updated_feed_filters'}
   end
 
   def update_feed_sort
