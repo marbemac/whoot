@@ -6,7 +6,8 @@ module NotificationsHelper
         string += ' and '
       end
       if i == 5 && notification.triggered_by.length > 6
-        string += " #{notification.triggered_by.length - 6} other people"
+        string += " and #{notification.triggered_by.length - 6} other people"
+        break
       else
         string += link_to user.fullname, user_path(user)
 
