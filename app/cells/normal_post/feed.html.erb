@@ -1,8 +1,9 @@
 <div id="feed-nav" class="toggle-nav" data-group=".feed-tabs">
-  <div class="item on" data-target="#post-feed"><div>Posts</div></div>
-  <div class="item ac" data-target="#post-map" data-url="<%= normal_post_map_path %>" data-m="get"><div>Map</div></div>
+  <div class="item on" data-target="#post-feed"><div class="head">Posts</div></div>
+  <div class="item ac" data-target="#post-map" data-url="<%= normal_post_map_path %>" data-m="get"><div class="head">Map</div></div>
+  <div id="trending-barC" class="item no-tog"><div class="head">Trending in <%= @user.location.city %></div></div>
   <% if @my_post && @my_post.venue %>
-    <div class="item ac" data-target="#post-my-venue" data-url="<%= venue_attending_path @my_post.venue.id %>" data-m="get"><div>Friends going to <span><%= @my_post.venue.name %></span></div></div>
+    <div class="item ac" data-target="#post-my-venue" data-url="<%= venue_attending_path @my_post.venue.id %>" data-m="get"><div class="head">Friends going to <span><%= @my_post.venue.name %></span></div></div>
   <% end %>
   <div class="location"><%= @user.location.full %></div>
   <div class="clear"></div>
@@ -14,6 +15,43 @@
   </ul>
 </div>
 <div class="clear"></div>
+
+<div id="trending-bar" class="hide">
+  <div class="tags">
+    <div class="head">Tags Amongst Friends</div>
+    <div class="tag">tag</div>
+    <div class="tag">tag</div>
+    <div class="tag">tag</div>
+    <div class="tag">tag</div>
+    <div class="tag">tag</div>
+  </div>
+  <div class="tags">
+    <div class="head">Tags In <%= @user.location.city %></div>
+    <div class="venue">tag</div>
+    <div class="venue">tag</div>
+    <div class="venue">tag</div>
+    <div class="venue">tag</div>
+    <div class="venue">tag</div>
+  </div>
+  <div class="venues">
+    <div class="head">Venues Amongst Friends</div>
+    <% @my_trending_venues.each do |venue| %>
+      <div class="venue"><%= venue.name %></div>
+    <%end %>
+    <% if @my_trending_venues.length == 0 %>
+      <div class="none">no venues</div>
+    <% end %>
+  </div>
+  <div class="venues">
+    <div class="head">Venues In <%= @user.location.city %></div>
+    <% @trending_venues.each do |venue| %>
+      <div class="venue"><%= venue.name %></div>
+    <%end %>
+    <% if @trending_venues.length == 0 %>
+      <div class="none">no venues</div>
+    <% end %>
+  </div>
+</div>
 
 <div id="post-feed" class="feed-tabs">
   <%= render "normal_posts/feed", :posts => @posts_with_user, :user => @user%>

@@ -667,7 +667,7 @@ $post-border-color: #AAA;
     background: #FFF;
     cursor: pointer;
     font-size: 12px;
-    div {
+    .head {
       padding: 5px 15px;
       border-bottom: 3px solid #CCC;
     }
@@ -675,13 +675,13 @@ $post-border-color: #AAA;
       font-style: italic;
     }
     &:hover {
-      div {
+      .head {
         border-color: #FF9900;
       }
     }
     &.on {
       font-weight: bold;
-      div {
+      .head {
         border-color: #FF9900;
       }
       &:hover {
@@ -778,5 +778,38 @@ $post-border-color: #AAA;
       padding: 6px 0;
       display: block;
     }
+  }
+}
+
+#trending-bar {
+  @include clearfix();
+  @include single-box-shadow(#AAA, 1px, 1px, 2px);
+  width: 760px;
+  background: #FFF5DE;
+  border-bottom: 3px solid #FF9900;
+  border-top: 3px solid #FF9900;
+  margin: 0 0 10px 0;
+  padding: 3px 0 5px 0;
+
+  .tags,
+  .venues {
+    float: left;
+    margin: 0 0 0 5px;
+    padding: 0 10px 0 0;
+    font-size: 13px;
+
+    .head {
+      font-size: 11px;
+      cursor: default;
+    }
+    .none {
+      font-style: italic;
+    }
+  }
+  .tags {
+    width: 140px;
+  }
+  .venues {
+    width: 210px;
   }
 }

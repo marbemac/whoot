@@ -286,6 +286,12 @@ $(function() {
     });
   })
 
+  // Toggle the trending bar
+  $('#trending-barC').live('click', function() {
+    $(this).toggleClass('on');
+    $('#trending-bar').slideToggle(150);
+  })
+
   /*
    * COMMENTS
    */
@@ -506,9 +512,9 @@ $(function() {
     $('#custom-venue').toggle();
   })
 
-  $('.toggle-nav .item').live('click', function() {
+  $('.toggle-nav .item:not(.no-tog').live('click', function() {
     $($(this).parent().data('group')).hide();
-    $(this).addClass('on').siblings().removeClass('on')
+    $(this).addClass('on').siblings(':not(.no-tog)').removeClass('on')
     $($(this).data('target')).show()
   })
 

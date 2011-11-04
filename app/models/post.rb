@@ -98,6 +98,7 @@ class Post
         target_venue.add_alias(venue.name)
       else
         target_venue = Venue.new(venue.attributes)
+        target_venue.city_id = user.location.id
         target_venue.user_id = user.id
       end
     end

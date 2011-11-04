@@ -55,6 +55,9 @@ Whoot::Application.routes.draw do
   # Uploads
   match "/upload" => "uploads#create", :as => :upload_tmp
 
+  # Testing
+  get 'testing' => 'testing#test', :as => :test
+
   # Tags
   put 'tags/:id/make_trendable' => 'tags#make_trendable', :as => :tag_make_trendable
   put 'tags/:id/make_stopword' => 'tags#make_stopword', :as => :tag_make_stopword

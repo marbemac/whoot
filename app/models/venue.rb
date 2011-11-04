@@ -19,6 +19,7 @@ class Venue
   field :dedicated, :default => false
   field :coordinates, :type => Array
   field :aliases, :default => []
+  field :popularity, :default => 0
 
   auto_increment :public_id
 
@@ -28,6 +29,7 @@ class Venue
   index [[:coordinates, Mongo::GEO2D]], :min => -180, :max => 180
   index :public_id
   index :slug, :unique => true
+  index [[:popularity, Mongo::DESCENDING]]
   index(
     [
       [ :city_id, Mongo::ASCENDING ],
