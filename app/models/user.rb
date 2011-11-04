@@ -80,9 +80,9 @@ class User
   attr_accessor :current_ip
 
   before_create :generate_username, :set_settings
-  after_create :add_to_soulmate, :save_profile_image, :send_welcome_email, :update_invites, :follow_admins
+  after_create :save_profile_image, :send_welcome_email, :update_invites, :follow_admins
   before_destroy :remove_from_soulmate
-  before_save :set_location_snippet
+  before_save :set_location_snippet, :add_to_soulmate
 
   scope :inactive, where(:last_sign_in_at.lte => Chronic.parse('1 month ago'))
 
@@ -327,7 +327,9 @@ class User
   end
 
   def add_to_soulmate
-    Soulmate::Loader.new("user").add(user_nugget(self))
+    if new_record?
+      Resque.enqueue(SmCreateUser, id.to_s)
+    end
   end
 
   def remove_from_soulmate
