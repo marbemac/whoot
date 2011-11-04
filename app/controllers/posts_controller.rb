@@ -8,19 +8,13 @@ class PostsController < ApplicationController
       session[:feed_filters][:display] << params[:value]
     end
 
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { render json: {:replace_target => '#page_content', :content => render_cell(:normal_post, :feed)} }
-    end
+    render json: {:replace_target => '#page_content', :content => render_cell(:normal_post, :feed)}
   end
 
   def update_feed_sort
     session[:feed_filters][:sort][:target] = params[:value]
 
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { render json: {:replace_target => '#page_content', :content => render_cell(:normal_post, :feed)} }
-    end
+    render json: {:replace_target => '#page_content', :content => render_cell(:normal_post, :feed)}
   end
 
 end

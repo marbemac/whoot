@@ -16,10 +16,7 @@ class InvitePostsController < PostsController
     comments = Comment.where(:post_id => @post.id, :status => 'Active')
     @comments_with_user = User.join(comments)
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @invitepost }
-    end
+    render json: @invitepost
   end
 
   def edit
@@ -31,29 +28,21 @@ class InvitePostsController < PostsController
     @post.save_original_image
     @post.save_images
 
-    respond_to do |format|
-      if @post.save
-        response = { :redirect => invite_post_path(@post) }
-        format.html { redirect_to :root_path, notice: 'Post was successfully created.' }
-        format.json { render json: response, status: :created, location: @post }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.save
+      response = { :redirect => invite_post_path(@post) }
+      render json: response, status: :created, location: @post
+    else
+      render json: @post.errors, status: :unprocessable_entity
     end
   end
 
   def update
     @invitepost = Invitepost.find(params[:id])
 
-    respond_to do |format|
-      if @invitepost.update_attributes(params[:invitepost])
-        format.html { redirect_to @invitepost, notice: 'Invitepost was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @invitepost.errors, status: :unprocessable_entity }
-      end
+    if @invitepost.update_attributes(params[:invitepost])
+      head :ok
+    else
+      render json: @invitepost.errors, status: :unprocessable_entity
     end
   end
 
@@ -69,9 +58,6 @@ class InvitePostsController < PostsController
 
     flash[:success] = 'Open invite was successfully cancelled.'
 
-    respond_to do |format|
-      format.html { redirect_to root_path }
-      format.json { render json: {:status => 'OK', :redirect => root_path} }
-    end
+    render json: {:status => 'OK', :redirect => root_path}
   end
 end

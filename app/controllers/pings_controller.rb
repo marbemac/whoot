@@ -13,8 +13,7 @@ class PingsController < ApplicationController
       response = {:json => {:status => 'error', :message => 'Target user not found!'}, :status => 404}
     end
 
-    respond_to do |format|
-      format.json { render response }
-    end
+
+    render response
   end
 end

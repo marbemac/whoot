@@ -14,9 +14,7 @@ class VotesController < ApplicationController
       response = {:json => {:status => 'error', :message => 'Target post not found!'}, :status => 404}
     end
 
-    respond_to do |format|
-      format.json { render response }
-    end
+    render response
   end
 
   def destroy
@@ -29,9 +27,7 @@ class VotesController < ApplicationController
       response = {:json => {:status => 'error', :message => 'Target post not found!'}, :status => 404}
     end
 
-    respond_to do |format|
-      format.json { render response }
-    end
+    render response
   end
 
   def ajax

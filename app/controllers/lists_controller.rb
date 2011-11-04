@@ -4,14 +4,11 @@ class ListsController < ApplicationController
   def create
     list = current_user.lists.new(params[:list])
 
-    respond_to do |format|
-      if list.save
-        response = { :redirect => list_path(list) }
-        format.html { redirect_to :root_path, notice: 'List was successfully created.' }
-        format.json { render json: response, status: :created, location: list }
-      else
-        format.json { render json: list.errors, status: :unprocessable_entity }
-      end
+    if list.save
+      response = { :redirect => list_path(list) }
+      render json: response, status: :created, location: list
+    else
+      render json: list.errors, status: :unprocessable_entity
     end
   end
 
@@ -21,11 +18,8 @@ class ListsController < ApplicationController
       list.destroy
     end
 
-    respond_to do |format|
-      response = { :redirect => root_path }
-      format.html { redirect_to :root_path, notice: 'List was successfully deleted.' }
-      format.json { render json: response }
-    end
+    response = { :redirect => root_path }
+    render json: response
   end
 
   def show
@@ -51,9 +45,7 @@ class ListsController < ApplicationController
       response = {:json => {:status => 'error', :message => 'Error!'}, :status => 404}
     end
 
-    respond_to do |format|
-      format.json { render response }
-    end
+    render response
   end
 
   def remove_user
@@ -67,8 +59,6 @@ class ListsController < ApplicationController
       response = {:json => {:status => 'error', :message => 'Error!'}, :status => 404}
     end
 
-    respond_to do |format|
-      format.json { render response }
-    end
+    render response
   end
 end
