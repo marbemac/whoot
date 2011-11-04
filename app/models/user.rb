@@ -6,6 +6,8 @@ class User
   include Mongoid::Timestamps
   include Mongoid::Slug
   include Whoot::Images
+  include SoulmateHelper
+  include Rails.application.routes.url_helpers
 
 
   # Include default devise modules. Others available are:
@@ -325,7 +327,7 @@ class User
   end
 
   def add_to_soulmate
-    Resque.enqueue(SmCreateUser, id.to_s)
+    Soulmate::Loader.new("user").add(user_nugget(self))
   end
 
   def remove_from_soulmate
