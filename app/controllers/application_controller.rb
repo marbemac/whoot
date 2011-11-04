@@ -25,6 +25,10 @@ class ApplicationController < ActionController::Base
     Pusher[channel].trigger(event, message)
   end
 
+  def set_content_type(type)
+    response.headers['content-type'] = type
+  end
+
   private
 
   # Used to display the page load time on each page

@@ -3,6 +3,8 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.new(params[:comment])
 
+    set_content_type('text/javascript')
+
     if @comment.save
       post = @comment.post
       if post
@@ -11,8 +13,8 @@ class CommentsController < ApplicationController
         Notification.add(user, 'comment', (user.settings.email_comment ? true : false), true, false, current_user, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
       end
       html = render_to_string :partial => 'teaser', :locals => {:comment => @comment}
-      response = {:status => 'OK', :comment => html, :root_id => @comment.post_id, :event => 'comment_created' }
-      render json: response, status: :created
+      content = {:status => 'OK', :comment => html, :root_id => @comment.post_id, :event => 'comment_created' }
+      render json: content, status: :created
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
