@@ -327,7 +327,7 @@ class User
   end
 
   def add_to_soulmate
-    #Soulmate::Loader.new("user").add(user_nugget(self))
+    Soulmate::Loader.new("user").add(user_nugget(self))
   end
 
   def remove_from_soulmate
