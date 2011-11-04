@@ -15,8 +15,6 @@ class InvitePostsController < PostsController
     @attendees = User.where(:_id.in => @post.attendees)
     comments = Comment.where(:post_id => @post.id, :status => 'Active')
     @comments_with_user = User.join(comments)
-
-    render json: @invitepost
   end
 
   def edit

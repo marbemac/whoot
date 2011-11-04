@@ -1,12 +1,9 @@
-<!--{% if not userBlocked(app.user, invite.createdBy) %}-->
-
 <div class="invite_show <%= @post.night_type %> two-col-equal-height">
   <%= render "invite_posts/header", :post => @post %>
   <div class="left">
     <h4><%= @post.attending_count %> attending</h4>
     <ul class="attending">
       <% @attendees.each do |user| %>
-      <!--{% if not userBlocked(app.user, user) %}-->
         <li>
           <a class="profile-image" href="<%= user_path user %>" title="<%= user.fullname %>">
             <%= image_tag user_default_picture_path(user, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
@@ -17,9 +14,11 @@
     </ul>
   </div>
   <div class="right">
-    <div class="comment-feed cf-<%= @post.id %>">
+    <div class="comment-feed cf-<%= @post.user_id %>">
       <%= render "comments/form", :post => @post %>
       <%= render "comments/feed", :comments => @comments_with_user %>
     </div>
   </div>
 </div>
+
+<div id="subscribe-users" data-ids='<%= Yajl::Encoder.encode([@post.user_id.to_s]) %>'></div>

@@ -80,6 +80,22 @@ jQuery ->
               })
             else
               details.remove()
+        else
+          comment_feed = $('.cf-'+data.user_id)
+          console.log(comment_feed)
+          console.log(data.user_id)
+          if (comment_feed.length > 0)
+            $.ajax({
+              url: $('#static-data').data('d').commentAjaxPath,
+              data: {post_id: data.post_id},
+              dataType: 'json',
+              type: 'GET',
+              cache: false,
+              success: (commentData) ->
+                console.log(comment_feed)
+                comment_feed.find('.teaser').remove()
+                comment_feed.append(commentData.content)
+            })
 
 
   if ($('#static-data').data('d').myId != 0)
