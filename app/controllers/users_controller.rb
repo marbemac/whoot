@@ -24,6 +24,8 @@ class UsersController < ApplicationController
       url = request.protocol + (Rails.env.development? ? '' : 'www.') + request.host_with_port + '/user-default.gif'
     end
 
+    response.headers['Cache-Control'] = 'public, max-age=300'
+
     render :text => open(url, "rb").read, :stream => true
   end
 
