@@ -6,7 +6,7 @@ module SoulmateHelper
               'score' => 0,
               'data' => {
                       'url' => user_path(user),
-                      'location' => user.location.full,
+                      'location' => (user.location ? user.location.full : 'Outer Space, Unknown'),
                       'encoded_id' => user.encoded_id,
               }
     }
