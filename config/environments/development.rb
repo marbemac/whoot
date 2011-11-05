@@ -25,6 +25,9 @@ Whoot::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  # Mixpanel
+  config.middleware.use "Mixpanel::Tracker::Middleware", '4ba8c8fe2bdc121f677297cb6381a9a8', :async => true, :insert_js_last => true
+
   # Pusher
   Pusher.app_id = 10183
   Pusher.key = 'b1baa27e571a745580f2'

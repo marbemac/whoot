@@ -340,6 +340,19 @@ class User
     public_id.to_i.to_s(36)
   end
 
+  # Basic data for mixpanel
+  def mixpanel_data
+    {
+            'User ID' => id.to_s,
+            'Birthday' => (birthday ? birthday : nil),
+            'Gender' => (gender ? gender : nil),
+            'Following Users Count' => following_users_count,
+            'Followers Count' => followers_count,
+            'Pings Count' => pings_count,
+            'Votes Count' => votes_count
+    }
+  end
+
   class << self
     def find_by_encoded_id(id)
       where(:public_id => id.to_i(36)).first

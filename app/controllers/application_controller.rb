@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :init, :set_feed_filters, :set_user_time_zone
+  before_filter :init, :set_feed_filters, :set_user_time_zone, :initialize_mixpanel
   layout :layout
 
   def authenticate_admin_user!
@@ -34,6 +34,17 @@ class ApplicationController < ActionController::Base
   # Used to display the page load time on each page
   def init
     @start_time = Time.now
+  end
+
+  def initialize_mixpanel
+    if Rails.env.production?
+      token = '3697e1a281169ebe4f972f32c63c1878'
+    elsif Rails.env.staging?
+      token = 'a42d020f0cad9a401cc8a7879880b7b0'
+    else
+      token = '4ba8c8fe2bdc121f677297cb6381a9a8'
+    end
+    @mixpanel = Mixpanel::Tracker.new(token, request.env, true)
   end
 
   def set_feed_filters

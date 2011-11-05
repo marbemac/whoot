@@ -55,6 +55,9 @@ Whoot::Application.configure do
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
 
+  # Mixpanel
+  config.middleware.use "Mixpanel::Tracker::Middleware", 'a42d020f0cad9a401cc8a7879880b7b0', :async => true, :insert_js_last => true
+
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 

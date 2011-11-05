@@ -40,6 +40,16 @@ class NormalPostsController < PostsController
         pusher_message[:tag] = {:id => @post.tag.id, :name => @post.tag.name}
       end
       pusher_publish(current_user.id.to_s, 'post_changed', pusher_message)
+      mixpanel_data = {
+              'Tag' => (@post.tag ? @post.tag.name : :none),
+              'Type' => @post.night_type,
+              'Invite' => (@post.invite ? @post.invite.id.to_s : :none),
+              'City ID' => @post.location.id.to_s,
+              'Venue' => (@post.venue ? @post.venue.name : :none),
+              'Venue is Private' => (@post.venue ? @post.venue.private : nil),
+              'Venue ID' => (@post.venue ? @post.venue.id.to_s : :none)
+      }
+      @mixpanel.track_event("Normal Post Create", current_user.mixpanel_data.merge!(mixpanel_data))
 
       response = { :redirect => request.referer }
       render json: response, status: :created, location: @post
@@ -99,6 +109,8 @@ class NormalPostsController < PostsController
       venues[venue[:location]] ||= Array.new
       venues[venue[:location]] << venue
     end
+
+    @mixpanel.track_event("View Map", current_user.mixpanel_data)
 
     html = render_to_string :partial => 'map', :locals => {:locations => venues}
     render :json => {:status => 'OK', :content => html, :event => 'normal_post_map_loaded'}

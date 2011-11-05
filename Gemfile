@@ -40,6 +40,7 @@ gem "airbrake" # Exception notification
 gem 'soulmate' # Redis based autocomplete storage
 gem 'dalli' # memcache
 gem 'pusher' # pusher publish/subscribe system
+gem 'mixpanel' # analytics
 
 group :assets do
   gem 'compass', '0.12.alpha.0'

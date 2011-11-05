@@ -30,7 +30,7 @@ task "resque:setup" => :environment do
   # Note: This feature is only available in >=2.0.0.
   #Resque::Scheduler.dynamic = true
 
-  ENV['QUEUE'] = 'popularity,soulmate_venue,soulmate_user,soulmate_tag,images,notifications'
+  ENV['QUEUE'] = 'popularity,soulmate_venue,soulmate_user,soulmate_tag,images,notifications,slow'
 end
 
 desc "Alias for resque:work (To run workers on Heroku)"
