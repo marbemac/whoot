@@ -30,35 +30,18 @@ class Post
   validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing, or partying)" }
   validate :valid_venue
   attr_accessor :venue_id
-  attr_accessible :night_type, :tags_string, :venue, :venue_id
+  attr_accessible :night_type, :venue, :venue_id
   before_create :set_location_snippet, :set_venue_snippet
 
-  def tags_string
-    tags_string = tags.map{|tag| tag.name}
-    tags_string.join " "
-  end
-
-  def tags_string=(words)
-    words = words.split(' ')
-    words.each do |word|
-      self.tags.new(:name => word.strip)
-    end
-  end
-
   def max_tags
-    if tags.length > 5
-      errors.add(:tags, "You can only use 5 words! You posted #{tags.length} words.")
+    if tag && tag.name.split(' ').length > 3
+      errors.add(:tags, "You can only use 3 words! Your tag is #{tag.name.split(' ').length} words long.")
     end
   end
 
   def max_characters
-    count = 0
-    if tags.length > 0
-      tags.each {|tag| count += tag.name.length}
-    end
-
-    if count > 40
-      errors.add(:tags, "You can only use 40 characters! You posted #{count} characters.")
+    if tag && tag.name.length > 40
+      errors.add(:tags, "You can only use 40 characters for your tag! You tag has #{tag.name.length} characters.")
     end
   end
 

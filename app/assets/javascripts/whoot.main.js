@@ -164,6 +164,37 @@ $(function() {
     $(this).addClass('on').siblings().removeClass('on');
   })
 
+  // Tag autocomplete
+  $("#normal_post_tag_name").autocomplete($('#static-data').data('d').tagAutoUrl, {
+    minChars: 2,
+    width: 475,
+    matchContains: true,
+    matchSubset: false,
+    autoFill: false,
+    selectFirst: true,
+    mustMatch: false,
+    searchKey: 'term',
+    max: 10,
+    buckets: [['tag', 'tag', 'TAGS']],
+    extraParams: {"types":['tag']},
+    allowNew: true,
+    allowNewName: 'tag',
+    allowNewType: 'tag',
+    dataType: 'json',
+    delay: 100,
+    formatItem: function(row, i, max) {
+      return row.formattedItem;
+    },
+    formatMatch: function(row, i, max) {
+      return row.term;
+    },
+    formatResult: function(row) {
+      return row.term;
+    }
+  }).result(function(event, data, formatted) {
+    $(this).val(data.term)
+  })
+
   // Venue private help ?
   $('.venue-private-help').livequery(function() {
     var $self = $(this);
@@ -307,12 +338,13 @@ $(function() {
    */
 
   // Filter posts by tag
-  $('#post-feed .tag').live('click', function() {
+  $('#post-feed .tag, #trending-bar .tag').live('click', function() {
     var $self = $(this);
 
     if ($('#post-feed-my-tags li[data-id="' + $(this).data('id') + '"]').length == 0) {
       $('#post-feed-my-tags').slideDown(150);
-
+      $('#post-feed-my-tags .tags').html('')
+      $('.post.teaser:not(#post-dummy)').show()
       $('#post-feed-my-tags .tags').append('<li data-id="'+$self.data('id')+'">'+$self.text()+'<span>x</span></li>');
       $('.post.teaser:not(#post-dummy)').each(function() {
         if ($(this).find('.tag[data-id="' + $self.data('id') + '"]').length == 0) {
@@ -366,11 +398,9 @@ $(function() {
   $("#list-add-user").autocomplete($('#static-data').data('d').userAutoUrl, {
     minChars: 2,
     width: 300,
-    matchContains: true,
     matchSubset: false,
     autoFill: false,
     selectFirst: true,
-    mustMatch: true,
     searchKey: 'term',
     max: 10,
     buckets: [['user', $('#static-data').data('d').userAutoBucket, 'FOLLOWING']],
@@ -437,7 +467,6 @@ $(function() {
     matchSubset: false,
     autoFill: false,
     selectFirst: true,
-    mustMatch: true,
     searchKey: 'term',
     max: 10,
     buckets: [['user', $('#static-data').data('d').userAutoBucket, 'FOLLOWING'], ['user', 'user', 'OTHER USERS']],

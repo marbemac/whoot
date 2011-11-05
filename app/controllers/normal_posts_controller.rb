@@ -34,10 +34,10 @@ class NormalPostsController < PostsController
               :what => @post.night_type_short,
               :night_type => @post.night_type,
               :id => @post.id.to_s,
-              :tags => []
+              :tag => nil
       }
-      @post.tags.each do |tag|
-        pusher_message[:tags] << {:id => tag.id, :name => tag.name}
+      if @post.tag
+        pusher_message[:tag] = {:id => @post.tag.id, :name => @post.tag.name}
       end
       pusher_publish(current_user.id.to_s, 'post_changed', pusher_message)
 

@@ -462,6 +462,14 @@
               x++;
             })
 
+            if (!options.allowNew && used_ids.length == 0)
+            {
+              buckets.push('none');
+              var val = {'id':0,'term':'','bucketType': 'none'}
+              val.formattedItem = formatItem(val);
+              data['NOPE'] = [val];
+            }
+
             var parsed = options.parse && options.parse(data) || parse(data);
             cache.add(term, parsed);
             success(term, parsed);
@@ -486,6 +494,14 @@
       {
         image = '<img style="max-width: 25px" src="/users/'+data.data.encoded_id+'/picture?d[]=25&d[]=25&s=square" />';
         return '<div class="auto-user">'+image+'<div class="name">'+data.term+'</div><div class="location">'+data.data.location+'</div></div>';
+      }
+      else if (data.bucketType == 'tag')
+      {
+        return '<div class="auto-tag"><div class="name">'+data.term+'</div></div>';
+      }
+      else if (data.bucketType == 'none')
+      {
+        return '<div class="auto-tag"><div class="name">no matches found</div></div>';
       }
       else if (data.bucketType == 'venue')
       {

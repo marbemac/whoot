@@ -175,7 +175,7 @@ Purpose of the stylesheet follows.
         }
         .venue-private {
           float: left;
-          margin: 2px 5px 0 3px;
+          margin: 2px 5px 0 3px !important;
           width: auto;
         }
         .venue-private-help {
@@ -781,6 +781,27 @@ $post-border-color: #AAA;
   }
 }
 
+.venue-head {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 2px 4px;
+}
+.venue-optional {
+  border: 2px solid #AAA;
+  margin-left: -1px;
+  label {
+    top: 10px !important;
+  }
+  input {
+    border: none;
+    margin: 0 !important;
+    width: 461px;
+  }
+  #normal_post_address_placeholder {
+    border-top: 1px dotted #CCC;
+  }
+}
+
 #trending-bar {
   @include clearfix();
   @include single-box-shadow(#AAA, 1px, 1px, 2px);
@@ -808,6 +829,12 @@ $post-border-color: #AAA;
   }
   .tags {
     width: 140px;
+    .tag {
+      &:hover {
+        color: #FC770D;
+        cursor: pointer;
+      }
+    }
   }
   .venues {
     width: 210px;

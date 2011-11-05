@@ -30,4 +30,17 @@ module SoulmateHelper
 
     nugget
   end
+
+  def tag_nugget(tag)
+    nugget = {
+              'id' => tag.id.to_s,
+              'term' => tag.name,
+              'score' => tag.score,
+              'data' => {
+                      'slug' => tag.slug
+              }
+    }
+
+    nugget
+  end
 end

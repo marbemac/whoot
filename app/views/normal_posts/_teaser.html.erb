@@ -14,10 +14,8 @@
   <div class="tags">
     <% if post && post.invite_post %>
       @ <%= link_to post.venue.name, invite_post_path(:id => post.invite_url) %>
-    <% elsif post %>
-      <% post.tags.each do |tag| %>
-        <%= render "tags/teaser", :tag => tag %>
-      <% end %>
+    <% elsif post && post.tag %>
+      <%= render "tags/teaser", :tag => post.tag %>
     <% end %>
   </div>
 

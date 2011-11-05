@@ -45,6 +45,7 @@ module ApplicationHelper
             :userVenueAutoBucket => signed_in? ? "venue#{current_user.id.to_s}" : '',
             :venueAutoBucket => signed_in? ? "venue#{current_user.location.id.to_s}" : '',
             :venueAutoUrl => '/soul-data/search',
+            :tagAutoUrl => '/soul-data/search',
             :commentAjaxPath => comments_ajax_path,
             :votesAjaxPath => votes_ajax_path
     }

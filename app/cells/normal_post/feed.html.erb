@@ -19,19 +19,21 @@
 <div id="trending-bar" class="hide">
   <div class="tags">
     <div class="head">Tags Amongst Friends</div>
-    <div class="tag">tag</div>
-    <div class="tag">tag</div>
-    <div class="tag">tag</div>
-    <div class="tag">tag</div>
-    <div class="tag">tag</div>
+    <% @my_trending_tags.each do |tag| %>
+      <div class="tag" data-id="<%= tag.id %>"><%= tag.name %></div>
+    <%end %>
+    <% if @my_trending_tags.length == 0 %>
+      <div class="none">no tags</div>
+    <% end %>
   </div>
   <div class="tags">
     <div class="head">Tags In <%= @user.location.city %></div>
-    <div class="venue">tag</div>
-    <div class="venue">tag</div>
-    <div class="venue">tag</div>
-    <div class="venue">tag</div>
-    <div class="venue">tag</div>
+    <% @trending_tags.each do |tag| %>
+      <div class="tag" data-id="<%= tag.id %>"><%= tag.name %></div>
+    <%end %>
+    <% if @trending_tags.length == 0 %>
+      <div class="none">no tags</div>
+    <% end %>
   </div>
   <div class="venues">
     <div class="head">Venues Amongst Friends</div>

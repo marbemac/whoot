@@ -1,6 +1,9 @@
-class TestingController < ApplicationController
+class RecalculateTagPopularity
+  include Resque::Plugins::UniqueJob
 
-  def test
+  @queue = :popularity
+
+  def initialize()
     map    = "function() { " +
       "if (this.tag) { " +
       " emit(this.tag._id, 1); " +
@@ -53,4 +56,7 @@ class TestingController < ApplicationController
     end
   end
 
+  def self.perform()
+    new()
+  end
 end

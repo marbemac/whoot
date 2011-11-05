@@ -48,8 +48,8 @@
       </a>
     <% else %>
       <div class="tags">
-        <% @my_post.tags.each do |tag| %>
-          <%= render "tags/teaser", :tag => tag %>
+        <% if @my_post.tag %>
+          <%= render "tags/teaser", :tag => @my_post.tag %>
         <% end %>
       </div>
       <div class="clear"></div>

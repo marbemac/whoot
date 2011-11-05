@@ -6,16 +6,16 @@ class NormalPost < Post
 
   index [[:votes, Mongo::DESCENDING]], :sparse => true
 
-  embeds_many :tags, :as => :taggable, :class_name => 'TagSnippet'
+  embeds_one :tag, :as => :taggable, :class_name => 'TagSnippet'
   embeds_one :invite, :as => :has_invite, :class_name => 'InvitePostSnippet'
   belongs_to :invite_post
 
   validate :max_tags, :max_characters
 
   after_save :update_user_post_snippet
-  before_create :process_tags, :disable_current_post, :set_user_post_snippet, :set_invite_post_snippet
+  before_create :process_tag, :disable_current_post, :set_user_post_snippet, :set_invite_post_snippet
 
-  attr_accessible :invite_post_id
+  attr_accessible :invite_post_id, :tag
 
   def invite_url
     if invite_post_id
@@ -45,20 +45,17 @@ class NormalPost < Post
     if voters and voters.include? user.id then true else nil end
   end
 
-  def process_tags
-    if self.valid?
-      tags.map! do |tag|
-        found = Tag.where(:slug => tag.name.to_url).first
-        if found
-          found.score += 1
-          found.save
-        else
-          found = user.tags.create(name: tag.name)
-        end
-        tag.id = found.id
-        tag.is_trendable = found.is_trendable
-        tag
+  def process_tag
+    if self.valid? && tag
+      found = Tag.where(:slug => tag.name.to_url).first
+      if found
+        found.score += 1
+        found.save
+      else
+        found = user.tags.create(name: tag.name)
       end
+      tag.id = found.id
+      tag
     end
   end
 
