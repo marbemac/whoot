@@ -577,10 +577,15 @@ $post-border-color: #AAA;
     top: 0;
     width: $undecided_width;
     height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow-y: hidden;
     padding: 0 0 0 5px;
     z-index: 10;
+
+    .wrap {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
 
     h5 {
         margin: 10px 0 8px 17px;

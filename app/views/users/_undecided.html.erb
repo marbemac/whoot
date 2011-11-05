@@ -1,19 +1,21 @@
 <div class="undecidedC collapsed">
   <div class="bg"></div>
   <div class="side-toggle" title="Hide/Show the undecided list"></div>
-  <h5>Undecided Users</h5>
-  <% users.each do |user| %>
-    <!--{% if not userBlocked(app.user, user) %}-->
-    <div class="item">
-      <a class="profile-image" href="<%= user_path user %>" title="<%= user.fullname %>">
-        <%= image_tag user_default_picture_path(user, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
-      </a>
-      <%= user_link user, 12 %>
-      <%= render "pings/button", :current_user => @user, :target_user => user %>
-    </div>
-  <% end %>
+  <div class="wrap">
+    <h5>Undecided Users</h5>
+    <% users.each do |user| %>
+      <!--{% if not userBlocked(app.user, user) %}-->
+      <div class="item">
+        <a class="profile-image" href="<%= user_path user %>" title="<%= user.fullname %>">
+          <%= image_tag user_default_picture_path(user, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
+        </a>
+        <%= user_link user, 12 %>
+        <%= render "pings/button", :current_user => @user, :target_user => user %>
+      </div>
+    <% end %>
 
-  <% if users.length == 0 %>
-    <div class="none">None!</div>
-  <% end %>
+    <% if users.length == 0 %>
+      <div class="none">None!</div>
+    <% end %>
+  </div>
 </div>
