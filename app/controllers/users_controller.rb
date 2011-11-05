@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     style = params[:s]
     url = default_image_url(user, dimensions, style, true)
     unless url
-      url = request.protocol + request.host_with_port + '/user-default.gif'
+      url = request.protocol + (Rails.env.development? ? '' : 'www.') + request.host_with_port + '/user-default.gif'
     end
 
     render :text => open(url, "rb").read, :stream => true

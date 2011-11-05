@@ -12,7 +12,7 @@ recalculate_venue_pop:
   description: "This job recalculates venue popularities"
 
 recalculate_tag_pop:
-  every: 30s
+  every: 10m
   class: RecalculateTagPopularity
   #args: 'hour'
   description: "This job recalculates tag popularities"

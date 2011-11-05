@@ -46,7 +46,7 @@ class NormalPost < Post
   end
 
   def process_tag
-    if self.valid? && tag
+    if self.valid? && tag && tag.name.length > 0
       found = Tag.where(:slug => tag.name.to_url).first
       if found
         found.score += 1
