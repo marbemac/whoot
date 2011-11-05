@@ -541,7 +541,7 @@ $(function() {
     $('#custom-venue').toggle();
   })
 
-  $('.toggle-nav .item:not(.no-tog').live('click', function() {
+  $('.toggle-nav .item:not(.no-tog)').live('click', function() {
     $($(this).parent().data('group')).hide();
     $(this).addClass('on').siblings(':not(.no-tog)').removeClass('on')
     $($(this).data('target')).show()
