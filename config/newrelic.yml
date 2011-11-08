@@ -10,7 +10,7 @@ staging:
   license_key: <%= ENV["NEW_RELIC_LICENSE_KEY"] %>
   developer_mode: false
   app_name: <%= ENV["NEW_RELIC_APP_NAME"] %>
-  disable_resque: true
+#  disable_resque: true
   disable_activerecord_instrumentation: true
 #  transaction_tracer:
 #    record_sql: obfuscated
@@ -31,7 +31,7 @@ production:
   license_key: <%= ENV["NEW_RELIC_LICENSE_KEY"] %>
   developer_mode: false
   app_name: <%= ENV["NEW_RELIC_APP_NAME"] %>
-  disable_resque: true
+#  disable_resque: true
   disable_activerecord_instrumentation: true
 #  transaction_tracer:
 #    record_sql: obfuscated
