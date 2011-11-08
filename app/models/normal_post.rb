@@ -19,7 +19,7 @@ class NormalPost < Post
 
   def invite_url
     if invite_post_id
-      "#{invite.public_id.to_i.to_s(36)}-#{venue.name}"
+      "#{invite.public_id.to_i.to_s(36)}-#{venue.pretty_name.parameterize}"
     end
   end
 
