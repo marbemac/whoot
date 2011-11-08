@@ -12,12 +12,12 @@
 
   <div class="field lClear">
     <%= f.fields_for :tag do |t| %>
-      <%= t.label :name, "Optionally tag your night. You have 1-3 words." %>
+      <%= t.label :name, "Tag your night (optional). You have 1-3 words." %>
       <%= t.text_field :name, :autocomplete => 'off' %>
     <% end %>
   </div>
 
-  <%= render "posts/venue_input", :f => f, :venue_label => 'Venue (Optional. You must select from the dropdown.)', :venue_required => '' %>
+  <%= render "posts/venue_input", :f => f, :venue_label => 'Add Venue (Optional). Please choose from suggested results.', :venue_required => '' %>
 
   <div class="actions">
     <%= f.submit "Submit Post", :class => 'submit', :autocomplete => 'off' %>

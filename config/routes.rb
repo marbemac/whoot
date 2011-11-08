@@ -71,7 +71,7 @@ Whoot::Application.routes.draw do
   # API
   scope 'api' do
     scope 'v1' do
-      get 'generate_token' => 'api#generate_token', :as => :mobile_generate_token
+      post 'generate_token' => 'api#generate_token', :as => :mobile_generate_token
       get 'normal_posts' => 'api#normal_posts'
       post 'normal_posts' => 'normal_posts#create'
     end

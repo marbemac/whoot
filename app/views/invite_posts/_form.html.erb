@@ -15,7 +15,7 @@
     <%= f.text_field :title, :autocomplete => 'off' %>
   </div>
 
-  <%= render "posts/venue_input", :f => f, :venue_label => 'Venue (You must select from the dropdown.)', :venue_required => 'required' %>
+  <%= render "posts/venue_input", :f => f, :venue_label => 'Venue. Please choose from suggested results.', :venue_required => 'required' %>
 
   <div class="field lClear required">
     <%= f.label :time, "Start time..." %>
