@@ -11,6 +11,7 @@ staging:
   developer_mode: false
   app_name: <%= ENV["NEW_RELIC_APP_NAME"] %>
   disable_resque: true
+  disable_activerecord_instrumentation: true
 #  transaction_tracer:
 #    record_sql: obfuscated
 #    enabled: true
@@ -31,6 +32,7 @@ production:
   developer_mode: false
   app_name: <%= ENV["NEW_RELIC_APP_NAME"] %>
   disable_resque: true
+  disable_activerecord_instrumentation: true
 #  transaction_tracer:
 #    record_sql: obfuscated
 #    enabled: true
