@@ -20,7 +20,7 @@
             <%= venue[:name] %>
           </div>
           <div class="num">
-            <%= venue[:count] %> friends
+            <%= pluralize(venue[:count], 'friend') %>
           </div>
         </div>
       <% end %>

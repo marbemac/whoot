@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :init, :set_feed_filters, :set_user_time_zone, :initialize_mixpanel
+  before_filter :init, :set_feed_filters, :set_user_time_zone, :initialize_mixpanel, :require_post
   layout :layout
 
   def authenticate_admin_user!
@@ -60,6 +60,12 @@ class ApplicationController < ActionController::Base
 
   def set_user_time_zone
     Time.zone = current_user.time_zone if signed_in?
+  end
+
+  def require_post
+    if request.get? && signed_in? && !current_user.posted_today? && params[:controller] != 'post' && params[:action] != 'new'
+      redirect_to (new_post_path)
+    end
   end
 
   def layout

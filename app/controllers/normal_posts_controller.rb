@@ -25,7 +25,7 @@ class NormalPostsController < PostsController
   def create
     @post = current_user.normal_posts.new(params[:normal_post])
 
-    if @post.save!
+    if @post.save
       pusher_message = {
               :fullname => current_user.fullname,
               :user_slug => current_user.fullname.to_url,
@@ -110,7 +110,7 @@ class NormalPostsController < PostsController
       venues[venue[:location]] << venue
     end
 
-    #@mixpanel.track_event("View Map", current_user.mixpanel_data)
+    @mixpanel.track_event("View Map", current_user.mixpanel_data)
 
     html = render_to_string :partial => 'map', :locals => {:locations => venues}
     render :json => {:status => 'OK', :content => html, :event => 'normal_post_map_loaded'}

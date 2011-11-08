@@ -7,6 +7,9 @@ Whoot::Application.routes.draw do
   get 'normal_posts/map' => 'normal_posts#map', :as => :normal_post_map
   resources :normal_posts
 
+  # Generic Posts
+  resources :posts, :only => [:new]
+
   # Venues
   get 'venues/ac' => 'venues#autocomplete', :as => :venue_autocomplete
   get 'venues/:id/attending' => 'venues#attending', :as => :venue_attending

@@ -59,6 +59,12 @@ class User
       [ "social_connects.provider", Mongo::ASCENDING ]
     ]
   )
+  index(
+    [
+      [ :first_name, Mongo::ASCENDING ],
+      [ :last_name, Mongo::ASCENDING ]
+    ]
+  )
 
   embeds_many :social_connects
   embeds_one :current_post, :class_name => 'PostSnippet'
@@ -96,7 +102,7 @@ class User
   end
 
   def set_location_snippet
-    if (current_sign_in_ip_changed? || Rails.env.development?)
+    if (current_sign_in_ip_changed?)
       my_location = Geocoder.address(Rails.env.development? ? '75.69.89.109' : current_sign_in_ip)
       if my_location
         found_location = City.near(my_location).first

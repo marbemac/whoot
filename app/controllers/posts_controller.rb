@@ -17,4 +17,10 @@ class PostsController < ApplicationController
     render json: {:replace_target => '#page_content', :content => render_cell(:normal_post, :feed)}
   end
 
+  def new
+    if signed_in? && current_user.posted_today?
+      redirect_to root_path
+    end
+  end
+
 end

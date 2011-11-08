@@ -33,6 +33,12 @@
     <div id="wrapper">
       <% if not signed_in? %>
          <%= render 'pages/splash' %>
+      <% elsif !current_user.posted_today? %>
+        <div id="post-splash">
+          <%= image_tag "logo-top.png", :alt => "The Whoot", :class => 'logo' %>
+          <%= render_cell :post, :create %>
+          <%= link_to('Logout', destroy_user_session_path, :method=>'delete', :class => 'logout') %>
+        </div>
       <% else %>
         <div id="application">
           <%= render "shared/header" %>
@@ -163,7 +169,11 @@
     <%= render "invite_posts/upload_js" if signed_in? %>
 
     <% if ENV['RAILS_ENV'] != 'production' %>
-      <div id="slt"><%= load_time %><br /><%= ENV['RAILS_ENV'] %></div>
+      <div id="slt">
+        Cutoff: <%= Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))) %><br />
+        <%= load_time %><br />
+        <%= ENV['RAILS_ENV'] %>
+      </div>
     <% end %>
   </body>
 </html>

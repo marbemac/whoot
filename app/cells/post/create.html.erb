@@ -1,9 +1,12 @@
 <div id="post-box" class="<%= 'hide' unless @my_post == nil %>">
 
   <% unless @my_post == nil %>
-    <h2>You will change your current post.</h2>
+    <h3>You will change your current post.</h3>
   <% else %>
-    <h2>Hey <%= @user.first_name %>, whatcha doin tonight?</h2>
+    <h3 class='adjust'>
+      Please post your plans for tonight before moving on. No free loaders!
+      <div>(you can easily change your plans later)</div>
+    </h3>
   <% end %>
 
   <div class="container">
@@ -24,8 +27,8 @@
     </div>
 
     <div class="forms">
-      <%= render "normal_posts/form", :normal_post => NormalPost.new %>
-      <%= render "invite_posts/form", :invite_post => InvitePost.new %>
+      <%= render "normal_posts/form", :normal_post => NormalPost.new, :user => @user %>
+      <%= render "invite_posts/form", :invite_post => InvitePost.new, :user => @user %>
 
       <% unless @my_post == nil %>
         <div class="cancel">Cancel</div>

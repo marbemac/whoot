@@ -27,7 +27,6 @@ class InvitePostsController < PostsController
     @post.save_images
 
     if @post.save
-
       mixpanel_data = {
               'Type' => @post.night_type,
               'Invite Time' => @post.time,

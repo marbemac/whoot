@@ -86,11 +86,18 @@ Purpose of the stylesheet follows.
     top: 0px;
     left: 0px;
 
-    h2 {
+    h3 {
         position: absolute;
         color: #FFF;
-        top: 45px;
-        left: 195px;
+        top: 30px;
+        left: 50px;
+        &.adjust {
+          top: 20px;
+        }
+        div {
+          font-size: 13px;
+          font-weight: normal;
+        }
     }
 
     .nav {
@@ -137,7 +144,7 @@ Purpose of the stylesheet follows.
 
         background: #FFF;
         position: absolute;
-        top: 80px; left: 50%;
+        top: 60px; left: 50%;
         width: $container-w;
         margin: 0 0 0 -350px;
 
@@ -148,6 +155,10 @@ Purpose of the stylesheet follows.
 
         .errors {
           margin: 15px 0 -5px 0;
+        }
+        h4 {
+          margin: 12px 0 0 0;
+          cursor: default;
         }
         input,
         textarea {
@@ -193,7 +204,7 @@ Purpose of the stylesheet follows.
     .type {
         float: left;
         padding: 8px 15px;
-        margin: 20px -1px 10px -1px;
+        margin: 10px -1px 10px -1px;
         font-size: 20px;
         border: 2px solid #AAA;
         cursor: pointer;
@@ -246,6 +257,41 @@ Purpose of the stylesheet follows.
         border-color: $post-big_out-color;
         background: $post-big_out-color;
     }
+}
+
+#post-splash {
+  .logo {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    margin-left: -160px;
+  }
+
+  #post-box {
+    @include opacity(.8);
+    background: transparent;
+    left: 50%;
+    margin-left: -380px;
+    height: auto;
+    top: 100px;
+
+    h3 {
+      &.adjust {
+        top: 15px;
+      }
+    }
+    &:hover,
+    &:focus {
+      @include opacity(1);
+    }
+  }
+  .logout {
+    position: absolute;
+    top: 55px;
+    margin-left: 280px;
+    left: 50%;
+    color: #FFF;
+  }
 }
 
 $feed-filters-margin-top: 5px;

@@ -14,6 +14,7 @@ class NormalPost < Post
 
   after_save :update_user_post_snippet
   before_create :process_tag, :disable_current_post, :set_user_post_snippet, :set_invite_post_snippet
+  after_create :set_user_location
 
   attr_accessible :invite_post_id, :tag
 
@@ -43,6 +44,21 @@ class NormalPost < Post
 
   def has_voter?(user)
     if voters and voters.include? user.id then true else nil end
+  end
+
+  def set_user_location
+    if venue
+      city = City.near(venue.coordinates.reverse).first
+      if city && city.id != user.location.id
+        user.location = LocationSnippet.new(
+                city: city.name,
+                state_code: city.state_code,
+                coordinates: city.coordinates
+        )
+        user.location.id = city.id
+        user.save
+      end
+    end
   end
 
   def process_tag

@@ -53,13 +53,13 @@ class UsersController < ApplicationController
   def following_users
     @user = User.find_by_encoded_id(params[:id])
     @title = "#{@user.fullname} following" if @user
-    @following_users = User.where(:_id.in => @user.following_users)
+    @following_users = User.where(:_id.in => @user.following_users).order_by([[:first_name, :asc], [:last_name, :desc]])
   end
 
   def followers
     @user = User.find_by_encoded_id(params[:id])
     @title = "#{@user.fullname} followers" if @user
-    @followers = User.where(:following_users => @user.id)
+    @followers = User.where(:following_users => @user.id).order_by([[:first_name, :asc], [:last_name, :desc]])
   end
 
   def settings
