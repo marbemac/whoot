@@ -11,11 +11,11 @@ staging:
   developer_mode: false
   app_name: <%= ENV["NEW_RELIC_APP_NAME"] %>
   disable_resque: true
-  transaction_tracer:
-    record_sql: obfuscated
-    enabled: true
-    stack_trace_threshold: 0.5
-    transaction_threshold: apdex_f
+#  transaction_tracer:
+#    record_sql: obfuscated
+#    enabled: true
+#    stack_trace_threshold: 0.5
+#    transaction_threshold: apdex_f
   capture_params: false
   log_level: info
 
@@ -31,10 +31,10 @@ production:
   developer_mode: false
   app_name: <%= ENV["NEW_RELIC_APP_NAME"] %>
   disable_resque: true
-  transaction_tracer:
-    record_sql: obfuscated
-    enabled: true
-    stack_trace_threshold: 0.5
-    transaction_threshold: apdex_f
+#  transaction_tracer:
+#    record_sql: obfuscated
+#    enabled: true
+#    stack_trace_threshold: 0.5
+#    transaction_threshold: apdex_f
   capture_params: false
   log_level: info
