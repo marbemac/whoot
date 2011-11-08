@@ -26,7 +26,8 @@ class NormalPostsController < PostsController
     @post = current_user.normal_posts.new(params[:normal_post])
 
     if @post.save
-      pusher_message = {
+      pubnub_message = {
+              :event => 'post_changed',
               :fullname => current_user.fullname,
               :user_slug => current_user.fullname.to_url,
               :encoded_id => current_user.encoded_id,
@@ -38,9 +39,9 @@ class NormalPostsController < PostsController
               :tag => nil
       }
       if @post.tag
-        pusher_message[:tag] = {:id => @post.tag.id, :name => @post.tag.name}
+        pubnub_message[:tag] = {:id => @post.tag.id, :name => @post.tag.name}
       end
-      pusher_publish(current_user.id.to_s, 'post_changed', pusher_message)
+      @pubnub.publish({'channel' => current_user.id.to_s, 'message' => pubnub_message})
       mixpanel_data = {
               'Tag' => (@post.tag ? @post.tag.name : :none),
               'Type' => @post.night_type,

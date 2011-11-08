@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :init, :set_feed_filters, :set_user_time_zone, :initialize_mixpanel, :require_post
+  before_filter :init, :set_feed_filters, :set_user_time_zone, :initialize_pubnub, :initialize_mixpanel, :require_post
   layout :layout
 
   def authenticate_admin_user!
@@ -20,11 +20,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Publish a pusher message
-  def pusher_publish(channel, event, message)
-    Pusher[channel].trigger(event, message)
-  end
-
   def set_content_type(type)
     response.headers['content-type'] = type
   end
@@ -34,6 +29,14 @@ class ApplicationController < ActionController::Base
   # Used to display the page load time on each page
   def init
     @start_time = Time.now
+  end
+
+  def initialize_pubnub
+    publish_key   = ENV['PUBNUB_PUBLISH_KEY'] || 'demo'
+    subscribe_key = ENV['PUBNUB_SUBSCRIBE_KEY'] || 'demo'
+    secret_key    = ENV['PUBNUB_SECRET_KEY'] || ''
+    ssl_on        = false
+    @pubnub = Pubnub.new(publish_key, subscribe_key, secret_key, ssl_on)
   end
 
   def initialize_mixpanel

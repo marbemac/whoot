@@ -113,19 +113,8 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    <script src="http://js.pusherapp.com/1.9/pusher.min.js"></script>
-    <script type="text/javascript">
-      <% unless Rails.env.production? %>
-        Pusher.log = function(message) {
-          if (window.console && window.console.log) window.console.log(message);
-        };
-
-        // Flash fallback logging - don't include this in production
-        WEB_SOCKET_DEBUG = true;
-      <% end %>
-
-      var pusher = new Pusher('<%= Pusher.key %>');
-    </script>
+    <div id='pubnub' pub-key='<%= ENV['PUBNUB_PUBLISH_KEY'] || 'demo' %>' sub-key='<%= ENV['PUBNUB_SUBSCRIBE_KEY'] || 'demo' %>' ssl='off' origin='pubsub.pubnub.com'></div>
+    <script src=http://cdn.pubnub.com/pubnub-3.1.min.js ></script>
 
     <!-- Start of Woopra Code -->
     <% unless Rails.env.development? %>

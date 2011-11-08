@@ -12,7 +12,7 @@ require 'uri'
 require 'open-uri'
 require 'chronic'
 require 'resque-loner'
-require 'pusher'
+require 'pubnub'
 require 'yajl/json_gem'
 
 if defined?(Bundler)

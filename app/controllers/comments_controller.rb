@@ -9,7 +9,10 @@ class CommentsController < ApplicationController
       post = @comment.post
       if post
         user = post.user
-        pusher_publish(user.id.to_s+'_private', 'notification', {:content => "#{current_user.fullname} commented on your post."}) if user && current_user.id != user.id
+        if user && current_user.id != user.id
+          @pubnub.publish({'channel' => user.id.to_s+'_private', 'message' => { :event => 'notification', :content => "#{current_user.fullname} commented on your post." }})
+          @pubnub.publish({'channel' => post.user_id.to_s, 'message' => {:event => 'comment_added', :user_id => post.user_id.to_s, :post_id => post.id.to_s, :count => post.comment_count}})
+        end
         Notification.add(user, 'comment', (user.settings.email_comment ? true : false), true, false, current_user, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
       end
       html = render_to_string :partial => 'teaser', :locals => {:comment => @comment}

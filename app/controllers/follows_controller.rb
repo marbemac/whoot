@@ -6,7 +6,7 @@ class FollowsController < ApplicationController
     if target_user
       current_user.follow_user(target_user)
       if current_user.save && target_user.save
-        pusher_publish(target_user.id.to_s+'_private', 'notification', {:content => "#{current_user.fullname} is now following you."})
+        @pubnub.publish({'channel' => target_user.id.to_s+'_private', 'message' => { :event => 'notification', :content => "#{current_user.fullname} is now following you." }})
       end
       response = {:json => {:status => 'ok', :target => '.fol_'+target_user.id.to_s, :toggle_classes => ['followB', 'unfollowB']}, :status => 201}
     else
