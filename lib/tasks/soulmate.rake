@@ -53,13 +53,8 @@ namespace :soulmate do
     grouped_venues = Hash.new
     venues.each do |venue|
       venue_count += 1
-      if venue.private
-        grouped_venues["venue#{venue.user_id.to_s}"] ||= Array.new
-        grouped_venues["venue#{venue.user_id.to_s}"] << venue_nugget(venue)
-      else
-        grouped_venues["venue#{venue.city_id.to_s}"] ||= Array.new
-        grouped_venues["venue#{venue.city_id.to_s}"] << venue_nugget(venue)
-      end
+      grouped_venues["venue#{venue.city_id.to_s}"] ||= Array.new
+      grouped_venues["venue#{venue.city_id.to_s}"] << venue_nugget(venue)
     end
 
     grouped_venues.each do |index,soulmate_data|

@@ -13,7 +13,6 @@ gem 'mongoid_auto_inc' # Auto incrementing fields in mongoid
 gem 'devise' # Authentication
 gem 'koala' # facebook graph api support
 gem "omniauth", '0.3.0'
-gem 'frontend-helpers'
 gem 'cells' # Components
 gem 'yajl-ruby' # json processing
 gem 'redcarpet' # Markdown

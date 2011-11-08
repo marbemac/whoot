@@ -6,7 +6,8 @@ Description:
 Purpose of the stylesheet follows.
 */
 
-#post-feed-my-tags {
+#post-feed-my-tags,
+#post-feed-my-venues {
   @include clearfix();
   border-bottom: 1px solid #CCC;
   margin: -10px 5px 10px;
@@ -19,7 +20,8 @@ Purpose of the stylesheet follows.
     float: left;
     margin: 2px 8px 0 0;
   }
-  .tags {
+  .tags,
+  .venues {
     float: left;
     position: relative;
     top: 1px;

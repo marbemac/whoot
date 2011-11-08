@@ -213,57 +213,6 @@ $(function() {
     })
   })
 
-  // Search for a venue
-  $(".venue_input .name").autocomplete($('#static-data').data('d').venueAutoUrl, {
-    minChars: 2,
-    width: 475,
-    matchContains: true,
-    matchSubset: false,
-    autoFill: false,
-    selectFirst: true,
-    mustMatch: false,
-    searchKey: 'term',
-    max: 10,
-    buckets: [['venue', $('#static-data').data('d').userVenueAutoBucket, 'MY VENUES'], ['venue', $('#static-data').data('d').venueAutoBucket, 'VENUES']],
-    extraParams: {"types":[$('#static-data').data('d').userVenueAutoBucket,$('#static-data').data('d').venueAutoBucket]},
-    allowNew: true,
-    allowNewName: 'venue',
-    allowNewType: 'venue',
-    dataType: 'json',
-    delay: 100,
-    formatItem: function(row, i, max) {
-      return row.formattedItem;
-    },
-    formatMatch: function(row, i, max) {
-      return row.term;
-    },
-    formatResult: function(row) {
-      return row.term;
-    }
-  }).result(function(event, data, formatted) {
-    var parent = $(this).parents('.venue_input');
-    if (data.id == 0)
-    {
-      parent.find('.venue_id').val('');
-      parent.find('.private').show();
-    }
-    else
-    {
-      parent.find('.phone, .coordinates').val('');
-      parent.find('.venue_id').val(data.id);
-      parent.find('.private').hide();
-      parent.find('.address_fields label').hide();
-      parent.find('.address_placeholder').val(data.data.address);
-    }
-  }).blur(function(e) {
-    var parent = $(this).parents('.venue_input');
-    if (parent.find('.venue_id').val() == '')
-    {
-    }
-    if ($(this).val() == '') {
-    }
-  })
-
   // Show the post-where places autocomplete
   $('.venue_input').livequery(function() {
     var $self = $(this);
@@ -272,7 +221,7 @@ $(function() {
     // Handle a place choice
     google.maps.event.addListener($auto, 'place_changed', function() {
       var place = $auto.getPlace();
-      console.log(place);
+
       $self.find('.address_fields .address').val(place.formatted_address);
       $self.find('.coordinates').val(place.geometry.location.lng() + ' ' + place.geometry.location.lat());
       if (place.name && ($.inArray('restaurant', place.types) > 0 || $.inArray('food', place.types) > 0 || $.inArray('establishment', place.types) > 0))
@@ -341,6 +290,9 @@ $(function() {
   $('#post-feed .tag, #trending-bar .tag').live('click', function() {
     var $self = $(this);
 
+    $('#post-feed-my-venues').slideUp(150);
+    $('#post-feed-my-venues .venues').html('')
+
     if ($('#post-feed-my-tags li[data-id="' + $(this).data('id') + '"]').length == 0) {
       $('#post-feed-my-tags').slideDown(150);
       $('#post-feed-my-tags .tags').html('')
@@ -349,7 +301,7 @@ $(function() {
       $('.post.teaser:not(#post-dummy)').each(function() {
         if ($(this).find('.tag[data-id="' + $self.data('id') + '"]').length == 0) {
           $(this).hide();
-          if ($(this).next().hasClass('post-details'))
+          if ($(this).next().hasClass('post-details') && $(this).hasClass('on'))
             $(this).next().hide()
         }
       })
@@ -370,13 +322,17 @@ $(function() {
     })
 
     if (!$filteredFound) {
-      $('.post.teaser:not(#post-dummy),.post-details').fadeIn(150);
+      $('.post.teaser:not(#post-dummy)').fadeIn(150);
+      $('.post-details').each(function(i,val) {
+        if ($(val).prev().hasClass('on'))
+          $(val).show();
+      })
     }
     else {
       $('.post.teaser:not(#post-dummy)').each(function() {
         if ($(this).find($filteredTags).length != 0) {
           $(this).fadeIn(150);
-          if ($(this).next().hasClass('post-details'))
+          if ($(this).next().hasClass('post-details') && $(this).hasClass('on'))
             $(this).next().fadeIn(150)
         }
       })
@@ -387,6 +343,66 @@ $(function() {
       $('#post-feed-my-tags').slideUp(150);
     }
   })
+
+  /*
+   * venues
+   */
+
+  // Filter posts by venue
+  $('#trending-bar .venue').live('click', function() {
+    var $self = $(this);
+
+    $('#post-feed-my-tags').slideUp(150);
+    $('#post-feed-my-tags .tags').html('')
+
+    if ($('#post-feed-my-venues li[data-id="' + $(this).data('id') + '"]').length == 0) {
+      $('#post-feed-my-venues').slideDown(150);
+      $('#post-feed-my-venues .venues').html('')
+      $('.post.teaser:not(#post-dummy)').show()
+      $('#post-feed-my-venues .venues').append('<li data-id="'+$self.data('id')+'">'+$self.text()+'<span>x</span></li>');
+      $('.post.teaser, .post-details').hide()
+      $('.post.teaser[data-venue-id="'+$self.data('id')+'"]:not(#post-dummy)').each(function() {
+        $(this).show();
+        if ($(this).next().hasClass('post-details') && $(this).hasClass('on'))
+          $(this).next().show()
+      })
+    }
+  })
+
+  // Remove a filtered tag
+  $('#post-feed-my-venues li').live('click', function() {
+    var $venue = $(this);
+
+    var $filteredFound = false;
+    var $filteredVenue = '';
+    $.each($('#post-feed-my-venues li'), function() {
+      if ($(this).data('id') != $venue.data('id')) {
+        $filteredFound = true;
+        $filteredVenue += '[data-venue-id="' + $(this).data('id') + '"]';
+      }
+    })
+
+    if (!$filteredFound) {
+      $('.post.teaser:not(#post-dummy)').fadeIn(150);
+      $('.post-details').each(function(i,val) {
+        if ($(val).prev().hasClass('on'))
+          $(val).show();
+      })
+    }
+    else {
+      $('.post.teaser'+$filteredVenue+':not(#post-dummy)').each(function() {
+        $(this).fadeIn(150);
+        if ($(this).next().hasClass('post-details'))
+          $(this).next().fadeIn(150)
+      })
+    }
+    $(this).remove();
+
+    if ($('#post-feed-my-venues li').length == 0) {
+      $('#post-feed-my-venues').slideUp(150);
+    }
+  })
+
 
   /*
    * LISTS

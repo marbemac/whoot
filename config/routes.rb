@@ -68,8 +68,14 @@ Whoot::Application.routes.draw do
   # Soulmate api
   mount Soulmate::Server, :at => "/soul-data"
 
-  # Mobile
-  post 'm/generate_token' => 'mobile#generate_token', :as => :mobile_generate_token
+  # API
+  scope 'api' do
+    scope 'v1' do
+      get 'generate_token' => 'api#generate_token', :as => :mobile_generate_token
+      get 'normal_posts' => 'api#normal_posts'
+      post 'normal_posts' => 'normal_posts#create'
+    end
+  end
 
   scope "/users" do
     get 'ac' => 'users#autocomplete', :as => :user_autocomplete

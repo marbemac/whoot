@@ -33,13 +33,13 @@
     <div class="clear"></div>
 
     <% if @my_post.venue %>
-      <h6>@ <%= @my_post.venue.name %></h6>
+      <h6>@ <%= @my_post.venue.pretty_name %></h6>
     <% end %>
 
     <% if @invite %>
       <a href="<%= invite_post_path @invite %>">
         <% if @invite.user_id == @user.id %>
-          You're inviting people out to <%= @invite.venue.name %>.
+          You're inviting people out to <%= @invite.venue.pretty_name %>.
           <%= pluralize(@invite.attending_count - 1, 'person is', 'people are') %> attending.
         <% else %>
           You're attending <%= @invite.user_snippet.fullname.pluralize %>

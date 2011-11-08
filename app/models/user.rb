@@ -388,7 +388,11 @@ class User
         # Update the token
         connect.token = omniauth['credentials']['token']
       else # Create a new user with a stub password.
-        gender = data["gender"] == 'male' ? 'm' : 'f'
+        if data["gender"]
+          gender = data["gender"] == 'male' ? 'm' : 'f'
+        else
+          gender = nil
+        end
         user = User.new(
                 first_name: data["first_name"], last_name: data["last_name"],
                 gender: gender, email: data["email"], password: Devise.friendly_token[0,20]
@@ -413,6 +417,18 @@ class User
       end
 
       joined
+    end
+
+    def convert_for_api(user)
+      {
+              :id => user.id,
+              :first_name => user.first_name,
+              :last_name => user.last_name,
+              :email => user.email,
+              :public_id => user.encoded_id,
+              :vote_count => user.votes_count,
+              :ping_count => user.pings_count
+      }
     end
   end
 end

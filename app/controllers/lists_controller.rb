@@ -5,10 +5,10 @@ class ListsController < ApplicationController
     list = current_user.lists.new(params[:list])
 
     if list.save
-      response = { :redirect => list_path(list) }
+      response = { :status => :ok, :redirect => list_path(list) }
       render json: response, status: :created, location: list
     else
-      render json: list.errors, status: :unprocessable_entity
+      render json: {:status => :error, :errors => list.errors}, status: :unprocessable_entity
     end
   end
 

@@ -122,6 +122,7 @@
     </script>
 
     <!-- Start of Woopra Code -->
+    <% unless Rails.env.development? %>
     <script type="text/javascript">
       function woopraReady(tracker) {
           tracker.setDomain('<%= Rails.env.staging? ? 'staging.thewhoot.com' : 'thewhoot.com' %>');
@@ -145,6 +146,7 @@
           ssc.parentNode.insertBefore(wsc, ssc);
       })();
     </script>
+    <% end %>
 
     <!-- User Voice -->
     <script type="text/javascript">

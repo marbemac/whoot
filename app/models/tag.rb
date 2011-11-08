@@ -36,4 +36,13 @@ class Tag
     Resque.enqueue(SmDestroyTag, id.to_s)
   end
 
+  class << self
+    def convert_for_api(tag)
+      {
+              :id => tag.id,
+              :name => tag.name
+      }
+    end
+  end
+
 end

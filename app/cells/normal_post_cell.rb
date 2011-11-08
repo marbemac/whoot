@@ -17,10 +17,10 @@ class NormalPostCell < PostCell
       end
     end
 
-    @trending_venues = Venue.where(:city_id => @user.location.id, :private => false).order_by([[:popularity, :desc]]).limit(5)
-    @my_trending_venues = Venue.where(:_id => {"$in" => venue_ids}, :city_id => @user.location.id).order_by([[:popularity, :desc]]).limit(5)
+    @trending_venues = Venue.near(@user.location.coordinates.reverse, 20).where(:popularity.gt => 0).order_by([[:popularity, :desc]]).limit(5).to_a
+    @my_trending_venues = Venue.where(:_id => {"$in" => venue_ids}, :popularity.gt => 0).order_by([[:popularity, :desc]]).limit(5)
     @trending_tags = TrendingTag.where(:city_id => @user.location.id).order_by([[:popularity, :desc]]).limit(5)
-    @my_trending_tags = Tag.where(:_id => {"$in" => venue_ids}).order_by([[:popularity, :desc]]).limit(5)
+    @my_trending_tags = Tag.where(:_id => {"$in" => tag_ids}, :popularity.gt => 0).order_by([[:popularity, :desc]]).limit(5)
 
     render
   end

@@ -17,10 +17,7 @@
     <% end %>
   </div>
 
-  <div class="venue-head">Optional Venue</div>
-  <div class="venue-optional">
-    <%= render "posts/venue_input", :f => f, :venue_label => "Venue name", :venue_required => '' %>
-  </div>
+  <%= render "posts/venue_input", :f => f, :venue_label => 'Venue (Optional. You must select from the dropdown.)', :venue_required => '' %>
 
   <div class="actions">
     <%= f.submit "Submit Post", :class => 'submit', :autocomplete => 'off' %>

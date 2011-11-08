@@ -29,7 +29,7 @@ class RecalculateTagPopularity
 
     map = "function() { " +
       "if (this.tag) { " +
-      " emit(this.location._id, {id: this.tag._id, amount: 1, name: this.tag.name}); " +
+      " emit(this.tag._id, {id: this.tag._id, amount: 1, name: this.tag.name}); " +
       "}; " +
     "};"
     reduce = "function(key, values) { " +
@@ -44,7 +44,7 @@ class RecalculateTagPopularity
     cities.each do |city|
       @results = NormalPost.collection.map_reduce(map, reduce, :query => {:created_at => {'$gte' => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))}, :current => true, "location._id" => city.id}, :out => "pop-#{city.name.to_url}-#{city.state_code}-tags")
       TrendingTag.where(city_id: city.id).delete_all
-      @results.find("_id" => city.id).each do |doc|
+      @results.find().each do |doc|
         tag = TrendingTag.new(
                 :name => doc["value"]["name"],
                 :popularity => doc["value"]["amount"].to_i

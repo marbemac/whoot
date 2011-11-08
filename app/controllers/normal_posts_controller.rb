@@ -25,7 +25,7 @@ class NormalPostsController < PostsController
   def create
     @post = current_user.normal_posts.new(params[:normal_post])
 
-    if @post.save
+    if @post.save!
       pusher_message = {
               :fullname => current_user.fullname,
               :user_slug => current_user.fullname.to_url,
@@ -33,6 +33,7 @@ class NormalPostsController < PostsController
               :user_id => current_user.id.to_s,
               :what => @post.night_type_short,
               :night_type => @post.night_type,
+              :venue_id => @post.venue ? @post.venue.id.to_s : 0,
               :id => @post.id.to_s,
               :tag => nil
       }
@@ -46,15 +47,14 @@ class NormalPostsController < PostsController
               'Invite' => (@post.invite ? @post.invite.id.to_s : :none),
               'City ID' => @post.location.id.to_s,
               'Venue' => (@post.venue ? @post.venue.name : :none),
-              'Venue is Private' => (@post.venue ? @post.venue.private : nil),
               'Venue ID' => (@post.venue ? @post.venue.id.to_s : :none)
       }
       @mixpanel.track_event("Normal Post Create", current_user.mixpanel_data.merge!(mixpanel_data))
 
-      response = { :redirect => request.referer }
+      response = { :status => :ok, :redirect => request.referer }
       render json: response, status: :created, location: @post
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: {:status => :error, :errors => @post.errors}, status: :unprocessable_entity
     end
   end
 
@@ -76,7 +76,7 @@ class NormalPostsController < PostsController
   end
 
   def map
-    posts = NormalPost.following_feed(current_user, session[:feed_filters], false)
+    posts = NormalPost.following_feed(current_user, session[:feed_filters], false).to_a
     venues = Array.new
     venue_ids = Hash.new
     venue_count = 0
@@ -84,7 +84,7 @@ class NormalPostsController < PostsController
       if post.venue
         unless venue_ids.key? post.venue.id
           venue_ids[post.venue.id] = venues.length
-          venues << {:id => post.venue.id.to_s, :coordinates => post.venue.coordinates, :count => 0, :name => post.venue.name, :location => post.location.full}
+          venues << {:id => post.venue.id.to_s, :coordinates => post.venue.coordinates, :count => 0, :name => post.venue.pretty_name, :location => post.location.full}
           venue_count += 1
         end
         venues[venue_ids[post.venue.id]][:count] += 1
@@ -110,7 +110,7 @@ class NormalPostsController < PostsController
       venues[venue[:location]] << venue
     end
 
-    @mixpanel.track_event("View Map", current_user.mixpanel_data)
+    #@mixpanel.track_event("View Map", current_user.mixpanel_data)
 
     html = render_to_string :partial => 'map', :locals => {:locations => venues}
     render :json => {:status => 'OK', :content => html, :event => 'normal_post_map_loaded'}

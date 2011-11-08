@@ -10,7 +10,12 @@
 
   <%= f.hidden_field :night_type, :class => 'post_type', :autocomplete => 'off' %>
 
-  <%= render "posts/venue_input", :f => f, :venue_label => "Venue name...", :venue_required => 'required' %>
+  <div class="field lClear required">
+    <%= f.label :title, "Invite Title" %>
+    <%= f.text_field :title, :autocomplete => 'off' %>
+  </div>
+
+  <%= render "posts/venue_input", :f => f, :venue_label => 'Venue (You must select from the dropdown.)', :venue_required => 'required' %>
 
   <div class="field lClear required">
     <%= f.label :time, "Start time..." %>

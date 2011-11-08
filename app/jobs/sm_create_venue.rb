@@ -9,11 +9,7 @@ class SmCreateVenue
   @queue = :soulmate_venue
 
   def initialize(venue)
-    if (venue.private)
-      Soulmate::Loader.new("venue#{venue.user_id.to_s}").add(venue_nugget(venue))
-    else
-      Soulmate::Loader.new("venue#{venue.city_id.to_s}").add(venue_nugget(venue))
-    end
+    Soulmate::Loader.new("venue#{venue.city_id.to_s}").add(venue_nugget(venue))
   end
 
   def self.perform(venue_id)

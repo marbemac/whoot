@@ -24,9 +24,9 @@ class UsersController < ApplicationController
       url = request.protocol + request.host_with_port + '/user-default.gif'
     end
 
-    response.headers['Cache-Control'] = 'public, max-age=300'
+    response.headers['Cache-Control'] = 'no-cache'
 
-    render :text => open(url, "rb").read, :stream => true
+    render :text => open(url, "rb").read
   end
 
   def picture_update

@@ -35,11 +35,7 @@ $(function() {
 
         form.find('input, textarea').removeAttr('disabled');
 
-        if (appUpdate(data)) {
-          if (data.result == 'error') {
-            form.replaceWith(data.form);
-          }
-        }
+        appUpdate(data);
 
         if (success) {
           success();
@@ -60,8 +56,8 @@ $(function() {
           form.find('input, textarea').removeAttr('disabled');
           var $error_field = form.find('.errors');
           $error_field.show();
-          errors = $.parseJSON(jqXHR.responseText)
-          $.each(errors, function(target_field, field_errors) {
+          var data = $.parseJSON(jqXHR.responseText)
+          $.each(data.errors, function(target_field, field_errors) {
             $.each(field_errors, function(i, error) {
               $error_field.append('<div class="error">' + error + '</div>');
             })

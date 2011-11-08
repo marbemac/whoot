@@ -19,6 +19,7 @@ class Post
   )
   index :comment_count
   index "venue._id"
+  index "venue.public_id"
   index [["venue.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
   index [["location.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
 
@@ -29,8 +30,7 @@ class Post
 
   validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing, or partying)" }
   validate :valid_venue
-  attr_accessor :venue_id
-  attr_accessible :night_type, :venue, :venue_id
+  attr_accessible :night_type, :venue
   before_create :set_location_snippet, :set_venue_snippet
 
   def max_tags
@@ -46,8 +46,8 @@ class Post
   end
 
   def valid_venue
-    if @venue_id == '' && venue && venue.name != '' && venue.address == ''
-      errors.add(:venue_address, "You must specify a venue address!")
+    if venue && !venue.address_string.blank? && venue.coordinates_string.blank?
+      errors.add(:venue_address, "Your venue address is invalid. Please pick a valid address from the dropdown that appears when you start typing.")
     end
   end
 
@@ -73,30 +73,25 @@ class Post
 
   def set_venue_snippet
     target_venue = nil
-    if !@venue_id.blank?
-      target_venue = Venue.find(@venue_id)
-    elsif !self.venue.name.blank?
-      target_venue = Venue.where(:private => false).any_of({:aliases => venue.name.to_url}, {:address => venue.address}).first
-      if target_venue
-        target_venue.add_alias(venue.name)
-      else
+    if !venue.address_string.blank?
+      target_venue = Venue.where(:address_string => venue.address_string).first
+      unless target_venue
         target_venue = Venue.new(venue.attributes)
-        target_venue.city_id = user.location.id
+        target_venue.address_string = venue.address_string
         target_venue.user_id = user.id
+        target_venue.save!
       end
     end
 
     if target_venue
-      target_venue.save!
       self.venue = VenueSnippet.new(
               name: target_venue.name,
               address: target_venue.address,
               public_id: target_venue.public_id,
-              coordinates: target_venue.coordinates,
-              private: target_venue.private
+              coordinates: target_venue.coordinates
       )
       self.venue.id = target_venue.id
-    else
+    elsif !venue || !venue.address
       self.venue = nil
     end
   end

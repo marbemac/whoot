@@ -3,6 +3,7 @@ require "whoot"
 class InvitePost < Post
   include Whoot::Images
 
+  field :title
   field :content
   field :time
   field :attending_count, :default => 0
@@ -15,11 +16,12 @@ class InvitePost < Post
 
   embeds_one :user_snippet, as: :user_assignable
 
+  validates :title, :length => { :in => 5..100, :message => "Title must be between 5 and 100 characters" }
   validates :content, :length => { :in => 0..500, :message => "Description must be less than 500 characters" }
   validates :time, :length => { :in => 1..30, :message => "Start time must be between 1 and 30 characters" }
   validate :venue_fields
 
-  attr_accessible :content, :time
+  attr_accessible :title, :content, :time
 
   before_create :set_user_snippet
   after_create :create_linked_normal_post
@@ -38,11 +40,7 @@ class InvitePost < Post
   end
 
   def venue_fields
-    if @venue_id == '' && (venue.name.length < 3 || venue.name.length > 75)
-      errors.add(:venue_name, "Venue name must be between 3 and 75 characters")
-    end
-
-    if @venue_id == '' && (venue.address.length < 5 || venue.address.length > 140)
+    if new_record? && (!venue || venue.address_string.length < 5 || venue.address_string.length > 140)
       errors.add(:venue_address, "Venue address must be between 5 and 140 characters")
     end
   end
@@ -58,10 +56,10 @@ class InvitePost < Post
       unless post
         post = user.normal_posts.new(
                 :night_type => night_type,
-                :invite_post_id => id,
-                :venue_id => venue.id,
-                :venue => venue.attributes
+                :invite_post_id => id
         )
+        post.venue = VenueSnippet.new(venue.attributes)
+        post.venue.address = Address.new(venue.address.attributes)
       end
 
       if (current_post)

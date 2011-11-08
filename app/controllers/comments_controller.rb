@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
       content = {:status => 'OK', :comment => html, :root_id => @comment.post_id, :event => 'comment_created' }
       render json: content, status: :created
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      render json: {:status => :ok, :errors => @comment.errors}, status: :unprocessable_entity
     end
   end
 

@@ -4,7 +4,9 @@ jQuery ->
     target.removeClass('working low_in low_out big_out')
     target.addClass(data.night_type)
     target.find('.what').text(data.what)
+    target.find('.comments_count span').text('0')
     target.find('.votes').text('0')
+    target.data('venue-id', data.venue_id)
     tags = target.find('.tags')
     tags.html('')
     $(data.tags).each (i, val) ->

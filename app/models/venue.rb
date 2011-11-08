@@ -2,68 +2,64 @@ class Venue
   include Mongoid::Document
   include Mongoid::Paranoia
   include Mongoid::Timestamps
-  include Mongoid::Slug
   include Geocoder::Model::Mongoid
 
   field :status, :default => 'Active'
   field :name
-  slug  :name
   field :type
-  field :address
+  field :address_string
   field :price
   field :hours
   field :phone
-  field :city_id
   field :user_id
-  field :private, :default => false, :type => Boolean
-  field :dedicated, :default => false
   field :coordinates, :type => Array
-  field :aliases, :default => []
   field :popularity, :default => 0
 
   auto_increment :public_id
 
-  geocoded_by :address
-  after_validation :reverse_geocode
+  geocoded_by :address_string do |obj,results|
+    if geo = results.first
+      number = geo.data['address_components'].detect{|component| component['types'].include?('street_number') }
+      number = number['short_name'] if number
+      route = geo.data['address_components'].detect{|component| component['types'].include?('route') }
+      route = route['short_name'] if route
+      if route
+        if number
+          address = "#{number} #{route}"
+        else
+          address = route
+        end
+      else
+        address = nil
+      end
+      obj.address = Address.new(
+              :street => address,
+              :city => geo.city,
+              :state_code => geo.state_code,
+              :zipcode => geo.postal_code,
+              :country => geo.country_code
+      )
+      obj.coordinates = [geo.longitude, geo.latitude]
+    end
+  end
 
   index [[:coordinates, Mongo::GEO2D]], :min => -180, :max => 180
   index :public_id
-  index :slug, :unique => true
   index [[:popularity, Mongo::DESCENDING]]
-  index(
-    [
-      [ :city_id, Mongo::ASCENDING ],
-      [ :slug, Mongo::ASCENDING ],
-      [ :dedicated, Mongo::DESCENDING ]
-    ]
-  )
 
+  embeds_one :address, :as => :has_address, :class_name => 'Address'
   belongs_to :city
   belongs_to :user
 
-  before_create :set_self_alias
   after_save :update_denorms
-  after_validation :geocode, :if => lambda{ |obj| obj.address_changed? }
+  after_validation :geocode, :if => lambda{ |obj| obj.address_string_changed? }
   after_create :check_duplicate
   before_destroy :remove_from_soulmate
 
-  attr_accessible :name, :type, :address, :price, :hours, :phone, :city_id, :private, :dedicated, :coordinates, :coordinates_string
+  attr_accessible :name, :type, :address_string, :address, :price, :hours, :phone, :city_id, :dedicated, :coordinates, :coordinates_string
 
   def to_param
     "#{self.public_id.to_i.to_s(36)}-#{self.name.parameterize}"
-  end
-
-  def set_self_alias
-    self.aliases ||= []
-    add_alias(name, false)
-  end
-
-  def add_alias(content, add_soulmate=true)
-    url = content.to_url
-    unless self.aliases.include?(url)
-      self.aliases << url
-      Resque.enqueue(SmCreateVenue, id.to_s) if add_soulmate
-    end
   end
 
   def update_denorms
@@ -71,8 +67,12 @@ class Venue
     if name_changed?
       updates["venue.name"] = self.name
     end
-    if address_changed?
-      updates["venue.address"] = self.address
+    if address_string_changed?
+      updates["venue.address.street"] = self.address.street
+      updates["venue.address.city"] = self.address.city
+      updates["venue.address.state_code"] = self.address.state_code
+      updates["venue.address.zipcode"] = self.address.zipcode
+      updates["venue.address.country"] = self.address.country
       updates["venue.coordinates"] = self.coordinates
     end
 
@@ -86,34 +86,67 @@ class Venue
   end
 
   def check_duplicate
-    if private == false && coordinates
-      found = Venue.where(:coordinates => coordinates[0], :coordinates => coordinates[1], :private => false, :_id.ne => id).first
+    if coordinates
+      found = Venue.where(:coordinates => coordinates[0], :coordinates => coordinates[1], :_id.ne => id).first
       if found
         Post.where("venue._id" => id).update_all(
                 "venue._id" => found.id,
                 "venue.address" => found.address,
                 "venue.public_id" => found.public_id,
-                "venue.private" => found.private,
                 "venue.coordinates" => found.coordinates
         )
-        found.add_alias(name)
         found.save
         self.delete
-      else
-        Resque.enqueue(SmCreateVenue, id.to_s)
       end
-    else
-      Resque.enqueue(SmCreateVenue, id.to_s)
     end
   end
 
   def remove_from_soulmate
-    Resque.enqueue(SmDestroyVenue, id.to_s, city_id)
+  end
+
+  def pretty_name
+    pretty = ''
+    if !name.blank?
+      pretty = name+', '+address.state_code
+    else
+      if address.street
+        pretty += address.street
+      elsif address.city
+        pretty += address.city
+      end
+      pretty += ', '+address.state_code
+    end
+    pretty
+  end
+
+  def full_address
+    full = ''
+    if address.street
+      full += address.street
+    end
+    if address.city
+      full += ', '+address.city
+    end
+    full += ', '+address.state_code
+    full
   end
 
   class << self
     def find_by_encoded_id(id)
       where(:public_id => id.to_i(36)).first
+    end
+
+    def convert_for_api(venue)
+      if venue
+        data = {
+              :id => venue.id,
+              :name => venue.name,
+              :address => venue.address
+        }
+      else
+        data = nil
+      end
+      data
     end
   end
 

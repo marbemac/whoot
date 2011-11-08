@@ -46,7 +46,7 @@ class NormalPost < Post
   end
 
   def process_tag
-    if self.valid? && tag && tag.name.length > 0
+    if self.valid? && tag && !tag.name.blank?
       found = Tag.where(:slug => tag.name.to_url).first
       if found
         found.score += 1
@@ -56,6 +56,8 @@ class NormalPost < Post
       end
       tag.id = found.id
       tag
+    else
+      self.tag = nil
     end
   end
 
@@ -95,7 +97,8 @@ class NormalPost < Post
   def set_invite_post_snippet
     if invite_post
       snippet = InvitePostSnippet.new(
-              :public_id => invite_post.public_id
+              :public_id => invite_post.public_id,
+              :title => invite_post.title
       )
       snippet.id = invite_post.id
       self.invite = snippet
@@ -130,6 +133,19 @@ class NormalPost < Post
 
     def todays_post
       where(:created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))), :current => true)
+    end
+
+    def convert_for_api(post)
+      {
+              :id => post.id,
+              :comment_count => post.comment_count,
+              :votes_count => post.votes,
+              :created_at => post.created_at,
+              :night_type => post.night_type,
+              :created_by => User.convert_for_api(post.created_by),
+              :tag => Tag.convert_for_api(post.tag),
+              :venue => Venue.convert_for_api(post.venue)
+      }
     end
   end
 

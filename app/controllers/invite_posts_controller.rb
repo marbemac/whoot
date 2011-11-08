@@ -34,17 +34,16 @@ class InvitePostsController < PostsController
               'City ID' => @post.location.id.to_s,
               'With Image' => (@post.images ? true : false),
               'Venue' => (@post.venue ? @post.venue.name : :none),
-              'Venue is Private' => (@post.venue ? @post.venue.private : nil),
               'Venue ID' => (@post.venue ? @post.venue.id.to_s : :none)
       }
       if @post.venue
       end
       @mixpanel.track_event("Invite Post Create", current_user.mixpanel_data.merge!(mixpanel_data))
 
-      response = { :redirect => invite_post_path(@post) }
+      response = { :status => :ok, :redirect => invite_post_path(@post) }
       render json: response, status: :created, location: @post
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: {:status => :error, :errors => @post.errors}, status: :unprocessable_entity
     end
   end
 
