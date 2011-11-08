@@ -367,7 +367,7 @@ class User
     def undecided(user)
 
       or_criteria = []
-      or_criteria << {"current_post.created_at" => { "$lt" => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))) }}
+      or_criteria << {"current_post.created_at" => { "$lt" => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))).utc }}
       or_criteria << {:current_post => {"$exists" => false}}
 
       where(:_id.in => user.following_users).any_of(or_criteria)
