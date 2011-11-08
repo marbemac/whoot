@@ -63,6 +63,7 @@ class ApplicationController < ActionController::Base
 
   def set_user_time_zone
     Time.zone = current_user.time_zone if signed_in?
+    Chronic.time_class = Time.zone
   end
 
   def require_post
