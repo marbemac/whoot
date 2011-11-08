@@ -33,7 +33,6 @@ gem 'state_select'
 gem 'formtastic_state_select'
 gem 'activeadmin'
 gem "airbrake" # Exception notification
-#TODO: the rpm_contrib is being pulled from git because of a bug. Check this pull request and use gem if merged. https://github.com/newrelic/rpm_contrib/pull/13
 gem 'rpm_contrib', '2.1.6' # extra instrumentation for the new relic rpm agent
 gem 'newrelic_rpm' # performance / server monitoring
 gem 'soulmate' # Redis based autocomplete storage
