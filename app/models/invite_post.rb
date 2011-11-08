@@ -27,7 +27,7 @@ class InvitePost < Post
   after_create :create_linked_normal_post
 
   def to_param
-    "#{self.public_id.to_i.to_s(36)}-#{self.venue.name}"
+    "#{self.public_id.to_i.to_s(36)}-#{self.venue.pretty_name.parameterize}"
   end
 
   def set_user_snippet
