@@ -24,8 +24,15 @@ class RecalculateVenuePopularity
 
       venues = Venue.near(city.to_coordinates, 20).to_a
       venues.each do |venue|
+        found = false
         @results.find("_id" => venue.id).each do |doc|
+          found = true
           venue.popularity = doc["value"].to_i
+          venue.save!
+        end
+
+        unless found
+          venue.popularity = 0
           venue.save!
         end
       end
