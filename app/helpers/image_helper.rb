@@ -24,10 +24,6 @@ module ImageHelper
       return false
     end
 
-    if Rails.env.development? && createNow
-      url = Rails.public_path+url
-    end
-
     url
   end
 end

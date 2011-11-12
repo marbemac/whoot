@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :default_picture
   include ImageHelper
 
   def show
@@ -19,14 +19,25 @@ class UsersController < ApplicationController
     user = User.find_by_encoded_id(params[:id])
     dimensions = params[:d]
     style = params[:s]
+
     url = default_image_url(user, dimensions, style, true)
-    unless url
+    if url
+      img = open(Rails.env.development? ? Rails.public_path+url : url)
+    else
       url = request.protocol + request.host_with_port + '/user-default.gif'
+      img = open(url)
     end
 
     response.headers['Cache-Control'] = 'no-cache'
 
-    render :text => open(url, "rb").read
+    if img
+      send_data(
+        img.read,
+        :disposition => 'inline'
+      )
+    else
+      render :file => "#{RAILS_ROOT}/public/404.html", :status => 404
+    end
   end
 
   def picture_update
