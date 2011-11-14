@@ -375,12 +375,13 @@ class User
 
     # Omniauth providers
     def find_by_omniauth(omniauth, signed_in_resource=nil)
-      data = omniauth['extra']['user_hash']
+      info = omniauth['info']
+      extra = omniauth['extra']['raw_info']
       user = User.where("social_connects.uid" => omniauth['uid'], 'social_connects.provider' => omniauth['provider']).first
 
       # Try to get via email if user not found and email provided
-      unless user || !data['email']
-        user = User.where(:email => data['email']).first
+      unless user || !info['email']
+        user = User.where(:email => info['email']).first
       end
 
       # If we found the user, update their token
@@ -394,16 +395,16 @@ class User
         # Update the token
         connect.token = omniauth['credentials']['token']
       else # Create a new user with a stub password.
-        if data["gender"]
-          gender = data["gender"] == 'male' ? 'm' : 'f'
+        if extra["gender"]
+          gender = extra["gender"] == 'male' ? 'm' : 'f'
         else
           gender = nil
         end
         user = User.new(
-                first_name: data["first_name"], last_name: data["last_name"],
-                gender: gender, email: data["email"], password: Devise.friendly_token[0,20]
+                first_name: extra["first_name"], last_name: extra["last_name"],
+                gender: gender, email: info["email"], password: Devise.friendly_token[0,20]
         )
-        user.birthday = Chronic.parse(data["birthday"]) if data["birthday"]
+        user.birthday = Chronic.parse(extra["birthday"]) if extra["birthday"]
         user.social_connects << SocialConnect.new(:uid => omniauth["uid"], :provider => omniauth['provider'], :token => omniauth['credentials']['token'])
       end
 

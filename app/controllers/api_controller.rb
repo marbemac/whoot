@@ -10,8 +10,9 @@ class ApiController < ApplicationController
       omniauth = {
               'uid' => me['id'],
               'provider' => 'facebook',
+              'info' => me,
               'extra' => {
-                      'user_hash' => me
+                      'raw_info' => me
               },
               'credentials' => {
                       'token' => social_token
