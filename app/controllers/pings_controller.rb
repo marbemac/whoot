@@ -8,11 +8,14 @@ class PingsController < ApplicationController
       if target_user.save && target_user.settings.email_ping
         PingMailer.new_ping(target_user).deliver
       end
-      response = {:json => {:status => 'ok', :target => '.ping_'+target_user.id.to_s, :toggle_classes => ['btn pingB', 'pinged']}, :status => 201}
+      if params[:format] == :api
+        response = {:json => {:status => 'ok'}}
+      else
+        response = {:json => {:status => 'ok', :target => '.ping_'+target_user.id.to_s, :toggle_classes => ['btn pingB', 'pinged']}, :status => 201}
+      end
     else
       response = {:json => {:status => 'error', :message => 'Target user not found!'}, :status => 404}
     end
-
 
     render response
   end

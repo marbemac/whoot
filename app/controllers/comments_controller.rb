@@ -3,8 +3,6 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.new(params[:comment])
 
-    set_content_type('text/javascript')
-
     if @comment.save
       post = @comment.post
       if post

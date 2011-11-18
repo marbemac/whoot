@@ -55,8 +55,7 @@ class ApplicationController < ActionController::Base
       session[:feed_filters] =
               {
                 :display => ['working', 'low_in', 'low_out', 'big_out'],
-                :sort => {:target => 'created_at', :order => 'DESC'},
-                :layout => 'list'
+                :sort => {:target => 'created_at', :order => 'DESC'}
               }
     end
   end

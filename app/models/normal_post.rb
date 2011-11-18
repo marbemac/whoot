@@ -160,7 +160,8 @@ class NormalPost < Post
               :night_type => post.night_type,
               :created_by => User.convert_for_api(post.created_by),
               :tag => Tag.convert_for_api(post.tag),
-              :venue => Venue.convert_for_api(post.venue)
+              :venue => Venue.convert_for_api(post.venue),
+              :voters => voters
       }
     end
   end

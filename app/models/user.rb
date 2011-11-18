@@ -434,7 +434,9 @@ class User
               :email => user.email,
               :public_id => user.encoded_id,
               :vote_count => user.votes_count,
-              :ping_count => user.pings_count
+              :ping_count => user.pings_count,
+              :following_users_count => user.following_users_count,
+              :followers_count => user.followers_count
       }
     end
   end

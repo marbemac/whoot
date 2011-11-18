@@ -27,4 +27,15 @@ class Comment
     post.save
   end
 
+  class << self
+    def convert_for_api(comment)
+      {
+              :id => comment.id,
+              :content => comment.content,
+              :created_at => comment.created_at,
+              :created_by => User.convert_for_api(comment.created_by)
+      }
+    end
+  end
+
 end

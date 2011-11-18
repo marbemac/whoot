@@ -74,9 +74,18 @@ Whoot::Application.routes.draw do
   # API
   scope 'api' do
     scope 'v1' do
-      post 'generate_token' => 'api#generate_token', :as => :mobile_generate_token
-      get 'normal_posts' => 'api#normal_posts'
-      post 'normal_posts' => 'normal_posts#create'
+      post 'generate_token' => 'api#generate_token', :as => :mobile_generate_token, :defaults => { :format => :api }
+      get 'normal_posts' => 'api#normal_posts', :defaults => { :format => :api }
+      post 'normal_posts' => 'normal_posts#create', :defaults => { :format => :api }
+      get 'normal_posts/:id/comments' => 'api#comments', :defaults => { :format => :api }
+      post 'normal_posts/comments' => 'comments#create', :defaults => { :format => :api }
+      get 'normal_posts/:id/votes' => 'api#votes', :defaults => { :format => :api }
+      post 'normal_posts/votes' => 'votes#create', :defaults => { :format => :api }
+      post 'follow' => 'follows#create', :defaults => { :format => :api }
+      delete 'follow' => 'follows#destroy', :defaults => { :format => :api }
+      post 'ping' => 'pings#create', :defaults => { :format => :api }
+      get 'users/:id/following' => 'users#following', :defaults => { :format => :api }
+      get 'users/:id/followers' => 'users#followers', :defaults => { :format => :api }
     end
   end
 

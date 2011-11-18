@@ -8,7 +8,11 @@ class FollowsController < ApplicationController
       if current_user.save && target_user.save
         @pubnub.publish({'channel' => target_user.id.to_s+'_private', 'message' => { :event => 'notification', :content => "#{current_user.fullname} is now following you." }})
       end
-      response = {:json => {:status => 'ok', :target => '.fol_'+target_user.id.to_s, :toggle_classes => ['followB', 'unfollowB']}, :status => 201}
+      if params[:format] == :api
+        response = {:json => {:status => 'ok'}}
+      else
+        response = {:json => {:status => 'ok', :target => '.fol_'+target_user.id.to_s, :toggle_classes => ['followB', 'unfollowB']}, :status => 201}
+      end
     else
       response = {:json => {:status => 'error', :message => 'Target user not found!'}, :status => 404}
     end
@@ -22,7 +26,11 @@ class FollowsController < ApplicationController
       current_user.unfollow_user(target_user)
       current_user.save
       target_user.save
-      response = {:json => {:status => 'ok', :target => '.fol_'+target_user.id.to_s, :toggle_classes => ['followB', 'unfollowB']}, :status => 201}
+      if params[:format] == :api
+        response = {:json => {:status => 'ok'}}
+      else
+        response = {:json => {:status => 'ok', :target => '.fol_'+target_user.id.to_s, :toggle_classes => ['followB', 'unfollowB']}, :status => 201}
+      end
     else
       response = {:json => {:status => 'error', :message => 'Target user not found!'}, :status => 404}
     end
