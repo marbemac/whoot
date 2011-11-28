@@ -4,9 +4,7 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
-//= require jquery
 //= require jquery_ujs
-//= require modernizr
 //= require json2
 //= require swfobject
 //= require jquery.livequery
@@ -23,7 +21,6 @@
 //= require jquery.label
 //= require pubnub
 //= require whoot.core
-//= require invite_posts
 //= require whoot.subscribers
 //= require whoot.action.controller
 //= require whoot.form.controller

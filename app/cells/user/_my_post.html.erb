@@ -1,34 +1,10 @@
 <% unless @my_post == nil %>
-  <div id="my-post" class="{{ myPost.invite.id is defined ? 'invite' : '' }}">
+  <div id="my-post">
     <h5>
       <%= @my_post.night_type_short %>
     </h5>
-    <% if @invite && @invite.user_id == @user.id %>
-      <div id="cancel-post">Cancel</div>
-      <div class="hide">
-        <div id="invite-cancel-confirm">
-          <h3>Are you sure you want to cancel your open invite?</h3>
-          <div class="num">
-            <% if @invite.attending_count > 1 %>
-              <%= @invite.attending_count - 1 %>
-              people have indicated they are attending your open invite. The invite will be cancelled for them as well!
-            <% else %>
-              Looks like your invite wasn't very popular huh? Go ahead, cancel away...
-            <% end %>
-          </div>
-          <div class="noundo">
-            You cannot undo this action!
-          </div>
-          <div class="actions">
-            <div class="submit ac" data-url="<%= invite_post_path @invite %>" data-m="delete">Confirm Cancellation</div>
 
-            <div class="cancel">Nevermind</div>
-          </div>
-        </div>
-      </div>
-    <% else %>
-      <div id="change-post">Change</div>
-    <% end %>
+    <div id="change-post">Change</div>
 
     <div class="clear"></div>
 
@@ -36,24 +12,12 @@
       <h6>@ <%= @my_post.venue.pretty_name %></h6>
     <% end %>
 
-    <% if @invite %>
-      <a href="<%= invite_post_path @invite %>">
-        <% if @invite.user_id == @user.id %>
-          You're inviting people out to <%= @invite.venue.pretty_name %>.
-          <%= pluralize(@invite.attending_count - 1, 'person is', 'people are') %> attending.
-        <% else %>
-          You're attending <%= @invite.user_snippet.fullname.pluralize %>
-          open invite at <%= @invite.venue.name %>.
-        <% end %>
-      </a>
-    <% else %>
-      <div class="tags">
-        <% if @my_post.tag %>
-          <%= render "tags/teaser", :tag => @my_post.tag %>
-        <% end %>
-      </div>
-      <div class="clear"></div>
-    <% end %>
+    <div class="tags">
+      <% if @my_post.tag %>
+        <%= render "tags/teaser", :tag => @my_post.tag %>
+      <% end %>
+    </div>
+    <div class="clear"></div>
   </div>
 <% else %>
   <div id="my-post">

@@ -15,16 +15,8 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :omniauthable
 
-  # Denormalized:
-  # InvitePost.user_snippet.name
   field :username
-
-  # Denormalized:
-  # InvitePost.user_snippet.first_name
   field :first_name
-
-  # Denormalized:
-  # InvitePost.user_snippet.last_name
   field :last_name
 
   slug :username
@@ -72,7 +64,6 @@ class User
   embeds_one :settings, :class_name => 'UserSettings'
   has_many :tags
   has_many :normal_posts
-  has_many :invite_posts
   has_many :comments
   has_many :lists
   has_many :notifications

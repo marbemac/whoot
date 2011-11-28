@@ -8,9 +8,6 @@ class UserCell < Cell::Rails
     if signed_in?
       @user = current_user
       @my_post = NormalPost.current_post(@user)
-      if @my_post && @my_post.invite_post_id
-        @invite = InvitePost.find(@my_post.invite_post_id)
-      end
       @undecided = User.undecided(@user).order_by([[:first_name, :asc], [:last_name, :desc]])
       render
     end

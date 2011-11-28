@@ -12,9 +12,7 @@
   </div>
 
   <div class="tags">
-    <% if post && post.invite_post %>
-      @ <%= link_to post.invite_post.title, invite_post_path(:id => post.invite_url) %>
-    <% elsif post && post.tag %>
+    <% if post && post.tag %>
       <%= render "tags/teaser", :tag => post.tag %>
     <% end %>
   </div>

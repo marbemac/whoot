@@ -45,7 +45,6 @@ class NormalPostsController < PostsController
       mixpanel_data = {
               'Tag' => (@post.tag ? @post.tag.name : :none),
               'Type' => @post.night_type,
-              'Invite' => (@post.invite ? @post.invite.id.to_s : :none),
               'City ID' => @post.location.id.to_s,
               'Venue' => (@post.venue ? @post.venue.name : :none),
               'Venue ID' => (@post.venue ? @post.venue.id.to_s : :none)

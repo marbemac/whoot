@@ -9,7 +9,7 @@ class Ability
       can :read, :all
       can :create, :all if user.persisted?
 
-      [NormalPost, InvitePost, Comment, Ping, Follow].each do |resource|
+      [NormalPost, Comment, Ping, Follow].each do |resource|
         [:update, :destroy].each do |permission|
           can permission.to_sym, resource do |target|
             target.try(:permission?, user.id, permission)

@@ -1,8 +1,5 @@
 Whoot::Application.routes.draw do
 
-  # Invite Posts
-  resources :invite_posts
-
   # Normal Posts
   get 'normal_posts/map' => 'normal_posts#map', :as => :normal_post_map
   resources :normal_posts
@@ -37,10 +34,6 @@ Whoot::Application.routes.draw do
   post 'lists/:id/users' => 'lists#add_user', :as => :list_add_user
   delete 'lists/:id/users' => 'lists#remove_user', :as => :list_remove_user
   resources :lists
-
-  # Attending
-  post   'attend' => 'attends#create', :as => :invite_attend_create
-  delete 'attend' => 'attends#destroy', :as => :invite_attend_destroy
 
   # Voting
   post   'vote' => 'votes#create', :as => :vote_create

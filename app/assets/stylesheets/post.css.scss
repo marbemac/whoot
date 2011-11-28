@@ -44,37 +44,9 @@ Purpose of the stylesheet follows.
     }
 }
 
-#post-box,
-#invite-cancel-confirm {
+#post-box {
     z-index: 110;
     width: 760px;
-}
-
-#invite-cancel-confirm {
-    padding: 10px;
-    h3 {
-      margin: 0 0 10px 0;
-    }
-    .num {
-      font-size: 18px;
-      margin:  0 20px 10px 0;
-    }
-    .noundo {
-      font-size: 14px;
-      font-style: italic;
-      margin:  0 20px 5px 0;
-    }
-    .submit {
-      @include link();
-      margin: 10px 0 5px 0;
-      font-weight: bold;
-      float: left;
-    }
-    .cancel {
-      @include link();
-      margin: 10px 0 5px 20px;
-      float: left;
-    }
 }
 
 #post-box {
@@ -199,13 +171,12 @@ Purpose of the stylesheet follows.
     }
 }
 
-#post-box,
-#invite-page {
+#post-box {
     .type {
         float: left;
-        padding: 8px 15px;
+        padding: 8px 16px;
         margin: 10px -1px 10px -1px;
-        font-size: 20px;
+        font-size: 18px;
         border: 2px solid #AAA;
         cursor: pointer;
         position: relative;

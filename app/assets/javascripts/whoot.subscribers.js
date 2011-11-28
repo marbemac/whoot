@@ -97,26 +97,6 @@ $(function() {
   });
 
   /*
-   * INVITES
-   */
-  amplify.subscribe("invite_cancelled", function(data) {
-    $('#cancel-post').colorbox.remove();
-
-    $('#my-post').replaceWith(data.myPost);
-  });
-
-  amplify.subscribe("invite_created", function(data) {
-    $('#post-box').fadeOut(300);
-
-    $('#my-post').replaceWith(data.myPost);
-  });
-
-  amplify.subscribe('attend_toggle', function (data) {
-    actionCommon($('.attending_' + data.inviteId), data);
-    $('#my-post').replaceWith(data.myPost);
-  })
-
-  /*
    * NOTIFICATIONS
    */
   amplify.subscribe('my_notifications', function (data) {

@@ -5,7 +5,6 @@
 
   <div class="nav">
     <%= link_to "My Feed", root_path, :class => ('on' if controller.action_name == 'home') %>
-    <%= link_to "Open Invites", invite_posts_path, :class => ('on' if controller.controller_name == 'invite_posts' && controller.action_name == 'index') %>
   </div>
 
   <div class="search">

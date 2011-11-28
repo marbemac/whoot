@@ -90,11 +90,6 @@ $(function() {
     $('#post-box').fadeIn(500);
   })
 
-  // Show confirm button for cancel open invite post
-  $('#cancel-post').livequery(function() {
-    $(this).colorbox({transition: "none", opacity: .5, inline: true, href: "#invite-cancel-confirm"});
-  })
-
   // Toggle collapse right undecided bar
   $('.undecidedC .side-toggle, #feed-filters .undecided').live('click', function() {
     $('.undecidedC').toggleClass('collapsed');
@@ -115,7 +110,7 @@ $(function() {
   })
 
   // Toggle new post options
-  $('#post-box .type, #invite-page .type').live('click', function() {
+  $('#post-box .type').live('click', function() {
     $(this).addClass('on').siblings('.type').removeClass('on');
     $(this).parent().find('.post_type').val($(this).data('val'));
   })
@@ -123,11 +118,6 @@ $(function() {
   // Cancel a change post
   $('#post-box .cancel').live('click', function() {
     $('#post-box').fadeOut(300);
-  })
-
-  // Cancel a open invite cancellation
-  $('#invite-cancel-confirm .cancel').live('click', function() {
-    $('#invite-cancel-confirm').colorbox.close();
   })
 
   // Toggle the activity of a post
@@ -149,19 +139,6 @@ $(function() {
       $self.after(data.details).toggleClass('on');
       postActivityToggle = false;
     }, 'json')
-  })
-
-  $('#new_invite_post').live('keypress', function(e) {
-    if (e.keyCode == 13) {
-       return false;
-    }
-  })
-
-  // Switch between normal post and open invite submission in the post box
-  $('#post-box .nav .option').live('click', function() {
-    $('#post-box form').hide();
-    $($(this).data('target')).show();
-    $(this).addClass('on').siblings().removeClass('on');
   })
 
   // Tag autocomplete
@@ -240,30 +217,6 @@ $(function() {
     {
       return false;
     }
-  })
-
-  // Draw on post maps
-  $('.invite-map').livequery(function() {
-    var $self = $(this);
-
-    var latlng = new google.maps.LatLng($self.data('lat'), $self.data('lon'));
-
-    var myOptions = {
-      zoom: 16,
-      center: latlng,
-      disableDefaultUI: true,
-      scaleControls: true,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    var map = new google.maps.Map(document.getElementById($self.attr('id')),
-            myOptions);
-
-    var marker = new google.maps.Marker({
-      position: latlng,
-      map: map,
-      title: $self.data('name')
-    });
   })
 
   // Toggle the trending bar
@@ -540,21 +493,6 @@ $(function() {
       $counter.hide('scale', {}, 150);
     }
 
-  })
-
-  $('#create-custom-venue').live('click', function() {
-    if ($(this).hasClass('on'))
-    {
-      $(this).text('Add My Own Venue');
-      $('#invite_post_venue_id').removeAttr('disabled');
-    }
-    else
-    {
-      $('#invite_post_venue_id').val(0).attr('disabled', true)
-      $(this).text('Cancel Add My Own Venue');
-    }
-    $(this).toggleClass('on');
-    $('#custom-venue').toggle();
   })
 
   $('.toggle-nav .item:not(.no-tog)').live('click', function() {

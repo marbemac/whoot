@@ -3,7 +3,6 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require normalize
- *= require reset
  *= require qtip
  *= require colorbox
  *= require jquery.autocomplete
@@ -24,8 +23,8 @@ html, body {
     height: 100%;
     border: 0;
     position: relative; z-index: 0;
-    font-family: "Helvetica Neue", Tahoma, Arial, sans-serif;
-    line-height: 1.125em;
+    font-family: "lucida grande", Tahoma, Verdana, Arial, sans-serif;
+    line-height: 1.231 !important;
 }
 #wrapper {
   min-width: 960px;
@@ -36,8 +35,7 @@ html, body {
   overflow: hidden;
 }
 h1,h2,h3,h4,h5,h6 {
-  font-weight: bold;
-  line-height: 1em;
+  font-family: "Helvetica Neue", Arial, Tahoma, Verdana, serif;
 }
 h1 {
   font-size: 28px;
@@ -122,12 +120,13 @@ form {
   }
 }
 
-input,textarea {
+input,textarea,select {
     padding: 3px 6px;
     font-size: 14px;
     border:  1px solid #AAA;
     width: 200px;
-    font-family: "Helvetica Neue", Tahoma, Verdana, Arial, sans-serif;
+    font-family: "lucida grande", Tahoma, Verdana, Arial, sans-serif;
+    line-height: 1.231;
 }
 input.submit {
     @include orange-button(3px, 14px);
@@ -185,10 +184,6 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
             cursor: default;
         }
         .feed {
-            border-right: 1px dotted #08192E;
-        }
-        .open-invite {
-            border-left: 1px dotted #4688DA;
             border-right: 1px dotted #08192E;
         }
     }
@@ -461,7 +456,6 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
 @import "user";
 @import "vote";
 @import "post";
-@import "invite";
 @import "tag";
 @import "comment";
 @import "admin";

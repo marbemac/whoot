@@ -6,28 +6,22 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title><%= title %></title>
+
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=.4"/>
+
+    <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
     <%= stylesheet_link_tag "application" %>
+
     <%= csrf_meta_tags %>
 
-    <script type="text/javascript">
-
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-23850469-1']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-
-    </script>
+    <%= javascript_include_tag 'modernizr' %>
   </head>
   <body class="<%= params[:controller] %> <%= calculate_time_of_day %>">
     <div id="wrapper">
@@ -90,6 +84,10 @@
     <% end %>
     <div id="city-bg">&nbsp;</div>
 
+    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/assets/javascripts/jquery1.6.4.js"><\/script>')</script>
+
     <%= javascript_include_tag "application" %>
     <script src="http://maps.google.com/maps/api/js?libraries=places&sensor=false"></script>
     <div id="fb-root"></div>
@@ -115,6 +113,19 @@
 
     <div id='pubnub' pub-key='<%= ENV['PUBNUB_PUBLISH_KEY'] || 'demo' %>' sub-key='<%= ENV['PUBNUB_SUBSCRIBE_KEY'] || 'demo' %>' ssl='off' origin='pubsub.pubnub.com'></div>
     <script src=http://cdn.pubnub.com/pubnub-3.1.min.js ></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-23850469-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
 
     <!-- Start of Woopra Code -->
     <% unless Rails.env.development? %>
@@ -154,8 +165,6 @@
     </script>
 
     <%= yield :js %>
-
-    <%= render "invite_posts/upload_js" if signed_in? %>
 
     <% if ENV['RAILS_ENV'] != 'production' %>
       <div id="slt">
