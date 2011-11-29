@@ -50,7 +50,8 @@ class UsersController < ApplicationController
     current_user.set_default_image(image.id)
 
     if current_user.save
-      expire_action :action => :default_picture, :id => current_user.encoded_id
+      ActionController::Base.new.expire_cell_state UserCell, :sidebar, current_user.id.to_s
+      #expire_action :action => :default_picture, :id => current_user.encoded_id
     end
 
     render :json => {:status => 'ok'}
@@ -78,7 +79,7 @@ class UsersController < ApplicationController
   def followers
     @user = User.find_by_encoded_id(params[:id])
     @title = "#{@user.fullname} followers" if @user
-    @followers = User.where(:following_users => @user.id).order_by([[:first_name, :asc], [:last_name, :desc]])
+    @followers = User.followers(@user.id)
     if params[:format] == :api
       followers = []
       @followers.each do |user|

@@ -134,6 +134,8 @@ class Notification
         notification.pushed = false
       end
 
+      ActionController::Base.new.expire_cell_state UserCell, :sidebar, target_user.id.to_s
+
       if notification.save && (new_trigger || new_notification || !trigger_notified)
         if new_notification
           target_user.unread_notification_count += 1

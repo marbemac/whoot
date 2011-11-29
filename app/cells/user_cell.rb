@@ -4,13 +4,15 @@ class UserCell < Cell::Rails
   helper ImageHelper
   helper UsersHelper
 
-  def sidebar
-    if signed_in?
-      @user = current_user
-      @my_post = Post.current_post(@user)
-      @undecided = User.undecided(@user).order_by([[:first_name, :asc], [:last_name, :desc]])
-      render
-    end
+  cache :sidebar do |cell,current_user|
+    current_user.id.to_s
+  end
+
+  def sidebar(current_user)
+    @user = current_user
+    @my_post = Post.current_post(@user)
+    @undecided = User.undecided(@user).order_by([[:first_name, :asc], [:last_name, :desc]])
+    render
   end
 
 end

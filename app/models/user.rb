@@ -212,6 +212,10 @@ class User
                 :to_user_id => user.id
         )
       end
+
+      ActionController::Base.new.expire_cell_state UserCell, :sidebar, id.to_s
+      ActionController::Base.new.expire_cell_state UserCell, :sidebar, user.id.to_s
+
       Notification.add(user, 'follow', (user.settings.email_follow ? true : false), false, false, self, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
       follow.active = true
       follow.save
@@ -360,6 +364,10 @@ class User
       or_criteria << {:current_post => {"$exists" => false}}
 
       where(:_id.in => user.following_users).any_of(or_criteria)
+    end
+
+    def followers(user_id)
+      where(:following_users => user_id).order_by([[:first_name, :asc], [:last_name, :desc]])
     end
 
     # Omniauth providers

@@ -39,7 +39,7 @@ class Post
 
   after_save :update_user_post_snippet
   before_create :set_venue_snippet, :process_tag
-  after_create :set_user_location
+  after_create :set_user_location, :clear_caches
 
   def max_tags
     if tag && tag.name.split(' ').length > 3
@@ -205,6 +205,16 @@ class Post
 
   def user
     User.find(user_snippet.id)
+  end
+
+  def clear_caches
+    # this users sidebar
+    ActionController::Base.new.expire_cell_state UserCell, :sidebar, user_snippet.id.to_s
+    # sidebars of any user following this user (for undecided bar)
+    followers = User.followers(user_snippet.id)
+    followers.each do |follower|
+      ActionController::Base.new.expire_cell_state UserCell, :sidebar, follower.id.to_s
+    end
   end
 
   class << self
