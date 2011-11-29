@@ -164,7 +164,7 @@
 
     <%= yield :js %>
 
-    <% if ENV['RAILS_ENV'] != 'production' || (signed_in? && current_user.has_role?('admin')) %>
+    <% if ENV['RAILS_ENV'] != 'production' || (signed_in? && current_user.role?('admin')) %>
       <div id="slt">
         Cutoff: <%= Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))) %><br />
         <%= load_time %><br />
