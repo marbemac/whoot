@@ -4,7 +4,7 @@
 
 <% if @post %>
   <div id="post-feed">
-    <%= render "normal_posts/teaser", :post => @post, :user => @user %>
+    <%= render "posts/teaser", :post => @post, :user => @user %>
   </div>
 <% else %>
   <div class="none"><%= @user.first_name %> has not posted for tonight</div>

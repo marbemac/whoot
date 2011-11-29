@@ -1,8 +1,8 @@
 Whoot::Application.routes.draw do
 
   # Normal Posts
-  get 'normal_posts/map' => 'normal_posts#map', :as => :normal_post_map
-  resources :normal_posts
+  get 'posts/map' => 'posts#map', :as => :post_map
+  resources :posts
 
   # Generic Posts
   resources :posts, :only => [:new]
@@ -68,12 +68,12 @@ Whoot::Application.routes.draw do
   scope 'api' do
     scope 'v1' do
       post 'generate_token' => 'api#generate_token', :as => :mobile_generate_token, :defaults => { :format => :api }
-      get 'normal_posts' => 'api#normal_posts', :defaults => { :format => :api }
-      post 'normal_posts' => 'normal_posts#create', :defaults => { :format => :api }
-      get 'normal_posts/:id/comments' => 'api#comments', :defaults => { :format => :api }
-      post 'normal_posts/comments' => 'comments#create', :defaults => { :format => :api }
-      get 'normal_posts/:id/votes' => 'api#votes', :defaults => { :format => :api }
-      post 'normal_posts/votes' => 'votes#create', :defaults => { :format => :api }
+      get 'posts' => 'api#posts', :defaults => { :format => :api }
+      post 'posts' => 'posts#create', :defaults => { :format => :api }
+      get 'posts/:id/comments' => 'api#comments', :defaults => { :format => :api }
+      post 'posts/comments' => 'comments#create', :defaults => { :format => :api }
+      get 'posts/:id/votes' => 'api#votes', :defaults => { :format => :api }
+      post 'posts/votes' => 'votes#create', :defaults => { :format => :api }
       post 'follow' => 'follows#create', :defaults => { :format => :api }
       delete 'follow' => 'follows#destroy', :defaults => { :format => :api }
       post 'ping' => 'pings#create', :defaults => { :format => :api }

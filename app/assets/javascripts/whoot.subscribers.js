@@ -65,7 +65,7 @@ $(function() {
     $('#my-post').replaceWith(data.myPost);
   });
 
-  amplify.subscribe('normal_post_map_loaded', function(data) {
+  amplify.subscribe('post_map_loaded', function(data) {
     $('#post-map').html(data.content);
     $('#post-map-coordinates').click();
   })

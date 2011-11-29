@@ -28,15 +28,15 @@ class ApiController < ApplicationController
     render :json => token
   end
 
-  def normal_posts
+  def posts
     unless signed_in?
       response = {:status => :not_authenticated}
     else
-      posts = NormalPost.following_feed(current_user, params[:feed_filters], true)
+      posts = Post.following_feed(current_user, params[:feed_filters], true)
       posts = User.join(posts)
       data = []
       posts.each do |post|
-        data << NormalPost.convert_for_api(post)
+        data << Post.convert_for_api(post)
       end
       response = {:status => :ok, :data => data}
     end

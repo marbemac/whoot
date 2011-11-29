@@ -4,11 +4,11 @@
       <%= image_tag user_default_picture_path(@user, :d => [65, 65]), :style => "max-width: 65px;", :alt => '' %>
     </div>
     <div class="stats">
-      <h4>
+      <h5>
         <a class="name" href="<%= user_path @user %>">
           <%= @user.fullname %>
         </a>
-      </h4>
+      </h5>
       <div class="item">
         <div class="label"><%= link_to 'Following', user_following_users_path(@user) %></div>
         <div class="value" id="my-following"><%= @user.following_users_count.to_i %></div>

@@ -109,7 +109,7 @@ form {
   .lClear {
     label {
       position: absolute;
-      top: 12px;
+      top: 11px;
       left: 10px;
       font-style: italic;
       font-size: 15px;
@@ -157,7 +157,9 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
         }
     }
     .nav {
-        position: absolute; top: 18px; left: 330px;
+        position: absolute;
+        top: 13px;
+        left: 330px;
 
         a {
             @include border-radius(4px);
@@ -383,11 +385,11 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
       padding: 10px 0 5px 0;
 
       h1 {
-          margin: 0 0 10px 0;
+          margin: 0 0 5px 0;
       }
       .sub-head {
           font-style: italic;
-          margin: 3px 0 0 2px;
+          margin: 3px 0 0 0;
       }
     }
     .nav {
@@ -428,7 +430,7 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
       height: 135px;
 
       li {
-          margin: 0;
+          margin: 0 0 3px 0;
       }
     }
 }

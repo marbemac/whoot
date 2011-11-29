@@ -36,7 +36,7 @@ Purpose of the stylesheet follows.
     float: right;
     color: $link-color;
     font-size: 11px;
-    margin: -1px 2px 0 0;
+    margin: 3px 2px 0 0;
     font-weight: bold;
 
     &:hover {
@@ -45,13 +45,9 @@ Purpose of the stylesheet follows.
 }
 
 #post-box {
+    @include border-top-left-radius(10px);
     z-index: 110;
     width: 760px;
-}
-
-#post-box {
-    @include border-top-left-radius(10px);
-
     background: #000;
     height: 100%;
     position: absolute;
@@ -59,17 +55,18 @@ Purpose of the stylesheet follows.
     left: 0px;
 
     h3 {
-        position: absolute;
-        color: #FFF;
-        top: 30px;
-        left: 50px;
-        &.adjust {
-          top: 20px;
-        }
-        div {
-          font-size: 13px;
-          font-weight: normal;
-        }
+      @include border-radius(3px);
+      position: absolute;
+      color: #FFF;
+      padding: 10px;
+      top: 21px;
+      left: 104px;
+      width: 531px;
+      cursor: default;
+      div {
+        font-size: 13px;
+        font-weight: normal;
+      }
     }
 
     .nav {
@@ -109,7 +106,7 @@ Purpose of the stylesheet follows.
         }
     }
 
-    $container-w: 700px;
+    $container-w: 550px;
     .container {
         @include border-radius(7px);
         @include single-box-shadow(#CCC, 1px, 1px);
@@ -118,15 +115,14 @@ Purpose of the stylesheet follows.
         position: absolute;
         top: 60px; left: 50%;
         width: $container-w;
-        margin: 0 0 0 -350px;
+        margin: 0 0 0 -275px;
 
-    }
-    .forms {
-        float: left;
-        width: 480px;
+        form {
+          margin: 10px 0 0 35px;
+        }
 
         .errors {
-          margin: 15px 0 -5px 0;
+          margin: 15px 37px -5px 0;
         }
         h4 {
           margin: 12px 0 0 0;
@@ -167,11 +163,9 @@ Purpose of the stylesheet follows.
       @include link();
       position: absolute;
       bottom: 25px;
-      left: 340px;
+      left: 180px;
     }
-}
 
-#post-box {
     .type {
         float: left;
         padding: 8px 16px;
@@ -244,11 +238,12 @@ Purpose of the stylesheet follows.
     left: 50%;
     margin-left: -380px;
     height: auto;
-    top: 100px;
+    top: 150px;
 
     h3 {
       &.adjust {
-        top: 15px;
+        background: #444;
+        top: -35px;
       }
     }
     &:hover,
@@ -339,8 +334,8 @@ $feed-filters-margin-top: 5px;
         .undecided {
           @include blue-button(2px, 12px);
           position: absolute;
-          top: 5px;
-          left: 470px;
+          top: 6px;
+          left: 490px;
           cursor: pointer;
           padding: 3px 8px;
         }
@@ -404,88 +399,84 @@ $post-border-color: #AAA;
         margin: 0px 10px 5px 10px;
         cursor: default;
     }
-    .teaser.post {
-      &:hover,
-      &.on {
-        background: $post-hover-color;
-        border-color: $post-border-color;
-        cursor: pointer;
-      }
-    }
-}
-
-#post-feed {
-    .decided {
-        margin-bottom: 20px;
-    }
 }
 
 .teaser.post {
     font-size: 16px;
     position: relative;
-    padding: 1px 55px 3px 2px;
-    height: 54px;
-    margin: 0 0 0 0;
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
     margin-top: -1px;
-    .profile-image {
-        float: left;
-        position: relative;
-        top: 3px;
-        left: 3px;
-        width: 45px;
-        
-        img {
-            @include border-radius(5px);
-        }
-    }
-    .ulink-wrap {
-        float: left;
-        width: 140px;
-        overflow: hidden;
-        padding: 21px 0 5px 20px;
-        white-space: nowrap;
-    }
-    .what {
-        float: left;
-        width: 110px;
-        overflow: hidden;
-        padding: 21px 0 5px 10px;
-    }
-    .tags {
-        @include clearfix();
-        float: left;
-        padding: 21px 0 5px 0;
-        font-style: italic;
-        width: 300px;
-        overflow: hidden;
-        white-space: nowrap;
-        font-size: 13px;
-    }
-    .tag {
-        @include border-radius(2px);
-        float: left;
-        margin: 0 8px 0 0;
-        padding: 0;
+    .head {
+      @include clearfix();
+      height: 54px;
+      padding: 1px 55px 3px 2px;
+      margin: 0;
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
 
-        &:hover {
-          color: #FC770D;
+      .profile-image {
+          float: left;
+          position: relative;
+          top: 3px;
+          left: 3px;
+          width: 45px;
+
+          img {
+              @include border-radius(5px);
+          }
+      }
+      .ulink-wrap {
+          float: left;
+          width: 140px;
+          overflow: hidden;
+          padding: 19px 0 5px 20px;
+          white-space: nowrap;
+      }
+      .what {
+          float: left;
+          width: 120px;
+          overflow: hidden;
+          padding: 19px 0 5px 10px;
+      }
+      .tags {
+          @include clearfix();
+          float: left;
+          padding: 21px 0 5px 0;
+          font-style: italic;
+          width: 300px;
+          overflow: hidden;
+          white-space: nowrap;
+          font-size: 13px;
+      }
+      .tag {
+          @include border-radius(2px);
+          float: left;
+          margin: 0 8px 0 0;
+          padding: 0;
+
+          &:hover {
+            color: #FC770D;
+          }
+      }
+      .comments_count {
+        padding: 0 23px 0 0;
+        position: relative;
+        font-size: 16px;
+        font-weight: bold;
+        float: right;
+        margin: 20px 5px 0 0;
+        .icon {
+          position: absolute;
+          top: 2px;
+          right: 0px;
         }
-    }
-    .comments_count {
-      padding: 0 23px 0 0;
-      position: relative;
-      font-size: 16px;
-      font-weight: bold;
-      float: right;
-      margin: 20px 5px 0 0;
-      .icon {
-        position: absolute;
-        top: 2px;
-        right: 0px;
+      }
+      .scoreC {
+          position: absolute;
+          right: 10px;
+          top: 17px;
       }
     }
+
     &.working .what {
         color: $post-working-color;
     }
@@ -498,55 +489,54 @@ $post-border-color: #AAA;
     &.big_out .what {
         color: $post-big_out-color;
     }
-    .scoreC {
-        position: absolute;
-        right: 10px;
-        top: 17px;
-    }
-}
 
-.post-details {
-    position: relative;
-    border-bottom: 1px solid $post-border-color;
-    width: 740px;
-    .left {
-
-    }
-    .right {
-
-    }
-    .num-people {
-        margin: 5px 0 10px 5px;
-    }
-    .venue {
-      margin: 10px 0 12px 0;
+    .details {
       position: relative;
-      left: 14px;
-    }
-    .voters {
-      h4 {
-        margin: 0 0 10px 0;
+      border-bottom: 1px solid $post-border-color;
+      width: 100%;
+      .left {
       }
-      .none {
-          font-style: italic;
-          font-size: 14px;
+      .right {
+      }
+      .num-people {
+          margin: 5px 0 10px 5px;
+      }
+      .venue {
+        margin: 10px 0 12px 0;
+        position: relative;
+        left: 14px;
+      }
+      .voters {
+        h4 {
+          margin: 0 0 10px 0;
+        }
+        .none {
+            font-style: italic;
+            font-size: 14px;
+            margin: 7px 0 0 10px;
+        }
+        .ulink {
           margin: 7px 0 0 10px;
+          display: block;
+          font-size: 14px;
+        }
       }
-      .ulink {
-        margin: 7px 0 0 10px;
-        display: block;
-        font-size: 14px;
+      h5 {
+          color: #666;
+          margin: 4px 0 8px 0;
+      }
+      .note {
+          margin: 0 0 0 3px;
       }
     }
 
-    h4 {
-    }
-    h5 {
-        color: #666;
-        margin: 4px 0 8px 0;
-    }
-    .note {
-        margin: 0 0 0 3px;
+    &:hover,
+    &.on {
+      .head {
+        background: $post-hover-color;
+        border-color: $post-border-color;
+        cursor: pointer;
+      }
     }
 }
 
@@ -806,7 +796,7 @@ $post-border-color: #AAA;
     margin: 0 !important;
     width: 461px;
   }
-  #normal_post_address_placeholder {
+  #post_address_placeholder {
     border-top: 1px dotted #CCC;
   }
 }

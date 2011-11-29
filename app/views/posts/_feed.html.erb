@@ -1,5 +1,5 @@
 <% posts.each do |post| %>
-  <%= render "normal_posts/teaser", :post => post, :current_user => user %>
+  <%= render "posts/teaser", :post => post, :current_user => user %>
 <% end %>
 
 <% if posts.length == 0 %>

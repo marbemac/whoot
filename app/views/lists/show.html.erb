@@ -20,6 +20,6 @@
 
   <h2 class="list-name"><%= @list.name %></h2>
   <div id="post-feed" class="feed-tabs">
-    <%= render "normal_posts/feed", :posts => @posts_with_user, :user => current_user%>
+    <%= render "posts/feed", :posts => @posts_with_user, :user => current_user%>
   </div>
 </div>

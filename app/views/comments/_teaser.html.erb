@@ -1,11 +1,11 @@
 <div class="teaser comment">
-    <div class="submitted">
-        <%= image_tag user_default_picture_path(comment.user, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
-        <%= user_link(comment.user, 15) %>
-        <div class="time"><%= time_ago_in_words comment.created_at, false %> ago</div>
-    </div>
+  <div class="submitted">
+    <%= image_tag user_default_picture_path(comment.user_snippet, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
+    <%= user_link(comment.user_snippet, 15) %>
+    <div class="time"><%= time_ago_in_words comment.created_at, false %> ago</div>
+  </div>
 
-    <div class="content">
-        <%= comment.content %>
-    </div>
+  <div class="content">
+    <%= comment.content %>
+  </div>
 </div>

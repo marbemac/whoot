@@ -1,10 +1,10 @@
-<%= form_for post.comments.new, :html => { :class => 'ajax' } do |f| %>
+<%= form_for Comment.new, :html => { :class => 'ajax' } do |f| %>
 
   <div class="errors"></div>
 
   <%= image_tag user_default_picture_path(current_user, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
 
-  <%= f.hidden_field :post_id, :autocomplete => 'off' %>
+  <input type="hidden" autocomplete="off" value="<%= post.id %>" name="comment[post_id]" />
 
   <div class="field lClear">
     <%= f.label :content, "Leave a comment...", :for => 'comment_'+post.id.to_s %>

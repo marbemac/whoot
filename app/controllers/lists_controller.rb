@@ -29,7 +29,7 @@ class ListsController < ApplicationController
     else
       @users = User.where(:_id.in => @list.list_users)
       @title = @list.name
-      posts = NormalPost.list_feed(@list.list_users)
+      posts = Post.list_feed(@list.list_users)
       @posts_with_user = User.join(posts)
     end
   end

@@ -10,13 +10,10 @@
   <% end %>
 
   <div class="container">
-    <div class="forms">
-      <%= render "normal_posts/form", :normal_post => NormalPost.new, :user => @user %>
+    <%= render "posts/form", :post => Post.new, :user => @user %>
 
-      <% unless @my_post == nil %>
-        <div class="cancel">Cancel</div>
-      <% end %>
-    </div>
-
+    <% unless @my_post == nil %>
+      <div class="cancel">Cancel</div>
+    <% end %>
   </div>
 </div>

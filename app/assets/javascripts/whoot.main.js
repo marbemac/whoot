@@ -142,7 +142,7 @@ $(function() {
   })
 
   // Tag autocomplete
-  $("#normal_post_tag_name").autocomplete($('#static-data').data('d').tagAutoUrl, {
+  $("#post_tag_name").autocomplete($('#static-data').data('d').tagAutoUrl, {
     minChars: 2,
     width: 475,
     matchContains: true,

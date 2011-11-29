@@ -28,7 +28,7 @@ jQuery ->
                 target = $('#post-dummy').clone()
                 rebuildPost(target, data)
                 target.attr('id', 'post-'+data.user_id)
-                target.data('details', '/normal_posts/'+data.id)
+                target.data('details', '/posts/'+data.id)
                 target.find('.profile-image')
                       .attr('title', data.fullname)
                       .attr('href', '/users/'+data.encoded_id+'-'+data.user_slug)

@@ -63,8 +63,6 @@ class User
   embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
   embeds_one :settings, :class_name => 'UserSettings'
   has_many :tags
-  has_many :normal_posts
-  has_many :comments
   has_many :lists
   has_many :notifications
   has_many :pings
@@ -269,7 +267,7 @@ class User
   end
 
   def revert_to_last_post_today
-    latest_not_current_post = NormalPost.where(:user_id => id, :current => false, :status => 'Active', :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))).first
+    latest_not_current_post = Post.where(:user_id => id, :current => false, :status => 'Active', :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))).first
 
     if latest_not_current_post
       latest_not_current_post.current = true

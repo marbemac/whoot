@@ -2,7 +2,7 @@ class VotesController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    target_post = NormalPost.find(params[:id])
+    target_post = Post.find(params[:id])
     if target_post
       target_post.add_voter(current_user)
       if target_post.save
@@ -18,7 +18,7 @@ class VotesController < ApplicationController
   end
 
   def destroy
-    target_post = NormalPost.find(params[:id])
+    target_post = Post.find(params[:id])
     if target_post
       target_post.remove_voter(current_user)
       target_post.save
@@ -31,7 +31,7 @@ class VotesController < ApplicationController
   end
 
   def ajax
-    post = NormalPost.find(params[:post_id])
+    post = Post.find(params[:post_id])
     voters = User.where(:_id.in => post.voters)
     html = render_to_string :partial => 'voters', :locals => {:voters => voters}
     response = {:status => 'OK', :content => html }

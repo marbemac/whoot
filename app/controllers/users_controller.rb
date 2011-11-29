@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       @title = "#{@user.fullname}" if @user
-      @post = NormalPost.current_post(@user)
+      @post = Post.current_post(@user)
       if @post
         @post = User.join([@post])[0]
       end

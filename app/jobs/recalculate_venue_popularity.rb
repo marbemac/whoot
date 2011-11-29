@@ -20,7 +20,7 @@ class RecalculateVenuePopularity
     cities = City.all
 
     cities.each do |city|
-      @results = NormalPost.collection.map_reduce(map, reduce, :query => {:created_at => {'$gte' => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))}, :current => true, 'location._id' => city.id}, :out => "pop-#{city.name.to_url}-#{city.state_code}-venues")
+      @results = Post.collection.map_reduce(map, reduce, :query => {:created_at => {'$gte' => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))}, :current => true, 'location._id' => city.id}, :out => "pop-#{city.name.to_url}-#{city.state_code}-venues")
 
       venues = Venue.near(city.to_coordinates, 20).to_a
       venues.each do |venue|

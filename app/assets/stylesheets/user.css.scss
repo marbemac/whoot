@@ -39,7 +39,7 @@
 
     .profile_image {
         position: relative;
-        height: 75px;
+        height: 85px;
         float: left;
 
         img {
@@ -63,8 +63,9 @@
     .stats {
         float: left;
         width: 110px;
-        h4 {
+        h5 {
           margin: 2px 0 4px 9px;
+          line-height: 1.12;
         }
         .item {
             clear: both;
@@ -75,7 +76,7 @@
                 float: left;
                 font-size: 12px;
                 color: #666;
-                margin: 0 15px 0 0;
+                width: 75px;
             }
             .value {
                 float: left;
@@ -90,6 +91,7 @@
         font-size: 12px;
         margin: 0 0 0 10px;
         position: relative;
+        top: 3px;
     }
 }
 
@@ -337,7 +339,7 @@ select.location {
       margin: 5px 0 0 -2px;
     }
     label {
-      top: 5px !important;
+      top: 7px !important;
       left: 5px !important;
       font-size: 11px !important;
     }
@@ -359,11 +361,11 @@ select.location {
         display: block;
         clear: both;
         font-size: 11px;
-        padding: 13px 0 5px 25px;
+        padding: 10px 0 5px 25px;
         position: relative;
         .fb-icon {
           position: absolute;
-          top: 11px;
+          top: 7px;
           left: -2px;
         }
     }

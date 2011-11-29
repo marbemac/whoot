@@ -7,7 +7,7 @@ class UserCell < Cell::Rails
   def sidebar
     if signed_in?
       @user = current_user
-      @my_post = NormalPost.current_post(@user)
+      @my_post = Post.current_post(@user)
       @undecided = User.undecided(@user).order_by([[:first_name, :asc], [:last_name, :desc]])
       render
     end

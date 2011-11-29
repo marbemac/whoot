@@ -5,8 +5,6 @@ class Comment
 
   field :status, :default => 'Active'
   field :content
-  field :user_id
-  field :post_id
 
   index(
     [
@@ -15,16 +13,20 @@ class Comment
     ]
   )
 
-  belongs_to :user
-  belongs_to :post
-
   validates :content, :length => { :in => 2..200 }
-  attr_accessible :content, :post_id
-  after_create :update_post_comments
+  attr_accessible :content
 
-  def update_post_comments
-    post.comment_count += 1
-    post.save
+  embeds_one :user_snippet, :as => :user_assignable, :class_name => 'UserSnippet'
+  embedded_in :has_comments, polymorphic: true
+
+  def set_user_snippet(user)
+    self.user_snippet = UserSnippet.new(
+            :username => user.username,
+            :first_name => user.first_name,
+            :last_name => user.last_name,
+            :public_id => user.public_id
+    )
+    self.user_snippet.id = user.id
   end
 
   class << self
