@@ -1,6 +1,6 @@
 <div class="scoreC">
   <span class="votes <%= "v-#{target.id}" if target %>"><%= target.votes.to_i if target %></span>
-  <% if !target || target.user_id != current_user.id %>
+  <% if !target || target.user_snippet.id != current_user.id %>
     <button class="<%= (!target || !signed_in? || !target.has_voter?(current_user)) ? 'btn voteB' : 'unvoteB' %> <%= "vb-#{target.id}" if target %>">
       <div class="default plus-g-1616" data-url="<%= vote_create_path %>" <%= 'data-d=\'{"id":"'+target.id.to_s+'"}\'' if target %> data-m="post"></div>
       <div class="triggered plus-g-1616"></div>

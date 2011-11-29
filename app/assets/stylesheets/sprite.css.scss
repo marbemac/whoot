@@ -54,3 +54,13 @@
   width: 16px;
   height: 14px;
 }
+.arrow-fat-down {
+  @include icon-sprite(arrow-fat-down);
+  width: 100px;
+  height: 8px;
+}
+.arrow-fat-up {
+  @include icon-sprite(arrow-fat-up);
+  width: 100px;
+  height: 8px;
+}

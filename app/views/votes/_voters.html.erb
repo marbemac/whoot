@@ -1,7 +1,7 @@
-<% voters.each do |voter| %>
+<% post.voters.each do |voter| %>
   <%= user_link(voter, 15) %>
 <% end %>
 
-<% if voters.length == 0 %>
+<% if post.voters.length == 0 %>
   <div class="none">No +1's yet</div>
 <% end %>

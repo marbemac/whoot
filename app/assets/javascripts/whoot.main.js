@@ -120,58 +120,6 @@ $(function() {
     $('#post-box').fadeOut(300);
   })
 
-  // Toggle the activity of a post
-  var postActivityToggle = false;
-  $('.teaser.post').live('click', function(ev) {
-    if ($(ev.target).is('a') || $(ev.target).hasClass('tag') || postActivityToggle)
-      return;
-
-    postActivityToggle = true;
-    var $self = $(this);
-    if ($self.next().hasClass('post-details')) {
-      $self.toggleClass('on').next().toggle();
-      postActivityToggle = false;
-
-      return;
-    }
-
-    $.get($self.data('details'), {}, function(data) {
-      $self.after(data.details).toggleClass('on');
-      postActivityToggle = false;
-    }, 'json')
-  })
-
-  // Tag autocomplete
-  $("#post_tag_name").autocomplete($('#static-data').data('d').tagAutoUrl, {
-    minChars: 2,
-    width: 475,
-    matchContains: true,
-    matchSubset: false,
-    autoFill: false,
-    selectFirst: true,
-    mustMatch: false,
-    searchKey: 'term',
-    max: 10,
-    buckets: [['tag', 'tag', 'TAGS']],
-    extraParams: {"types":['tag']},
-    allowNew: true,
-    allowNewName: 'tag',
-    allowNewType: 'tag',
-    dataType: 'json',
-    delay: 100,
-    formatItem: function(row, i, max) {
-      return row.formattedItem;
-    },
-    formatMatch: function(row, i, max) {
-      return row.term;
-    },
-    formatResult: function(row) {
-      return row.term;
-    }
-  }).result(function(event, data, formatted) {
-    $(this).val(data.term)
-  })
-
   // Venue private help ?
   $('.venue-private-help').livequery(function() {
     var $self = $(this);

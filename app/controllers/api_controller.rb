@@ -32,38 +32,13 @@ class ApiController < ApplicationController
     unless signed_in?
       response = {:status => :not_authenticated}
     else
-      posts = Post.following_feed(current_user, params[:feed_filters], true)
-      posts = User.join(posts)
+      posts = Post.following_feed(current_user, session[:feed_filters], true)
       data = []
       posts.each do |post|
         data << Post.convert_for_api(post)
       end
       response = {:status => :ok, :data => data}
     end
-
-    render :json => response
-  end
-
-  def comments
-    comments = Comment.where(:post_id => params[:id], :status => 'Active')
-    comments = User.join(comments)
-    data = []
-    comments.each do |comment|
-      data << Comment.convert_for_api(comment)
-    end
-    response = {:status => :ok, :data => data}
-
-    render :json => response
-  end
-
-  def votes
-    post = Post.where(:post_id => params[:id])
-    users = User.where(:id => {'$in' => post.voters})
-    data = []
-    users.each do |user|
-      data << User.convert_for_api(user)
-    end
-    response = {:status => :ok, :data => data}
 
     render :json => response
   end

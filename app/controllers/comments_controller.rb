@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
         Notification.add(user, 'comment', (user.settings.email_comment ? true : false), true, false, current_user, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
 
         html = render_to_string :partial => 'teaser', :locals => {:comment => @comment}
-        content = {:status => 'OK', :comment => html, :root_id => post.id, :event => 'comment_created' }
+        content = {:status => 'OK', :comment => html, :root_id => post.id, :user_id => post.user_snippet.id, :event => 'comment_created' }
         render json: content, status: :created
       else
         render json: {:status => :ok, :errors => @comment.errors}, status: :unprocessable_entity

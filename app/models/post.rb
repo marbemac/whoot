@@ -8,7 +8,6 @@ class Post
   field :night_type
   field :comment_count, :default => 0
   field :votes, :default => 0
-  field :voters, :default => []
 
   index(
     [
@@ -29,6 +28,7 @@ class Post
   embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
   embeds_one :tag, :as => :taggable, :class_name => 'TagSnippet'
   embeds_one :user_snippet, :as => :user_assignable, :class_name => 'UserSnippet'
+  embeds_many :voters, :as => :user_assignable, :class_name => 'UserSnippet'
   embeds_many :comments, :as => :has_comments, :class_name => 'Comment'
 
   validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing, or partying)" }
@@ -104,26 +104,24 @@ class Post
     end
   end
 
-    def add_voter(user)
-    unless voters.include? user.id
+  def add_voter(user)
+    unless has_voter?(user)
       self.votes += 1
-      self.voters << user.id
+      snippet = UserSnippet.new(
+              :username => user.username,
+              :first_name => user.first_name,
+              :last_name => user.last_name,
+              :public_id => user.public_id
+      )
+      snippet.id = user.id
+      self.voters << snippet
       self.user.votes_count += 1
       self.user.save
     end
   end
 
-  def remove_voter(user)
-    if voters.include? user.id
-      self.votes -= 1
-      self.voters.delete user.id
-      self.user.votes_count -= 1
-      self.user.save
-    end
-  end
-
   def has_voter?(user)
-    if voters and voters.include? user.id then true else nil end
+    voters.detect{|v| v.id == user.id}
   end
 
   def set_user_location
@@ -243,13 +241,14 @@ class Post
       {
               :id => post.id,
               :comment_count => post.comment_count,
+              :comments => Comment.convert_for_api(post.comments),
               :votes_count => post.votes,
               :created_at => post.created_at,
               :night_type => post.night_type,
-              :created_by => User.convert_for_api(post.created_by),
+              :created_by => UserSnippet.convert_for_api(post.user_snippet),
               :tag => Tag.convert_for_api(post.tag),
               :venue => Venue.convert_for_api(post.venue),
-              :voters => voters
+              :voters => post.voters.map{|v| UserSnippet.convert_for_api(v)}
       }
     end
   end

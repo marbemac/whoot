@@ -24,12 +24,14 @@
       <span><%= post.comment_count.to_i %></span>
     </div>
     <%= render "votes/button", :target => post, :current_user => current_user %>
+    <div class='arrow-fat-down'></div>
+    <div class='arrow-fat-up'></div>
   </div>
 
-  <div class="details two-col-equal-height">
+  <div class="details two-col-equal-height hide">
     <div class="left voters">
       <h4>+1's</h4>
-      <%#= render "votes/voters", :voters => @voters %>
+      <%= render "votes/voters", :post => post %>
     </div>
 
     <div class="right">

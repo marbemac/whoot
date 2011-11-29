@@ -17,4 +17,16 @@ class UserSnippet
   def fullname
     "#{first_name} #{last_name}"
   end
+
+  class << self
+    def convert_for_api(snippet)
+      {
+              :id => snippet.id,
+              :username => snippet.username,
+              :first_name => snippet.first_name,
+              :last_name => snippet.last_name,
+              :public_id => snippet.public_id.to_i
+      }
+    end
+  end
 end

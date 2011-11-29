@@ -30,13 +30,17 @@ class Comment
   end
 
   class << self
-    def convert_for_api(comment)
-      {
-              :id => comment.id,
-              :content => comment.content,
-              :created_at => comment.created_at,
-              :created_by => User.convert_for_api(comment.created_by)
-      }
+    def convert_for_api(comments)
+      data = []
+      comments.each do |comment|
+        data << {
+                :id => comment.id,
+                :content => comment.content,
+                :created_at => comment.created_at,
+                :created_by => UserSnippet.convert_for_api(comment.user_snippet)
+        }
+      end
+      data
     end
   end
 

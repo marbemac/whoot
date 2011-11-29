@@ -38,10 +38,14 @@ class Tag
 
   class << self
     def convert_for_api(tag)
-      {
-              :id => tag.id,
-              :name => tag.name
-      }
+      if tag
+        {
+                :id => tag.id,
+                :name => tag.name
+        }
+      else
+        nil
+      end
     end
   end
 

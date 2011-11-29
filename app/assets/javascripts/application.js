@@ -26,5 +26,6 @@
 //= require whoot.form.controller
 //= require whoot.utilities
 //= require whoot.social
+//= require posts
 //= require whoot.main
 // require_tree .

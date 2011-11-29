@@ -475,6 +475,42 @@ $post-border-color: #AAA;
           right: 10px;
           top: 17px;
       }
+      .arrow-fat-down,
+      .arrow-fat-up {
+        position: absolute;
+      }
+      .arrow-fat-down {
+        left: 50%;
+        margin-left: -50px;
+        display: none;
+        bottom: -8px;
+      }
+      .arrow-fat-up {
+        left: 50%;
+        margin-left: -50px;
+        display: none;
+        bottom: 0px;
+      }
+      &:hover,
+      &.on {
+        background: $post-hover-color;
+        border-color: $post-border-color;
+        cursor: pointer;
+
+        .arrow-fat-down {
+          display: block;
+        }
+      }
+      &.on {
+        .arrow-fat-down {
+          display: none;
+        }
+        &:hover {
+          .arrow-fat-up {
+            display: block;
+          }
+        }
+      }
     }
 
     &.working .what {
@@ -527,15 +563,6 @@ $post-border-color: #AAA;
       }
       .note {
           margin: 0 0 0 3px;
-      }
-    }
-
-    &:hover,
-    &.on {
-      .head {
-        background: $post-hover-color;
-        border-color: $post-border-color;
-        cursor: pointer;
       }
     }
 }
