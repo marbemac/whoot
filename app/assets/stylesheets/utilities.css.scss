@@ -31,6 +31,19 @@
     z-index: 10000;
 }
 
+.lClear {
+  label {
+    position: absolute;
+    top: 11px;
+    left: 10px;
+    font-style: italic;
+    font-size: 15px;
+    color: #999;
+    z-index: 45;
+    cursor: text;
+  }
+}
+
 .hide { display: none; }
 
 .dev-notice { 

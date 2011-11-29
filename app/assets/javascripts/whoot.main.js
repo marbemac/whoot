@@ -452,7 +452,7 @@ $(function() {
   markers = [];
   currentInfoWindow = null;
   $('#post-map-coordinates').live('click', function() {
-    height = $('#page').height()
+    height = $('#wrapper').height() - $('#footer').height() - 10
     $('#post-map-canvas').height(height-95)
     var latlng = new google.maps.LatLng($('#post-map-coordinates').data('lat'), $('#post-map-coordinates').data('lon'));
     var myOptions = {

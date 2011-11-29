@@ -96,7 +96,7 @@ class PostsController < ApplicationController
   end
 
   def map
-    posts = NormalPost.following_feed(current_user, session[:feed_filters], false).to_a
+    posts = Post.following_feed(current_user, session[:feed_filters], false).to_a
     venues = Array.new
     venue_ids = Hash.new
     venue_count = 0

@@ -18,130 +18,21 @@
 @import "compass/utilities";
 
 html, body {
-    margin: 0; padding: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    position: relative; z-index: 0;
-    font-family: "lucida grande", Tahoma, Verdana, Arial, sans-serif;
-    line-height: 1.231 !important;
-}
-#wrapper {
-  min-width: 960px;
-  position: relative;
-  margin: auto;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-h1,h2,h3,h4,h5,h6 {
-  font-family: "Helvetica Neue", Arial, Tahoma, Verdana, serif;
-}
-h1 {
-  font-size: 28px;
-}
-h2 {
-  font-size: 24px;
-}
-h3 {
-  font-size: 20px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 15px;
-}
-h6 {
-  font-size: 12px;
-}
-body.night {
-    background-color: #091F35;
-    @include background-image(linear-gradient(#05162E, #09213B 30%, #0C2B4B 50%, #0F3762));
-}
-body.sunset {
-    background-color: #FFA45E;
-    @include background-image(linear-gradient(#995A51, #D2785E 15%, #EB885F 30%, #FFA45E 55%, #FFC681));
-}
-body.day {
-    background-color: #80B0E7;
-    @include background-image(linear-gradient(#4178A2, #73A3CD 30%, #80B0E7 60%, #A2C5E7));
-}
-
-header, footer, article, section, nav, menu, hgroup {
-   display: block;
-}
-
-h1,h2,h3,h4,h5,h6,p,div,span {
     margin: 0;
     padding: 0;
-}
-
-a,
-a:visited,
-a:hover {
-  color: $link-color;
-  text-decoration: none;
-  outline: none;
-}
-a:hover {
-  color: #156CD8;
-}
-form {
-  .errors {
-    display: none;
-    font-size: 12px;
-    color: #CD070E;
-    padding: 0 5px;
-    border: 2px solid #D16A67;
-    background: #FFF9F6;
-    .error {
-      margin: 3px 0;
-    }
-  }
-
-  .field {
-      position: relative;
-      &.required label {
-        color: #CD070E;
-      }
-  }
-  .lClear {
-    label {
-      position: absolute;
-      top: 11px;
-      left: 10px;
-      font-style: italic;
-      font-size: 15px;
-      color: #999;
-      z-index: 45;
-      cursor: text;
-    }
-  }
-}
-
-input,textarea,select {
-    padding: 3px 6px;
-    font-size: 14px;
-    border:  1px solid #AAA;
-    width: 200px;
+    border: 0;
+    position: relative;
     font-family: "lucida grande", Tahoma, Verdana, Arial, sans-serif;
-    line-height: 1.231;
+    line-height: 1.231 !important;
+    height: 100%;
 }
-input.submit {
-    @include orange-button(3px, 14px);
-}
-
-ul,ol { list-style: none; margin: 0; padding: 0; }
-#application { width: 960px; height: 100%; margin: auto; }
 #header {
-    height: $header_height; width: $header_width;
+    height: $header_height;
+    width: $header_width;
     color: $header_color;
-    position: fixed;
-    top: 0px;
     left: 50%;
+    position: relative;
     margin-left: $page_width/2*-1;
-    z-index: 50;
 
     .logo {
         display: block;
@@ -190,74 +81,175 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
         }
     }
     .search {
-        position: absolute; top: 18px; right: 5px;
+      position: absolute; top: 18px; right: 5px;
 
-        input {
-            @include opacity(.7);
-            @include border-radius(5px);
-            background-color: #164F9E;
-            @include background-image(linear-gradient(#1E5293, #1C5197 25%, #164F9E 75%, #134FA1));
-            border: 2px solid #FFF;
-            font-size: 18px;
-            padding: 4px 8px;
-            color: #FFF;
-            width: 230px;
-        }
-        input:focus {
-            @include opacity(1);
-        }
+      label {
+        font-size: 18px;
+        color: #DFDFDF;
+        top: 5px;
+      }
+      input {
+        @include opacity(.7);
+        @include border-radius(5px);
+        background-color: #164F9E;
+        @include background-image(linear-gradient(#1E5293, #1C5197 25%, #164F9E 75%, #134FA1));
+        border: 2px solid #FFF;
+        font-size: 18px;
+        padding: 4px 8px;
+        color: #FFF;
+        width: 230px;
+      }
+      input:focus {
+        @include opacity(1);
+      }
     }
 }
+#wrapper {
+  @include border-top-left-radius(10px);
+  @include border-top-right-radius(10px);
+  width: $page_width;
+  position: relative;
+  margin: auto;
+  overflow:hidden;
+  background: $sidebar_background-color;
+}
+#content,
+#sidebar {
+  float:left;
+	position:relative;
+	overflow:hidden;
+  height: 100%;
+}
 #content {
-    padding-top: $header_height;
-    overflow: auto;
-}
-#page {
-    @include border-top-left-radius(10px);
-    @include border-top-right-radius(10px);
-    position: relative;
-    padding-right: $sidebar_width+$sidebar_border_width;
-    color: $page_content_color;
-    background: #FFF;
-    height: 100%;
-}
-#page_content {
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin: 0 0 25px 0;
+  @include border-top-left-radius(10px);
+  background:#fff;
+  width: $content_width;
+  margin-bottom: -999999px;
+  padding-bottom: 999999px;
 }
 #sidebar {
   @include single-box-shadow(#999, -1px, 1px, 2px);
   @include border-top-right-radius(10px);
   width: $sidebar_width;
-  position: fixed;
-  top: $header_height;
-  left: 50%;
-  margin: 0 0 0 280px;
-  z-index: 50;
   border-left: $sidebar_border_width solid $sidebar_border_color;
   border-top: 1px solid #FFF;
-  background: $sidebar_background-color;
   color: $sidebar_color;
+  margin-bottom: -999999px;
+  padding-bottom: 999999px;
 }
 #footer {
   background-color: #1B59AE;
   @include background-image(linear-gradient(#3077CE, #2B6FC6 25%, #1B59AE 75%, #1551A5));
-  height: $footer_height;  width: $page_width - $sidebar_width;
+  height: $footer_height;
+  width: $footer_width;
   color: $footer_color;
   position: fixed;
   bottom: 0px;
   left: 50%;
   margin: 0 0 0 $page_width/2*-1;
-  padding: 3px 0 3px 10px;
+  padding: 3px 0 3px 0;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 13px;
   z-index: 40;
 
   a {
-      color: #fff;
+    color: #fff;
+    position: relative;
+    top: 2px;
+    margin: 0 5px;
+    left: 10px;
+  }
+  span {
+    color: #FFF;
+    position: relative;
+    left: 12px;
+    top: -1px;
+    cursor: default;
   }
 }
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Helvetica Neue", Arial, Tahoma, Verdana, serif;
+}
+h1 {
+  font-size: 28px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 20px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 15px;
+}
+h6 {
+  font-size: 12px;
+}
+body.night {
+    background-color: #091F35;
+    @include background-image(linear-gradient(#05162E, #09213B 30%, #0C2B4B 50%, #0F3762));
+}
+body.sunset {
+    background-color: #FFA45E;
+    @include background-image(linear-gradient(#995A51, #D2785E 15%, #EB885F 30%, #FFA45E 55%, #FFC681));
+}
+body.day {
+    background-color: #80B0E7;
+    @include background-image(linear-gradient(#4178A2, #73A3CD 30%, #80B0E7 60%, #A2C5E7));
+}
+h1,h2,h3,h4,h5,h6,p,div,span {
+    margin: 0;
+    padding: 0;
+}
+
+a,
+a:visited,
+a:hover {
+  color: $link-color;
+  text-decoration: none;
+  outline: none;
+}
+a:hover {
+  color: #156CD8;
+}
+form {
+  .errors {
+    display: none;
+    font-size: 12px;
+    color: #CD070E;
+    padding: 0 5px;
+    border: 2px solid #D16A67;
+    background: #FFF9F6;
+    .error {
+      margin: 3px 0;
+    }
+  }
+
+  .field {
+      position: relative;
+      &.required label {
+        color: #CD070E;
+      }
+  }
+}
+
+input,textarea,select {
+    padding: 3px 6px;
+    font-size: 14px;
+    border:  1px solid #AAA;
+    width: 200px;
+    font-family: "lucida grande", Tahoma, Verdana, Arial, sans-serif;
+    line-height: 1.231;
+}
+input.submit {
+    @include orange-button(3px, 14px);
+}
+
+ul,ol { list-style: none; margin: 0; padding: 0; }
+
 #static_page {
     padding: 10px;
     h1 {

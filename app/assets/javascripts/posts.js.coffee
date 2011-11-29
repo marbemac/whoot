@@ -1,13 +1,13 @@
 jQuery ->
 
   # Toggle the activity of a post
-  $('.teaser.post').live 'click', (ev) ->
+  $('.teaser.post .head').live 'click', (ev) ->
     console.log('test')
     if ($(ev.target).is('a') || $(ev.target).hasClass('tag'))
       return
 
-    $(@).find('.head').toggleClass('on');
-    $(@).find('.details').slideToggle(150);
+    $(@).toggleClass('on');
+    $(@).siblings('.details').slideToggle(150);
 
   # Tag autocomplete
   $("#post_tag_name").autocomplete $('#static-data').data('d').tagAutoUrl,

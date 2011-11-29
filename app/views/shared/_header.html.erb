@@ -7,7 +7,8 @@
     <%= link_to "My Feed", root_path, :class => ('on' if controller.action_name == 'home') %>
   </div>
 
-  <div class="search">
-    <input type="text" class="iclear w" data-url="<%= user_autocomplete_path %>" autocomplete="off" value="Find someone..."/>
+  <div class="search lClear">
+    <label for="top_search">Find someone...</label>
+    <input type="text" id="top_search" data-url="<%= user_autocomplete_path %>" autocomplete="off" />
   </div>
 </div>

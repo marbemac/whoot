@@ -23,9 +23,9 @@ $sidebar_border_width: 1px;
 $sidebar_border_color: #CFCFCF;
 $sidebar_width: 200px - $sidebar_border_width;
 
-$page_content_background-color: #FFF;
-$page_content_color: #000;
+$content_width: $page_width - $sidebar_width - $sidebar_border_width;
 
+$footer_width: $content_width;
 $footer_height: 20px;
 $footer_background-color: orange;
 $footer_color: #FFF;
