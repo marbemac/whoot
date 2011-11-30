@@ -38,7 +38,7 @@ gem 'rpm_contrib' # extra instrumentation for the new relic rpm agent
 gem 'newrelic_rpm' # performance / server monitoring
 gem 'soulmate' # Redis based autocomplete storage
 gem 'dalli' # memcache
-gem 'pubnub-ruby' # pubnub publish/subscribe system
+gem 'pusher' # pusher publish/subscribe system
 gem 'mixpanel' # analytics
 
 group :assets do

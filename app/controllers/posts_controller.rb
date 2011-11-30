@@ -46,22 +46,22 @@ class PostsController < ApplicationController
 
     if @post.save
       @post.set_user_post_snippet(current_user)
-      pubnub_message = {
-              :event => 'post_changed',
-              :fullname => current_user.fullname,
-              :user_slug => current_user.fullname.to_url,
-              :encoded_id => current_user.encoded_id,
-              :user_id => current_user.id.to_s,
-              :what => @post.night_type_short,
-              :night_type => @post.night_type,
-              :venue_id => @post.venue ? @post.venue.id.to_s : 0,
-              :id => @post.id.to_s,
-              :tag => nil
-      }
+      #pubnub_message = {
+      #        :event => 'post_changed',
+      #        :fullname => current_user.fullname,
+      #        :user_slug => current_user.fullname.to_url,
+      #        :encoded_id => current_user.encoded_id,
+      #        :user_id => current_user.id.to_s,
+      #        :what => @post.night_type_short,
+      #        :night_type => @post.night_type,
+      #        :venue_id => @post.venue ? @post.venue.id.to_s : 0,
+      #        :id => @post.id.to_s,
+      #        :tag => nil
+      #}
       if @post.tag
-        pubnub_message[:tag] = {:id => @post.tag.id, :name => @post.tag.name}
+        #pubnub_message[:tag] = {:id => @post.tag.id, :name => @post.tag.name}
       end
-      @pubnub.publish({'channel' => current_user.id.to_s, 'message' => pubnub_message})
+      #@pubnub.publish({'channel' => current_user.id.to_s, 'message' => pubnub_message})
       mixpanel_data = {
               'Tag' => (@post.tag ? @post.tag.name : :none),
               'Type' => @post.night_type,

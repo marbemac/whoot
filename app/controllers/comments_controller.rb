@@ -7,10 +7,17 @@ class CommentsController < ApplicationController
 
       if @comment.valid?
         user = post.user
-        if user && current_user.id != user.id
-          @pubnub.publish({'channel' => user.id.to_s+'_private', 'message' => { :event => 'notification', :content => "#{current_user.fullname} commented on your post." }})
-          @pubnub.publish({'channel' => post.user_snippet.id.to_s, 'message' => {:event => 'comment_added', :user_id => post.user_snippet.id.to_s, :post_id => post.id.to_s, :count => post.comment_count}})
+
+        if current_user.id != user.id
+          Pusher["#{user.id.to_s}_private"].trigger('notification', {:content => "#{current_user.fullname} commented on your post."})
         end
+        Pusher[post.user_snippet.id.to_s].trigger('comment_added', {
+                :user_id => post.user_snippet.id.to_s,
+                :post_id => post.id.to_s,
+                :comment_id => @comment.id.to_s,
+                :comment_count => post.comment_count,
+                :created_by => @comment.user_snippet.id.to_s
+        })
         Notification.add(user, 'comment', (user.settings.email_comment ? true : false), true, false, current_user, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
 
         html = render_to_string :partial => 'teaser', :locals => {:comment => @comment}
@@ -23,10 +30,10 @@ class CommentsController < ApplicationController
   end
 
   def ajax
-    comments = Comment.where(:post_id => params[:post_id], :status => 'Active')
-    @comments_with_user = User.join(comments)
-    html = render_to_string :partial => 'feed', :locals => {:comments => @comments_with_user}
-    response = {:status => 'OK', :content => html }
+    post = Post.find(params[:post_id])
+    comment = post.comments.detect{|c| c.id.to_s == params[:comment_id]}
+    html = render_to_string :partial => 'teaser', :locals => {:comment => comment}
+    response = {:status => 'OK', :comment => html }
     render json: response, status: 200
   end
 

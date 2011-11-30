@@ -19,7 +19,7 @@
 //= require jquery.scroll
 //= require jquery.growfield
 //= require jquery.label
-//= require pubnub
+//= require pusher
 //= require whoot.core
 //= require whoot.subscribers
 //= require whoot.action.controller

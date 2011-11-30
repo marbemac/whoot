@@ -1,14 +1,16 @@
-<div id="header">
-  <a class="logo" href="<%= root_path %>">
-    <%= image_tag "logo-top.png", :alt => "The Whoot" %>
-  </a>
+<% cache("header#{'-on' if controller.action_name == 'home'}") do %>
+  <div id="header">
+    <a class="logo" href="<%= root_path %>">
+      <%= image_tag "logo-top.png", :alt => "The Whoot" %>
+    </a>
 
-  <div class="nav">
-    <%= link_to "My Feed", root_path, :class => ('on' if controller.action_name == 'home') %>
-  </div>
+    <div class="nav">
+      <%= link_to "My Feed", root_path, :class => ('on' if controller.action_name == 'home') %>
+    </div>
 
-  <div class="search lClear">
-    <label for="top_search">Find someone...</label>
-    <input type="text" id="top_search" data-url="<%= user_autocomplete_path %>" autocomplete="off" />
+    <div class="search lClear">
+      <label for="top_search">Find someone...</label>
+      <input type="text" id="top_search" data-url="<%= user_autocomplete_path %>" autocomplete="off" />
+    </div>
   </div>
-</div>
+<% end %>

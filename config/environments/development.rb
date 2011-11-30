@@ -1,3 +1,9 @@
+require 'pusher'
+
+Pusher.app_id = 11500
+Pusher.key = '0312037e2a21f4279d40'
+Pusher.secret = 'b0f6cd50d741b26dabbb'
+
 Whoot::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 

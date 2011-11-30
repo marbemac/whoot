@@ -1,20 +1,22 @@
-<div id="splash">
-  <%= link_to "", user_omniauth_authorize_path(:facebook), :id => 'fb_login' %>
-  <div id="why_facebook">Why is a Facebook account required to access The Whoot?</div>
-  <%= image_tag "splash-logo-small.png", :class => "logo", :alt => "The Whoot" %>
-  <%= image_tag "splash-map.png", :class => "map", :alt => "Post what you are up to tonight" %>
+<% cache("header#{'-on' if controller.action_name == 'home'}") do %>
+  <div id="splash">
+    <%= link_to "", user_omniauth_authorize_path(:facebook), :id => 'fb_login' %>
+    <div id="why_facebook">Why is a Facebook account required to access The Whoot?</div>
+    <%= image_tag "splash-logo-small.png", :class => "logo", :alt => "The Whoot" %>
+    <%= image_tag "splash-map.png", :class => "map", :alt => "Post what you are up to tonight" %>
 
-  <div class="static_pages">
-    <div class="" data-url="<%= about_path %>">About</div>
-    <div class="" data-url="<%= contact_path %>">Contact</div>
-    <div class="" data-url="<%= terms_path %>">Terms</div>
-    <div class="" data-url="<%= privacy_path %>">Privacy</div>
-  </div>
+    <div class="static_pages">
+      <div class="" data-url="<%= about_path %>">About</div>
+      <div class="" data-url="<%= contact_path %>">Contact</div>
+      <div class="" data-url="<%= terms_path %>">Terms</div>
+      <div class="" data-url="<%= privacy_path %>">Privacy</div>
+    </div>
 
-  <div id="auth-login" class="hide">
-    <%= render "users/sessions/new" %>
+    <div id="auth-login" class="hide">
+      <%= render "users/sessions/new" %>
+    </div>
+    <div id="auth-register" class="hide">
+      <%= render "users/registrations/new" %>
+    </div>
   </div>
-  <div id="auth-register" class="hide">
-    <%= render "users/registrations/new" %>
-  </div>
-</div>
+<% end %>
