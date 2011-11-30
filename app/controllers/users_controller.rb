@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => :default_picture
   include ImageHelper
 
+  caches_action :default_picture, :cache_path => Proc.new { |c| "#{c.params[:id].split('-')[0]}-#{c.params[:d][0]}-#{c.params[:d][1]}-#{c.params[:s]}" }
+
   def show
     @user = User.find_by_encoded_id(params[:id])
     unless @user
@@ -50,7 +52,13 @@ class UsersController < ApplicationController
     current_user.set_default_image(image.id)
 
     if current_user.save
-      # undecided bar teaser
+      [30, 50, 65, 150].each do |width|
+        [30, 50, 65, 150].each do |height|
+          ['square', nil].each do |mode|
+            expire_fragment("#{current_user.public_id.to_i}-#{width}-#{height}-#{mode}")
+          end
+        end
+      end
       ActionController::Base.new.expire_fragment("#{current_user.id.to_s}-undecided")
     end
 
