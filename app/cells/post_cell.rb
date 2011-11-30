@@ -1,5 +1,6 @@
 class PostCell < Cell::Rails
 
+  include ActionController::Caching
   include Devise::Controllers::Helpers
   helper ImageHelper
   helper UsersHelper

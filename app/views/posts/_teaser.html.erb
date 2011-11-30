@@ -1,47 +1,49 @@
-<div class="teaser post <%= post.night_type %>" id="<%= "post-#{post.user_snippet.id}" %>" data-venue-id="<%= post.venue.id.to_s if post.venue %>">
+<% cache("#{post.id.to_s}-teaser") do %>
+  <div class="teaser post <%= post.night_type %>" id="<%= "post-#{post.user_snippet.id}" %>" data-venue-id="<%= post.venue.id.to_s if post.venue %>">
 
-  <div class="head">
-    <a class="profile-image" href="<%= user_path post.user_snippet %>" title="<%= post.user_snippet.fullname %>">
-      <%= image_tag user_default_picture_path(post.user_snippet, :d => [50, 50], :s => 'square'), :style => "max-width: 50px;", :alt => '' %>
-    </a>
+    <div class="head">
+      <a class="profile-image" href="<%= user_path post.user_snippet %>" title="<%= post.user_snippet.fullname %>">
+        <%= image_tag user_default_picture_path(post.user_snippet, :d => [50, 50], :s => 'square'), :style => "max-width: 50px;", :alt => '' %>
+      </a>
 
-    <div class="ulink-wrap">
-      <%= user_link(post.user_snippet, 15) %>
+      <div class="ulink-wrap">
+        <%= user_link(post.user_snippet, 15) %>
+      </div>
+
+      <div class="what">
+        <%= post.night_type_short %>
+      </div>
+
+      <div class="tags">
+        <% if post.tag %>
+          <%= render "tags/teaser", :tag => post.tag %>
+        <% end %>
+      </div>
+
+      <div class="comments_count">
+        <div class="icon comment-grey-1614"></div>
+        <span><%= post.comment_count.to_i %></span>
+      </div>
+      <%= render "votes/button", :target => post, :current_user => current_user %>
+      <div class='arrow-fat-down'></div>
+      <div class='arrow-fat-up'></div>
     </div>
 
-    <div class="what">
-      <%= post.night_type_short %>
-    </div>
+    <div class="details two-col-equal-height hide">
+      <div class="left voters">
+        <h4>+1's</h4>
+        <%= render "votes/voters", :post => post %>
+      </div>
 
-    <div class="tags">
-      <% if post.tag %>
-        <%= render "tags/teaser", :tag => post.tag %>
-      <% end %>
-    </div>
-
-    <div class="comments_count">
-      <div class="icon comment-grey-1614"></div>
-      <span><%= post.comment_count.to_i %></span>
-    </div>
-    <%= render "votes/button", :target => post, :current_user => current_user %>
-    <div class='arrow-fat-down'></div>
-    <div class='arrow-fat-up'></div>
-  </div>
-
-  <div class="details two-col-equal-height hide">
-    <div class="left voters">
-      <h4>+1's</h4>
-      <%= render "votes/voters", :post => post %>
-    </div>
-
-    <div class="right">
-      <% if post.venue %>
-        <h4 class="venue">@ <%= post.venue.pretty_name %></h4>
-      <% end %>
-      <div class="comment-feed cf-<%= post.id %>">
-        <%= render "comments/form", :post => post, :current_user => current_user %>
-        <%= render "comments/feed", :post => post %>
+      <div class="right">
+        <% if post.venue %>
+          <h4 class="venue">@ <%= post.venue.pretty_name %></h4>
+        <% end %>
+        <div class="comment-feed cf-<%= post.id %>">
+          <%= render "comments/form", :post => post, :current_user => current_user %>
+          <%= render "comments/feed", :post => post %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>

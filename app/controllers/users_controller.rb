@@ -50,8 +50,8 @@ class UsersController < ApplicationController
     current_user.set_default_image(image.id)
 
     if current_user.save
-      ActionController::Base.new.expire_cell_state UserCell, :sidebar, current_user.id.to_s
-      #expire_action :action => :default_picture, :id => current_user.encoded_id
+      # undecided bar teaser
+      ActionController::Base.new.expire_fragment("#{current_user.id.to_s}-undecided")
     end
 
     render :json => {:status => 'ok'}

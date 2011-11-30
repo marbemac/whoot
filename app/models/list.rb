@@ -43,7 +43,7 @@ class List
   end
 
   def clear_caches
-    ActionController::Base.new.expire_cell_state UserCell, :sidebar, user_id.to_s
+
   end
 
 end

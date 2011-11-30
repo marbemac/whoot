@@ -117,6 +117,7 @@ class Post
       self.voters << snippet
       self.user.votes_count += 1
       self.user.save
+      ActionController::Base.new.expire_fragment("#{id.to_s}-teaser")
     end
   end
 
@@ -208,13 +209,7 @@ class Post
   end
 
   def clear_caches
-    # this users sidebar
-    ActionController::Base.new.expire_cell_state UserCell, :sidebar, user_snippet.id.to_s
-    # sidebars of any user following this user (for undecided bar)
-    followers = User.followers(user_snippet.id)
-    followers.each do |follower|
-      ActionController::Base.new.expire_cell_state UserCell, :sidebar, follower.id.to_s
-    end
+
   end
 
   class << self

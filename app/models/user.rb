@@ -213,9 +213,6 @@ class User
         )
       end
 
-      ActionController::Base.new.expire_cell_state UserCell, :sidebar, id.to_s
-      ActionController::Base.new.expire_cell_state UserCell, :sidebar, user.id.to_s
-
       Notification.add(user, 'follow', (user.settings.email_follow ? true : false), false, false, self, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
       follow.active = true
       follow.save

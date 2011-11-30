@@ -1,12 +1,13 @@
 class UserCell < Cell::Rails
 
+  include ActionController::Caching
   include Devise::Controllers::Helpers
   helper ImageHelper
   helper UsersHelper
 
-  cache :sidebar do |cell,current_user|
-    current_user.id.to_s
-  end
+  #cache :sidebar do |cell,current_user|
+  #  current_user.id.to_s
+  #end
 
   def sidebar(current_user)
     @user = current_user
