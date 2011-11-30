@@ -1,4 +1,4 @@
-<% cache("header#{'-on' if controller.action_name == 'home'}") do %>
+<% cache("splash") do %>
   <div id="splash">
     <%= link_to "", user_omniauth_authorize_path(:facebook), :id => 'fb_login' %>
     <div id="why_facebook">Why is a Facebook account required to access The Whoot?</div>
