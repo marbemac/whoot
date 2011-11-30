@@ -1,11 +1,11 @@
 Whoot::Application.routes.draw do
 
-  # Normal Posts
-  get 'posts/map' => 'posts#map', :as => :post_map
+  # Posts
+  scope 'posts' do
+    get 'map' => 'posts#map', :as => :post_map
+    get 'ajax' => 'posts#ajax', :as => :posts_ajax
+  end
   resources :posts
-
-  # Generic Posts
-  resources :posts, :only => [:new]
 
   # Venues
   get 'venues/ac' => 'venues#autocomplete', :as => :venue_autocomplete

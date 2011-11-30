@@ -47,7 +47,8 @@ module ApplicationHelper
             :venueAutoUrl => '/soul-data/search',
             :tagAutoUrl => '/soul-data/search',
             :commentAjaxPath => comments_ajax_path,
-            :votesAjaxPath => votes_ajax_path
+            :votesAjaxPath => votes_ajax_path,
+            :postAjaxPath => posts_ajax_path
     }
     Yajl::Encoder.encode(data)
   end

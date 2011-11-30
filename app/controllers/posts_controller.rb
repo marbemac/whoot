@@ -46,22 +46,7 @@ class PostsController < ApplicationController
 
     if @post.save
       @post.set_user_post_snippet(current_user)
-      #pubnub_message = {
-      #        :event => 'post_changed',
-      #        :fullname => current_user.fullname,
-      #        :user_slug => current_user.fullname.to_url,
-      #        :encoded_id => current_user.encoded_id,
-      #        :user_id => current_user.id.to_s,
-      #        :what => @post.night_type_short,
-      #        :night_type => @post.night_type,
-      #        :venue_id => @post.venue ? @post.venue.id.to_s : 0,
-      #        :id => @post.id.to_s,
-      #        :tag => nil
-      #}
-      if @post.tag
-        #pubnub_message[:tag] = {:id => @post.tag.id, :name => @post.tag.name}
-      end
-      #@pubnub.publish({'channel' => current_user.id.to_s, 'message' => pubnub_message})
+      Pusher[current_user.id.to_s].trigger('post_changed', {:post_id => @post.id.to_s, :user_id => current_user.id.to_s})
       mixpanel_data = {
               'Tag' => (@post.tag ? @post.tag.name : :none),
               'Type' => @post.night_type,
@@ -134,6 +119,13 @@ class PostsController < ApplicationController
 
     html = render_to_string :partial => 'map', :locals => {:locations => venues}
     render :json => {:status => 'OK', :content => html, :event => 'post_map_loaded'}
+  end
+
+  def ajax
+    post = Post.find(params[:post_id])
+    html = render_to_string :partial => 'teaser', :locals => {:post => post}
+    response = {:status => 'OK', :post => html }
+    render json: response, status: 200
   end
 
 end

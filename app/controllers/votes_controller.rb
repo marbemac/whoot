@@ -13,6 +13,7 @@ class VotesController < ApplicationController
                 :user_id => target_post.user_snippet.id.to_s,
                 :votes => target_post.votes,
                 :post_id => target_post.id.to_s,
+                :created_by => current_user.id.to_s,
                 :voter => html
         })
       end
