@@ -15,8 +15,7 @@ class CommentsController < ApplicationController
                 :user_id => post.user_snippet.id.to_s,
                 :post_id => post.id.to_s,
                 :comment_id => @comment.id.to_s,
-                :comment_count => post.comment_count,
-                :created_by => @comment.user_snippet.id.to_s
+                :comment_count => post.comment_count
         })
         Notification.add(user, 'comment', (user.settings.email_comment ? true : false), true, false, current_user, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
 

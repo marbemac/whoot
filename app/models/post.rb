@@ -117,7 +117,7 @@ class Post
       self.voters << snippet
       self.user.votes_count += 1
       self.user.save
-      ActionController::Base.new.expire_fragment("#{id.to_s}-teaser")
+      clear_post_cache
     end
   end
 
@@ -210,6 +210,22 @@ class Post
 
   def clear_caches
 
+  end
+
+  def clear_post_cache
+    ActionController::Base.new.expire_fragment("#{id.to_s}-teaser")
+    ActionController::Base.new.expire_fragment("#{id.to_s}-teaser-mine")
+    ActionController::Base.new.expire_fragment("#{id.to_s}-teaser-voted")
+  end
+
+  def teaser_cache_key(user)
+    key = "#{id.to_s}-teaser"
+    if user_snippet.id == user.id
+      key += '-mine'
+    elsif has_voter?(user)
+      key += '-voted'
+    end
+    key
   end
 
   class << self

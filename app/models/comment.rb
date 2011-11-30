@@ -33,7 +33,7 @@ class Comment
   end
 
   def clear_caches
-    ActionController::Base.new.expire_fragment("#{has_comments.id.to_s}-teaser")
+    has_comments.clear_post_cache
   end
 
   class << self

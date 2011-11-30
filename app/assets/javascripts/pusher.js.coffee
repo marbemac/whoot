@@ -9,8 +9,7 @@ jQuery ->
     $($('#subscribe-users').data('ids')).each (index, val) ->
       channel = pusher.subscribe(val);
       channel.bind 'comment_added', (data) ->
-        console.log(data);
-        if (data.created_by == $('#static-data').data('d').myId)
+        if (data.user_id == $('#static-data').data('d').myId)
           return;
 
         target = $('#post-'+data.user_id)
@@ -24,6 +23,14 @@ jQuery ->
           success: (commentData) ->
             target.find('.comment-feed').append(commentData.comment)
         })
+
+      channel.bind 'voted', (data) ->
+        if (data.user_id == $('#static-data').data('d').myId)
+          return;
+        target = $('#post-'+data.user_id)
+        target.find('.votes').text(data.votes).effect("highlight", {color: '#FC770D'}, 2000);
+        target.find('.voters .none').remove()
+        target.find('.voters').append(data.voter)
 
 #  rebuildPost = (target, data) ->
 #    target.removeClass('working low_in low_out big_out')

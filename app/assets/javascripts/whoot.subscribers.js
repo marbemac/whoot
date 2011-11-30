@@ -82,9 +82,11 @@ $(function() {
    * VOTING
    */
   // Listens to votes being registered.
-  amplify.subscribe("vote_toggle", function(data) {
-    // Update the objects scores and turn the scorebox voted button on/off
-    $('.s-' + data.objectId).text(data.objectNewScore).siblings('.v').toggleClass('on');
+  amplify.subscribe("voted", function(data) {
+    var target = $('#post-'+data.user_id);
+    target.find('.votes').text(data.votes).effect("highlight", {color: '#FC770D'}, 2000);;
+    target.find('.voters .none').remove();
+    target.find('.voters').append(data.voter);
   });
 
   /*

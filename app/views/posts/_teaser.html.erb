@@ -1,4 +1,4 @@
-<% cache("#{post.id.to_s}-teaser") do %>
+<% cache(post.teaser_cache_key(current_user)) do %>
   <div class="teaser post <%= post.night_type %>" id="<%= "post-#{post.user_snippet.id}" %>" data-venue-id="<%= post.venue.id.to_s if post.venue %>">
 
     <div class="head">
