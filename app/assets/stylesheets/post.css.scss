@@ -237,8 +237,9 @@ Purpose of the stylesheet follows.
     background: transparent;
     left: 50%;
     margin-left: -380px;
-    height: auto;
+    height: 600px;
     top: 150px;
+    border: none;
 
     h3 {
       &.adjust {
