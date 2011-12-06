@@ -37,7 +37,6 @@ class Post
   attr_accessor :user_id
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
-  after_save :update_user_post_snippet
   before_create :set_venue_snippet, :process_tag
   after_create :set_user_location, :clear_caches
 
@@ -172,7 +171,13 @@ class Post
         PingMailer.pinged_user_posted(user, to_user).deliver
       end
     end
-    user.current_post = PostSnippet.new(:night_type => night_type, :created_at => created_at)
+    post_snippet = PostSnippet.new(
+            :night_type => night_type,
+            :created_at => created_at
+    )
+    post_snippet.tag = tag
+    post_snippet.venue = venue
+    user.current_post = post_snippet
     user.save
   end
 
@@ -184,13 +189,6 @@ class Post
             :public_id => user.public_id
     )
     self.user_snippet.id = user.id
-  end
-
-  def update_user_post_snippet
-    if current_changed? && current == true
-      user.current_post = PostSnippet.new(:night_type => night_type, :created_at => created_at)
-      user.save
-    end
   end
 
   def add_comment(data, user)

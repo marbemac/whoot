@@ -9,6 +9,11 @@ class UsersController < ApplicationController
     unless @user
       redirect_to root_path
     else
+      if params[:format] == :api
+        response = {:json => {:status => 'ok', :data => User.convert_for_api(@user)}}
+        render response
+      end
+
       @title = "#{@user.fullname}" if @user
       @post = Post.current_post(@user)
       if @post

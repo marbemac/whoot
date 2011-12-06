@@ -425,6 +425,7 @@ class User
               :id => user.id,
               :first_name => user.first_name,
               :last_name => user.last_name,
+              :current_post => PostSnippet.conver_for_api(user.current_post),
               :email => user.email,
               :public_id => user.encoded_id,
               :vote_count => user.votes_count,

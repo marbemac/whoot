@@ -79,6 +79,7 @@ Whoot::Application.routes.draw do
       post 'ping' => 'pings#create', :defaults => { :format => :api }
       get 'users/:id/following' => 'users#following', :defaults => { :format => :api }
       get 'users/:id/followers' => 'users#followers', :defaults => { :format => :api }
+      get 'users/:id' => 'users#show', :defaults => { :format => :api }
     end
   end
 
