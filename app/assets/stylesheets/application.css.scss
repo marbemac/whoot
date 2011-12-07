@@ -117,7 +117,6 @@ html, body {
 #sidebar {
   float:left;
 	position:relative;
-	overflow:hidden;
   height: 100%;
 }
 #content {
@@ -126,6 +125,9 @@ html, body {
   width: $content_width;
   margin-bottom: -999999px;
   padding-bottom: 999999px;
+}
+#page {
+  padding-bottom: 50px;
 }
 #sidebar {
   @include single-box-shadow(#999, -1px, 1px, 2px);

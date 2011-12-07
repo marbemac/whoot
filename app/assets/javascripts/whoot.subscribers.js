@@ -55,6 +55,10 @@ $(function() {
     $currentTarget.prev().find('span').text(statuses[$currentTarget.prev().find('span').text()]);
   });
 
+  amplify.subscribe("user_invted", function (data) {
+    $('#invite_email').val('')
+  })
+
   /*
    * POSTS
    */

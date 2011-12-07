@@ -7,7 +7,7 @@ class VenuesController < ApplicationController
       posts = Post.following(current_user).todays_post.where('venue._id' => @venue.id)
       user_ids = Array.new
       posts.each do |post|
-        user_ids << post.user_id
+        user_ids << post.user_snippet.id
       end
       @users = User.where(:_id.in => user_ids)
       html = render_to_string :partial => 'attending_venue_map', :locals => {:venue => @venue, :users => @users}

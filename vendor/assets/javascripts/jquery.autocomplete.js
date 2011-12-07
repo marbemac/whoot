@@ -285,8 +285,8 @@
       currentValue = lastWord(currentValue);
       if (currentValue.length >= options.minChars) {
         $input.addClass(options.loadingClass);
-        if (!options.matchCase)
-          currentValue = currentValue.toLowerCase();
+//        if (!options.matchCase)
+//          currentValue = currentValue.toLowerCase();
         request(currentValue, receiveData, hideResultsNow);
       } else {
         stopLoading();
@@ -393,8 +393,9 @@
     ;
 
     function request(term, success, failure) {
-      if (!options.matchCase)
-        term = term.toLowerCase();
+      var original = term;
+//      if (!options.matchCase)
+//        term = term.toLowerCase();
       var data = cache.load(term);
       // recieve the cached data
       if (data && data.length) {
@@ -432,7 +433,7 @@
               if (options.allowNew)
               {
                 buckets.push(options.allowNewType);
-                tmpData['CREATE'] = [{'id':0,'term':acData.term,'showName':'create a new '+options.allowNewName+': <span class="term">'+acData.term+'</span>'}];
+                tmpData['CREATE'] = [{'id':0,'term':original,'showName':'create a new '+options.allowNewName+': <span class="term">'+original+'</span>'}];
                 data['CREATE'] = [];
               }
 
@@ -597,7 +598,7 @@
 
     function matchSubset(s, sub) {
       if (!options.matchCase && typeof s != 'string')
-        s = s[options.searchKey].toLowerCase();
+        s = s[options.searchKey];
       var i = s.indexOf(sub);
       if (options.matchContains == "word") {
         i = s.toLowerCase().search("\\b" + sub.toLowerCase());
