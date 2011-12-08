@@ -80,7 +80,7 @@ class Post
 
   def set_venue_snippet
     target_venue = nil
-    if !venue.address_string.blank?
+    if venue && !venue.address_string.blank?
       target_venue = Venue.where(:address_string => venue.address_string).first
       unless target_venue
         target_venue = Venue.new(venue.attributes)
