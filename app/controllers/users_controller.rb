@@ -26,22 +26,17 @@ class UsersController < ApplicationController
     style = params[:s]
 
     url = default_image_url(user, dimensions, style, true)
-    if url
-      img = open(Rails.env.development? ? Rails.public_path+url : url)
-    else
-      url = request.protocol + request.host_with_port + '/user-default.gif'
-      img = open(url)
-    end
 
-    response.headers['Cache-Control'] = 'no-cache'
-
-    if img
+    if Rails.env.development?
+      img = open(Rails.public_path+url)
       send_data(
         img.read,
+        :type => 'image/png',
         :disposition => 'inline'
       )
     else
-      render :nothing => true, :status => 404
+      redirect_to url
+      #render :nothing => true, :status => 404
     end
   end
 
