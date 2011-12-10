@@ -2,12 +2,16 @@
   <%= render 'users/header' %>
 <% end %>
 
-<% if @post %>
-  <div id="post-feed">
-    <%= render "posts/teaser", :post => @post, :user => @user %>
-  </div>
+<% if current_user.following_user?(@user.id) %>
+  <% if @post %>
+    <div id="post-feed">
+      <%= render "posts/teaser", :post => @post, :user => @user %>
+    </div>
+  <% else %>
+    <div class="none"><%= @user.first_name %> has not posted for tonight</div>
+  <% end %>
 <% else %>
-  <div class="none"><%= @user.first_name %> has not posted for tonight</div>
+  <div class="none">You must follow <%= @user.first_name %> to see <%= @user.gender_possesive %> posts</div>
 <% end %>
 
 <div id="subscribe-users" data-ids='<%= Yajl::Encoder.encode([@user.id.to_s]) %>'></div>
