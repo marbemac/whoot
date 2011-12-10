@@ -15,10 +15,8 @@ class UsersController < ApplicationController
       end
 
       @title = "#{@user.fullname}" if @user
-      @post = Post.current_post(@user)
-      if @post
-        @post = User.join([@post])[0]
-      end
+      @current_post = Post.current_post(@user)
+      @posts = Post.where('user_snippet._id' => @user.id).order_by([[:created_at, :desc]]).limit(50)
     end
   end
 
@@ -108,12 +106,24 @@ class UsersController < ApplicationController
     if !signed_in? || current_user.id != @user.id
       redirect_to :root
     end
+    @locations = City.order_by([[:state_code, :asc], [:city, :asc]]).all
   end
 
   def settings_update
     current_user.toggle_setting(params[:setting])
     current_user.save
     render :json => {:status => 'ok', :event => 'settings_updated', :target => '.setting-'+params[:setting], :toggle_classes => ['setB', 'unsetB']}, :status => 201
+  end
+
+  def change_location
+    location = City.find(params[:id])
+    if location
+      current_user.set_location(location)
+      current_user.save
+    end
+
+    response = { :status => :ok, :redirect => request.referer }
+    render json: response, status: :created
   end
 
 end

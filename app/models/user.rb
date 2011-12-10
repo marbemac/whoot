@@ -99,13 +99,18 @@ class User
       unless defined?(found_location) && found_location
         found_location = City.where(name: "New York City").first
       end
-      self.location = LocationSnippet.new(
-              city: found_location.name,
-              state_code: found_location.state_code,
-              coordinates: found_location.coordinates
-      )
-      self.location.id = found_location.id
+      set_location(found_location)
     end
+  end
+
+  def set_location(new_location)
+    snippet = LocationSnippet.new(
+            city: new_location.name,
+            state_code: new_location.state_code,
+            coordinates: new_location.coordinates
+    )
+    snippet.id = new_location.id
+    self.location = snippet
   end
 
   def set_settings

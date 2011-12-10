@@ -128,12 +128,13 @@ class Post
     if venue
       city = City.near(venue.coordinates.reverse).first
       if city && city.id != user.location.id
-        user.location = LocationSnippet.new(
+        snippet = LocationSnippet.new(
                 city: city.name,
                 state_code: city.state_code,
                 coordinates: city.coordinates
         )
-        user.location.id = city.id
+        snippet.id = city.id
+        user.location = snippet
         user.save
       end
     end

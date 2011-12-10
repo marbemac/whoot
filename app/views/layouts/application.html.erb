@@ -70,13 +70,10 @@
       </div>
     <% end %>
 
-    <div id="ajax-loading">Loading...</div>
-    <div id="ajax-notice"></div>
-    <div id="ajax-success"></div>
-    <div id="ajax-error"></div>
     <div id="form-submitting">Form submitting...</div>
     <div class="hide" id="static-data" data-d='<%= static_data %>'></div>
 
+    <div id="gradient-bg">&nbsp;</div>
     <% unless calculate_time_of_day == :day %>
       <div id="stars-bg" class="<%= 'fade' if calculate_time_of_day == :sunset %>">&nbsp;</div>
     <% end %>

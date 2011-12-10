@@ -7,43 +7,57 @@
 <% end %>
 
 <div class="upload" id="user_uploadB">Change Profile Image</div>
+
 <div class="clear"></div>
-<div class="setting">
-  <div class="content">
-    Email me when someone comments on my post: <span class="status"><%= @user.settings.email_comment ? 'on' : 'off' %></span>
-  </div>
-  <button class="btn <%= @user.settings.email_comment ? 'unsetB' : 'setB' %> setting-email_comment %>">
-    <span class="default" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_comment"}' data-m="put">
-      turn on
-    </span>
-    <span class="triggered" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_comment"}' data-m="put">
-      turn off
-    </span>
-  </button>
+
+<div class="section">
+  <h5>My Location</h5>
+  <select id='my-location' data-url='<%= user_change_location_path %>' autocomplete='off'>
+    <% @locations.each do |location| %>
+      <option value='<%= location.id %>' <%= 'selected' if location.id == @user.location.id %>><%= location.fullname %></option>
+    <% end %>
+  </select>
 </div>
-<div class="setting">
-  <div class="content">
-    Email me when someone pings me: <span class="status"><%= @user.settings.email_ping ? 'on' : 'off' %></span>
+
+<div class="section">
+  <h5>Emails</h5>
+  <div class="setting">
+    <div class="content">
+      Email me when someone comments on my post: <span class="status"><%= @user.settings.email_comment ? 'on' : 'off' %></span>
+    </div>
+    <button class="btn <%= @user.settings.email_comment ? 'unsetB' : 'setB' %> setting-email_comment %>">
+      <span class="default" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_comment"}' data-m="put">
+        turn on
+      </span>
+      <span class="triggered" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_comment"}' data-m="put">
+        turn off
+      </span>
+    </button>
   </div>
-  <button class="btn <%= @user.settings.email_ping ? 'unsetB' : 'setB' %> setting-email_ping %>">
-    <span class="default" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_ping"}' data-m="put">
-      turn on
-    </span>
-    <span class="triggered" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_ping"}' data-m="put">
-      turn off
-    </span>
-  </button>
-</div>
-<div class="setting">
-  <div class="content">
-    Email me when someone follows me: <span class="status"><%= @user.settings.email_follow ? 'on' : 'off' %></span>
+  <div class="setting">
+    <div class="content">
+      Email me when someone pings me: <span class="status"><%= @user.settings.email_ping ? 'on' : 'off' %></span>
+    </div>
+    <button class="btn <%= @user.settings.email_ping ? 'unsetB' : 'setB' %> setting-email_ping %>">
+      <span class="default" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_ping"}' data-m="put">
+        turn on
+      </span>
+      <span class="triggered" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_ping"}' data-m="put">
+        turn off
+      </span>
+    </button>
   </div>
-  <button class="btn <%= @user.settings.email_follow ? 'unsetB' : 'setB' %> setting-email_follow %>">
-    <span class="default" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_follow"}' data-m="put">
-      turn on
-    </span>
-    <span class="triggered" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_follow"}' data-m="put">
-      turn off
-    </span>
-  </button>
+  <div class="setting">
+    <div class="content">
+      Email me when someone follows me: <span class="status"><%= @user.settings.email_follow ? 'on' : 'off' %></span>
+    </div>
+    <button class="btn <%= @user.settings.email_follow ? 'unsetB' : 'setB' %> setting-email_follow %>">
+      <span class="default" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_follow"}' data-m="put">
+        turn on
+      </span>
+      <span class="triggered" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_follow"}' data-m="put">
+        turn off
+      </span>
+    </button>
+  </div>
 </div>

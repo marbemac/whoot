@@ -92,6 +92,7 @@ Whoot::Application.routes.draw do
     put ':id/settings' => 'users#settings_update', :as => :user_settings_update
     get ':id/hover' => 'users#hover' , :as => :user_hover
     get ':id/picture' => 'users#default_picture', :as => :user_default_picture
+    put '/location' => 'users#change_location', :as => :user_change_location
   end
 
   ActiveAdmin.routes(self)

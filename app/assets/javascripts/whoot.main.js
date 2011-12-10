@@ -78,6 +78,29 @@ $(function() {
     })
   })
 
+  changeLocation = function(url, id)
+  {
+    $.ajax({
+      type: 'put',
+      url: url,
+      dataType: 'json',
+      data:{id:id},
+      success: function(data) {
+        appUpdate(data);
+      }
+    })
+  }
+
+  $('#feed-nav .location').live('click', function() {
+    var $self = $(this);
+    changeLocation($self.parents('.locations:first').data('url'), $self.data('id'));
+  })
+
+  $('#my-location').live('change', function() {
+    var $self = $(this);
+    changeLocation($self.data('url'), $self.val());
+  })
+
   /*
    * POSTS
    */

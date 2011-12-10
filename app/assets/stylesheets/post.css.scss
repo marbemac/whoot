@@ -716,13 +716,39 @@ $post-border-color: #AAA;
       }
     }
   }
-  .location {
+  .locations {
     position: absolute;
-    right: 10px;
-    top: 8px;
+    right: 5px;
+    top: 4px;
     font-size: 12px;
     color: #444;
     cursor: default;
+    background: #FFF;
+    padding: 3px;
+    text-align: right;
+    z-index: 4;
+    border: 1px solid transparent;
+    max-height: 200px;
+    overflow-y: auto;
+
+    .mine {
+
+    }
+    .location {
+      margin: 3px 0;
+      display: none;
+      cursor: pointer;
+      &:hover {
+        background: #EFEFEF;
+      }
+    }
+    &:hover {
+      @include single-box-shadow(#AAA, 1px, 1px, 2px);
+      border-color: #CCC;
+      .location {
+        display: block;
+      }
+    }
   }
 }
 

@@ -5,7 +5,14 @@
   <% if @my_post && @my_post.venue %>
     <div class="item ac" data-target="#post-my-venue" data-url="<%= venue_attending_path @my_post.venue.id %>" data-m="get"><div class="head">Friends going to <span><%= @my_post.venue.pretty_name %></span></div></div>
   <% end %>
-  <div class="location"><%= @user.location.full %></div>
+  <div class="locations" data-url='<%= user_change_location_path %>'>
+    <div class="mine"><%= @user.location.full %></div>
+    <% @locations.each do |location| %>
+      <% unless location.id.to_s == @user.location.id.to_s %>
+        <div class="location" data-id='<%= location.id %>'><%= location.fullname %></div>
+      <% end %>
+    <% end %>
+  </div>
   <div class="clear"></div>
 </div>
 

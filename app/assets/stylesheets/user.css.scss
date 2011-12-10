@@ -27,7 +27,14 @@
 .users {
   .show {
     #post-feed {
-      padding: 0 0 200px 0;
+      padding: 0 0 20px 0;
+      h5 {
+        cursor: default;
+        color: #444;
+        padding: 5px 0 3px 5px;
+        margin: 0 0 5px 0;
+        border-bottom: 1px solid #999;
+      }
     }
   }
 }
@@ -139,12 +146,12 @@
   }
   .settings {
     .section {
-        border-bottom: 1px solid #CCC;
-        padding: 10px 5px 15px 5px;
-        margin: 10px;
+      border-bottom: 1px solid #CCC;
+      padding: 10px 5px;
+      margin: 0 10px;
     }
-    h3 {
-
+    h5 {
+      margin: 0 0 5px 0;
     }
     .note {
         font-size: 12px;
@@ -183,7 +190,7 @@
     }
     .setting {
       @include clearfix();
-      margin: 10px 0 0 10px;
+      margin: 0 0 10px 0;
       .content {
         width: 500px;
         float: left;

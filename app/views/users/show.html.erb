@@ -2,10 +2,24 @@
   <%= render 'users/header' %>
 <% end %>
 
-<% if current_user.following_user?(@user.id) %>
-  <% if @post %>
+<% if current_user.id == @user.id || current_user.following_user?(@user.id) %>
+  <% if @posts %>
     <div id="post-feed">
-      <%= render "posts/teaser", :post => @post, :user => @user %>
+      <% if @current_post %>
+        <%= render "posts/teaser", :post => @current_post, :user => @user %>
+      <% end %>
+      
+      <% last_time = nil %>
+      <% @posts.each do |post| %>
+        <% unless @current_post && @current_post.id == post.id %>
+          <% unless last_time == post.created_at.strftime("%Y-%m-%d") %>
+            <% last_time = post.created_at.strftime("%Y-%m-%d") %>
+            <% new = pretty_time(post.created_at) %>
+            <h5><%= new == 'Today' ? 'Earlier Today' : new %></h5>
+          <% end %>
+          <%= render "posts/teaser", :post => post, :user => @user %>
+        <% end %>
+      <% end %>
     </div>
   <% else %>
     <div class="none"><%= @user.first_name %> has not posted for tonight</div>
