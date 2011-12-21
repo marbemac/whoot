@@ -433,10 +433,10 @@ class User
               :current_post => PostSnippet.conver_for_api(user.current_post),
               :email => user.email,
               :public_id => user.encoded_id,
-              :vote_count => user.votes_count,
-              :ping_count => user.pings_count,
-              :following_users_count => user.following_users_count,
-              :followers_count => user.followers_count
+              :vote_count => user.votes_count.to_i,
+              :ping_count => user.pings_count.to_i,
+              :following_users_count => user.following_users_count.to_i,
+              :followers_count => user.followers_count.to_i
       }
     end
   end

@@ -43,6 +43,15 @@ class ApiController < ApplicationController
     render :json => response
   end
 
+  def me
+    unless signed_in?
+      response = {:status => :not_authenticated}
+    else
+      response = {:json => {:status => 'ok', :data => User.convert_for_api(current_user)}}
+    end
+    render response
+  end
+
   private
 
   def set_mobile
