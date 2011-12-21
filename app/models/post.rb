@@ -53,9 +53,9 @@ class Post
   end
 
   def valid_venue
-    if venue && !venue.address_string.blank? && venue.coordinates_string.blank?
-      errors.add(:venue_address, "Your venue address is invalid. Please pick a valid address from the dropdown that appears when you start typing.")
-    end
+    #if venue && !venue.address_string.blank? && venue.coordinates_string.blank?
+    #  errors.add(:venue_address, "Your venue address is invalid. Please pick a valid address from the dropdown that appears when you start typing.")
+    #end
   end
 
   def night_type_short
