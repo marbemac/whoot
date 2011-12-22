@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :init, :set_feed_filters, :set_user_time_zone, :initialize_mixpanel, :require_post
+  before_filter :init, :set_request_type, :set_feed_filters, :set_user_time_zone, :initialize_mixpanel, :require_post
   layout :layout
 
   def authenticate_admin_user!
@@ -66,6 +66,11 @@ class ApplicationController < ActionController::Base
   def layout
     # use ajax layout for ajax requests
     request.xhr? ? "ajax" : "application"
+  end
+
+  def set_request_type
+    # this fixes an IE 8 issue with refreshing page returning javascript response
+    request.format = :html if request.format == "*/*"
   end
 
   def mobile_device?
