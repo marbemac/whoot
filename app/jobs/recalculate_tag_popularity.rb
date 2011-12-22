@@ -17,7 +17,7 @@ class RecalculateTagPopularity
       "return sum; " +
     "};"
 
-    @results = Post.collection.map_reduce(map, reduce, :query => {:created_at => {'$gte' => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))}, :current => true}, :out => "pop-tags")
+    @results = Post.collection.map_reduce(map, reduce, :query => {:created_at => {'$gte' => Post.cutoff_time}, :current => true}, :out => "pop-tags")
 
     tags = Tag.all
     tags.each do |tag|
@@ -42,7 +42,7 @@ class RecalculateTagPopularity
 
     cities = City.all
     cities.each do |city|
-      @results = Post.collection.map_reduce(map, reduce, :query => {:created_at => {'$gte' => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))}, :current => true, "location._id" => city.id}, :out => "pop-#{city.name.to_url}-#{city.state_code}-tags")
+      @results = Post.collection.map_reduce(map, reduce, :query => {:created_at => {'$gte' => Post.cutoff_time}, :current => true, "location._id" => city.id}, :out => "pop-#{city.name.to_url}-#{city.state_code}-tags")
       TrendingTag.where(city_id: city.id).delete_all
       @results.find().each do |doc|
         tag = TrendingTag.new(

@@ -250,12 +250,12 @@ class User
   end
 
   def pinged_today_by?(user_id)
-    pings_today_date && pings_today_date >= Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))) && pings_today.include?(user_id)
+    pings_today_date && pings_today_date >= Post.cutoff_time && pings_today.include?(user_id)
   end
 
   def add_ping(user)
     unless pinged_today_by? user.id
-      unless pings_today_date && pings_today_date >= Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))
+      unless pings_today_date && pings_today_date >= Post.cutoff_time
         self.pings_today_date = Time.now
         self.pings_today = Array.new
       end
@@ -273,7 +273,7 @@ class User
   end
 
   def revert_to_last_post_today
-    latest_not_current_post = Post.where(:user_id => id, :current => false, :status => 'Active', :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))).first
+    latest_not_current_post = Post.where(:user_id => id, :current => false, :status => 'Active', :created_at.gte => Post.cutoff_time).first
 
     if latest_not_current_post
       latest_not_current_post.current = true
@@ -282,7 +282,7 @@ class User
   end
 
   def posted_today?
-    current_post && current_post.created_at >= Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))
+    current_post && current_post.created_at >= Post.cutoff_time
   end
 
   def gender_pronoun
@@ -362,7 +362,7 @@ class User
     def undecided(user)
 
       or_criteria = []
-      or_criteria << {"current_post.created_at" => { "$lt" => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))).utc }}
+      or_criteria << {"current_post.created_at" => { "$lt" => Post.cutoff_time.utc }}
       or_criteria << {:current_post => {"$exists" => false}}
 
       where(:_id.in => user.following_users).any_of(or_criteria)

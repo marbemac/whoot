@@ -166,7 +166,7 @@ class Post
 
   def set_user_post_snippet(user)
     # Send emails to the users that pinged this user
-    unless user.posted_today? || !user.pings_today_date || user.pings_today_date <= Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))
+    unless user.posted_today? || !user.pings_today_date || user.pings_today_date <= Post.cutoff_time
       users = User.where(:_id.in => user.pings_today)
       users.each do |to_user|
         PingMailer.pinged_user_posted(user, to_user).deliver
@@ -229,12 +229,12 @@ class Post
 
   class << self
     def current_post(user)
-      where(:created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))), 'user_snippet._id' => user.id, :current => true).first
+      where(:created_at.gte => Post.cutoff_time, 'user_snippet._id' => user.id, :current => true).first
     end
 
     def following_feed(user, feed_filters, include_self = false)
       where(
-              :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))),
+              :created_at.gte => Post.cutoff_time,
               'user_snippet._id' => {'$in' => (include_self ? user.following_users << user.id : user.following_users)},
               :current => true,
               :night_type.in => feed_filters[:display]
@@ -243,7 +243,7 @@ class Post
 
     def list_feed(users)
       where(
-              :created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))),
+              :created_at.gte => Post.cutoff_time,
               'user_snippet._id' => {'$in' => users},
               :current => true
       ).order_by(:created_at, 'desc')
@@ -254,7 +254,11 @@ class Post
     end
 
     def todays_post
-      where(:created_at.gte => Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5))), :current => true)
+      where(:created_at.gte => Post.cutoff_time, :current => true)
+    end
+
+    def cutoff_time
+      Chronic.parse('today at 5:00am', :now => Chronic.parse('5 hours ago'))
     end
 
     def convert_for_api(post)

@@ -11,7 +11,7 @@ class PostSnippet
 
   class << self
     def conver_for_api(snippet)
-      if snippet && snippet.created_at > Chronic.parse('today at 5:00am', :now => (Time.now - (60*60*5)))
+      if snippet && snippet.created_at > Post.cutoff_time
         {
           :id => snippet.id,
           :night_type => snippet.night_type,
