@@ -44,6 +44,8 @@ class PostsController < ApplicationController
     @post.set_location_snippet(current_user)
     @post.disable_current_post(current_user)
 
+    redirect = Post.where("user_snippet._id" => current_user.id).first ? request.referer : invites_path
+
     if @post.save
       @post.set_user_post_snippet(current_user)
       Pusher[current_user.id.to_s].trigger('post_changed', {:post_id => @post.id.to_s, :user_id => current_user.id.to_s})
@@ -56,8 +58,8 @@ class PostsController < ApplicationController
       }
       @mixpanel.track_event("Normal Post Create", current_user.mixpanel_data.merge!(mixpanel_data))
 
-      response = { :status => :ok, :redirect => request.referer }
-      render json: response, status: :created, location: @post
+      response = { :status => :ok, :redirect => redirect }
+      render json: response, status: :created
     else
       render json: {:status => :error, :errors => @post.errors}, status: :unprocessable_entity
     end
