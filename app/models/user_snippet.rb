@@ -11,11 +11,15 @@ class UserSnippet
 
   # Return the users username instead of their ID
   def to_param
-    "#{self.public_id.to_i.to_s(36)}-#{self.fullname.parameterize}"
+    "#{encoded_id}-#{fullname.parameterize}"
   end
 
   def fullname
     "#{first_name} #{last_name}"
+  end
+
+  def encoded_id
+    public_id.to_i.to_s(36)
   end
 
   class << self
@@ -25,7 +29,7 @@ class UserSnippet
               :username => snippet.username,
               :first_name => snippet.first_name,
               :last_name => snippet.last_name,
-              :public_id => snippet.public_id.to_i
+              :public_id => snippet.encoded_id
       }
     end
   end
