@@ -42,7 +42,7 @@ class VenueSnippet
   end
 
   def coordinates_string
-    coordinates.join(' ')
+    coordinates.ni? ? '' : coordinates.join(' ')
   end
 
   def coordinates_string=(string)

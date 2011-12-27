@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_post
-    if request.get? && signed_in? && !current_user.posted_today? && params[:controller] != 'post' && params[:action] != 'new'
+    if params[:format] != :api && request.get? && signed_in? && !current_user.posted_today? && params[:controller] != 'post' && params[:action] != 'new'
       redirect_to (new_post_path)
     end
   end
