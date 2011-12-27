@@ -32,7 +32,14 @@ class ApiController < ApplicationController
     unless signed_in?
       response = {:status => :not_authenticated}
     else
-      posts = Post.following_feed(current_user, session[:feed_filters], true)
+      filters = {
+            :display => params[:display] ? params[:display].split(',') : ['working', 'low_in', 'low_out', 'big_out'],
+            :sort => {
+                    :target => params[:sort] ? params[:sort].split(',')[0] : 'created_at',
+                    :order => params[:sort] ? params[:sort].split(',')[1] : 'DESC'
+            }
+      }
+      posts = Post.following_feed(current_user, filters, true)
       data = []
       posts.each do |post|
         data << Post.convert_for_api(post)
