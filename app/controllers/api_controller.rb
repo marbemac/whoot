@@ -59,6 +59,20 @@ class ApiController < ApplicationController
     render response
   end
 
+  def undecided
+    unless signed_in?
+      response = {:json => {:status => 'error'}, :status => :not_authenticated}
+    else
+      undecided = User.undecided(current_user).order_by([[:first_name, :asc], [:last_name, :desc]]).to_a
+      data = []
+      undecided.each do |user|
+        data << User.convert_for_api(user)
+      end
+      response = {:json => {:status => 'ok', :data => data}}
+    end
+    render response
+  end
+
   private
 
   def set_mobile
