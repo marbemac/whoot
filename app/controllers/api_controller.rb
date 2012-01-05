@@ -20,7 +20,7 @@ class ApiController < ApplicationController
       }
       user = User.find_by_omniauth(omniauth, signed_in_resource=nil)
       user.reset_authentication_token!
-      token = {:status => :ok, :token => user.authentication_token}
+      token = {:status => :ok, :token => user.authentication_token, :public_id => user.encoded_id }
     else
       token = {:status => :error, :token => nil}
     end
