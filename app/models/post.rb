@@ -262,18 +262,22 @@ class Post
     end
 
     def convert_for_api(post)
-      {
-              :id => post.id,
-              :comment_count => post.comment_count,
-              :comments => Comment.convert_for_api(post.comments),
-              :votes_count => post.votes,
-              :created_at => post.created_at,
-              :night_type => post.night_type,
-              :created_by => UserSnippet.convert_for_api(post.user_snippet),
-              :tag => Tag.convert_for_api(post.tag),
-              :venue => Venue.convert_for_api(post.venue),
-              :voters => post.voters.map{|v| UserSnippet.convert_for_api(v)}
-      }
+      if post
+        {
+                :id => post.id,
+                :comment_count => post.comment_count,
+                :comments => Comment.convert_for_api(post.comments),
+                :votes_count => post.votes,
+                :created_at => post.created_at,
+                :night_type => post.night_type,
+                :created_by => UserSnippet.convert_for_api(post.user_snippet),
+                :tag => Tag.convert_for_api(post.tag),
+                :venue => Venue.convert_for_api(post.venue),
+                :voters => post.voters.map{|v| UserSnippet.convert_for_api(v)}
+        }
+      else
+        nil
+      end
     end
   end
 

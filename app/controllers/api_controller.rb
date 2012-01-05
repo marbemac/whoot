@@ -32,7 +32,14 @@ class ApiController < ApplicationController
     unless signed_in?
       response = {:status => :not_authenticated}
     else
-      posts = Post.following_feed(current_user, session[:feed_filters], true)
+      filters = {
+            :display => params[:display] ? params[:display].split(',') : ['working', 'low_in', 'low_out', 'big_out'],
+            :sort => {
+                    :target => params[:sort] ? params[:sort].split(',')[0] : 'created_at',
+                    :order => params[:sort] ? params[:sort].split(',')[1] : 'DESC'
+            }
+      }
+      posts = Post.following_feed(current_user, filters, true)
       data = []
       posts.each do |post|
         data << Post.convert_for_api(post)
@@ -45,9 +52,23 @@ class ApiController < ApplicationController
 
   def me
     unless signed_in?
-      response = {:status => :not_authenticated}
+      response = {:json => {:status => 'error'}, :status => :not_authenticated}
     else
       response = {:json => {:status => 'ok', :data => User.convert_for_api(current_user)}}
+    end
+    render response
+  end
+
+  def undecided
+    unless signed_in?
+      response = {:json => {:status => 'error'}, :status => :not_authenticated}
+    else
+      undecided = User.undecided(current_user).order_by([[:first_name, :asc], [:last_name, :desc]]).to_a
+      data = []
+      undecided.each do |user|
+        data << User.convert_for_api(user)
+      end
+      response = {:json => {:status => 'ok', :data => data}}
     end
     render response
   end
