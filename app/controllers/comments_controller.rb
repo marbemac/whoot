@@ -24,6 +24,7 @@ class CommentsController < ApplicationController
         content = {:status => 'OK', :comment => html, :root_id => post.id, :user_id => post.user_snippet.id, :event => 'comment_created' }
         render json: content, status: :created
       else
+        #TODO: marc, is this supposed to be :status => :ok?
         render json: {:status => :ok, :errors => @comment.errors}, status: :unprocessable_entity
       end
     end
