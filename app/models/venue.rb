@@ -141,7 +141,8 @@ class Venue
         data = {
               :id => venue.id,
               :name => venue.name,
-              :address => venue.address
+              :address => venue.address,
+              :coordinates => venue.coordinates,
         }
       else
         data = nil
