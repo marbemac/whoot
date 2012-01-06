@@ -55,7 +55,8 @@
             <%= link_to 'About', about_path %><span>.</span>
             <%= link_to 'Contact', contact_path %><span>.</span>
             <%= link_to 'Terms', terms_path %><span>.</span>
-            <%= link_to 'Privacy', privacy_path %>
+            <%= link_to 'Privacy', privacy_path %><span>.</span>
+            <%= link_to 'FAQ', faq_path %>
             <% if current_user.role?('admin') %>
               <span>.</span><%= link_to 'Admin Area', git_er_done_dashboard_path %>
             <% end %>

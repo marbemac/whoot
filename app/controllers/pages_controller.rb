@@ -18,4 +18,8 @@ class PagesController < ApplicationController
   def terms
     @title = "Terms"
   end
+
+  def faq
+    @title = "Terms"
+  end
 end
