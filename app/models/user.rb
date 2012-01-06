@@ -426,8 +426,8 @@ class User
       joined
     end
 
-    def convert_for_api(user)
-      {
+    def convert_for_api(user, current_user=nil)
+      data = {
               :id => user.id,
               :first_name => user.first_name,
               :last_name => user.last_name,
@@ -439,6 +439,8 @@ class User
               :following_users_count => user.following_users_count.to_i,
               :followers_count => user.followers_count.to_i
       }
+      data[:is_following] = current_user.following_users.include?(user.id) if current_user
+      data
     end
   end
 end

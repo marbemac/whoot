@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       if params[:format] == :api
-        response = {:json => {:status => 'ok', :data => User.convert_for_api(@user)}}
+        response = {:json => {:status => 'ok', :data => User.convert_for_api(@user, current_user)}}
         render response
       end
 
