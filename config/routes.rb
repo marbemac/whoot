@@ -106,6 +106,7 @@ Whoot::Application.routes.draw do
   get 'contact' => 'pages#contact', :as => :contact
   get 'terms' => 'pages#terms', :as => :terms
   get 'privacy' => 'pages#privacy', :as => :privacy
+  get 'faq' => 'pages#faq', :as => :faq
 
   root :to => "pages#home"
 
