@@ -24,7 +24,7 @@ class VenueSnippet
       elsif address.city
         pretty += address.city
       end
-      pretty += ', '+address.state_code
+      pretty += ', '+address.state_code if address.state_code
     end
     pretty
   end
