@@ -6,8 +6,8 @@
   </div>
 
   <div class="content">
-    <% #TODO: Change this to cancan (getting "can?" method undefined): if can? :destroy, comment %>
-    <% if current_user.id == comment.user_snippet.id || current_user.role?("admin") %>
+    <% #TODO: Change this workaround to cancan (getting "can?" method undefined): if can? :destroy, comment %>
+    <% if current_user.id == comment.user_snippet.id || current_user.id == comment.has_comments.user_snippet.id || current_user.role?("admin") %>
       <div class="ac disable conf hide" title="delete this comment" data-m="DELETE" data-url="<%= comment_path comment %>">X</div>
     <% end %>
     <%= comment.content %>

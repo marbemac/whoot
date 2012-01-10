@@ -55,6 +55,7 @@ class Comment
 
   def current_user_own
     grant_owner(user_snippet.id)
+    grant_permission(has_comments.user_snippet.id, "destroy")
   end
 
 end
