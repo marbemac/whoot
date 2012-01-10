@@ -2,6 +2,7 @@ class Comment
   include Mongoid::Document
   include Mongoid::Paranoia
   include Mongoid::Timestamps
+  include Whoot::Acl
 
   field :status, :default => 'Active'
   field :content
@@ -19,6 +20,7 @@ class Comment
   embeds_one :user_snippet, :as => :user_assignable, :class_name => 'UserSnippet'
   embedded_in :has_comments, polymorphic: true
 
+  before_create :current_user_own
   after_create :clear_caches
   after_destroy :clear_caches
 
@@ -49,6 +51,10 @@ class Comment
       end
       data
     end
+  end
+
+  def current_user_own
+    grant_owner(user_snippet.id)
   end
 
 end

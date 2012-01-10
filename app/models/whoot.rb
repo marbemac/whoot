@@ -35,8 +35,8 @@ module Whoot #:nodoc:
     #
     # @return [ bool ]
     def grant_owner(object_id)
-      self.grant_permission(object_id, "edit")
-      self.grant_permission(object_id, "delete")
+      self.grant_permission(object_id, "update")
+      self.grant_permission(object_id, "destroy")
     end
 
     # @example Allow the given MongoId to edit this document

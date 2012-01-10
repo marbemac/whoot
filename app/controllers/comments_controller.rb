@@ -33,6 +33,23 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    post = Post.first(conditions: { "comments._id" => BSON::ObjectId(params[:id]) })
+    if post
+      comment = post.comments.find(params[:id])
+      if can? :destroy, comment
+        post.remove_comment(comment)
+
+        content = {:status => 'ok', :event => 'comment_destroyed', :comment_id => comment.id, :user_id => post.user_snippet.id}
+        render json: content, status: :created
+      else
+        render json: {:status => 'error', :flash => {:type => "error", :message => "You do not have permission to delete that!"}}, status: 400
+      end
+    else
+      render json: {:status => 'error', :flash => {:type => "error", :message => "Could not find post"}}, status: 400
+    end
+  end
+
   def ajax
     post = Post.find(params[:post_id])
     comment = post.comments.detect{|c| c.id.to_s == params[:comment_id]}

@@ -203,6 +203,12 @@ class Post
     comment
   end
 
+  def remove_comment(comment)
+    comment.destroy
+    self.comment_count -= 1
+    save
+  end
+
   def user
     User.find(user_snippet.id)
   end

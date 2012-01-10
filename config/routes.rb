@@ -46,7 +46,7 @@ Whoot::Application.routes.draw do
   scope 'comments' do
     get 'ajax' => 'comments#ajax', :as => :comments_ajax
   end
-  resources :comments, :only => :create
+  resources :comments, :only => [:create, :destroy]
 
   # Uploads
   match "/upload" => "uploads#create", :as => :upload_tmp
