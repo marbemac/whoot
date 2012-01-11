@@ -37,6 +37,7 @@ class User
   field :votes_count, :default => 0
   field :invited_emails, :default => []
   field :last_invite_time
+  field :device_token
 
   auto_increment :public_id
 
@@ -59,7 +60,7 @@ class User
   )
 
   embeds_many :social_connects
-  embeds_one :current_post, :class_name => 'PostSnippet'
+  embeds_one :current_post, :as => :post_assignable, :class_name => 'PostSnippet'
   embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
   embeds_one :settings, :class_name => 'UserSettings'
   has_many :tags
@@ -219,7 +220,7 @@ class User
         )
       end
 
-      Notification.add(user, 'follow', (user.settings.email_follow ? true : false), false, false, self, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
+      Notification.add(user, :follow, (user.settings.email_follow ? true : false), self, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')])
       follow.active = true
       follow.save
 
@@ -239,7 +240,7 @@ class User
                 :to_user_id => user.id
         )
       end
-      Notification.remove(user, 'follow', self, nil, nil)
+      Notification.remove(user, :follow, self, nil, nil)
       follow.active = false
       follow.save
 

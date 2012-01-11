@@ -57,9 +57,9 @@
             <%= link_to 'Terms', terms_path %><span>.</span>
             <%= link_to 'Privacy', privacy_path %><span>.</span>
             <%= link_to 'FAQ', faq_path %>
-            <% if current_user.role?('admin') %>
-              <span>.</span><%= link_to 'Admin Area', git_er_done_dashboard_path %>
-            <% end %>
+            <%# if current_user.role?('admin') %>
+              <%#= link_to 'Admin Area', git_er_done_dashboard_path %>
+            <%# end %>
 
             <div class="fb-like" id="footer-fb-like" data-href="http://www.facebook.com/pages/Whoot/192579647454740" data-send="false" data-layout="button_count" data-width="125" data-show-faces="true" data-font="verdana"></div>
             <a href="https://twitter.com/TheWhoot" class="twitter-follow-button" data-width="150px" data-show-count="false">Follow @TheWhoot</a>

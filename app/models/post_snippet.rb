@@ -3,8 +3,9 @@ class PostSnippet
 
   field :night_type
   field :created_at, :type => Time
+  field :comment_id
 
-  embedded_in :user
+  embedded_in :post_assignable, polymorphic: true
 
   embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
   embeds_one :tag, :as => :taggable, :class_name => 'TagSnippet'

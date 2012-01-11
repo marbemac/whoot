@@ -35,7 +35,6 @@ class Post
   validate :valid_venue, :max_tags, :max_characters
   attr_accessible :night_type, :venue, :tag
   attr_accessor :user_id
-  belongs_to :user, :foreign_key => 'user_snippet.id'
 
   before_create :set_venue_snippet, :process_tag
   after_create :set_user_location, :clear_caches

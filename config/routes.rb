@@ -78,6 +78,7 @@ Whoot::Application.routes.draw do
       delete 'follow' => 'follows#destroy', :defaults => { :format => :api }
       post 'ping' => 'pings#create', :defaults => { :format => :api }
       get 'undecided' => 'api#undecided', :defaults => { :format => :api }
+      get 'facebook-friends' => 'api#facebook_friends', :defaults => { :format => :api }
       get 'users/me' => 'api#me', :defaults => { :format => :api }
       get 'users/:id/following' => 'users#following_users', :defaults => { :format => :api }
       get 'users/:id/followers' => 'users#followers', :defaults => { :format => :api }
@@ -97,7 +98,7 @@ Whoot::Application.routes.draw do
     put '/location' => 'users#change_location', :as => :user_change_location
   end
 
-  ActiveAdmin.routes(self)
+  #ActiveAdmin.routes(self)
   resources :users, :only => :show
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 

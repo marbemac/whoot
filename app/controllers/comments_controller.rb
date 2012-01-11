@@ -7,10 +7,7 @@ class CommentsController < ApplicationController
 
       if @comment.valid?
         user = post.user
-
-        if current_user.id != user.id
-          Pusher["#{user.id.to_s}_private"].trigger('notification', {:content => "#{current_user.fullname} commented on your post."})
-        end
+        @comment.send_notifications(current_user)
         Pusher[post.user_snippet.id.to_s].trigger('comment_added', {
                 :user_id => post.user_snippet.id.to_s,
                 :post_id => post.id.to_s,
@@ -18,7 +15,6 @@ class CommentsController < ApplicationController
                 :comment_count => post.comment_count,
                 :created_by => @comment.user_snippet.id.to_s
         })
-        Notification.add(user, 'comment', (user.settings.email_comment ? true : false), true, false, current_user, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')], nil)
 
         if params[:format] == :api
           render :json => {:status => 'ok', :data => nil}, :status => :created

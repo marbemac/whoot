@@ -38,6 +38,24 @@ class Comment
     has_comments.clear_post_cache
   end
 
+  def send_notifications(current_user)
+    Notification.add(_parent.user, :comment, true, current_user, nil, nil, true, _parent, _parent.user, self)
+
+    siblings = _parent.comments
+
+    used_comments = []
+    siblings.each do |sibling|
+      unless _parent.user_snippet.id == sibling.user_snippet.id || sibling.user_snippet.id == current_user.id && used_comments.include?(sibling.user_snippet.id.to_s)
+        used_comments << sibling.user_snippet.id.to_s
+        Notification.add(sibling.user, :also, true, current_user, nil, nil, true, _parent, _parent.user, self)
+      end
+    end
+  end
+
+  def user
+    User.find(user_snippet.id)
+  end
+
   class << self
     def convert_for_api(comments)
       data = []

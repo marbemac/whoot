@@ -20,6 +20,13 @@ class ApiController < ApplicationController
       }
       user = User.find_by_omniauth(omniauth, signed_in_resource=nil)
       user.reset_authentication_token!
+
+      if user && params[:device_token] && !params[:device_token].blank?
+        user.device_token = params[:device_token]
+        user.save
+        Urbanairship.register_device params[:device_token]
+      end
+
       token = {:status => :ok, :token => user.authentication_token, :public_id => user.encoded_id }
     else
       token = {:status => :error, :token => nil}
@@ -71,6 +78,29 @@ class ApiController < ApplicationController
       response = {:json => {:status => 'ok', :data => data}}
     end
     render response
+  end
+
+  def facebook_friends
+    if signed_in?
+      fb = current_user.facebook
+      if fb
+        friends = fb.get_connections("me", "friends")
+        friends_uids = friends.map{|friend| friend['id']}
+        @registeredFriends = User.where("social_connects.uid" => {"$in" => friends_uids}, 'social_connects.provider' => 'facebook')
+      else
+        @registeredFriends = Array.new
+      end
+      data = []
+      @registeredFriends.each do |friend|
+        data << User.convert_for_api(friend)
+      end
+      status = 'ok'
+    else
+      status = 'error'
+      data = []
+    end
+
+    render :json => {:status => status, :data => data}
   end
 
   private
