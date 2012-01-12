@@ -73,7 +73,7 @@ class ApiController < ApplicationController
       undecided = User.undecided(current_user).order_by([[:first_name, :asc], [:last_name, :desc]]).to_a
       data = []
       undecided.each do |user|
-        data << User.convert_for_api(user)
+        data << User.convert_for_api(user, current_user)
       end
       response = {:json => {:status => 'ok', :data => data}}
     end
@@ -92,7 +92,7 @@ class ApiController < ApplicationController
       end
       data = []
       @registeredFriends.each do |friend|
-        data << User.convert_for_api(friend)
+        data << User.convert_for_api(friend, current_user)
       end
       status = 'ok'
     else
