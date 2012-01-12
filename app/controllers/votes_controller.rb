@@ -6,7 +6,7 @@ class VotesController < ApplicationController
     if target_post
       target_post.add_voter(current_user)
 
-      html = render_to_string :partial => 'users/link', :locals => {:user => current_user, :name => current_user.fullname}
+      html = render_to_string :partial => 'users/link', :locals => {:base => '', :user => current_user, :name => current_user.fullname}
       if target_post.save
         Pusher["#{target_post.user_snippet.id.to_s}_private"].trigger('notification', {:content => "#{current_user.fullname} +1'd your post."})
         Pusher[target_post.user_snippet.id.to_s].trigger('voted', {
