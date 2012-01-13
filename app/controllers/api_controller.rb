@@ -35,6 +35,24 @@ class ApiController < ApplicationController
     render :json => token
   end
 
+  def set_device_token
+    unless signed_in?
+      response = {:status => :not_authenticated}
+    else
+      if params[:device_token] && params[:device_type] && ['Android', 'IOS'].include?(params[:device_type])
+        current_user.device_token = params[:device_token]
+        current_user.device_type = params[:device_type]
+        current_user.save
+        status = :ok
+      else
+        status = :error
+      end
+      response = {:status => status, :data => []}
+    end
+
+    render :json => response
+  end
+
   def posts
     unless signed_in?
       response = {:status => :not_authenticated}

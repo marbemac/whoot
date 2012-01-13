@@ -38,6 +38,7 @@ class User
   field :invited_emails, :default => []
   field :last_invite_time
   field :device_token
+  field :device_type
 
   auto_increment :public_id
 

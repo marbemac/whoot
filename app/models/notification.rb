@@ -178,13 +178,7 @@ class Notification
         end
         if notification.notify
           if target_user.device_token
-            notification = {
-              :schedule_for => [10.seconds.from_now],
-              :device_tokens => [target_user.device_token],
-              :aps => {:alert => "#{triggered_by_user.fullname} #{notification.notification_text(1)}", :badge => "+1"}
-            }
-
-            if Urbanairship.push notification
+            if Notification.send_push_notification(target_user.device_token, target_user.device_type, "#{triggered_by_user.fullname} #{notification.notification_text(1)}")
               notification.pushed = true
               notification.save
             end
@@ -223,6 +217,25 @@ class Notification
           notification.save
         end
       end
+    end
+
+    def send_push_notification(device_token, device_type, message)
+      case target_user.device_type
+        when 'Android'
+          notification = {
+            :schedule_for => [10.seconds.from_now],
+            :apids => [target_user.device_token],
+            :android => {:alert => message}
+          }
+        when 'IOS'
+          notification = {
+            :schedule_for => [10.seconds.from_now],
+            :device_tokens => [target_user.device_token],
+            :aps => {:alert => message, :badge => "+1"}
+          }
+      end
+
+      Urbanairship.push(notification) if notification
     end
 
   end
