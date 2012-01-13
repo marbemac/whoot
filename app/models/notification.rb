@@ -181,7 +181,7 @@ class Notification
             notification = {
               :schedule_for => [10.seconds.from_now],
               :device_tokens => [target_user.device_token],
-              :aps => {:alert => "#{triggered_by_user.full_name} #{notification_text(1)}", :badge => "+1"}
+              :aps => {:alert => "#{triggered_by_user.fullname} #{notification_text(1)}", :badge => "+1"}
             }
 
             if Urbanairship.push notification
