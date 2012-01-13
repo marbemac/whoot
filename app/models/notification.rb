@@ -220,17 +220,17 @@ class Notification
     end
 
     def send_push_notification(device_token, device_type, message)
-      case target_user.device_type
+      case device_type
         when 'Android'
           notification = {
             :schedule_for => [10.seconds.from_now],
-            :apids => [target_user.device_token],
+            :apids => [device_token],
             :android => {:alert => message}
           }
         when 'IOS'
           notification = {
             :schedule_for => [10.seconds.from_now],
-            :device_tokens => [target_user.device_token],
+            :device_tokens => [device_token],
             :aps => {:alert => message, :badge => "+1"}
           }
       end

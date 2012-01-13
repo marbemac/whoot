@@ -21,12 +21,6 @@ class ApiController < ApplicationController
       user = User.find_by_omniauth(omniauth, signed_in_resource=nil)
       user.reset_authentication_token!
 
-      if user && params[:device_token] && !params[:device_token].blank?
-        user.device_token = params[:device_token]
-        user.save
-        Urbanairship.register_device params[:device_token]
-      end
-
       token = {:status => :ok, :token => user.authentication_token, :public_id => user.encoded_id }
     else
       token = {:status => :error, :token => nil}
