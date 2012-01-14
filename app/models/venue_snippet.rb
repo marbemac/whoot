@@ -17,7 +17,7 @@ class VenueSnippet
   def pretty_name
     pretty = ''
     if !name.blank?
-      pretty = name+', '+address.state_code
+      pretty = name+', '+(address ? address.state_code : '')
     else
       if address.street
         pretty += address.street
