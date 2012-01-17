@@ -37,6 +37,7 @@ class ApiController < ApplicationController
         current_user.device_token = params[:device_token]
         current_user.device_type = params[:device_type]
         current_user.save
+        Urbanairship.register_device params[:device_token] if params[:device_type] == 'IOS'
         status = :ok
       else
         status = :error
