@@ -2,8 +2,10 @@
 
 <% @notifications.each do |notification| %>
   <% if notification.type == 'follow' %>
-      - You have <%= pluralize(notification.triggered_users_notify_count.to_i, 'new follower') %>! <%= notification.triggered_users_notify_string %> <%= notification.triggered_users_notify_count > 1 ? 'are' : 'is' %> now following you.
+    - You have <%= pluralize(notification.triggered_users_notify_count.to_i, 'new follower') %>! Login to view them.
   <% elsif notification.type == 'comment' %>
-      - You have <%= pluralize(notification.triggered_users_notify_count.to_i, 'new comment') %> on your post! <%= notification.triggered_users_notify_string %> commented.
+    - You have <%= pluralize(notification.triggered_users_notify_count.to_i, 'new comment') %> on your post!
+  <% elsif notification.type == 'also' %>
+    - <%= pluralize(notification.triggered_users_notify_count.to_i, 'person') %> also commented on <%= notification.object_user.first_name %>'s post!
   <% end %>
 <% end %>

@@ -75,7 +75,7 @@ class UsersController < ApplicationController
     if params[:format] == :api
       following = []
       @following_users.each do |user|
-        following << User.convert_for_api(user)
+        following << User.convert_for_api(user, current_user)
       end
       response = {:json => {:status => 'ok', :data => following}}
       render response
@@ -89,7 +89,7 @@ class UsersController < ApplicationController
     if params[:format] == :api
       followers = []
       @followers.each do |user|
-        followers << User.convert_for_api(user)
+        followers << User.convert_for_api(user, current_user)
       end
       response = {:json => {:status => 'ok', :data => followers}}
       render response
