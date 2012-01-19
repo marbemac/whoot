@@ -29,6 +29,13 @@ class VenueSnippet
     pretty
   end
 
+  def city
+    city = ''
+    city += address.city if address.city
+    city += ', ' + address.state_code if address.state_code
+    city
+  end
+
   def full_address
     full = ''
     if address.street
