@@ -91,7 +91,7 @@ class PostsController < ApplicationController
       if post.venue
         unless venue_ids.key? post.venue.id
           venue_ids[post.venue.id] = venues.length
-          venues << {:id => post.venue.id.to_s, :coordinates => post.venue.coordinates, :count => 0, :name => post.venue.pretty_name, :location => post.location.full}
+          venues << {:id => post.venue.id.to_s, :coordinates => post.venue.coordinates, :count => 0, :name => post.venue.pretty_name, :location => post.venue.city}
           venue_count += 1
         end
         venues[venue_ids[post.venue.id]][:count] += 1

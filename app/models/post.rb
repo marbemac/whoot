@@ -33,8 +33,9 @@ class Post
 
   validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing, or partying)" }
   validate :valid_venue, :max_tags, :max_characters
-  attr_accessible :night_type, :venue, :tag
-  attr_accessor :user_id
+  attr_accessible :night_type, :venue, :tag, :address_placeholder
+  attr_accessor :user_id, :address_placeholder
+  belongs_to :user, :foreign_key => 'user_snippet.id'
 
   before_create :set_venue_snippet, :process_tag
   after_create :set_user_location, :clear_caches
@@ -52,9 +53,9 @@ class Post
   end
 
   def valid_venue
-    #if venue && !venue.address_string.blank? && venue.coordinates_string.blank?
-    #  errors.add(:venue_address, "Your venue address is invalid. Please pick a valid address from the dropdown that appears when you start typing.")
-    #end
+    if !address_placeholder.blank? && venue.address_string.blank?
+      errors.add(:venue_address, "Your venue address is invalid. Please pick a valid address from the dropdown that appears when you start typing.")
+    end
   end
 
   def night_type_short
