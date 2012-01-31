@@ -78,7 +78,7 @@ class User
   attr_accessor :current_ip
 
   before_create :generate_username, :set_settings
-  after_create :follow_admins, :save_profile_image, :send_welcome_email, :update_invites
+  after_create :save_profile_image, :send_welcome_email, :update_invites
   before_destroy :remove_from_soulmate
   before_save :set_location_snippet, :add_to_soulmate
 
