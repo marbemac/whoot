@@ -442,6 +442,7 @@ class User
               :followers_count => user.followers_count.to_i
       }
       data[:is_following] = current_user.following_users.include?(user.id) if current_user
+      data[:has_pinged] = user.pinged_today_by?(current_user.id) if current_user
       data
     end
   end
