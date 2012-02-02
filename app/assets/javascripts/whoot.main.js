@@ -8,7 +8,7 @@ $(function() {
   $(document).keypress(function(e) {
     var $code = e.which ? e.which : e.keyCode;
     if (e.ctrlKey && ($code == 108 || $code == 12)) {
-      $('#auth-login').fadeToggle(300);
+      $('#auth-login,#fb_login').fadeToggle(300);
       return false;
     }
     else if (e.ctrlKey && ($code == 99 || $code == 3)) {
