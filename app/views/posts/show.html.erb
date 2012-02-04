@@ -5,8 +5,8 @@
   </div>
 
   <div class="right">
-    <% if @post.venue %>
-      <h4 class="venue">@ <%= @post.venue.pretty_name %></h4>
+    <% if @post.has_venue? %>
+      <h4 class="venue">@ <%= @post.venue_pretty_name %></h4>
     <% end %>
     <div class="comment-feed cf-<%= @post.id %>">
       <%= render "comments/form", :post => @post %>

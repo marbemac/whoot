@@ -8,8 +8,8 @@
 
     <div class="clear"></div>
 
-    <% if @my_post.venue %>
-      <h6>@ <%= @my_post.venue.pretty_name %></h6>
+    <% if @my_post.has_venue? %>
+      <h6>@ <%= @my_post.venue_pretty_name %></h6>
     <% end %>
 
     <div class="tags">

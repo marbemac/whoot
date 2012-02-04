@@ -2,8 +2,8 @@
   <div class="item on" data-target="#post-feed"><div class="head">Posts</div></div>
   <div class="item ac" data-target="#post-map" data-url="<%= post_map_path %>" data-m="get"><div class="head">Map</div></div>
   <div id="trending-barC" class="item no-tog"><div class="head">Trending in <%= @user.location.city %></div></div>
-  <% if @my_post && @my_post.venue %>
-    <div class="item ac" data-target="#post-my-venue" data-url="<%= venue_attending_path @my_post.venue.id %>" data-m="get"><div class="head">Friends going to <span><%= @my_post.venue.pretty_name %></span></div></div>
+  <% if @my_post && @my_post.has_venue? %>
+    <div class="item ac" data-target="#post-my-venue" data-m="get"><div class="head">Friends going to <span><%= @my_post.venue_pretty_name %></span></div></div>
   <% end %>
   <div class="locations" data-url='<%= user_change_location_path %>'>
     <div class="mine"><%= @user.location.full %></div>

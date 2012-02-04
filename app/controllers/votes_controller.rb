@@ -8,7 +8,7 @@ class VotesController < ApplicationController
 
       html = render_to_string :partial => 'users/link', :locals => {:base => '', :user => current_user, :name => current_user.fullname}
       if target_post.save
-        Pusher["#{target_post.user_snippet.id.to_s}_private"].trigger('notification', {:content => "#{current_user.fullname} +1'd your post."})
+        Pusher["#{target_post.user_snippet.id.to_s}_private"].trigger('notification', {:content => "#{current_user.fullname} looped in to your night."})
         Pusher[target_post.user_snippet.id.to_s].trigger('voted', {
                 :user_id => target_post.user_snippet.id.to_s,
                 :votes => target_post.votes,
