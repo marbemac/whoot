@@ -43,9 +43,19 @@ class Venue
     end
   end
 
-  index [[:coordinates, Mongo::GEO2D]], :min => -180, :max => 180
+  index (
+          [
+                  [:coordinates, Mongo::GEO2D, :min => -180, :max => 180],
+                  [ :popularity, Mongo::DESCENDING ]
+          ]
+  )
+  index (
+          [
+                  [:_id, Mongo::ASCENDING],
+                  [ :popularity, Mongo::DESCENDING ]
+          ]
+        )
   index :public_id
-  index [[:popularity, Mongo::DESCENDING]]
 
   embeds_one :address, :as => :has_address, :class_name => 'Address'
   belongs_to :city

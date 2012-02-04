@@ -9,6 +9,8 @@ class City
   field :state_code
   slug :name
   field :coordinates, :type => Array
+
+  index :name
   index [[:coordinates, Mongo::GEO2D]], :min => -180, :max => 180
 
   geocoded_by :fullname

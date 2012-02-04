@@ -11,19 +11,21 @@ class Post
   field :address_original
 
   index(
-    [
-      [ :created_at, Mongo::DESCENDING ],
-      [ "user_snippet._id", Mongo::ASCENDING ],
-      [ :current, Mongo::DESCENDING ],
-      [ :night_type, Mongo::ASCENDING ]
-    ]
+          [
+                  ["user_snippet", Mongo::ASCENDING],
+                  [ :created_at, Mongo::DESCENDING ]
+          ]
+
   )
-  index :comment_count
-  index "venue._id"
-  index "venue.public_id"
-  index [["venue.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
-  index [["location.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
-  index [[:votes, Mongo::DESCENDING]]
+  index "comments._id"
+  index(
+          [
+                  ["venue_snippet", Mongo::ASCENDING],
+                  ["user_snippet", Mongo::ASCENDING],
+          ]
+  )
+  #index [["venue.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
+  #index [["location.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
 
   embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
   embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
@@ -266,7 +268,7 @@ class Post
 
   class << self
     def current_post(user)
-      where(:created_at.gte => Post.cutoff_time, 'user_snippet._id' => user.id, :current => true).first
+      where('user_snippet._id' => user.id, :created_at.gte => Post.cutoff_time, :current => true).first
     end
 
     def following_feed(user, feed_filters, include_self = false)

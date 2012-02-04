@@ -43,22 +43,33 @@ class User
   auto_increment :public_id
 
   index :public_id
+  index :slug
+  index(
+          [
+                  [ :_id, Mongo::ASCENDING ],
+                  ["current_post", Mongo::ASCENDING],
+                  [:first_name, Mongo::ASCENDING],
+                  [:last_name, Mongo::ASCENDING]
+          ]
+  )
+  index "social_connects"
+  index(
+          [
+                  [:following_users, Mongo::ASCENDING],
+                  [:first_name, Mongo::ASCENDING],
+                  [:last_name, Mongo::ASCENDING]
+          ]
+  )
+  index(
+          [
+                  [:_id, Mongo::ASCENDING],
+                  [:first_name, Mongo::ASCENDING],
+                  [:last_name, Mongo::ASCENDING]
+          ]
+  )
   index :email
-  index :current_post
-  index [["current_post.created_at", Mongo::DESCENDING]]
-  index [["location.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
-  index(
-    [
-      [ "social_connects.uid", Mongo::ASCENDING ],
-      [ "social_connects.provider", Mongo::ASCENDING ]
-    ]
-  )
-  index(
-    [
-      [ :first_name, Mongo::ASCENDING ],
-      [ :last_name, Mongo::ASCENDING ]
-    ]
-  )
+  index :roles
+  index :invited_emails
 
   embeds_many :social_connects
   embeds_one :current_post, :as => :post_assignable, :class_name => 'PostSnippet'
@@ -273,15 +284,6 @@ class User
       return social if social.provider == provider
     end
     nil
-  end
-
-  def revert_to_last_post_today
-    latest_not_current_post = Post.where(:user_id => id, :current => false, :status => 'Active', :created_at.gte => Post.cutoff_time).first
-
-    if latest_not_current_post
-      latest_not_current_post.current = true
-      latest_not_current_post.save
-    end
   end
 
   def posted_today?

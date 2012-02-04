@@ -16,7 +16,13 @@ class Tag
   field :popularity, :default => 0
 
   index :slug, :unique => true
-  index [[:popularity, Mongo::DESCENDING]]
+  index (
+    [
+            [:_id, Mongo::ASCENDING],
+            [:popularity, Mongo::DESCENDING]
+    ]
+  )
+  index :city_id
 
   belongs_to :user
 
