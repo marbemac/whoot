@@ -44,8 +44,8 @@
               <%= render_cell :post, :create %>
               <%= yield %>
               <% if Rails.env.development? %>
-                <%= debug(params) %>
-                <div id="debug-upload-runtime"></div>
+                <%#= debug(params) %>
+                <!--<div id="debug-upload-runtime"></div>-->
               <% end %>
             </div>
           </div>
@@ -56,7 +56,7 @@
             <%= link_to 'Contact', contact_path %><span>.</span>
             <%= link_to 'Terms', terms_path %><span>.</span>
             <%= link_to 'Privacy', privacy_path %><span>.</span>
-            <%= link_to 'Blog', '#' %><span>.</span>
+            <%= link_to 'Blog', 'http://blog.thewhoot.com' %><span>.</span>
             <%= link_to 'FAQ', faq_path %>
             <%# if current_user.role?('admin') %>
               <%#= link_to 'Admin Area', git_er_done_dashboard_path %>
