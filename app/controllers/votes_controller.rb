@@ -16,6 +16,11 @@ class VotesController < ApplicationController
                 :created_by => current_user.id.to_s,
                 :voter => html
         })
+
+        target_user = User.find(target_post.user_snippet.id)
+        if target_user.device_token
+          Notification.send_push_notification(target_user.device_token, target_user.device_type, "#{current_user.fullname} looped into your night.")
+        end
       end
       response = {:json => {:status => 'ok', :event => :voted, :target => '.vb-'+target_post.id.to_s, :toggle_classes => ['voteB', 'unvoteB', 'btn'], :user_id => target_post.user_snippet.id.to_s, :votes => target_post.votes, :voter => html}, :status => 201}
     else
