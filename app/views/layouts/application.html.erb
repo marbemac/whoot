@@ -44,8 +44,8 @@
               <%= render_cell :post, :create %>
               <%= yield %>
               <% if Rails.env.development? %>
-                <%= debug(params) %>
-                <div id="debug-upload-runtime"></div>
+                <%#= debug(params) %>
+                <!--<div id="debug-upload-runtime"></div>-->
               <% end %>
             </div>
           </div>
