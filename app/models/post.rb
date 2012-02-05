@@ -92,7 +92,7 @@ class Post
 
       # notify people in this loop
       notify_users = User.where(:_id => {"$in" => voters.map{|v| v.id}})
-      text = "is #{night_type}"
+      text = "#{user_snippet.first_name} is #{night_type_short}"
       if has_venue?
         text += " at #{venue_pretty_name}"
       end
