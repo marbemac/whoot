@@ -38,8 +38,11 @@
 <% end %>
 
     <div class="right">
-      <% if post.venue %>
-        <h4 class="venue">@ <%= post.venue.pretty_name %></h4>
+      <% if post.has_venue? %>
+        <h4 class="venue">@ <%= post.venue_pretty_name %></h4>
+        <% if post.venue && post.venue.address %>
+          <div class='address'><%= post.venue.full_address %></div>
+        <%end %>
       <% end %>
       <div class="comment-feed cf-<%= post.id %>">
         <%= render "comments/form", :post => post, :current_user => current_user %>

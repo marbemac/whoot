@@ -23,7 +23,13 @@ class Notification
       [ :created_at, Mongo::DESCENDING ]
     ]
   )
-  [[ :type, Mongo::ASCENDING ]]
+  index(
+    [
+      [ :user_id, Mongo::ASCENDING ],
+      [ :type, Mongo::ASCENDING ]
+    ]
+  )
+
 
   belongs_to :user
 

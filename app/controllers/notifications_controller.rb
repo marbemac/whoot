@@ -3,8 +3,7 @@ class NotificationsController < ApplicationController
 
   def my_notifications
     @notifications = Notification.where(
-            :user_id => current_user.id,
-            :active => true
+            :user_id => current_user.id
     ).order_by(:created_at, 'desc').limit(5)
     @notifications.each do |notification|
       notification.read = true

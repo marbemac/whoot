@@ -14,21 +14,6 @@ class VenueSnippet
     "#{self.public_id.to_i.to_s(36)}-#{self.name.parameterize}"
   end
 
-  def pretty_name
-    pretty = ''
-    if !name.blank?
-      pretty = name+', '+(address ? address.state_code : '')
-    else
-      if address.street
-        pretty += address.street
-      elsif address.city
-        pretty += address.city
-      end
-      pretty += ', '+address.state_code if address.state_code
-    end
-    pretty
-  end
-
   def city
     city = ''
     city += address.city if address.city
@@ -36,16 +21,22 @@ class VenueSnippet
     city
   end
 
+  def pretty_name
+    if name.blank?
+      full_address
+    else
+      name
+    end
+  end
+
   def full_address
-    full = ''
-    if address.street
-      full += address.street
+    parts = []
+    if address
+      parts << address.street unless address.street.blank?
+      parts << address.city unless address.city.blank?
+      parts << address.state_code unless address.state_code.blank?
     end
-    if address.city
-      full += ', '+address.city
-    end
-    full += ', '+address.state_code
-    full
+    parts.join(', ')
   end
 
   def coordinates_string

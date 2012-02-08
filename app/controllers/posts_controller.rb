@@ -42,7 +42,6 @@ class PostsController < ApplicationController
     @post = Post.new(params[:post])
     @post.set_user_snippet(current_user)
     @post.set_location_snippet(current_user)
-    @post.disable_current_post(current_user)
 
     redirect = Post.where("user_snippet._id" => current_user.id).first ? request.referer : invites_path
 
@@ -91,7 +90,7 @@ class PostsController < ApplicationController
       if post.venue
         unless venue_ids.key? post.venue.id
           venue_ids[post.venue.id] = venues.length
-          venues << {:id => post.venue.id.to_s, :coordinates => post.venue.coordinates, :count => 0, :name => post.venue.pretty_name, :location => post.venue.city}
+          venues << {:id => post.venue.id.to_s, :coordinates => post.venue.coordinates, :count => 0, :name => post.venue_pretty_name, :location => post.venue.city}
           venue_count += 1
         end
         venues[venue_ids[post.venue.id]][:count] += 1

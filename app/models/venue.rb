@@ -43,9 +43,19 @@ class Venue
     end
   end
 
-  index [[:coordinates, Mongo::GEO2D]], :min => -180, :max => 180
+  index (
+          [
+                  [:coordinates, Mongo::GEO2D, :min => -180, :max => 180],
+                  [ :popularity, Mongo::DESCENDING ]
+          ]
+  )
+  index (
+          [
+                  [:_id, Mongo::ASCENDING],
+                  [ :popularity, Mongo::DESCENDING ]
+          ]
+        )
   index :public_id
-  index [[:popularity, Mongo::DESCENDING]]
 
   embeds_one :address, :as => :has_address, :class_name => 'Address'
   belongs_to :city
@@ -105,30 +115,21 @@ class Venue
   end
 
   def pretty_name
-    pretty = ''
-    if !name.blank?
-      pretty = name+', '+address.state_code
+    if name.blank?
+      full_address
     else
-      if address.street
-        pretty += address.street
-      elsif address.city
-        pretty += address.city
-      end
-      pretty += ', '+address.state_code
+      name
     end
-    pretty
   end
 
   def full_address
-    full = ''
-    if address.street
-      full += address.street
+    parts = []
+    if address
+      parts << address.street unless address.street.blank?
+      parts << address.city unless address.city.blank?
+      parts << address.state_code unless address.state_code.blank?
     end
-    if address.city
-      full += ', '+address.city
-    end
-    full += ', '+address.state_code
-    full
+    parts.join(', ')
   end
 
   class << self

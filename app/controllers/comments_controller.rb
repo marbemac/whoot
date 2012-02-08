@@ -6,7 +6,6 @@ class CommentsController < ApplicationController
       @comment = post.add_comment(params[:comment], current_user)
 
       if @comment.valid?
-        user = post.user
         @comment.send_notifications(current_user)
         Pusher[post.user_snippet.id.to_s].trigger('comment_added', {
                 :user_id => post.user_snippet.id.to_s,

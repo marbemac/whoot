@@ -8,21 +8,24 @@ class Post
   field :night_type
   field :comment_count, :default => 0
   field :votes, :default => 0
+  field :address_original
 
   index(
-    [
-      [ :created_at, Mongo::DESCENDING ],
-      [ "user_snippet._id", Mongo::ASCENDING ],
-      [ :current, Mongo::DESCENDING ],
-      [ :night_type, Mongo::ASCENDING ]
-    ]
+          [
+                  ["user_snippet", Mongo::ASCENDING],
+                  [ :created_at, Mongo::DESCENDING ]
+          ]
+
   )
-  index :comment_count
-  index "venue._id"
-  index "venue.public_id"
-  index [["venue.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
-  index [["location.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
-  index [[:votes, Mongo::DESCENDING]]
+  index "comments._id"
+  index(
+          [
+                  ["venue_snippet", Mongo::ASCENDING],
+                  ["user_snippet", Mongo::ASCENDING],
+          ]
+  )
+  #index [["venue.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
+  #index [["location.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
 
   embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
   embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
@@ -33,12 +36,12 @@ class Post
 
   validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing, or partying)" }
   validate :valid_venue, :max_tags, :max_characters
-  attr_accessible :night_type, :venue, :tag, :address_placeholder
+  attr_accessible :night_type, :venue, :tag, :address_original
   attr_accessor :user_id, :address_placeholder
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
   before_create :set_venue_snippet, :process_tag
-  after_create :set_user_location, :clear_caches
+  after_create :update_loop, :set_user_location, :clear_caches
 
   def max_tags
     if tag && tag.name.split(' ').length > 3
@@ -76,6 +79,29 @@ class Post
     self.location = LocationSnippet.new(
           user.location.attributes
     )
+  end
+
+  def update_loop
+    old_post = Post.where('user_snippet._id' => user_snippet.id).order_by(:created_at, :desc).skip(1).first
+    if old_post
+      old_post.current = false
+      old_post.save
+      self.votes = old_post.votes
+      self.voters = old_post.voters
+      save
+
+      # notify people in this loop
+      notify_users = User.where(:_id => {"$in" => voters.map{|v| v.id}})
+      text = "#{user_snippet.first_name} is #{night_type_short}"
+      if has_venue?
+        text += " at #{venue_pretty_name}"
+      end
+      notify_users.each do |u|
+        if u.device_token
+          Notification.send_push_notification(u.device_token, u.device_type, text)
+        end
+      end
+    end
   end
 
   def set_venue_snippet
@@ -120,6 +146,18 @@ class Post
     end
   end
 
+  def has_venue?
+    !address_original.blank? || venue
+  end
+
+  def venue_pretty_name
+    if !address_original.blank? && (!venue || venue.name.blank?)
+      address_original
+    else
+      venue.pretty_name
+    end
+  end
+
   def has_voter?(user)
     voters.detect{|v| v.id == user.id}
   end
@@ -156,20 +194,15 @@ class Post
     end
   end
 
-  def disable_current_post(user)
-    current_post = Post.current_post(user)
-    if (current_post)
-      current_post.current = false
-      current_post.save
-    end
-  end
-
   def set_user_post_snippet(user)
     # Send emails to the users that pinged this user
     unless user.posted_today? || !user.pings_today_date || user.pings_today_date <= Post.cutoff_time
       users = User.where(:_id.in => user.pings_today)
       users.each do |to_user|
         PingMailer.pinged_user_posted(user, to_user).deliver
+        if to_user.device_token
+          Notification.send_push_notification(to_user.device_token, to_user.device_type, "#{user.first_name} posted what #{user.gender_pronoun}'s up to tonight!")
+        end
       end
     end
     post_snippet = PostSnippet.new(
@@ -235,7 +268,7 @@ class Post
 
   class << self
     def current_post(user)
-      where(:created_at.gte => Post.cutoff_time, 'user_snippet._id' => user.id, :current => true).first
+      where('user_snippet._id' => user.id, :created_at.gte => Post.cutoff_time, :current => true).first
     end
 
     def following_feed(user, feed_filters, include_self = false)

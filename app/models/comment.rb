@@ -7,13 +7,6 @@ class Comment
   field :status, :default => 'Active'
   field :content
 
-  index(
-    [
-      [ :post_id, Mongo::DESCENDING ],
-      [ :status, Mongo::ASCENDING ],
-    ]
-  )
-
   validates :content, :length => { :in => 2..200 }
   attr_accessible :content
 

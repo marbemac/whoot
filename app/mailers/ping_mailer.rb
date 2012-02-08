@@ -10,6 +10,6 @@ class PingMailer < ActionMailer::Base
   def pinged_user_posted(from_user, to_user)
     @from_user = from_user
     @to_user = to_user
-    mail(:to => "#{to_user.fullname} <#{to_user.email}>", :subject => "#{from_user.first_name} posted what #{@from_user.gender_pronoun}'s up to tonight!")
+    mail(:to => "#{to_user.fullname} <#{to_user.email}>", :subject => "#{@from_user.first_name} posted what #{@from_user.gender_pronoun}'s up to tonight!")
   end
 end
