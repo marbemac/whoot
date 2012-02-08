@@ -233,7 +233,7 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
-    rails (3.2.0)
+    rails (3.2.1)
       actionmailer (= 3.2.0)
       actionpack (= 3.2.0)
       activerecord (= 3.2.0)
@@ -403,7 +403,7 @@ DEPENDENCIES
   omniauth-facebook
   pry
   pusher
-  rails (= 3.2.0)
+  rails (= 3.2.1)
   rails-footnotes
   rb-fsevent
   redcarpet
