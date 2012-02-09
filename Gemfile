@@ -47,8 +47,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :production do
-  gem 'unicorn'
+group :production, :staging do
+  gem 'thin'
 end
 
 group :development do
