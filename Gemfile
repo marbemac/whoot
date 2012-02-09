@@ -12,7 +12,7 @@ gem 'devise' # Authentication
 gem 'koala' # facebook graph api support
 gem "omniauth"
 gem "omniauth-facebook"
-gem 'cells' # Components
+gem 'cells', '3.8.0' # Components
 gem 'yajl-ruby' # json processing
 gem 'redcarpet' # Markdown
 gem 'fog' # Cloud support (amazon s3, etc)
