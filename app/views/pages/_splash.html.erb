@@ -1,6 +1,10 @@
 <% cache("splash") do %>
   <div id="splash">
     <%= link_to "", user_omniauth_authorize_path(:facebook), :id => 'fb_login', :class => 'hide' %>
+    <div id="coming-soon">
+      Coming February 16th!
+      <div id="site-launch-cd"></div>
+    </div>
     <!--<div id="why_facebook">Why is a Facebook account required to access The Whoot?</div>-->
     <%= image_tag "splash-logo-small.png", :class => "logo", :alt => "The Whoot" %>
     <%= image_tag "splash-map.png", :class => "map", :alt => "Post what you are up to tonight" %>

@@ -12,6 +12,7 @@
 //= require jquery-ui.min
 //= require amplify
 //= require plupload/plupload.full
+//= require jquery.jcountdown1.4
 //= require jquery.colorbox
 //= require jquery.timer
 //= require jquery.qtip

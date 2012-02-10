@@ -82,7 +82,7 @@ class Post
   end
 
   def update_loop
-    old_post = Post.where('user_snippet._id' => user_snippet.id).order_by(:created_at, :desc).skip(1).first
+    old_post = Post.where('user_snippet._id' => user_snippet.id, :created_at.gte => Post.cutoff_time).order_by(:created_at, :desc).skip(1).first
     if old_post
       old_post.current = false
       old_post.save

@@ -8,7 +8,7 @@ $(function() {
   $(document).keypress(function(e) {
     var $code = e.which ? e.which : e.keyCode;
     if (e.ctrlKey && ($code == 108 || $code == 12)) {
-      $('#auth-login,#fb_login').fadeToggle(300);
+      $('#auth-login,#fb_login,#coming-soon').fadeToggle(300);
       return false;
     }
     else if (e.ctrlKey && ($code == 99 || $code == 3)) {
@@ -18,7 +18,13 @@ $(function() {
     else if (e.ctrlKey && ($code == 101 || $code == 5)) {
       window.location = document.URL + '?_switch_user=_exit';
     }
-  })
+  });
+
+  $("#site-launch-cd").countdown({
+    "date": "february 16, 2012 00:00:00",
+    "fx": "fade"
+  });
+
 
   $('#why_facebook').qtip({
     content: {
