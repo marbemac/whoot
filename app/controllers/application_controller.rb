@@ -82,9 +82,9 @@ class ApplicationController < ActionController::Base
   end
   helper_method :mobile_device?
 
-  def prepare_for_mobile
-    session[:mobile_param] = params[:api] if params[:api]
-    request.format = :api if mobile_device?
-  end
+  #def prepare_for_mobile
+  #  session[:mobile_param] = params[:api] if params[:api]
+  #  request.format = :api if mobile_device?
+  #end
 
 end

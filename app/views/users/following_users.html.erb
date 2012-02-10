@@ -2,12 +2,17 @@
   <%= render 'users/header' %>
 <% end %>
 
-<% if !@following_users.empty? %>
-  <ul class="user-list">
-    <% @following_users.each do |follower| %>
-      <%= render 'users/teaser', :user => follower %>
-    <% end %>
-  </ul>
+<% if current_user.id == @user.id || current_user.following_user?(@user.id) %>
+  <% if !@following_users.empty? %>
+    <ul class="user-list">
+      <% @following_users.each do |follower| %>
+        <%= render 'users/teaser', :user => follower %>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="none"><%= @user.first_name %> is not following anyone</div>
+  <% end %>
 <% else %>
-  <div class="none"><%= @user.first_name %> is not following anyone</div>
+  <div class="none">You must follow <%= @user.first_name %> to see who <%= @user.gender_pronoun %> follows</div>
 <% end %>
+

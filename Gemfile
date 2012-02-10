@@ -14,7 +14,6 @@ gem "omniauth"
 gem "omniauth-facebook"
 gem 'cells', '3.8.0' # Components
 gem 'yajl-ruby' # json processing
-gem 'redcarpet' # Markdown
 gem 'fog' # Cloud support (amazon s3, etc)
 gem 'carrierwave' # File uploads
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
@@ -73,7 +72,7 @@ group :test do
   gem "mongoid-rspec"
   gem "spork", "> 0.9.0.rc"
   gem 'guard-spork'
-  gem "cucumber-rails"
+  #gem "cucumber-rails"
 end
 
 gem 'rmagick', :require => false # Image manipulation (put rmagick at the bottom because it's a little bitch about everything)

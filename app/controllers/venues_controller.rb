@@ -21,7 +21,7 @@ class VenuesController < ApplicationController
   def attending
     @venue = Venue.find(params[:id])
     if @venue
-      posts = Post.where('venue._id' => @venue.id, "user_snippet._id".in => current_user.following_users, :current => true, :created_at.gte => Post.cutoff_time)
+      posts = Post.where('venue._id' => @venue.id, "user_snippet._id" => {"$in" => current_user.following_users}, :current => true, :created_at.gte => Post.cutoff_time)
       posts_with_user = User.join(posts)
       html = render_to_string :partial => 'posts/feed', :locals => {:posts => posts_with_user, :user => current_user}
     else
