@@ -11,7 +11,7 @@ class PingsController < ApplicationController
         Notification.send_push_notification(target_user.device_token, target_user.device_type, "Someone pinged you on The Whoot! Login and post to let them know what you're up to tonight.")
       end
       if params[:format] == :api
-        response = {:json => {:status => 'ok'}}
+        response = {:json => {:status => 'flash', :message => 'test flash'}}
       else
         response = {:json => {:status => 'ok', :target => '.ping_'+target_user.id.to_s, :toggle_classes => ['btn pingB', 'pinged']}, :status => 201}
       end

@@ -12,7 +12,7 @@ gem 'devise' # Authentication
 gem 'koala' # facebook graph api support
 gem "omniauth"
 gem "omniauth-facebook"
-gem 'cells' # Components
+gem 'cells', '3.8.0' # Components
 gem 'yajl-ruby' # json processing
 gem 'redcarpet' # Markdown
 gem 'fog' # Cloud support (amazon s3, etc)
@@ -47,8 +47,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :production do
-  gem 'unicorn'
+group :production, :staging do
+  gem 'thin'
 end
 
 group :development do
