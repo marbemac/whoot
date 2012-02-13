@@ -1,3 +1,5 @@
+require "whoot"
+
 class Comment
   include Mongoid::Document
   include Mongoid::Paranoia

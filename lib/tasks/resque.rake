@@ -1,13 +1,7 @@
-# Run to start:
-# rake resque:work QUEUE='*'
 require 'resque/tasks'
 require 'resque_scheduler/tasks'
 
 task "resque:setup" => :environment do
-  require 'resque'
-  require 'resque_scheduler'
-  require 'resque/scheduler'
-
   # you probably already have this somewhere
   #Resque.redis = 'localhost:6379'
 
@@ -30,7 +24,7 @@ task "resque:setup" => :environment do
   # Note: This feature is only available in >=2.0.0.
   #Resque::Scheduler.dynamic = true
 
-  ENV['QUEUE'] = 'popularity,soulmate_venue,soulmate_user,soulmate_tag,images,notifications,slow'
+  #ENV['QUEUE'] = 'popularity,soulmate_venue,soulmate_user,soulmate_tag,images,notifications,slow'
 end
 
 desc "Alias for resque:work (To run workers on Heroku)"
