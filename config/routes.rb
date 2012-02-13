@@ -1,5 +1,8 @@
 Whoot::Application.routes.draw do
 
+  # redirect to www.example.com if user goes to example.com
+  match '(*any)' => redirect { |p, req| req.url.sub('www.', '') }, :constraints => { :host => /^www\./ }
+
   # Posts
   scope 'posts' do
     get 'map' => 'posts#map', :as => :post_map
