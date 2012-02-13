@@ -5,6 +5,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
       if @user.sign_in_count == 0
+        sign_in @user
         redirect_to invites_path
       else
         sign_in_and_redirect @user, :event => :authentication
