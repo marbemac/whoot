@@ -36,6 +36,9 @@
 body {
   height: 100%;
   width: 100%;
+  #gradient-bg {
+    min-height: 320px;
+  }
   &.night #gradient-bg {
     background-color: #091F35;
     @include background-image(linear-gradient(#05162E, #09213B 30%, #0C2B4B 50%, #0F3762));
