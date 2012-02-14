@@ -35,19 +35,13 @@ class Post
   embeds_many :comments, :as => :has_comments, :class_name => 'Comment'
 
   validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing, or partying)" }
-  validate :valid_venue, :max_tags, :max_characters
+  validate :valid_venue, :max_characters
   attr_accessible :night_type, :venue, :tag, :address_original
   attr_accessor :user_id, :address_placeholder
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
-  before_create :set_venue_snippet, :process_tag
-  after_create :update_loop, :set_user_location, :clear_caches
-
-  def max_tags
-    if tag && tag.name.split(' ').length > 3
-      errors.add(:tags, "You can only use 3 words! Your tag is #{tag.name.split(' ').length} words long.")
-    end
-  end
+  before_save :set_venue_snippet, :update_post_event
+  after_save :set_user_location, :process_tag, :clear_caches
 
   def max_characters
     if tag && tag.name.length > 40
@@ -81,6 +75,14 @@ class Post
     )
   end
 
+  def update_post_event
+    if persisted?
+
+    else
+
+    end
+  end
+
   def update_loop
     old_post = Post.where('user_snippet._id' => user_snippet.id, :created_at.gte => Post.cutoff_time).order_by(:created_at, :desc).skip(1).first
     if old_post
@@ -105,27 +107,29 @@ class Post
   end
 
   def set_venue_snippet
-    target_venue = nil
-    if venue && !venue.address_string.blank?
-      target_venue = Venue.where(:address_string => venue.address_string).first
-      unless target_venue
-        target_venue = Venue.new(venue.attributes)
-        target_venue.address_string = venue.address_string
-        target_venue.user_id = user.id
-        target_venue.save!
+    if address_original && address_original.changed?
+      target_venue = nil
+      if venue && !venue.address_string.blank?
+        target_venue = Venue.where(:address_string => venue.address_string).first
+        unless target_venue
+          target_venue = Venue.new(venue.attributes)
+          target_venue.address_string = venue.address_string
+          target_venue.user_id = user.id
+          target_venue.save!
+        end
       end
-    end
 
-    if target_venue
-      self.venue = VenueSnippet.new(
-              name: target_venue.name,
-              address: target_venue.address,
-              public_id: target_venue.public_id,
-              coordinates: target_venue.coordinates
-      )
-      self.venue.id = target_venue.id
-    elsif !venue || !venue.address
-      self.venue = nil
+      if target_venue
+        self.venue = VenueSnippet.new(
+                name: target_venue.name,
+                address: target_venue.address,
+                public_id: target_venue.public_id,
+                coordinates: target_venue.coordinates
+        )
+        self.venue.id = target_venue.id
+      elsif !venue || !venue.address
+        self.venue = nil
+      end
     end
   end
 
@@ -163,7 +167,7 @@ class Post
   end
 
   def set_user_location
-    if venue
+    if address_original && address_original.changed? && venue
       city = City.near(venue.coordinates.reverse).first
       if city && city.id != user.location.id
         snippet = LocationSnippet.new(
@@ -179,7 +183,7 @@ class Post
   end
 
   def process_tag
-    if self.valid? && tag && !tag.name.blank?
+    if self.valid? && tag && !tag.name.blank? && tag.changed?
       found = Tag.where(:slug => tag.name.to_url).first
       if found
         found.score += 1
