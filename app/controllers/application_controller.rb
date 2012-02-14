@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :init, :set_request_type, :set_feed_filters, :set_user_time_zone, :initialize_mixpanel, :require_post
+  before_filter :init, :set_request_type, :set_feed_filters, :set_user_time_zone, :initialize_mixpanel, :require_post, :prepare_for_mobile
   layout :layout
 
   def authenticate_admin_user!
@@ -82,9 +82,9 @@ class ApplicationController < ActionController::Base
   end
   helper_method :mobile_device?
 
-  #def prepare_for_mobile
-  #  session[:mobile_param] = params[:api] if params[:api]
-  #  request.format = :api if mobile_device?
-  #end
+  def prepare_for_mobile
+    session[:mobile_param] = params[:mobile] if params[:mobile]
+    request.format = :mobile if mobile_device?
+  end
 
 end

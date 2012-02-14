@@ -10,7 +10,15 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body>
+  <body class="<%= params[:controller] %> <%= calculate_time_of_day %>">
+    <%= image_tag "logo-top.png", :alt => "The Whoot", :class => 'logo' %>
+
     <%= yield %>
+
+    <div id="gradient-bg">&nbsp;</div>
+      <% unless calculate_time_of_day == :day %>
+        <div id="stars-bg" class="<%= 'fade' if calculate_time_of_day == :sunset %>">&nbsp;</div>
+      <% end %>
+    <div id="city-bg">&nbsp;</div>
   </body>
 </html>

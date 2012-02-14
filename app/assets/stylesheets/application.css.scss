@@ -270,16 +270,16 @@ input.submit {
 ul,ol { list-style: none; margin: 0; padding: 0; }
 
 #static_page {
-    padding: 10px;
-    h1 {
+  padding: 10px;
+  h1 {
 
-    }
-    h3 {
-        margin-top: 10px;
-    }
-    p {
-        padding: 10px 0;
-    }
+  }
+  h3 {
+    margin-top: 10px;
+  }
+  p {
+    padding: 10px 0;
+  }
 }
 #stars-bg {
     background: {
@@ -451,6 +451,9 @@ ul,ol { list-style: none; margin: 0; padding: 0; }
   padding: 10px;
   h1 {
     margin: 0 0 15px 0;
+    &.funky {
+      margin: 0 0 -5px;
+    }
   }
   h4 {
     margin: 10px 0 3px 0;

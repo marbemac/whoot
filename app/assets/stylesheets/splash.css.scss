@@ -50,6 +50,13 @@ html.coming-soon {
     top: 3px;
   }
 
+  #whoot-video {
+    position: absolute;
+    left: 55px;
+    top: 223px;
+    width: 407px;
+  }
+
   .static_pages {
     position: absolute;
     bottom: -17px;
@@ -66,18 +73,20 @@ html.coming-soon {
 }
 
 #coming-soon {
-  @include orange-button(5px, 26px);
+  @include orange-button(5px, 23px);
   text-align: center;
   cursor: default;
   position: absolute;
-  left: 100px;
-  top: 282px;
+  right: 28px;
+  top: 317px;
   padding: 10px;
+  width: 286px;
+  z-index: 10;
   .logo {
     position: absolute; top: 50%; left: 50%; margin: 100px 0 0 -335px;
   }
   #site-launch-cd {
-    font-size: 19px;
+    font-size: 17px;
   }
 }
 
