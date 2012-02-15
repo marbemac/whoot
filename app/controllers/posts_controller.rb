@@ -42,23 +42,24 @@ class PostsController < ApplicationController
     @post = Post.current_post(current_user)
     if !@post
       first_post = true
-      Post.new(params[:post])
+      @post = Post.new(params[:post])
       @post.set_user_snippet(current_user)
+    else
+      first_post = false
     end
 
     redirect = Post.where("user_snippet._id" => current_user.id).first ? request.referer : invites_path
 
-    if (first_post ? @post.save : @post.update_attributes(params[:post]))
-      @post.set_user_post_snippet(current_user)
+    if first_post ? @post.save : @post.update_attributes(params[:post])
       Pusher[current_user.id.to_s].trigger('post_changed', {:post_id => @post.id.to_s, :user_id => current_user.id.to_s})
-      mixpanel_data = {
-              'Tag' => (@post.tag ? @post.tag.name : :none),
-              'Type' => @post.night_type,
-              'City ID' => @post.location.id.to_s,
-              'Venue' => (@post.venue ? @post.venue.name : :none),
-              'Venue ID' => (@post.venue ? @post.venue.id.to_s : :none)
-      }
-      @mixpanel.track_event("Normal Post Create", current_user.mixpanel_data.merge!(mixpanel_data))
+      #mixpanel_data = {
+      #        'Tag' => (@post.tag ? @post.tag.name : :none),
+      #        'Type' => @post.night_type,
+      #        'City ID' => @post.location.id.to_s,
+      #        'Venue' => (@post.venue ? @post.venue.name : :none),
+      #        'Venue ID' => (@post.venue ? @post.venue.id.to_s : :none)
+      #}
+      #@mixpanel.track_event("Normal Post Create", current_user.mixpanel_data.merge!(mixpanel_data))
 
       response = { :status => :ok, :redirect => redirect }
       render json: response, status: :created

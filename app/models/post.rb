@@ -41,7 +41,7 @@ class Post
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
   before_save :set_venue_snippet, :update_post_event
-  after_save :set_location_snippet, :set_user_location, :process_tag, :clear_caches
+  after_save :set_location_snippet, :set_user_location, :process_tag, :set_user_post_snippet, :clear_caches
 
   def max_characters
     if tag && tag.name.length > 40
@@ -111,7 +111,7 @@ class Post
   end
 
   def set_venue_snippet
-    if address_original && address_original_changed?
+    if has_venue?
       target_venue = nil
       if venue && !venue.address_string.blank?
         target_venue = Venue.where(:address_string => venue.address_string).first
@@ -206,7 +206,7 @@ class Post
     end
   end
 
-  def set_user_post_snippet(user)
+  def set_user_post_snippet
     # Send emails to the users that pinged this user
     unless user.posted_today? || !user.pings_today_date || user.pings_today_date <= Post.cutoff_time
       users = User.where(:_id.in => user.pings_today)
