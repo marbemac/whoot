@@ -20,7 +20,7 @@ class PostsController < ApplicationController
   def show
     @post = NormalPost.find(params[:id])
     @voters = User.where(:_id.in => @post.voters)
-    comments = Comment.where(:post_id => @post.id, :status => 'Active')
+    comments = Comment.where(:post_id => @post.id, :status => 'Active') # aren't these embedded?
     @comments_with_user = User.join(comments)
 
     details = render_to_string :show
@@ -39,13 +39,16 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(params[:post])
-    @post.set_user_snippet(current_user)
-    @post.set_location_snippet(current_user)
+    @post = Post.current_post(current_user)
+    if !@post
+      first_post = true
+      Post.new(params[:post])
+      @post.set_user_snippet(current_user)
+    end
 
     redirect = Post.where("user_snippet._id" => current_user.id).first ? request.referer : invites_path
 
-    if @post.save
+    if (first_post ? @post.save : @post.update_attributes(params[:post]))
       @post.set_user_post_snippet(current_user)
       Pusher[current_user.id.to_s].trigger('post_changed', {:post_id => @post.id.to_s, :user_id => current_user.id.to_s})
       mixpanel_data = {

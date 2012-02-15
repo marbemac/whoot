@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
   def destroy
     post = Post.first(conditions: { "comments._id" => BSON::ObjectId(params[:id]) })
     if post
-      comment = post.comments.find(params[:id])
+      comment = post.comments.find(params[:id]) #TODO: fix
       if can? :destroy, comment
         post.remove_comment(comment)
 

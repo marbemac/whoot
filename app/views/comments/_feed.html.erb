@@ -1,3 +1,3 @@
-<% post.comments.all().each do |comment| %>
-  <%= render "comments/teaser", :comment => comment, :current_user => current_user %>
+<% post.post_events.each do |event| %>
+  <%= render "comments/teaser", :event => event, :current_user => current_user %>
 <% end %>

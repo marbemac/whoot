@@ -1,15 +1,18 @@
-<div class="teaser comment" id="c-<%= comment.id %>">
+<div class="teaser event <%= event._type %>" id="c-<%= event.id %>">
+
+  <%= event._type %>
+
   <div class="submitted">
-    <%= image_tag user_default_picture_path(comment.user_snippet, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
-    <%= user_link(comment.user_snippet, 15) %>
-    <div class="time"><%= time_ago_in_words comment.created_at, false %> ago</div>
+    <%#= image_tag user_default_picture_path(event.user_id, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
+    <%#= user_link(comment.user_snippet, 15) %>
+    <div class="time"><%#= time_ago_in_words comment.created_at, false %> ago</div>
   </div>
 
   <div class="content">
-    <% #TODO: Change this workaround to cancan (getting "can?" method undefined): if can? :destroy, comment %>
-    <% if current_user.id == comment.user_snippet.id || current_user.id == comment.has_comments.user_snippet.id || current_user.role?("admin") %>
-      <div class="ac disable conf hide" title="delete this comment" data-m="DELETE" data-url="<%= comment_path comment %>">X</div>
-    <% end %>
-    <%= comment.content %>
+    <%# #TODO: Change this workaround to cancan (getting "can?" method undefined): if can? :destroy, comment %>
+    <%# if current_user.id == comment.user_snippet.id || current_user.id == comment.has_comments.user_snippet.id || current_user.role?("admin") %>
+      <div class="ac disable conf hide" title="delete this comment" data-m="DELETE" data-url="<%#= comment_path comment %>">X</div>
+    <%# end %>
+    <%#= comment.content %>
   </div>
 </div>

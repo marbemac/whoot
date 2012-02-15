@@ -32,7 +32,7 @@ class Post
   embeds_one :tag, :as => :taggable, :class_name => 'TagSnippet'
   embeds_one :user_snippet, :as => :user_assignable, :class_name => 'UserSnippet'
   embeds_many :voters, :as => :user_assignable, :class_name => 'UserSnippet'
-  embeds_many :comments, :as => :has_comments, :class_name => 'Comment'
+  embeds_many :post_events, :class_name => 'PostEvent'
 
   validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing, or partying)" }
   validate :valid_venue, :max_characters
@@ -41,7 +41,7 @@ class Post
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
   before_save :set_venue_snippet, :update_post_event
-  after_save :set_user_location, :process_tag, :clear_caches
+  after_save :set_location_snippet, :set_user_location, :process_tag, :clear_caches
 
   def max_characters
     if tag && tag.name.length > 40
@@ -69,7 +69,7 @@ class Post
     self[:created_by]
   end
 
-  def set_location_snippet(user)
+  def set_location_snippet
     self.location = LocationSnippet.new(
           user.location.attributes
     )
@@ -77,7 +77,11 @@ class Post
 
   def update_post_event
     if persisted?
-
+      if night_type_changed? || (venue && venue.name_changed?)
+        event = PostChangeEvent.new(:night_type => night_type)
+        event.venue = venue if venue
+        self.post_events << event
+      end
     else
 
     end
@@ -107,7 +111,7 @@ class Post
   end
 
   def set_venue_snippet
-    if address_original && address_original.changed?
+    if address_original && address_original_changed?
       target_venue = nil
       if venue && !venue.address_string.blank?
         target_venue = Venue.where(:address_string => venue.address_string).first
@@ -130,6 +134,8 @@ class Post
       elsif !venue || !venue.address
         self.venue = nil
       end
+    else
+      venue = nil
     end
   end
 
@@ -144,6 +150,8 @@ class Post
       )
       snippet.id = user.id
       self.voters << snippet
+      event = PostLoopEvent.new(:user_snippet => snippet)
+      self.post_events << event
       self.user.votes_count += 1
       self.user.save
       clear_post_cache
@@ -167,7 +175,7 @@ class Post
   end
 
   def set_user_location
-    if address_original && address_original.changed? && venue
+    if address_original && address_original_changed? && venue
       city = City.near(venue.coordinates.reverse).first
       if city && city.id != user.location.id
         snippet = LocationSnippet.new(
@@ -183,7 +191,7 @@ class Post
   end
 
   def process_tag
-    if self.valid? && tag && !tag.name.blank? && tag.changed?
+    if self.valid? && tag && !tag.name.blank? && tag.name_changed?
       found = Tag.where(:slug => tag.name.to_url).first
       if found
         found.score += 1
@@ -229,11 +237,16 @@ class Post
     self.user_snippet.id = user.id
   end
 
+  #def comments
+  #  post_events.select{|pe| pe.type == "comment"}.map{|pe| pe.comment}
+  #end
+
   def add_comment(data, user)
     comment = Comment.new(data)
     comment.set_user_snippet(user)
     if comment.valid?
-      self.comments << comment
+      event = PostCommentEvent.new(:comment => comment)
+      self.post_events << event
       self.comment_count += 1
       save
     end
