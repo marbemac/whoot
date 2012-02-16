@@ -1,25 +1,25 @@
-<%= form_for post, :html => { :class => 'ajax' } do |f| %>
+<%= form_for Post.new, :html => { :class => 'ajax' } do |f| %>
 
   <div class="errors"></div>
 
   <h4>Hey <%= user.first_name %>, what are you doing tonight?</h4>
 
-  <div class="type working" data-val="working">Working</div>
-  <div class="type low_in" data-val="low_in">Staying In</div>
-  <div class="type low_out" data-val="low_out">Relaxing Out</div>
-  <div class="type big_out" data-val="big_out">Partying</div>
+  <div class="type working <%= 'on' if post.night_type == 'working' %>" data-val="working">Working</div>
+  <div class="type low_in <%= 'on' if post.night_type == 'low_in' %>" data-val="low_in">Staying In</div>
+  <div class="type low_out <%= 'on' if post.night_type == 'low_out' %>" data-val="low_out">Relaxing Out</div>
+  <div class="type big_out <%= 'on' if post.night_type == 'big_out' %>" data-val="big_out">Partying</div>
   <div class="clear"></div>
 
-  <%= f.hidden_field :night_type, :class => 'post_type', :autocomplete => 'off' %>
+  <%= f.hidden_field :night_type, :class => 'post_type', :autocomplete => 'off', :value => post.night_type %>
 
   <div class="field lClear">
     <%= f.fields_for :tag do |t| %>
       <%= t.label :name, "Tag your night (optional). 40 character max." %>
-      <%= t.text_field :name, :autocomplete => 'off' %>
+      <%= t.text_field :name, :autocomplete => 'off', :value => post.tag ? post.tag.name : '' %>
     <% end %>
   </div>
 
-  <%= render "posts/venue_input", :f => f, :venue_label => 'Add Venue (optional). Please choose from suggested results.', :venue_required => '' %>
+  <%= render "posts/venue_input", :f => f, :post => post, :venue_label => 'Add Venue (optional). Please choose from suggested results.', :venue_required => '' %>
 
   <div class="actions">
     <%= f.submit "Submit Post", :class => 'submit', :autocomplete => 'off' %>

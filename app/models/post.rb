@@ -193,15 +193,17 @@ class Post
   end
 
   def process_tag
-    if self.valid? && tag && !tag.name.blank? && tag.name_changed?
-      found = Tag.where(:slug => tag.name.to_url).first
-      if found
-        found.score += 1
-        found.save
-      else
-        found = user.tags.create(name: tag.name)
+    if self.valid? && tag && !tag.name.blank?
+      if tag.name_changed?
+        found = Tag.where(:slug => tag.name.to_url).first
+        if found
+          found.score += 1
+          found.save
+        else
+          found = user.tags.create(name: tag.name)
+        end
+        tag.id = found.id
       end
-      tag.id = found.id
       tag
     else
       self.tag = nil
