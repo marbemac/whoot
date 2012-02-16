@@ -250,6 +250,7 @@ class Post
       event = PostCommentEvent.new(:comment => comment)
       self.post_events << event
       self.comment_count += 1
+      clear_post_cache
       save
     end
     comment

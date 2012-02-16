@@ -575,7 +575,7 @@ $post-border-color: #AAA;
       }
       .voters {
         h4 {
-          margin: 0 0 10px 0;
+          margin: 4px 0 10px 10px;
         }
         .none {
             font-style: italic;
@@ -977,9 +977,15 @@ $post-border-color: #AAA;
   .content {
     p {
       font-size: 15px;
+      .ulink {
+        color: #444;
+        font-weight: bold;
+      }
     }
     .time {
-      font-size: 12px;
+      font-size: 11px;
+      color: #999;
+      margin: 2px 0 0 0;
     }
   }
 }

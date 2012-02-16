@@ -99,7 +99,7 @@ $(function() {
   amplify.subscribe("comment_created", function(data) {
     $('.comment_new .content').val($('.comment_new .content').data('default'));
     $('.cf-' + data.root_id).find('textarea').val('').blur();
-    $('.cf-' + data.root_id).append(data.comment);
+    $('.cf-' + data.root_id).find('#new_comment').after(data.comment);
     var comment_count = $('#post-' + data.user_id + ' .comments_count span');
     comment_count.text(parseInt(comment_count.text()) + 1);
   });

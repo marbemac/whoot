@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
         if params[:format] == :api
           render :json => {:status => 'ok', :data => nil}, :status => :created
         else
-          html = render_to_string :partial => 'teaser', :locals => {:event => @comment._parent}
+          html = render_to_string :partial => 'posts/event', :locals => {:event => @comment._parent, :current_user => current_user, :last => nil}
           content = {:status => 'ok', :comment => html, :root_id => post.id, :user_id => post.user_snippet.id, :event => 'comment_created' }
           render json: content, status: :created
         end
