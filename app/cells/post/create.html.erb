@@ -10,7 +10,7 @@
   <% end %>
 
   <div class="container">
-    <%= render "posts/form", :post => Post.new, :user => @user %>
+    <%= render "posts/form", :post => @my_post ? @my_post : Post.new, :user => @user %>
 
     <% unless @my_post == nil %>
       <div class="cancel">Cancel</div>
