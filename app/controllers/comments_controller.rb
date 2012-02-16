@@ -48,7 +48,7 @@ class CommentsController < ApplicationController
   def ajax
     post = Post.find(params[:post_id])
     comment = post.comments.detect{|c| c.id.to_s == params[:comment_id]}
-    html = render_to_string :partial => 'teaser', :locals => {:event => comment._parent}
+    html = render_to_string :partial => 'posts/event', :locals => {:event => comment._parent, :current_user => current_user, :last => nil}
     response = {:status => 'ok', :comment => html }
     render json: response, status: 200
   end

@@ -21,7 +21,7 @@ jQuery ->
           type: 'GET',
           cache: false,
           success: (commentData) ->
-            target.find('.comment-feed').append(commentData.comment)
+            target.find('#new_comment').after(commentData.comment)
         })
 
       channel.bind 'voted', (data) ->
