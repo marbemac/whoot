@@ -12,4 +12,8 @@ class PostCommentEvent < PostEvent
   def text
     comment.content
   end
+
+  def api_text
+    comment.content
+  end
 end

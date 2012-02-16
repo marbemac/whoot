@@ -12,4 +12,8 @@ class PostLoopEvent < PostEvent
   def text
     " looped in"
   end
+
+  def api_text
+    "Looped In"
+  end
 end

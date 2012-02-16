@@ -255,6 +255,7 @@ class Post
     comment.set_user_snippet(user)
     if comment.valid?
       event = PostCommentEvent.new(:comment => comment)
+      event.id = comment.id
       self.post_events << event
       self.comment_count += 1
       clear_post_cache
@@ -305,6 +306,20 @@ class Post
     key
   end
 
+  # converts events for the api
+  def api_events
+    data = []
+    post_events.each do |event|
+      data << {
+        :id => event.id,
+        :content => event.api_text,
+        :created_at => event.created_at,
+        :created_by => UserSnippet.convert_for_api(event.user)
+      }
+    end
+    data
+  end
+
   class << self
     def current_post(user)
       where('user_snippet._id' => user.id, :created_at.gte => Post.cutoff_time, :current => true).first
@@ -344,7 +359,7 @@ class Post
         {
                 :id => post.id,
                 :comment_count => post.comment_count,
-                :comments => Comment.convert_for_api(post.comments),
+                :comments => post.api_events,
                 :votes_count => post.votes,
                 :created_at => post.created_at,
                 :night_type => post.night_type,

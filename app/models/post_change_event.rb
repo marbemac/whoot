@@ -23,4 +23,15 @@ class PostChangeEvent < PostEvent
     end
     text
   end
+
+  def api_text
+    "Is #{_parent.night_type_short(night_type.to_sym)}"
+    if tag
+      text += "... #{tag}"
+    end
+    if venue_name
+      text += " (#{venue_name})"
+    end
+    text
+  end
 end
