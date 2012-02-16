@@ -238,7 +238,8 @@ class Post
   end
 
   def find_comment(cid)
-    post_events.first("comment._id" => BSON::OjectId(cid)).comment
+    event = post_events.where("comment._id" => BSON::ObjectId(cid)).first
+    event ? event.comment : nil
   end
 
   def add_comment(data, user)
