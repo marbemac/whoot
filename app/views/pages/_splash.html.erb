@@ -1,19 +1,19 @@
 <% cache("splash") do %>
   <div id="splash">
 
-    <%= link_to "", user_omniauth_authorize_path(:facebook), :id => 'fb_login', :class => 'hide' %>
-    <div id="coming-soon">
-      Coming February 16th!
-      <div id="site-launch-cd"></div>
-    </div>
+    <%= link_to "", user_omniauth_authorize_path(:facebook), :id => 'fb_login' %>
+    <!--<div id="coming-soon">-->
+      <!--Coming February 16th!-->
+      <!--<div id="site-launch-cd"></div>-->
+    <!--</div>-->
     <!--<div id="why_facebook">Why is a Facebook account required to access The Whoot?</div>-->
     <%= image_tag "splash-logo-small.png", :class => "logo", :alt => "The Whoot" %>
     <%= image_tag "splash-map.png", :class => "map", :alt => "Post what you are up to tonight" %>
     <div id="pronounced">Pronounced: 'The Hoot!'</div>
 
-    <div id="whoot-video">
-      <iframe width="407" height="237" src="http://www.youtube.com/embed/M2pSx9sBT94?rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
+    <!--<div id="whoot-video">-->
+      <!--<iframe width="407" height="237" src="http://www.youtube.com/embed/M2pSx9sBT94?rel=0" frameborder="0" allowfullscreen></iframe>-->
+    <!--</div>-->
 
     <div class="static_pages">
       <div class="" data-url="<%= about_path %>">About</div>

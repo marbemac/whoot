@@ -11,18 +11,18 @@
 @import "compass/utilities";
 
 #fb_login {
-    width: 332px;
-    height: 56px;
-    display: block;
-    background: {
-        image: image-url("fb_login.png");
-        position: top left;
-    }
+  width: 332px;
+  height: 56px;
+  display: block;
+  background: {
+    image: image-url("fb_login.png");
+    position: top left;
+  }
 
-    &:hover {
-        cursor: pointer;
-        background-position: 0px 56px;
-    }
+  &:hover {
+    cursor: pointer;
+    background-position: 0px 56px;
+  }
 }
 
 #gradient-bg {
@@ -55,7 +55,7 @@ body {
   .logo {
     position: absolute;
     left: 50%;
-    margin-left: -131px;
+    margin-left: -141px;
   }
 
   .iphone,
@@ -91,6 +91,24 @@ body {
 
     .logo-m {
       margin: 0 10px;
+    }
+  }
+  .social-bs{
+    position: absolute;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    top: 320px;
+    .fb-like {
+      position: absolute;
+      left: 0px;
+      background: transparent;
+    }
+    .twitter-follow-button {
+      position: absolute;
+      right: 0px;
+      background: transparent;
+      top: 2px;
     }
   }
 }
