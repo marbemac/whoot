@@ -231,9 +231,13 @@ class Post
     self.user_snippet.id = user.id
   end
 
-  #def comments
-  #  post_events.select{|pe| pe.type == "comment"}.map{|pe| pe.comment}
-  #end
+  def comments
+    post_events.select{|pe| pe._type == "PostCommentEvent"}.map{|pe| pe.comment}
+  end
+
+  def find_comment(cid)
+    post_events.first("comment._id" => BSON::OjectId(cid)).comment
+  end
 
   def add_comment(data, user)
     comment = Comment.new(data)
@@ -248,7 +252,7 @@ class Post
   end
 
   def remove_comment(comment)
-    comment.destroy
+    comment._parent.destroy
     self.comment_count -= 1
     save
   end

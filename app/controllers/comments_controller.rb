@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
         if params[:format] == :api
           render :json => {:status => 'ok', :data => nil}, :status => :created
         else
-          html = render_to_string :partial => 'teaser', :locals => {:comment => @comment}
+          html = render_to_string :partial => 'teaser', :locals => {:event => @comment._parent}
           content = {:status => 'ok', :comment => html, :root_id => post.id, :user_id => post.user_snippet.id, :event => 'comment_created' }
           render json: content, status: :created
         end
@@ -29,9 +29,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    post = Post.first(conditions: { "comments._id" => BSON::ObjectId(params[:id]) })
+    post = Post.first(conditions: { "events.comment._id" => BSON::ObjectId(params[:id]) })
     if post
-      comment = post.comments.find(params[:id]) #TODO: fix
+      comment = post.find_comment(params[:id])
       if can? :destroy, comment
         post.remove_comment(comment)
 
@@ -48,7 +48,7 @@ class CommentsController < ApplicationController
   def ajax
     post = Post.find(params[:post_id])
     comment = post.comments.detect{|c| c.id.to_s == params[:comment_id]}
-    html = render_to_string :partial => 'teaser', :locals => {:comment => comment}
+    html = render_to_string :partial => 'teaser', :locals => {:event => comment._parent}
     response = {:status => 'ok', :comment => html }
     render json: response, status: 200
   end
