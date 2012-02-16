@@ -1,27 +1,23 @@
-<div class="teaser event <%= event._type %>" id="c-<%= event.id %>">
+<div class="teaser event <%= event._type %> <%= 'last' if last %>" id="c-<%= event.id %>">
 
-  <% user_snippet = event.comment.user_snippet if event.comment? %>
-  <% user_snippet = event.user_snippet if event.loop? %>
-  <% if !user_snippet.nil? %>
-    <div class="submitted">
-      <%= image_tag user_default_picture_path(user_snippet, :d => [30, 30], :s => 'square'), :style => "max-width: 30px;", :alt => '' %>
-      <%= user_link(user_snippet, 15) %>
-      <div class="time"><%= time_ago_in_words event.created_at, false %> ago</div>
-    </div>
-  <% end %>
+  <div class="media">
+    <%= image_tag user_default_picture_path(event.user, :d => [30, 30], :s => 'square'), :alt => '' %>
+    <div class='icon <%= event.icon %>'></div>
+  </div>
 
   <div class="content">
-    <% if event.loop? %>
-      looped in
-    <% elsif event.change? %>
-      <% post = event._parent %>
-      <%= post.user_snippet.first_name %> is <%= post.night_type_short %> <%= "at" + post.address_original if !post.address_original.blank? %>
-    <% elsif event.comment? %>
-      <%= event.comment.content %>
-      <% #TODO: Change this workaround to cancan (getting "can?" method undefined): if can? :destroy, comment %>
-      <% if current_user.id == event.comment.user_snippet.id || current_user.id == event.comment.has_comments._parent.user_snippet.id || current_user.role?("admin") %>
-        <div class="ac disable conf hide" title="delete this comment" data-m="DELETE" data-url="<%#= comment_path comment %>">X</div>
-      <% end %>
-    <% end %>
+    <p>
+      <%= user_link(event.user, 15) %>
+      <%= event.text.html_safe %>
+
+      <% if event.comment? %>
+        <% #TODO: Change this workaround to cancan (getting "can?" method undefined): if can? :destroy, comment %>
+        <% if current_user.id == event.user.id || current_user.id == event.comment.has_comments._parent.user_snippet.id || current_user.role?("admin") %>
+          <div class="ac disable conf hide" title="delete this comment" data-m="DELETE" data-url="<%#= comment_path comment %>">X</div>
+        <% end %>
+      <% end %>  
+    </p>
+    
+    <div class="time"><%= time_ago_in_words event.created_at, false %> ago</div>
   </div>
 </div>

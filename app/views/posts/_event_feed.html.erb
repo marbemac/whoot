@@ -1,3 +1,3 @@
-<% post.post_events.each do |event| %>
-  <%= render "posts/event", :event => event, :current_user => current_user %>
+<% post.post_events.reverse.each_with_index do |event,i| %>
+  <%= render "posts/event", :event => event, :current_user => current_user, :last => (post.post_events.length == i+1 ? true : nil) %>
 <% end %>

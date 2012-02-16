@@ -69,3 +69,8 @@
   width: 18px;
   height: 12px;
 }
+.user-small {
+  @include icon-sprite(user_12x16);
+  width: 12px;
+  height: 16px;
+}

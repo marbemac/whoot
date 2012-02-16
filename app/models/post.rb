@@ -49,9 +49,9 @@ class Post
     end
   end
 
-  def night_type_short
+  def night_type_short(text=nil)
     names = {:working => "Working", :low_in => "Staying In", :low_out => "Relaxing Out", :big_out => "Partying"}
-    names[night_type.to_sym]
+    names[text ? text : night_type.to_sym]
   end
 
   def night_type_noun
@@ -79,6 +79,7 @@ class Post
         end
         event.venue_name = venue_pretty_name
       end
+      event.created_at = Time.now
       self.post_events << event
     end
   end

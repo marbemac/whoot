@@ -934,3 +934,52 @@ $post-border-color: #AAA;
     width: 210px;
   }
 }
+
+.teaser.event {
+  @include clearfix;
+  padding: 3px 0;
+  position: relative;
+  border-bottom: 1px solid #E6E6E6;
+  padding: 8px 20px 8px 85px;
+
+  &:hover {
+    .disable {
+      display: block;
+    }
+  }
+  &.last {
+    border-bottom: none;
+  }
+  .disable {
+    z-index: 300;
+    position: absolute;
+    color: #990000;
+    padding: 1px 5px;
+    cursor: pointer;
+    top: 50%;
+    right: 10px;
+    margin-top: -10px;
+  }
+
+  .media {
+    .icon {
+      position: absolute;
+      left: 14px;
+      top: 17px;
+    }
+    img {
+      position: absolute;
+      left: 43px;
+      top: 10px;
+    }
+  }
+
+  .content {
+    p {
+      font-size: 15px;
+    }
+    .time {
+      font-size: 12px;
+    }
+  }
+}
