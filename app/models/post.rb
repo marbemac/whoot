@@ -35,23 +35,17 @@ class Post
   embeds_many :post_events, :class_name => 'PostEvent'
 
   validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing, or partying)" }
-  validate :valid_venue, :max_characters
+  validate :max_characters
   attr_accessible :night_type, :venue, :tag, :address_original
   attr_accessor :user_id, :address_placeholder
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
-  before_save :set_venue_snippet, :update_post_event
+  before_save :set_venue_snippet#, :update_post_event
   after_save :set_location_snippet, :set_user_location, :process_tag, :set_user_post_snippet, :clear_caches
 
   def max_characters
     if tag && tag.name.length > 40
       errors.add(:tags, "You can only use 40 characters for your tag! You tag has #{tag.name.length} characters.")
-    end
-  end
-
-  def valid_venue
-    if !address_placeholder.blank? && !venue
-      errors.add(:venue_address, "Your venue address is invalid. Please pick a valid address from the dropdown that appears when you start typing.")
     end
   end
 
@@ -135,7 +129,7 @@ class Post
         self.venue = nil
       end
     else
-      venue = nil
+      self.venue = nil
     end
   end
 
@@ -175,7 +169,7 @@ class Post
   end
 
   def set_user_location
-    if address_original && address_original_changed? && venue
+    if !address_original.blank? && address_original_changed? && venue
       city = City.near(venue.coordinates.reverse).first
       if city && city.id != user.location.id
         snippet = LocationSnippet.new(

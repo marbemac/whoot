@@ -40,17 +40,17 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.current_post(current_user)
-    if !@post
-      first_post = true
+    if @post
+      @post.attributes = params[:post]
+      @post.venue = nil if params[:post][:venue][:address_string].blank?
+    else
       @post = Post.new(params[:post])
       @post.set_user_snippet(current_user)
-    else
-      first_post = false
     end
 
     redirect = Post.where("user_snippet._id" => current_user.id).first ? request.referer : invites_path
 
-    if first_post ? @post.save : @post.update_attributes(params[:post])
+    if @post.save
       Pusher[current_user.id.to_s].trigger('post_changed', {:post_id => @post.id.to_s, :user_id => current_user.id.to_s})
       #mixpanel_data = {
       #        'Tag' => (@post.tag ? @post.tag.name : :none),
