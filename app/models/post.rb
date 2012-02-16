@@ -17,7 +17,7 @@ class Post
           ]
 
   )
-  index "comments._id"
+  index "post_events._id"
   index(
           [
                   ["venue_snippet", Mongo::ASCENDING],

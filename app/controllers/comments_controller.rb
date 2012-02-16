@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    post = Post.first(conditions: { "post_events.comment._id" => BSON::ObjectId(params[:id]) })
+    post = Post.first(conditions: { "post_events._id" => BSON::ObjectId(params[:id]) })
     if post
       comment = post.find_comment(params[:id])
       if can? :destroy, comment
