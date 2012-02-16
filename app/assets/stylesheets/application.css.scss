@@ -141,6 +141,21 @@ html, body {
   color: $sidebar_color;
   margin-bottom: -999999px;
   padding-bottom: 999999px;
+
+  #whoot-video {
+    border-top: 1px solid #D7D7D7;
+    padding: 6px 4px 5px;
+    margin: 0 5px;
+
+    h5 {
+      margin-left: 2px;
+      color: #777777;
+      cursor: default;
+    }
+    iframe {
+      margin-top: 4px;
+    }
+  }
 }
 #footer {
   background-color: #1B59AE;

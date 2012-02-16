@@ -31,6 +31,11 @@
 
   <%= render_cell :list, :sidebar_list %>
 
+  <div id="whoot-video">
+    <h5>What is The Whoot?</h5>
+    <iframe src="http://player.vimeo.com/video/36704931?title=0&amp;byline=0&amp;portrait=0" width="179" height="100" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+  </div>
+
   <% if @my_post %>
     <%= render "users/undecided", :users => @undecided %>
   <% end %>
