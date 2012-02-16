@@ -37,10 +37,10 @@
 
     // Is there a message to show?
     if (params.flash) {
-      //alert('Flash: ['++'] '+params.flash.message);
-      var theme = params.flash.type == 'error' ? 'red' : 'green';
-      createGrowl(false, params.flash.message.capitalize(), params.flash.type.capitalize(), theme);
+      var theme = params.status == 'error' ? 'red' : 'green';
+      createGrowl(false, params.flash.capitalize(), params.status.capitalize(), theme);
     }
+
 
     if (params.replace_target)
     {
@@ -148,65 +148,38 @@
   }
 
   /*
-   * Use qTip to create 'growl' notifications.
+   * Use gritter to create 'growl' notifications.
    *
    * @param bool persistent Are the growl notifications persistent or do they fade after time?
    */
   window.createGrowl = function(persistent, content, title, theme) {
-    // Use the last visible jGrowl qtip as our positioning target
-    var target = $('.qtip.jgrowl:visible:last');
-
-    // Create your jGrowl qTip...
-    $(document.body).qtip({
-      // Any content config you want here really.... go wild!
-      content: {
-        text: content
-//            title: {
-//               text: title,
-//               button: true
-//            }
+    $.gritter.add({
+      // (string | mandatory) the heading of the notification
+      title: title,
+      // (string | mandatory) the text inside the notification
+      text: content,
+      // (string | optional) the image to display on the left
+      image: false,
+      // (bool | optional) if you want it to fade out on its own or just sit there
+      sticky: false,
+      // (int | optional) the time you want it to be alive for before fading out (milliseconds)
+      time: 8000,
+      // (string | optional) the class name you want to apply directly to the notification for custom styling
+      class_name: 'gritter-'+theme,
+      // (function | optional) function called before it opens
+      before_open: function(){
       },
-      position: {
-        my: 'bottom left', // Not really important...
-        at: 'bottom' + ' left', // If target is window use 'top right' instead of 'bottom right'
-        target: target.length ? target : $(document.body), // Use our target declared above
-        adjust: { y: (target.length ? -1 * ($('.qtip.jgrowl:visible').height() + 15) : -30), x: (target.length ? 0 : 15) } // Add some vertical spacing
+      // (function | optional) function called after it opens
+      after_open: function(e){
       },
-      show: {
-        event: false, // Don't show it on a regular event
-        ready: true, // Show it when ready (rendered)
-        effect: function() {
-          $(this).fadeIn(400);
-        }, // Matches the hide effect
-
-        // Custom option for use with the .get()/.set() API, awesome!
-        persistent: persistent
+      // (function | optional) function called before it closes
+      before_close: function(e, manual_close){
+        // the manual_close param determined if they closed it by clicking the "x"
       },
-      hide: {
-        event: false, // Don't hide it on a regular event
-        effect: function(api) {
-          // Do a regular fadeOut, but add some spice!
-          $(this).fadeOut(400).queue(function() {
-            // Destroy this tooltip after fading out
-            api.destroy();
-
-            // Update positions
-            updateGrowls();
-          })
-        }
-      },
-      style: {
-        classes: 'jgrowl ui-tooltip-' + theme + ' ui-tooltip-rounded', // Some nice visual classes
-        tip: false // No tips for this one (optional ofcourse)
-      },
-      events: {
-        render: function(event, api) {
-          // Trigger the timer (below) on render
-          timer.call(api.elements.tooltip, event);
-        }
+      // (function | optional) function called after it closes
+      after_close: function(){
       }
-    })
-            .removeData('qtip');
+    });
   };
 
   // Make it a window property so we can call it outside via updateGrowls() at any point

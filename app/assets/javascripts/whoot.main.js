@@ -107,6 +107,19 @@ $(function() {
     changeLocation($self.data('url'), $self.val());
   })
 
+  // Tweet post
+  $('#my-post .tweet:not(.off)').live('click', function() {
+    var $self = $(this);
+    $.colorbox({
+      title:false,
+      transition: "elastic",
+      speed: 100,
+      opacity: '.95',
+      fixed: true,
+      html: $self.next().html()
+    });
+  })
+
   /*
    * POSTS
    */

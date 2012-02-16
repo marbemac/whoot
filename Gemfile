@@ -10,8 +10,10 @@ gem 'mongoid_slug' # Automatic MongoDB slugs
 gem 'mongoid_auto_inc' # Auto incrementing fields in mongoid
 gem 'devise' # Authentication
 gem 'koala' # facebook graph api support
+gem 'twitter' # twitter api support
 gem "omniauth"
 gem "omniauth-facebook"
+gem 'omniauth-twitter'
 gem 'cells', '3.8.0' # Components
 gem 'yajl-ruby' # json processing
 gem 'fog' # Cloud support (amazon s3, etc)

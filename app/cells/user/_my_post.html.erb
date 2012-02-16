@@ -18,6 +18,25 @@
       <% end %>
     </div>
     <div class="clear"></div>
+
+    <% unless signed_in? && @user.get_social_connect('twitter') %>
+      <a class="tweet off" href='<%= user_omniauth_authorize_path(:twitter) %>'>
+        Connect Twitter & Tweet
+        <div class="twitter-bird-small"></div>
+      </a>
+    <% else %>
+      <div class="tweet">
+        Tweet My Plans
+        <div class="twitter-bird-small"></div>
+      </div>
+      <div class="hide">
+        <form class='tweet_form ajax' action="<%= tweet_post_path %>" method="POST">
+          <textarea name='tweet_content'><%= @my_post.tweet_text %></textarea>
+          <input type='submit' class='submit' value="Tweet" />
+        </form>
+      </div>
+    <% end %>
+
   </div>
 <% else %>
   <div id="my-post">

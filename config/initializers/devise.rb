@@ -206,6 +206,12 @@ Devise.setup do |config|
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV["FACEBOOK_APP_SECRET"], {:scope => 'email,offline_access'}
 
 
+  if Rails.env.development?
+    ENV['TWITTER_KEY'] = 'rLGdmRMBQ3VHVIzKBkE7g'
+    ENV['TWITTER_SECRET'] = 'hLsga7CWnAmDSycAPitL5HcE4ahksw7tsk4bdIJxE'
+  end
+  config.omniauth :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

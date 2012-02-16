@@ -24,6 +24,15 @@ class ApplicationController < ActionController::Base
     response.headers['content-type'] = type
   end
 
+  def build_ajax_response(status, redirect=nil, flash=nil, errors=nil, extra=nil)
+    response = {:status => status, :event => "#{params[:controller]}_#{params[:action]}"}
+    response[:redirect] = redirect if redirect
+    response[:flash] = flash if flash
+    response[:errors] = errors if errors
+    response.merge!(extra) if extra
+    response
+  end
+
   private
 
   # Used to display the page load time on each page

@@ -67,6 +67,9 @@ Whoot::Application.routes.draw do
   # Soulmate api
   mount Soulmate::Server, :at => "/soul-data"
 
+  # Twitter
+  post 'twitter/tweet' => 'users#tweet', :as => :tweet_post
+
   # API
   scope 'api' do
     scope 'v1' do

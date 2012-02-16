@@ -64,3 +64,8 @@
   width: 100px;
   height: 8px;
 }
+.twitter-bird-small {
+  @include icon-sprite(twitter_bird_small);
+  width: 18px;
+  height: 12px;
+}
