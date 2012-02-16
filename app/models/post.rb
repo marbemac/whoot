@@ -40,7 +40,7 @@ class Post
   attr_accessor :user_id, :address_placeholder
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
-  before_save :set_venue_snippet#, :update_post_event
+  before_save :set_venue_snippet, :update_post_event
   after_save :set_location_snippet, :set_user_location, :process_tag, :set_user_post_snippet, :clear_caches
 
   def max_characters
@@ -70,14 +70,16 @@ class Post
   end
 
   def update_post_event
-    if persisted?
-      if night_type_changed? || (venue && venue.name_changed?)
-        event = PostChangeEvent.new(:night_type => night_type)
-        event.venue = venue if venue
-        self.post_events << event
+    if !persisted? || (persisted? && (night_type_changed? || address_original_changed? || (tag && tag.name_changed?) || (venue && venue.name_changed?)))
+      event = PostChangeEvent.new(:night_type => night_type)
+      if has_venue?
+        if venue
+          event.venue_id = venue.id
+          event.venue_public_id = venue.public_id
+        end
+        event.venue_name = venue_pretty_name
       end
-    else
-
+      self.post_events << event
     end
   end
 

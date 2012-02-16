@@ -1,4 +1,7 @@
 class PostChangeEvent < PostEvent
   field :night_type
-  embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
+  field :tag
+  field :venue_name
+  field :venue_id
+  field :venue_public_id
 end

@@ -46,7 +46,7 @@
       <% end %>
       <div class="comment-feed cf-<%= post.id %>">
         <%= render "comments/form", :post => post, :current_user => current_user %>
-        <%= render "comments/feed", :post => post, :current_user => current_user %>
+        <%= render "posts/event_feed", :post => post, :current_user => current_user %>
       </div>
     </div>
   </div>
