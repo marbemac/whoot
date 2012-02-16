@@ -14,7 +14,7 @@
 
   <div class="field lClear">
     <%= f.fields_for :tag do |t| %>
-      <%= t.label :name, "Tag your night (optional). You have 1-3 words." %>
+      <%= t.label :name, "Tag your night (optional). 40 character max." %>
       <%= t.text_field :name, :autocomplete => 'off' %>
     <% end %>
   </div>

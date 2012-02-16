@@ -263,6 +263,18 @@ class Post
     User.find(user_snippet.id)
   end
 
+  def tweet_text
+    text = "I'm #{night_type_short} tonight"
+    if tag && !tag.name.blank?
+      text += " - #{tag.name}"
+    end
+    if has_venue?
+      text += " (#{venue_pretty_name})"
+    end
+    text += ". What's everyone else up to? thewhoot.com"
+    text
+  end
+
   def clear_caches
 
   end

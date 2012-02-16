@@ -20,6 +20,7 @@
 //= require jquery.scroll
 //= require jquery.growfield
 //= require jquery.label
+//= require jquery.gritter
 //= require pusher
 //= require whoot.core
 //= require whoot.subscribers

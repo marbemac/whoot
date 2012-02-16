@@ -121,4 +121,12 @@ class UsersController < ApplicationController
     render json: response, status: :created
   end
 
+  def tweet
+    if params[:tweet_content]
+      current_user.twitter.update(params[:tweet_content])
+    end
+
+    render :json => build_ajax_response(:ok, root_path, 'Tweet Successful!')
+  end
+
 end

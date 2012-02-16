@@ -10,17 +10,47 @@
  * qTip
  */
 
-.jgrowl .ui-tooltip-title { font-size: 18px; }
-.jgrowl .ui-tooltip-content { font-size: 16px; padding: 10px; line-height: 1.4em; }
-.jgrowl {
-  @include single-box-shadow(#333, 1px, 1px, 5px);
-  .ui-tooltip-title { font-size: 18px; }
-  .ui-tooltip-content { font-size: 17px; padding: 7px; line-height: 1.2em; }
-}
-
 .ui-tooltip,
 .qtip
 {
   font-size: 13px;
   line-height: 1.125em;
+}
+
+/*
+ * gritter
+ */
+
+.gritter-item {
+  @include single-box-shadow(#999, 1px, 1px, 3px);
+  @include opacity(.85);
+  @include border-radius(3px);
+  padding: 7px 11px 5px 11px;
+  border: 1px solid transparent;
+  background: black;
+
+  &:hover {
+    @include opacity(1);
+    border: 1px solid #FFF;
+  }
+  p {
+    font-size: 14px;
+  }
+}
+.gritter-close {
+  left: -14px;
+  top: -12px;
+}
+.gritter-title {
+  padding-bottom: 4px;
+}
+.gritter-red {
+  .gritter-item {
+    background: #990000;
+  }
+}
+.gritter-green {
+  .gritter-item {
+    background: #3C7419;
+  }
 }
