@@ -79,6 +79,11 @@ class Post
         end
         event.venue_name = venue_pretty_name
       end
+
+      if tag
+        event.tag = tag.name
+      end
+
       event.created_at = Time.now
       self.post_events << event
     end
@@ -279,7 +284,7 @@ class Post
   end
 
   def clear_caches
-
+    clear_post_cache
   end
 
   def clear_post_cache

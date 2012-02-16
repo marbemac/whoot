@@ -981,6 +981,18 @@ $post-border-color: #AAA;
         color: #444;
         font-weight: bold;
       }
+      .working {
+        color: $post-working-color;
+      }
+      .low_in {
+        color: $post-low_in-color;
+      }
+      .low_out {
+        color: $post-low_out-color;
+      }
+      .big_out {
+        color: $post-big_out-color;
+      }
     }
     .time {
       font-size: 11px;
