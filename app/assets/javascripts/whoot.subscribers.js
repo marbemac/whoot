@@ -104,8 +104,8 @@ $(function() {
     comment_count.text(parseInt(comment_count.text()) + 1);
   });
   amplify.subscribe("comment_destroyed", function(data) {
-    $('#c-' + data.comment_id).remove();
-    console.log(data.comment_id);
+    $('#c-' + data.event_id).remove();
+    console.log(data.event_id);
     var comment_count = $('#post-' + data.user_id + ' .comments_count span');
     comment_count.text(parseInt(comment_count.text()) - 1);
   });

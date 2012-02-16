@@ -29,13 +29,13 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    post = Post.first(conditions: { "events.comment._id" => BSON::ObjectId(params[:id]) })
+    post = Post.first(conditions: { "post_events.comment._id" => BSON::ObjectId(params[:id]) })
     if post
       comment = post.find_comment(params[:id])
       if can? :destroy, comment
         post.remove_comment(comment)
 
-        content = {:status => 'ok', :event => 'comment_destroyed', :comment_id => comment.id, :user_id => post.user_snippet.id}
+        content = {:status => 'ok', :event => 'comment_destroyed', :event_id => comment._parent.id, :user_id => post.user_snippet.id}
         render json: content, status: :created
       else
         render json: {:status => 'error', :flash => {:type => "error", :message => "You do not have permission to delete that!"}}, status: 400
