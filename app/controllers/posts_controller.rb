@@ -46,7 +46,6 @@ class PostsController < ApplicationController
     else
       @post = Post.new(params[:post])
       @post.set_user_snippet(current_user)
-      current_user.pings_sent_today = 0
     end
 
     redirect = Post.where("user_snippet._id" => current_user.id).first ? request.referer : invites_path

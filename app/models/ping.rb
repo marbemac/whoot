@@ -8,6 +8,8 @@ class Ping
   belongs_to :user
 
   class << self
-    @limit = 3
+    def max_per_day
+      3
+    end
   end
 end

@@ -34,7 +34,7 @@ class Post
   embeds_many :voters, :as => :user_assignable, :class_name => 'UserSnippet'
   embeds_many :post_events, :class_name => 'PostEvent'
 
-  validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing, or partying)" }
+  validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing out, or partying)" }
   validate :max_characters
   attr_accessible :night_type, :venue, :tag, :address_original
   attr_accessor :user_id, :address_placeholder

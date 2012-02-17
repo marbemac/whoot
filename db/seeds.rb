@@ -9,10 +9,8 @@ puts 'EMPTY THE MONGODB DATABASE'
 #Mongoid.master.collections.reject { |c| c.name =~ /^system/}.each(&:drop)
 
 # LOCATIONS
-city = City.create([{
-        city: "New York City",
+city = City.create(
+        name: "New York City",
         state_code: "NY",
         coordinates: [40.714623,-74.006605]
-        }
-]
 )
