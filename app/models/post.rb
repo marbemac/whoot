@@ -40,9 +40,9 @@ class Post
   attr_accessor :user_id, :address_placeholder
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
-  after_create :reset_pings_sent
+  after_create :set_user_post_snippet, :reset_pings_sent
   before_save :set_venue_snippet, :update_post_event
-  after_save :set_location_snippet, :set_user_location, :process_tag, :set_user_post_snippet, :clear_caches
+  after_save :set_location_snippet, :set_user_location, :process_tag, :clear_caches
 
   def max_characters
     if tag && tag.name.length > 40
@@ -216,9 +216,10 @@ class Post
     unless user.posted_today? || !user.pings_today_date || user.pings_today_date <= Post.cutoff_time
       users = User.where(:_id.in => user.pings_today)
       users.each do |to_user|
-        PingMailer.pinged_user_posted(user, to_user).deliver
         if to_user.device_token
           Notification.send_push_notification(to_user.device_token, to_user.device_type, "#{user.first_name} posted what #{user.gender_pronoun}'s up to tonight!")
+        else
+          PingMailer.pinged_user_posted(user, to_user).deliver
         end
       end
     end
