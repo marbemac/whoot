@@ -34,6 +34,7 @@ class User
   field :pings_today_date
   field :pings_today, :default => []
   field :pings_count, :type => Integer, :default => 0
+  field :pings_sent_today, :default => 0
   field :votes_count, :default => 0
   field :invited_emails, :default => []
   field :last_invite_time
@@ -276,6 +277,7 @@ class User
       Ping.create(:pinged_user_id => id, :user_id => user.id)
       self.pings_today << user.id
       self.pings_count += 1
+      user.pings_sent_today += 1
     end
   end
 

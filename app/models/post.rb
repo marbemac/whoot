@@ -40,6 +40,7 @@ class Post
   attr_accessor :user_id, :address_placeholder
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
+  after_create :reset_pings_sent
   before_save :set_venue_snippet, :update_post_event
   after_save :set_location_snippet, :set_user_location, :process_tag, :set_user_post_snippet, :clear_caches
 
@@ -318,6 +319,10 @@ class Post
       }
     end
     data
+  end
+
+  def reset_pings_sent
+    user.set(:pings_sent_today, 0)
   end
 
   class << self

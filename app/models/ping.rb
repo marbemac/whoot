@@ -7,4 +7,7 @@ class Ping
 
   belongs_to :user
 
+  class << self
+    @limit = 3
+  end
 end
