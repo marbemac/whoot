@@ -9,8 +9,8 @@
 
     <title><%= title %></title>
 
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="The Whoot is a free web, Android, and iPhone application that makes it easy to find out what you're friends are doing tonight.">
+    <meta name="keywords" content="The Whoot, Whoot, Wendr, Social Planning, Plan My Night">
 
     <!-- Mobile viewport optimized: j.mp/bplateviewport -->
     <meta name="viewport" content="width=device-width,initial-scale=.4">
@@ -136,33 +136,6 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-
-    <!-- Start of Woopra Code -->
-    <% unless Rails.env.development? %>
-    <script type="text/javascript">
-      function woopraReady(tracker) {
-          tracker.setDomain('<%= Rails.env.staging? ? 'staging.thewhoot.com' : 'thewhoot.com' %>');
-          tracker.setIdleTimeout(300000);
-
-          <% if signed_in? %>
-              tracker.addVisitorProperty('name', '<%= current_user.fullname %>');
-              tracker.addVisitorProperty('email', '<%= current_user.email %>');
-          <% end %>
-
-          tracker.track();
-
-          return false;
-      }
-      (function() {
-          var wsc = document.createElement('script');
-          wsc.src = document.location.protocol+'//static.woopra.com/js/woopra.js';
-          wsc.type = 'text/javascript';
-          wsc.async = true;
-          var ssc = document.getElementsByTagName('script')[0];
-          ssc.parentNode.insertBefore(wsc, ssc);
-      })();
-    </script>
-    <% end %>
 
     <!-- User Voice -->
     <script type="text/javascript">
