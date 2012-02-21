@@ -31,9 +31,15 @@ $(function() {
   });
 
   amplify.subscribe("ping_toggle", function(data) {
-    actionCommon($('.ping-' + data.userId), data);
+    if (data.status == 'new') {
+      actionCommon($('.ping-' + data.userId), data);
 
-    $('.ping-' + data.userId).replaceWith('<span class="pinged">Pinged</span>');
+      $('.ping-' + data.userId).replaceWith('<span class="pinged">Pinged</span>');
+    }
+  });
+
+  amplify.subscribe("used_ping", function(data) {
+    $('#pings-remaining .used').text(parseInt($('#pings-remaining .used').text()) + 1);
   });
 
   amplify.subscribe("location_updated", function(data) {

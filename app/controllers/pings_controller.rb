@@ -14,7 +14,7 @@ class PingsController < ApplicationController
         if params[:format] == :api
           response = {:json => {:status => 'ok'}}
         else
-          response = {:json => {:status => 'ok', :target => '.ping_'+target_user.id.to_s, :toggle_classes => ['btn pingB', 'pinged']}, :status => 201}
+          response = {:json => {:status => 'ok', :target => '.ping_'+target_user.id.to_s, :toggle_classes => ['btn pingB', 'pinged'], :event => "used_ping"}, :status => 201}
         end
       else
         response = {:json => {:status => 'error', :message => "You have used all #{Ping.max_per_day} pings today!"}, :status => 404}

@@ -119,6 +119,17 @@
     border: none;
 }
 
+#pings-remaining {
+  display: block;
+  border-top: 1px solid #D7D7D7;
+  border-bottom: 1px solid #F1F1F1;
+  margin: 0 6px;
+  padding: 3px 5px;
+  color: #000;
+  position: relative;
+  font-size: 14px;
+}
+
 .users {
   .show,
   .following_users,

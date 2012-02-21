@@ -25,6 +25,10 @@
 
   <%= render "notification/unread_count", :user => @user, :my_post => @my_post %>
 
+  <div id="pings-remaining">
+    Pings Today <span class="used"><%= @user.pings_sent_today %></span> / 3
+  </div>
+
   <%= render "user/my_post" %>
 
   <%= render "invites/form", :user => @user %>
