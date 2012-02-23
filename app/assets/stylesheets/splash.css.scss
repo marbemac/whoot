@@ -69,6 +69,23 @@ html.coming-soon {
       margin: 0 15px;
     }
   }
+  .iphone-app,
+  .android-app {
+    position: absolute;
+    top: 400px;
+    img {
+      height: 50px;
+    }
+    &:hover {
+      @include single-box-shadow(#CCC, 1px, 1px);
+    }
+  }
+  .iphone-app {
+    left: 80px;
+  }
+  .android-app {
+    left: 242px;
+  }
 }
 
 #coming-soon {
