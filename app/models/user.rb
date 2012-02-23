@@ -442,12 +442,16 @@ class User
       # Update schools if the user doesn't have them yet
       if extra['education'] && extra['education'].length > 0 && (!user.schools || user.schools.length == 0)
         extra['education'].each do |e|
-          user.schools.new(
-                  :fb_id => e['school']['id'],
-                  :name => e['school']['name'],
-                  :year => e['year']['name'],
-                  :type => e['type']
-          )
+          data = {:type => e['type']}
+          if e['school']
+            data[:fb_id] = e['school']['id']
+            data[:name] = e['school']['name']
+          end
+          if e['year']
+            data[:year] = e['year']['name']
+          end
+
+          user.schools.new(data)
         end
       end
 
