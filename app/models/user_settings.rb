@@ -4,6 +4,7 @@ class UserSettings
   field :email_comment, :default => true
   field :email_ping, :default => true
   field :email_follow, :default => true
+  field :email_daily, :default => true
 
   embedded_in :user
 

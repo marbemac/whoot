@@ -16,3 +16,8 @@ recalculate_tag_pop:
   class: RecalculateTagPopularity
   #args: 'hour'
   description: "This job recalculates tag popularities"
+
+send_daily_reminder:
+  cron: 0 16 * * *
+  class: SendDailyReminder
+  description: "Sends a daily reminder via push notification or email"

@@ -9,7 +9,7 @@ class Ping
 
   class << self
     def max_per_day
-      3
+      5
     end
   end
 end

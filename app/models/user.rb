@@ -140,6 +140,8 @@ class User
         self.settings.email_ping = !settings.email_ping
       when 'email_follow'
         self.settings.email_follow = !settings.email_follow
+      when 'email_daily'
+        self.settings.email_daily = !settings.email_daily
     end
   end
 
