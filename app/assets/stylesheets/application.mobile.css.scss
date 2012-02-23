@@ -60,11 +60,13 @@ body {
 
   .iphone,
   .android {
+    display: block;
     position: absolute;
     width: 300px;
     left: 50%;
     margin-left: -150px;
     height: 100px;
+    text-decoration: none;
 
     .logo-m {
       float: left;
