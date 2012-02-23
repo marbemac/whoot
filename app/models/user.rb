@@ -73,6 +73,7 @@ class User
   index :invited_emails
 
   embeds_many :social_connects
+  embeds_many :schools, :class_name => 'School'
   embeds_one :current_post, :as => :post_assignable, :class_name => 'PostSnippet'
   embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
   embeds_one :settings, :class_name => 'UserSettings'
@@ -283,13 +284,6 @@ class User
     end
   end
 
-  def get_social_connect provider
-    social_connects.each do |social|
-      return social if social.provider == provider
-    end
-    nil
-  end
-
   def posted_today?
     current_post && current_post.created_at >= Post.cutoff_time
   end
@@ -443,6 +437,22 @@ class User
         )
         user.birthday = Chronic.parse(extra["birthday"]) if extra["birthday"]
         user.social_connects << SocialConnect.new(:uid => omniauth["uid"], :provider => omniauth['provider'], :token => omniauth['credentials']['token'])
+      end
+
+      # Update schools if the user doesn't have them yet
+      if extra['education'] && extra['education'].length > 0 && (!user.schools || user.schools.length == 0)
+        extra['education'].each do |e|
+          data = {:type => e['type']}
+          if e['school']
+            data[:fb_id] = e['school']['id']
+            data[:name] = e['school']['name']
+          end
+          if e['year']
+            data[:year] = e['year']['name']
+          end
+
+          user.schools.new(data)
+        end
       end
 
       user.save
