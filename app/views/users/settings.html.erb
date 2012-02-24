@@ -22,7 +22,7 @@
 <div class="section">
   <h5>Emails</h5>
 
-  <div class="email-note">Note: if you have The Whoot app for iPhone or Android, you will be notified using the apps instead of email.</div>
+  <div class="email-note">Note: if you have The Whoot app for iPhone or Android, you will be notified through the apps instead of email.</div>
 
   <div class="setting">
     <div class="content">
@@ -63,17 +63,19 @@
       </span>
     </button>
   </div>
-  <div class="setting">
-    <div class="content">
-      Email me a daily reminder to post: <span class="status"><%= @user.settings.email_follow ? 'on' : 'off' %></span>
+  <% if @user.device_token %>
+    <div class="setting">
+      <div class="content">
+        Send me a daily app notification reminding me to post: <span class="status"><%= @user.settings.email_daily ? 'on' : 'off' %></span>
+      </div>
+      <button class="btn <%= @user.settings.email_daily ? 'unsetB' : 'setB' %> setting-email_daily %>">
+        <span class="default" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_daily"}' data-m="put">
+          turn on
+        </span>
+        <span class="triggered" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_daily"}' data-m="put">
+          turn off
+        </span>
+      </button>
     </div>
-    <button class="btn <%= @user.settings.email_daily ? 'unsetB' : 'setB' %> setting-email_daily %>">
-      <span class="default" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_daily"}' data-m="put">
-        turn on
-      </span>
-      <span class="triggered" data-url="<%= user_settings_update_path %>" data-d='{"setting":"email_daily"}' data-m="put">
-        turn off
-      </span>
-    </button>
-  </div>
+  <% end %>
 </div>

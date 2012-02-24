@@ -7,41 +7,41 @@ Purpose of the stylesheet follows.
 */
 
 #my-post {
-    border-top: 1px solid #D7D7D7;
-    border-bottom: 1px solid #F1F1F1;
-    padding: 5px;
-    margin: 0 5px;
+  border-top: 1px solid #D7D7D7;
+  border-bottom: 1px solid #F1F1F1;
+  padding: 5px;
+  margin: 0 5px;
 
-    h5 {
-        float: left;
-        color: #777;
-        cursor: default;
+  h5 {
+    float: left;
+    color: #777;
+    cursor: default;
+  }
+  h6 {
+    margin: 5px 0 2px 0;
+  }
+  .tags {
+    .tag {
+      float: left;
+      border-bottom: none;
+      margin: 5px 10px 0 0;
+      font-style: italic;
+      font-size: 13px;
     }
-    h6 {
-      margin: 5px 0 2px 0;
-    }
-    .tags {
-        .tag {
-            float: left;
-            border-bottom: none;
-            margin: 5px 10px 0 0;
-            font-style: italic;
-            font-size: 13px;
-        }
-    }
-    .tweet {
-      position: relative;
-      padding: 5px 0 2px 23px;
-      color: #154685;
-      display: block;
-      cursor: pointer;
+  }
+  .tweet {
+    position: relative;
+    padding: 5px 0 2px 23px;
+    color: #154685;
+    display: block;
+    cursor: pointer;
 
-      .twitter-bird-small {
-        position: absolute;
-        top: 6px;
-        left: -3px;
-      }
+    .twitter-bird-small {
+      position: absolute;
+      top: 6px;
+      left: -3px;
     }
+  }
 }
 
 .tweet_form {
@@ -58,195 +58,196 @@ Purpose of the stylesheet follows.
 
 #change-post,
 #cancel-post {
-    float: right;
-    color: $link-color;
-    font-size: 11px;
-    margin: 3px 2px 0 0;
-    font-weight: bold;
+  float: right;
+  color: $link-color;
+  font-size: 11px;
+  margin: 3px 2px 0 0;
+  font-weight: bold;
 
-    &:hover {
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 #post-box {
-    @include border-top-left-radius(10px);
-    z-index: 110;
-    width: 760px;
-    background: #000;
-    height: 100%;
+  @include border-top-left-radius(10px);
+  z-index: 110;
+  width: 760px;
+  background: #000;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+  h3 {
+    @include border-radius(3px);
     position: absolute;
-    top: 0px;
-    left: 0px;
+    color: #FFF;
+    padding: 10px;
+    top: 21px;
+    left: 104px;
+    width: 531px;
+    cursor: default;
+    div {
+      font-size: 13px;
+      font-weight: normal;
+    }
+  }
 
-    h3 {
-      @include border-radius(3px);
-      position: absolute;
-      color: #FFF;
+  .nav {
+    float: left;
+    width: 200px;
+    margin: 18px 0 0 0;
+    color: #999;
+    .option {
+      position: relative;
+      font-size: 20px;
       padding: 10px;
-      top: 21px;
-      left: 104px;
-      width: 531px;
-      cursor: default;
-      div {
-        font-size: 13px;
-        font-weight: normal;
-      }
-    }
-
-    .nav {
-        float: left;
-        width: 200px;
-        margin: 18px 0 0 0;
-        color: #999;
-        .option {
-          position: relative;
-          font-size: 20px;
-          padding: 10px;
-          &:hover {
-            cursor: pointer;
-            .arrow-r-2424 {
-              display: block;
-            }
-          }
-          &.on {
-            color: #000;
-            font-weight: bold;
-            .arrow-o-r-2424 {
-              display: block;
-            }
-            &:hover {
-              cursor: default;
-              .arrow-r-2424 {
-                display: none;
-              }
-            }
-          }
-        }
-        .icon {
-          display: none;
-          position: absolute;
-          top: 7px;
-          right: 30px;
-        }
-    }
-
-    $container-w: 550px;
-    .container {
-        @include border-radius(7px);
-        @include single-box-shadow(#CCC, 1px, 1px);
-
-        background: #FFF;
-        position: absolute;
-        top: 60px; left: 50%;
-        width: $container-w;
-        margin: 0 0 0 -275px;
-
-        form {
-          margin: 10px 0 0 35px;
-        }
-
-        .errors {
-          margin: 15px 37px -5px 0;
-        }
-        h4 {
-          margin: 12px 0 0 0;
-          cursor: default;
-        }
-        input,
-        textarea {
-          width: 463px;
-          margin: 0 0 10px -1px;
-          border-width: 2px;
-          padding: 7px;
-          font-size: 18px;
-          display: block;
-        }
-        textarea {
-          height: 60px;
-        }
-        select {
-          margin: 0 0 10px -1px;
-          border-width: 2px;
-          padding: 10px 7px 6px 7px;
-          font-size: 18px;
-          display: block;
-          border: 2px solid #AAA;
-        }
-        .submit {
-          @include orange-button(3px, 18px);
-          margin: 10px 10px 15px 0;
-        }
-        .checkbox-label {
-          float: left;
-          color: #333;
-          font-size: 13px;
-          margin: 0 0 10px 0;
-        }
-    }
-    .cancel {
-      @include link();
-      position: absolute;
-      bottom: 25px;
-      left: 180px;
-    }
-
-    .type {
-        float: left;
-        padding: 8px 16px;
-        margin: 10px -1px 10px -1px;
-        font-size: 18px;
-        border: 2px solid #AAA;
+      &:hover {
         cursor: pointer;
-        position: relative;
-        z-index: 50;
-        color: #666;
-        &.on {
-          @include single-box-shadow(#666, 1px, 1px);
-          color: #FFF;
-
-          &:hover {
-            color: #FFF;
-            cursor: default;
-          }
+        .arrow-r-2424 {
+          display: block;
+        }
+      }
+      &.on {
+        color: #000;
+        font-weight: bold;
+        .arrow-o-r-2424 {
+          display: block;
         }
         &:hover {
-          @include single-box-shadow(#666, 1px, 1px);
-          z-index: 100;
+          cursor: default;
+          .arrow-r-2424 {
+            display: none;
+          }
         }
+      }
     }
-    .working:hover {
-        border-color: $post-working-color;
-        color: $post-working-color;
+    .icon {
+      display: none;
+      position: absolute;
+      top: 7px;
+      right: 30px;
     }
-    .low_in:hover {
-        border-color: $post-low_in-color;
-        color: $post-low_in-color;
+  }
+
+  $container-w: 550px;
+  .container {
+    @include border-radius(7px);
+    @include single-box-shadow(#CCC, 1px, 1px);
+
+    background: #FFF;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    width: $container-w;
+    margin: 0 0 0 -275px;
+
+    form {
+      margin: 10px 0 0 35px;
     }
-    .low_out:hover {
-        border-color: $post-low_out-color;
-        color: $post-low_out-color;
+
+    .errors {
+      margin: 15px 37px -5px 0;
     }
-    .big_out:hover {
-        border-color: $post-big_out-color;
-        color: $post-big_out-color;
+    h4 {
+      margin: 12px 0 0 0;
+      cursor: default;
     }
-    .working.on {
-        border-color: $post-working-color;
-        background: $post-working-color;
+    input,
+    textarea {
+      width: 463px;
+      margin: 0 0 10px -1px;
+      border-width: 2px;
+      padding: 7px;
+      font-size: 18px;
+      display: block;
     }
-    .low_in.on {
-        border-color: $post-low_in-color;
-        background: $post-low_in-color;
+    textarea {
+      height: 60px;
     }
-    .low_out.on {
-        border-color: $post-low_out-color;
-        background: $post-low_out-color;
+    select {
+      margin: 0 0 10px -1px;
+      border-width: 2px;
+      padding: 10px 7px 6px 7px;
+      font-size: 18px;
+      display: block;
+      border: 2px solid #AAA;
     }
-    .big_out.on {
-        border-color: $post-big_out-color;
-        background: $post-big_out-color;
+    .submit {
+      @include orange-button(3px, 18px);
+      margin: 10px 10px 15px 0;
     }
+    .checkbox-label {
+      float: left;
+      color: #333;
+      font-size: 13px;
+      margin: 0 0 10px 0;
+    }
+  }
+  .cancel {
+    @include link();
+    position: absolute;
+    bottom: 25px;
+    left: 180px;
+  }
+
+  .type {
+    float: left;
+    padding: 8px 16px;
+    margin: 10px -1px 10px -1px;
+    font-size: 18px;
+    border: 2px solid #AAA;
+    cursor: pointer;
+    position: relative;
+    z-index: 50;
+    color: #666;
+    &.on {
+      @include single-box-shadow(#666, 1px, 1px);
+      color: #FFF;
+
+      &:hover {
+        color: #FFF;
+        cursor: default;
+      }
+    }
+    &:hover {
+      @include single-box-shadow(#666, 1px, 1px);
+      z-index: 100;
+    }
+  }
+  .working:hover {
+    border-color: $post-working-color;
+    color: $post-working-color;
+  }
+  .low_in:hover {
+    border-color: $post-low_in-color;
+    color: $post-low_in-color;
+  }
+  .low_out:hover {
+    border-color: $post-low_out-color;
+    color: $post-low_out-color;
+  }
+  .big_out:hover {
+    border-color: $post-big_out-color;
+    color: $post-big_out-color;
+  }
+  .working.on {
+    border-color: $post-working-color;
+    background: $post-working-color;
+  }
+  .low_in.on {
+    border-color: $post-low_in-color;
+    background: $post-low_in-color;
+  }
+  .low_out.on {
+    border-color: $post-low_out-color;
+    background: $post-low_out-color;
+  }
+  .big_out.on {
+    border-color: $post-big_out-color;
+    background: $post-big_out-color;
+  }
 }
 
 #post-splash {
@@ -288,427 +289,446 @@ Purpose of the stylesheet follows.
 
 $feed-filters-margin-top: 5px;
 #feed-filters {
-    $feed-filter-border-radius: 5px;
-    $feed-filter-border-color: #CCC;
-    $feed-filter-border-width: 2px;
-    $feed-filter-background: #FFF;
-    @include single-box-shadow(#BBB, 1px, 1px, 2px);
-    background-color: #EBEBEB;
-    @include background-image(linear-gradient(#F9F9F9, #F6F6F6 25%, #EBEBEB 75%, #E8E8E8));
-    @include border-top-left-radius(10px);
+  $feed-filter-border-radius: 5px;
+  $feed-filter-border-color: #CCC;
+  $feed-filter-border-width: 2px;
+  $feed-filter-background: #FFF;
+  @include single-box-shadow(#BBB, 1px, 1px, 2px);
+  background-color: #EBEBEB;
+  @include background-image(linear-gradient(#F9F9F9, #F6F6F6 25%, #EBEBEB 75%, #E8E8E8));
+  @include border-top-left-radius(10px);
 
-    width: $page_width - $sidebar_width;
-    padding: $feed-filters-margin-top 0 5px 0;
-    margin: 0;
-    border-top: 1px solid #FFF;
-    border-bottom: 1px solid $sidebar_border_color;
+  width: $page_width - $sidebar_width;
+  padding: $feed-filters-margin-top 0 5px 0;
+  margin: 0;
+  border-top: 1px solid #FFF;
+  border-bottom: 1px solid $sidebar_border_color;
 
-    .post-types,
-    .feed-sort {
+  .post-types,
+  .feed-sort {
+    position: relative;
+
+    .label {
+      float: left;
+      margin: 9px 0 0 13px;
+      color: #999;
+      font-size: 12px;
+      cursor: default;
+    }
+    ul {
+      font-size: 14px;
+    }
+    li {
+      float: left;
+    }
+    li.clear {
+      float: none;
+    }
+  }
+  .post-types {
+    float: left;
+
+    ul {
+      @include border-radius($feed-filter-border-radius);
+      float: left;
+      background: $feed-filter-background;
+      border: $feed-filter-border-width solid $feed-filter-border-color;
+      margin: 0 0 0 10px;
+
+      .icon {
+        position: absolute;
+        left: 5px;
+        top: 9px;
+        display: none;
+      }
+      li.on {
+        .icon {
+          display: block;
+        }
+      }
+      a {
         position: relative;
-        
-        .label {
-            float: left;
-            margin: 9px 0 0 13px;
-            color: #999;
-            font-size: 12px;
-            cursor: default;
-        }
-        ul {
-            font-size: 14px;
-        }
-        li {
-            float: left;
-        }
-        li.clear {
-            float: none;
-        }
+        padding: 1px 10px 13px 25px;
+        color: #BBB;
+        text-decoration: none;
+        display: block;
+      }
+      li.on.working a {
+        color: $post-working-color;
+      }
+      li.on.low_in a {
+        color: $post-low_in-color;
+      }
+      li.on.low_out a {
+        color: $post-low_out-color;
+      }
+      li.on.big_out a {
+        color: $post-big_out-color;
+      }
     }
-    .post-types {
-        float: left;
-
-        ul {
-            @include border-radius($feed-filter-border-radius);
-            float: left;
-            background: $feed-filter-background;
-            border: $feed-filter-border-width solid $feed-filter-border-color;
-            margin: 0 0 0 10px;
-
-            .icon {
-                position: absolute;
-                left: 5px;
-                top: 9px;
-                display: none;
-            }
-            li.on {
-                .icon {
-                    display: block;
-                }
-            }
-            a {
-                position: relative;
-                padding: 6px 10px 7px 25px;
-                color: #BBB;
-                text-decoration: none;
-                display: block;
-            }
-            li.on.working a { color: $post-working-color; }
-            li.on.low_in a { color: $post-low_in-color; }
-            li.on.low_out a { color: $post-low_out-color; }
-            li.on.big_out a { color: $post-big_out-color; }
-        }
-        .undecided {
-          @include blue-button(2px, 12px);
-          position: absolute;
-          top: 6px;
-          left: 490px;
-          cursor: pointer;
-          padding: 3px 8px;
-        }
+    .undecided {
+      @include blue-button(2px, 12px);
+      position: absolute;
+      top: 6px;
+      left: 490px;
+      cursor: pointer;
+      padding: 3px 8px;
     }
-    .feed-sort {
-        float: right;
-        width: 173px;
+  }
+  .feed-sort {
+    float: right;
+    width: 173px;
 
-        .arrow-small {
-            position: absolute; top: 12px; right: 18px;
-            z-index: 10;
-        }
-        ul {
-            @include border-radius($feed-filter-border-radius);
-            background: $feed-filter-background;
-            border: $feed-filter-border-width solid $feed-filter-border-color;
-            position: absolute; left: 60px;
-            z-index: 5;
-            width: 100px;
-
-            .arrow {
-
-            }
-
-            a {
-                color: #444;
-                text-decoration: none;
-                padding: 6px 10px;
-                display: block;
-            }
-        }
+    .arrow-small {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      z-index: 10;
     }
+    ul {
+      @include border-radius($feed-filter-border-radius);
+      background: $feed-filter-background;
+      border: $feed-filter-border-width solid $feed-filter-border-color;
+      position: absolute;
+      left: 60px;
+      z-index: 5;
+      width: 100px;
+
+      .arrow {
+
+      }
+
+      a {
+        color: #444;
+        text-decoration: none;
+        padding: 6px 10px;
+        display: block;
+      }
+    }
+  }
 }
 
 #feed-stats {
-    float: left;
-
-    div {
-        float: left;
-        margin: -1px 10px 0 10px;
-        font-weight: bold;
-        cursor: default;
-    }
-    div.working { color: $post-working-color; }
-    div.low_in { color: $post-low_in-color; }
-    div.low_out { color: $post-low_out-color; }
-    div.big_out { color: $post-big_out-color; }
+  div {
+    position: absolute;
+    top: 25px;
+    font-size: 11px;
+  }
+  div.working {
+    color: $post-working-color;
+    left: 98px;
+  }
+  div.low_in {
+    color: $post-low_in-color;
+    left: 185px;
+  }
+  div.low_out {
+    color: $post-low_out-color;
+    left: 283px;
+  }
+  div.big_out {
+    color: $post-big_out-color;
+    left: 399px;
+  }
 }
 
 $post-hover-color: #F6F6F6;
 $post-border-color: #AAA;
 #post-feed {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 
-    .no-post {
-        margin: 10px;
-    }
-    h3 {
-        float: left;
-        margin: 0px 10px 5px 10px;
-        cursor: default;
-    }
+  .no-post {
+    margin: 10px;
+  }
+  h3 {
+    float: left;
+    margin: 0px 10px 5px 10px;
+    cursor: default;
+  }
 }
 
 .teaser.post {
-    font-size: 16px;
-    position: relative;
-    margin-top: -1px;
-    .head {
-      @include clearfix();
-      height: 54px;
-      padding: 1px 55px 3px 2px;
-      margin: 0;
-      border-top: 1px solid transparent;
-      border-bottom: 1px solid transparent;
+  font-size: 16px;
+  position: relative;
+  .head {
+    @include clearfix();
+    height: 54px;
+    padding: 1px 55px 3px 2px;
+    margin: 0;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
 
-      .profile-image {
-          float: left;
-          position: relative;
-          top: 3px;
-          left: 3px;
-          width: 45px;
-
-          img {
-              @include border-radius(5px);
-          }
-      }
-      .ulink-wrap {
-          float: left;
-          width: 140px;
-          overflow: hidden;
-          padding: 19px 0 5px 20px;
-          white-space: nowrap;
-      }
-      .what {
-          float: left;
-          width: 120px;
-          overflow: hidden;
-          padding: 19px 0 5px 10px;
-      }
-      .tags {
-          @include clearfix();
-          float: left;
-          padding: 21px 0 5px 0;
-          font-style: italic;
-          width: 300px;
-          overflow: hidden;
-          white-space: nowrap;
-          font-size: 13px;
-      }
-      .tag {
-          @include border-radius(2px);
-          float: left;
-          margin: 0 8px 0 0;
-          padding: 0;
-
-          &:hover {
-            color: #FC770D;
-          }
-      }
-      .comments_count {
-        padding: 0 23px 0 0;
-        position: relative;
-        font-size: 16px;
-        font-weight: bold;
-        float: right;
-        margin: 20px 5px 0 0;
-        .icon {
-          position: absolute;
-          top: 2px;
-          right: 0px;
-        }
-      }
-      .scoreC {
-          position: absolute;
-          right: 10px;
-          top: 17px;
-      }
-      .arrow-fat-down,
-      .arrow-fat-up {
-        position: absolute;
-      }
-      .arrow-fat-down {
-        left: 50%;
-        margin-left: -50px;
-        display: none;
-        bottom: -8px;
-      }
-      .arrow-fat-up {
-        left: 50%;
-        margin-left: -50px;
-        display: none;
-        bottom: 0px;
-      }
-      &:hover,
-      &.on {
-        background: $post-hover-color;
-        border-color: $post-border-color;
-        cursor: pointer;
-
-        .arrow-fat-down {
-          display: block;
-        }
-      }
-      &.on {
-        .arrow-fat-down {
-          display: none;
-        }
-        &:hover {
-          .arrow-fat-up {
-            display: block;
-          }
-        }
-      }
-    }
-
-    &.working .what {
-        color: $post-working-color;
-    }
-    &.low_in .what {
-        color: $post-low_in-color;
-    }
-    &.low_out .what {
-        color: $post-low_out-color;
-    }
-    &.big_out .what {
-        color: $post-big_out-color;
-    }
-
-    .details {
+    .profile-image {
+      float: left;
       position: relative;
-      border-bottom: 1px solid $post-border-color;
-      width: 100%;
-      .left {
-      }
-      .right {
-      }
-      .num-people {
-          margin: 5px 0 10px 5px;
-      }
-      .venue {
-        margin: 10px 0 12px 0;
-        position: relative;
-        left: 14px;
-      }
-      .address {
-        font-size: 12px;
-        font-style: italic;
-        margin: -11px 0 5px 33px;
-      }
-      .voters {
-        h4 {
-          margin: 4px 0 10px 10px;
-        }
-        .none {
-            font-style: italic;
-            font-size: 14px;
-            margin: 7px 0 0 10px;
-        }
-        .ulink {
-          margin: 7px 0 0 10px;
-          display: block;
-          font-size: 14px;
-        }
-      }
-      h5 {
-          color: #666;
-          margin: 4px 0 8px 0;
-      }
-      .note {
-          margin: 0 0 0 3px;
+      top: 3px;
+      left: 3px;
+      width: 45px;
+
+      img {
+        @include border-radius(5px);
       }
     }
+    .ulink-wrap {
+      float: left;
+      width: 140px;
+      overflow: hidden;
+      padding: 19px 0 5px 20px;
+      white-space: nowrap;
+    }
+    .what {
+      float: left;
+      width: 120px;
+      overflow: hidden;
+      padding: 19px 0 5px 10px;
+    }
+    .tags {
+      @include clearfix();
+      float: left;
+      padding: 21px 0 5px 0;
+      font-style: italic;
+      width: 300px;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .tag {
+      @include border-radius(2px);
+      float: left;
+      margin: 0 8px 0 0;
+      padding: 0;
+
+      &:hover {
+        color: #FC770D;
+      }
+    }
+    .comments_count {
+      padding: 0 23px 0 0;
+      position: relative;
+      font-size: 16px;
+      font-weight: bold;
+      float: right;
+      margin: 20px 5px 0 0;
+      .icon {
+        position: absolute;
+        top: 2px;
+        right: 0px;
+      }
+    }
+    .scoreC {
+      position: absolute;
+      right: 10px;
+      top: 17px;
+    }
+    .arrow-fat-down,
+    .arrow-fat-up {
+      position: absolute;
+    }
+    .arrow-fat-down {
+      left: 50%;
+      margin-left: -50px;
+      display: none;
+      bottom: -8px;
+    }
+    .arrow-fat-up {
+      left: 50%;
+      margin-left: -50px;
+      display: none;
+      bottom: 0px;
+    }
+    &:hover,
+    &.on {
+      background: $post-hover-color;
+      border-color: $post-border-color;
+      cursor: pointer;
+
+      .arrow-fat-down {
+        display: block;
+      }
+    }
+    &.on {
+      .arrow-fat-down {
+        display: none;
+      }
+      &:hover {
+        .arrow-fat-up {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &.working .what {
+    color: $post-working-color;
+  }
+  &.low_in .what {
+    color: $post-low_in-color;
+  }
+  &.low_out .what {
+    color: $post-low_out-color;
+  }
+  &.big_out .what {
+    color: $post-big_out-color;
+  }
+
+  .details {
+    position: relative;
+    border-bottom: 1px solid $post-border-color;
+    width: 100%;
+    .left {
+    }
+    .right {
+    }
+    .num-people {
+      margin: 5px 0 10px 5px;
+    }
+    .venue {
+      margin: 10px 0 12px 0;
+      position: relative;
+      left: 14px;
+    }
+    .address {
+      font-size: 12px;
+      font-style: italic;
+      margin: -11px 0 5px 33px;
+    }
+    .voters {
+      h4 {
+        margin: 4px 0 10px 10px;
+      }
+      .none {
+        font-style: italic;
+        font-size: 14px;
+        margin: 7px 0 0 10px;
+      }
+      .ulink {
+        margin: 7px 0 0 10px;
+        display: block;
+        font-size: 14px;
+      }
+    }
+    h5 {
+      color: #666;
+      margin: 4px 0 8px 0;
+    }
+    .note {
+      margin: 0 0 0 3px;
+    }
+  }
 }
 
 .pinged {
-    color: #999;
-    cursor: default;
+  color: #999;
+  cursor: default;
 }
 
 .activity-list {
-    margin: 10px 0 5px 0;
+  margin: 10px 0 5px 0;
 }
 
 .activity-post {
-    .time {
-        margin-top: 8px;
-    }
+  .time {
+    margin-top: 8px;
+  }
 
-    &.create .message {
-        background: #F8F7FF;
-    }
-    &.jive .message {
-        background: #F9FFF8;
-    }
-    &.leave .message {
-        background: #FFF7F9;
-    }
+  &.create .message {
+    background: #F8F7FF;
+  }
+  &.jive .message {
+    background: #F9FFF8;
+  }
+  &.leave .message {
+    background: #FFF7F9;
+  }
 }
 
 .undecidedC {
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: $undecided_width;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: $undecided_width;
+  height: 100%;
+  overflow-y: hidden;
+  padding: 0 0 0 5px;
+  z-index: 10;
+
+  .wrap {
     height: 100%;
-    overflow-y: hidden;
-    padding: 0 0 0 5px;
-    z-index: 10;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 
-    .wrap {
-      height: 100%;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    h5 {
-        margin: 10px 0 8px 17px;
-    }
-    .bg {
-        @include opacity(.9);
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        background: #FFF;
-        z-index: -1;
-    }
-    .side-toggle {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 8px;
-        height: 100%;
-        cursor: pointer;
-        background-color: #0f3f81;
-        &:hover {
-            background-color: #FF9900;
-        }
-    }
-    .item {
-        padding: 5px 5px 0 40px;
-        position: relative;
-        min-height: 30px;
-    }
-    .profile-image {
-        position: absolute;
-        top: 5px;
-        left: 10px;
-        img {
-            @include border-radius(3px);
-        }
-    }
-    .ulink {
-        margin: 0 0 0 6px;
-        height: 15px;
-        display: block;
-        overflow: hidden;
-        white-space: nowrap;
-        font-size: 13px;
-        color: #555;
-    }
-    .pingB,
-    .pinged {
-        display: block;
-        margin: -3px 0 0 -2px;
-        font-size: 13px;
-        background: transparent;
-    }
-    .pingB {
-      color: $link-color;
-      cursor: pointer;
-    }
+  h5 {
+    margin: 10px 0 8px 17px;
+  }
+  .bg {
+    @include opacity(.9);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #FFF;
+    z-index: -1;
+  }
+  .side-toggle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 100%;
+    cursor: pointer;
+    background-color: #0f3f81;
     &:hover {
-        .bg {
-            @include opacity(1);
-        }
+      background-color: #FF9900;
     }
-    &.collapsed {
-        width: 7px;
+  }
+  .item {
+    padding: 5px 5px 0 40px;
+    position: relative;
+    min-height: 30px;
+  }
+  .profile-image {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    img {
+      @include border-radius(3px);
     }
-    .none {
-        margin: 0 0 0 17px;
-        font-style: italic;
+  }
+  .ulink {
+    margin: 0 0 0 6px;
+    height: 15px;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 13px;
+    color: #555;
+  }
+  .pingB,
+  .pinged {
+    display: block;
+    margin: -3px 0 0 -2px;
+    font-size: 13px;
+    background: transparent;
+  }
+  .pingB {
+    color: $link-color;
+    cursor: pointer;
+  }
+  &:hover {
+    .bg {
+      @include opacity(1);
     }
+  }
+  &.collapsed {
+    width: 7px;
+  }
+  .none {
+    margin: 0 0 0 17px;
+    font-style: italic;
+  }
 }
 
 #feed-nav {
@@ -799,6 +819,7 @@ $post-border-color: #AAA;
   width: 575px;
   height: 500px;
 }
+
 #post-map {
   .map {
     float: left;
@@ -843,6 +864,7 @@ $post-border-color: #AAA;
     }
   }
 }
+
 .attending_venue_map {
   h3 {
     margin: 0 0 0 0;
@@ -874,6 +896,7 @@ $post-border-color: #AAA;
   color: #666;
   margin: 0 0 2px 4px;
 }
+
 .venue-optional {
   border: 2px solid #AAA;
   margin-left: -1px;

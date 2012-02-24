@@ -1,3 +1,10 @@
+<div id="feed-stats">
+  <div class="working"><%= pluralize(@posts.where(:night_type => "working").length(), 'Friend') %></div>
+  <div class="low_in"><%= pluralize(@posts.where(:night_type => "low_in").length(), 'Friend') %></div>
+  <div class="low_out"><%= pluralize(@posts.where(:night_type => "low_out").length(), 'Friend') %></div>
+  <div class="big_out"><%= pluralize(@posts.where(:night_type => "big_out").length(), 'Friend') %></div>
+</div>
+
 <div id="feed-nav" class="toggle-nav" data-group=".feed-tabs">
   <div class="item on" data-target="#post-feed"><div class="head">Posts</div></div>
   <div class="item ac" data-target="#post-map" data-url="<%= post_map_path %>" data-m="get"><div class="head">Map</div></div>
