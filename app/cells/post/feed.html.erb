@@ -1,8 +1,8 @@
 <div id="feed-stats">
-  <div class="working"><%= pluralize(@posts.where(:night_type => "working").length(), 'Friend') %></div>
-  <div class="low_in"><%= pluralize(@posts.where(:night_type => "low_in").length(), 'Friend') %></div>
-  <div class="low_out"><%= pluralize(@posts.where(:night_type => "low_out").length(), 'Friend') %></div>
-  <div class="big_out"><%= pluralize(@posts.where(:night_type => "big_out").length(), 'Friend') %></div>
+  <div class="working"><%= pluralize(@posts.where(:night_type => "working", :_id.ne => @my_post.id).length(), 'Friend') %></div>
+  <div class="low_in"><%= pluralize(@posts.where(:night_type => "low_in", :_id.ne => @my_post.id).length(), 'Friend') %></div>
+  <div class="low_out"><%= pluralize(@posts.where(:night_type => "low_out", :_id.ne => @my_post.id).length(), 'Friend') %></div>
+  <div class="big_out"><%= pluralize(@posts.where(:night_type => "big_out", :_id.ne => @my_post.id).length(), 'Friend') %></div>
 </div>
 
 <div id="feed-nav" class="toggle-nav" data-group=".feed-tabs">
