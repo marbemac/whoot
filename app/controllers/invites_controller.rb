@@ -6,7 +6,7 @@ class InvitesController < ApplicationController
     if fb
       friends = fb.get_connections("me", "friends")
       friends_uids = friends.map{|friend| friend['id']}
-      @registeredFriends = User.where("social_connects.uid" => {"$in" => friends_uids}, 'social_connects.provider' => 'facebook')
+      @registeredFriends = User.where("social_connects.uid" => {"$in" => friends_uids}, 'social_connects.provider' => 'facebook').order_by(:created_at, :desc)
     else
       @registeredFriends = Array.new
     end

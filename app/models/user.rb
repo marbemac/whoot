@@ -91,7 +91,7 @@ class User
   attr_accessor :current_ip
 
   before_create :generate_username, :set_settings
-  after_create :save_profile_image, :send_welcome_email, :update_invites
+  after_create :save_profile_image, :send_welcome_email, :update_invites, :notify_friends
   before_destroy :remove_from_soulmate
   before_save :set_location_snippet, :add_to_soulmate
 
@@ -292,6 +292,10 @@ class User
     if gender == 'm' then 'he' else 'she' end
   end
 
+  def gender_him_her
+    if gender == 'm' then 'him' else 'her' end
+  end
+
   def gender_possesive
     if gender == 'm' then 'his' else 'her' end
   end
@@ -365,6 +369,10 @@ class User
 
   def encoded_id
     public_id.to_i.to_s(36)
+  end
+
+  def notify_friends
+    Resque.enqueue_in(1.minutes, NotifyFriends, id.to_s)
   end
 
   # Basic data for mixpanel
