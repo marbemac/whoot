@@ -246,7 +246,7 @@ class User
       user.followers_count += 1
       Resque.enqueue(SmUserFollowUser, id.to_s, user.id.to_s)
 
-      user.race_score += 1 if created_at > Chronic.parse('February 29, 2012')
+      user.race_score += 1 if created_at > Chronic.parse('March 1, 2012')
     end
   end
 
@@ -268,7 +268,7 @@ class User
       user.followers_count -= 1
       Resque.enqueue(SmUserUnfollowUser, id.to_s, user.id.to_s)
 
-      user.race_score -= 1 if created_at > Chronic.parse('February 29, 2012')
+      user.race_score -= 1 if created_at > Chronic.parse('March 1, 2012')
     end
   end
 
