@@ -76,7 +76,7 @@ class Notification
       when :follow
         count > 1 ? 'are following you' : 'is following you'
       when :also # also signifies that someone has also responded to something your responded to
-        "also commented on #{object_user.username}'s post".html_safe
+        "also commented on #{object_user.first_name}'s post".html_safe
       when :comment
         "commented on your post".html_safe
       else
