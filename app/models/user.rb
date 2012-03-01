@@ -40,6 +40,7 @@ class User
   field :last_invite_time
   field :device_token
   field :device_type
+  field :race_score, :default => 0
 
   auto_increment :public_id
 
@@ -244,6 +245,8 @@ class User
       self.following_users_count += 1
       user.followers_count += 1
       Resque.enqueue(SmUserFollowUser, id.to_s, user.id.to_s)
+
+      user.race_score += 1 if created_at > Chronic.parse('February 29, 2012')
     end
   end
 
@@ -264,6 +267,8 @@ class User
       self.following_users_count -= 1
       user.followers_count -= 1
       Resque.enqueue(SmUserUnfollowUser, id.to_s, user.id.to_s)
+
+      user.race_score -= 1 if created_at > Chronic.parse('February 29, 2012')
     end
   end
 
