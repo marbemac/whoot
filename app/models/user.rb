@@ -93,7 +93,7 @@ class User
   before_create :generate_username, :set_settings
   after_create :save_profile_image, :send_welcome_email, :update_invites, :notify_friends
   before_destroy :remove_from_soulmate
-  before_save :set_location_snippet, :add_to_soulmate
+  before_save :add_to_soulmate
 
   scope :inactive, where(:last_sign_in_at.lte => Chronic.parse('1 month ago'))
 
@@ -106,6 +106,7 @@ class User
     self.username = "#{first_name.downcase}.#{last_name.downcase}"
   end
 
+  # TODO: dont think this is in use, double check
   def set_location_snippet
     if (current_sign_in_ip_changed?)
       my_location = Geocoder.address(Rails.env.development? ? '75.69.89.109' : current_sign_in_ip)
@@ -381,11 +382,26 @@ class User
             'User ID' => id.to_s,
             'Birthday' => (birthday ? birthday : nil),
             'Gender' => (gender ? gender : nil),
-            'Following Users Count' => following_users_count,
+            'Following Count' => following_users_count,
             'Followers Count' => followers_count,
             'Pings Count' => pings_count,
-            'Votes Count' => votes_count
+            'Votes Count' => votes_count,
+            'Device Type' => device_type,
+            'School' => (primary_school ? primary_school.name : nil),
+            'School Type' => (primary_school ? primary_school.type : nil)
     }
+  end
+
+  def primary_school
+    found = nil
+    schools.each do |school|
+      if ['College', 'University'].include?(school.type)
+        found = school
+      elsif found == nil
+        found = school
+      end
+    end
+    found
   end
 
   class << self

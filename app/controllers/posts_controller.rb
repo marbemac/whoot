@@ -52,14 +52,14 @@ class PostsController < ApplicationController
 
     if @post.save
       Pusher[current_user.id.to_s].trigger('post_changed', {:post_id => @post.id.to_s, :user_id => current_user.id.to_s})
-      #mixpanel_data = {
-      #        'Tag' => (@post.tag ? @post.tag.name : :none),
-      #        'Type' => @post.night_type,
-      #        'City ID' => @post.location.id.to_s,
-      #        'Venue' => (@post.venue ? @post.venue.name : :none),
-      #        'Venue ID' => (@post.venue ? @post.venue.id.to_s : :none)
-      #}
-      #@mixpanel.track_event("Normal Post Create", current_user.mixpanel_data.merge!(mixpanel_data))
+      format = params[:format] ? params[:format] : 'website'
+      mixpanel_data = {
+              'Tag' => (@post.tag ? @post.tag.name : 'none'),
+              'Type' => @post.night_type,
+              'City' => (@post.location ? @post.location.full : 'none'),
+              'Format' => format
+      }
+      @mixpanel.track_event("Post Create", current_user.mixpanel_data.merge!(mixpanel_data))
 
       response = { :status => :ok, :redirect => redirect }
       render json: response, status: :created
