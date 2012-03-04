@@ -42,13 +42,13 @@ class PostsController < ApplicationController
     @post = Post.current_post(current_user)
     if @post
       @post.attributes = params[:post]
-      @post.venue = nil if @post.address_original.blank?
+      @post.venue = nil if @post.address_original.blank? && @post.address_placeholder.blank?
     else
       @post = Post.new(params[:post])
       @post.set_user_snippet(current_user)
     end
 
-    if params[:format] && params[:format] == 'api'
+    if params[:format] && params[:format] == :api
       @post.entry_point = 'api'
     else
       @post.entry_point = 'website'
