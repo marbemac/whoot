@@ -14,36 +14,41 @@ namespace :user do
 
   desc "Re-fetch every users school info from Facebook."
   task :rebuild_schools => :environment do
+
     users = User.where(:status => 'Active')
     users.each do |user|
-      user.schools = nil
-      fb = user.facebook
-      if fb
-        me = fb.get_object("me")
-        if me
-          if me['education']
-            me['education'].each do |e|
-              data = {:type => e['type']}
-              if e['school']
-                data[:fb_id] = e['school']['id']
-                data[:name] = e['school']['name']
-                print "#{user.fullname} has school #{data[:name]}.\n"
-              end
-              if e['year']
-                data[:year] = e['year']['name']
-              end
+      begin
+        user.schools = nil
+        fb = user.facebook
+        if fb
+          me = fb.get_object("me")
+          if me
+            if me['education']
+              me['education'].each do |e|
+                data = {:type => e['type']}
+                if e['school']
+                  data[:fb_id] = e['school']['id']
+                  data[:name] = e['school']['name']
+                  print "#{user.fullname} has school #{data[:name]}.\n"
+                end
+                if e['year']
+                  data[:year] = e['year']['name']
+                end
 
-              user.add_school(data)
+                user.add_school(data)
+              end
+              user.save
+            else
+              print "ERROR - #{user.id.to_s} - #{user.fullname} has no FB education info.\n"
             end
-            user.save
           else
-            print "ERROR - #{user.id.to_s} - #{user.fullname} has no FB education info.\n"
+            print "ERROR - #{user.id.to_s} - #{user.fullname} could not get FB data.\n"
           end
         else
-          print "ERROR - #{user.id.to_s} - #{user.fullname} could not get FB data.\n"
+          print "ERROR - #{user.id.to_s} - #{user.fullname} has no FB.\n"
         end
-      else
-        print "ERROR - #{user.id.to_s} - #{user.fullname} has no FB.\n"
+      rescue Koala::Facebook::APIError => e
+        print "ERROR - #{user.id.to_s} - #{user.fullname} could not authenticate FB.\n"
       end
     end
   end
