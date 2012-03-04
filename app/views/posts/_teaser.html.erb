@@ -1,4 +1,4 @@
-<% cache(post.teaser_cache_key(current_user)) do %>
+<%# cache(post.teaser_cache_key(current_user)) do %>
 <div class="teaser post <%= post.night_type %>" id="<%= "post-#{post.user_snippet.id}" %>" data-venue-id="<%= post.venue.id.to_s if post.venue %>">
 
   <div class="head">
@@ -18,6 +18,13 @@
       <% if post.tag %>
         <%= render "tags/teaser", :tag => post.tag %>
       <% end %>
+
+      <% if post.venue %>
+        <div class='icon map-pin-small' title='<%= post.user_snippet.first_name %> posted a venue for the night'></div>
+      <% end %>
+      <% if post.entry_point == 'api' %>
+        <div class='icon phone-small' title='<%= post.user_snippet.first_name %> posted from The Whoot mobile app'></div>
+      <% end %>
     </div>
 
     <div class="comments_count">
@@ -35,7 +42,7 @@
       <%= render "votes/voters", :post => post %>
     </div>
 
-<% end %>
+<%# end %>
 
     <div class="right">
       <% if post.has_venue? %>

@@ -90,7 +90,7 @@ class User
   attr_accessible :first_name, :last_name, :gender, :birthday, :email, :password, :password_confirmation, :remember_me, :social_connected
   attr_accessor :current_ip
 
-  before_create :generate_username, :set_settings
+  before_create :generate_username, :set_settings, :set_location_snippet
   after_create :save_profile_image, :send_welcome_email, :update_invites, :notify_friends
   before_destroy :remove_from_soulmate
   before_save :add_to_soulmate
@@ -108,16 +108,14 @@ class User
 
   # TODO: dont think this is in use, double check
   def set_location_snippet
-    if (current_sign_in_ip_changed?)
-      my_location = Geocoder.address(Rails.env.development? ? '75.69.89.109' : current_sign_in_ip)
-      if my_location
-        found_location = City.near(my_location).first
-      end
-      unless defined?(found_location) && found_location
-        found_location = City.where(name: "New York City").first
-      end
-      set_location(found_location)
+    my_location = Geocoder.address(Rails.env.development? ? '75.69.89.109' : current_sign_in_ip)
+    if my_location
+      found_location = City.near(my_location).first
     end
+    unless defined?(found_location) && found_location
+      found_location = City.where(name: "New York City").first
+    end
+    set_location(found_location)
   end
 
   def set_location(new_location)
