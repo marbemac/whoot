@@ -53,7 +53,23 @@ namespace :user do
     users = User.where(:status => 'Active')
     stats = {}
     users.each do |user|
+      if user.schools
+        user.schools.each do |school|
+          stats[school.type] ||= {}
+          stats[school.type][school.fb_id] ||= {
+                  :name => school.name,
+                  :count => 0
+          }
+          stats[school.type][school.fb_id][:count] += 1
+        end
+      end
+    end
 
+    stats.each do |type,schools|
+      print "\n\n#{type}:\n"
+      schools.each do |id, school|
+        print "#{school[:name]} - #{school[:count]}\n"
+      end
     end
   end
 
