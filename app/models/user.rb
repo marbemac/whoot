@@ -404,6 +404,13 @@ class User
     found
   end
 
+  def add_school(data)
+    found = schools.detect  {|s| s.fb_id ==  data[:fb_id] }
+    unless found
+      self.schools.new(data)
+    end
+  end
+
   class << self
     def find_by_encoded_id(id)
       where(:public_id => id.to_i(36)).first
