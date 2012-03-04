@@ -48,7 +48,7 @@ class PostsController < ApplicationController
       @post.set_user_snippet(current_user)
     end
 
-    if params[:format] && params[:format] == 'api'
+    if params[:format] && params[:format] == :api
       @post.entry_point = 'api'
     else
       @post.entry_point = 'website'
