@@ -203,7 +203,7 @@ Devise.setup do |config|
     ENV["FACEBOOK_APP_SECRET"] = '3c09fdeb1e2fddde45dd895c70c790a0'
   end
 
-  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV["FACEBOOK_APP_SECRET"], {:scope => 'email,offline_access'}
+  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV["FACEBOOK_APP_SECRET"], {:scope => 'email,user_birthday,user_education_history,offline_access'}
 
 
   if Rails.env.development?
