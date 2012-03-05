@@ -40,6 +40,7 @@ class User
   field :last_invite_time
   field :device_token
   field :device_type
+  field :race_score, :default => 0
 
   auto_increment :public_id
 
@@ -243,6 +244,8 @@ class User
       self.following_users_count += 1
       user.followers_count += 1
       Resque.enqueue(SmUserFollowUser, id.to_s, user.id.to_s)
+
+      user.race_score += 1 if created_at > Chronic.parse('March 1, 2012')
     end
   end
 
@@ -263,6 +266,8 @@ class User
       self.following_users_count -= 1
       user.followers_count -= 1
       Resque.enqueue(SmUserUnfollowUser, id.to_s, user.id.to_s)
+
+      user.race_score -= 1 if created_at > Chronic.parse('March 1, 2012')
     end
   end
 
@@ -288,15 +293,15 @@ class User
   end
 
   def gender_pronoun
-    if gender == 'm' then 'he' else 'she' end
+    if gender == 'm' then 'he' elsif gender == 'f' then 'she' else 'they' end
   end
 
   def gender_him_her
-    if gender == 'm' then 'him' else 'her' end
+    if gender == 'm' then 'him' elsif gender == 'f' then 'her' else 'them' end
   end
 
   def gender_possesive
-    if gender == 'm' then 'his' else 'her' end
+    if gender == 'm' then 'his' elsif gender == 'f' then 'her' else 'their' end
   end
 
   def invited?(email)
