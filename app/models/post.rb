@@ -9,6 +9,7 @@ class Post
   field :comment_count, :default => 0
   field :votes, :default => 0
   field :address_original
+  field :entry_point
 
   index(
           [
@@ -65,9 +66,11 @@ class Post
   end
 
   def set_location_snippet
-    self.location = LocationSnippet.new(
-          user.location.attributes
-    )
+    if user.location
+      self.location = LocationSnippet.new(
+        user.location.attributes
+      )
+    end
   end
 
   def update_post_event
@@ -284,7 +287,7 @@ class Post
     if has_venue?
       text += " (#{venue_pretty_name})"
     end
-    text += ". What's everyone else up to? thewhoot.com"
+    text += ". What's everyone else up to? @TheWhoot TheWhoot.com"
     text
   end
 

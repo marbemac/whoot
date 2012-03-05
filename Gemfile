@@ -1,7 +1,7 @@
 require 'rbconfig'
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.2'
 gem 'execjs'
 gem 'jquery-rails'
 gem 'bson_ext'
@@ -29,8 +29,8 @@ gem "geocoder"
 gem "chronic" # Date/Time management
 gem 'cancan' # authorization
 gem 'formtastic'
-gem 'state_select'
-gem 'formtastic_state_select'
+#gem 'state_select'
+#gem 'formtastic_state_select'
 #gem 'activeadmin'
 gem "airbrake" # Exception notification
 gem 'rpm_contrib' # extra instrumentation for the new relic rpm agent

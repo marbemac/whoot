@@ -492,6 +492,10 @@ $post-border-color: #AAA;
       overflow: hidden;
       white-space: nowrap;
       font-size: 13px;
+      .icon {
+        display: inline-block;
+        margin: 3px 0 0 0;
+      }
     }
     .tag {
       @include border-radius(2px);
