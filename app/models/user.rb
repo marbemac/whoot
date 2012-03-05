@@ -294,15 +294,15 @@ class User
   end
 
   def gender_pronoun
-    if gender == 'm' then 'he' else 'she' end
+    if gender == 'm' then 'he' elsif gender == 'f' then 'she' else 'they' end
   end
 
   def gender_him_her
-    if gender == 'm' then 'him' else 'her' end
+    if gender == 'm' then 'him' elsif gender == 'f' then 'her' else 'them' end
   end
 
   def gender_possesive
-    if gender == 'm' then 'his' else 'her' end
+    if gender == 'm' then 'his' elsif gender == 'f' then 'her' else 'their' end
   end
 
   def invited?(email)
