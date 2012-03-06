@@ -433,7 +433,7 @@ class User
     end
 
     # Omniauth providers
-    def find_by_omniauth(omniauth, signed_in_resource=nil)
+    def find_by_omniauth(omniauth, signed_in_resource=nil, mixpanel=nil)
       info = omniauth['info']
       extra = omniauth['extra']['raw_info']
 
@@ -450,6 +450,7 @@ class User
 
       # If we found the user, update their token
       if user
+        new_user = false
         connect = user.social_connects.detect{|connection| connection.uid == omniauth['uid'] && connection.provider == omniauth['provider']}
         # Is this a new connection?
         unless connect
@@ -460,6 +461,7 @@ class User
         # Update the token
         connect.token = omniauth['credentials']['token']
       else # Create a new user with a stub password.
+        new_user = true
         if extra["gender"]
           gender = extra["gender"] == 'male' ? 'm' : 'f'
         else
@@ -490,6 +492,11 @@ class User
       end
 
       user.save
+
+      if mixpanel && new_user == true
+        mixpanel.track_event("User Signup", user.mixpanel_data)
+      end
+
       user
     end
 
