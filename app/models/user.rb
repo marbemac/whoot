@@ -433,7 +433,7 @@ class User
     end
 
     # Omniauth providers
-    def find_by_omniauth(omniauth, signed_in_resource=nil, mixpanel=nil)
+    def find_by_omniauth(omniauth, signed_in_resource=nil, mixpanel=nil, input=nil)
       info = omniauth['info']
       extra = omniauth['extra']['raw_info']
 
@@ -494,7 +494,7 @@ class User
       user.save
 
       if mixpanel && new_user == true
-        mixpanel.track_event("User Signup", user.mixpanel_data)
+        mixpanel.track_event("User Signup", {:format => input}.merge!(user.mixpanel_data))
       end
 
       user

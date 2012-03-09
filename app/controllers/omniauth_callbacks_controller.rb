@@ -12,7 +12,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def facebook
     mixpanel = initialize_mixpanel
-    @user = User.find_by_omniauth(env["omniauth.auth"], current_user, mixpanel)
+    @user = User.find_by_omniauth(env["omniauth.auth"], current_user, mixpanel, 'website')
 
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
@@ -25,7 +25,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def twitter
     mixpanel = initialize_mixpanel
-    @user = User.find_by_omniauth(env["omniauth.auth"], current_user, mixpanel)
+    @user = User.find_by_omniauth(env["omniauth.auth"], current_user, mixpanel, 'website')
 
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "your Twitter"
