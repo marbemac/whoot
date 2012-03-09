@@ -18,7 +18,7 @@ class ApiController < ApplicationController
                       'token' => social_token
               }
       }
-      user = User.find_by_omniauth(omniauth, signed_in_resource=nil)
+      user = User.find_by_omniauth(omniauth, signed_in_resource=nil, @mixpanel)
       user.reset_authentication_token!
 
       token = {:status => :ok, :token => user.authentication_token, :public_id => user.encoded_id }
