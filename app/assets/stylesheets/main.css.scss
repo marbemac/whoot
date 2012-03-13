@@ -1,0 +1,244 @@
+body {
+  &.night {
+    #gradient-bg {
+      background-color: #091F35;
+      @include background-image(linear-gradient(#05162E, #09213B 30%, #0C2B4B 50%, #0F3762));
+    }
+  }
+  &.sunset {
+    #gradient-bg {
+      background-color: #FFA45E;
+      @include background-image(linear-gradient(#995A51, #D2785E 15%, #EB885F 30%, #FFA45E 55%, #FFC681));
+    }
+  }
+  &.day {
+    #gradient-bg {
+      background-color: #80B0E7;
+      @include background-image(linear-gradient(#4178A2, #73A3CD 30%, #80B0E7 60%, #A2C5E7));
+    }
+  }
+}
+
+#wrapper {
+  @include clearfix();
+  width: 960px;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  outline: 0;
+
+  &:active {
+    color: $linkColor;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+ul,ol,p {
+  margin: 0px;
+}
+
+#gradient-bg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -11;
+}
+#stars-bg {
+    background: {
+        image: image-url("stars-bg.png");
+        repeat: repeat;
+        position: top left;
+    }
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    &.fade {
+        @include opacity(.4);
+    }
+}
+#city-bg {
+    background: {
+        image: image-url("city-bg.png");
+        repeat: repeat-x;
+        position: bottom left;
+        color: transparent;
+    }
+    width: 100%;
+    height: 466px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: -5;
+}
+
+#wrapper {
+  .content {
+    @include border-radius(5px);
+    display: none;
+    width: 710px;
+    margin: 0 10px 0 10px;
+    float: left;
+    background-color: rgba(255,255,255,0.4);
+
+    &.on {
+      display: block;
+    }
+
+    section {
+      @include clearfix();
+      @include border-radius(3px);
+      background: $grayLightest;
+      border: 1px solid #E6E6E6;
+      margin: 10px;
+    }
+  }
+}
+
+.sidebar {
+  @include border-radius(5px);
+  display: none;
+  width: 220px;
+  margin: 0 10px 0 0;
+  float: left;
+  background-color: rgba(255,255,255,0.4);
+
+  &.on {
+    display: block;
+  }
+
+  section {
+    @include border-radius(3px);
+    background: $grayLightest;
+    border: 1px solid #E6E6E6;
+    margin: 10px;
+    > h4 {
+      margin: 10px 0 7px 10px;
+      font-weight: normal;
+      cursor: default;
+    }
+  }
+  .user-panel {
+    padding: 10px 10px 10px 70px;
+    position: relative;
+    border-bottom: 1px solid #EEEEEE;
+
+    img {
+      @include border-radius(3px);
+      position: absolute;
+      top: 7px;
+      left: 10px;
+      width: 50px;
+      height: 50px;
+    }
+    h4 {
+      margin: 0 0 3px 0;
+      cursor: default;
+    }
+    .score-pts {
+      font-size: 13px;
+      vertical-align: middle;
+      span {
+        font-size: 16px;
+      }
+    }
+    .follow {
+      font-size: 13px;
+      padding: 2px 9px;
+      margin: 0 7px 0 0;
+    }
+  }
+  .topic-panel {
+    padding: 10px 10px 0 10px;
+    position: relative;
+
+    h4 {
+      margin: 0 0 7px 0;
+      cursor: default;
+    }
+    .actions {
+      margin: 0 0 10px 0;
+    }
+    .score-pts {
+      font-size: 13px;
+      vertical-align: middle;
+      span {
+        font-size: 16px;
+      }
+    }
+    .follow {
+      font-size: 13px;
+      padding: 2px 9px;
+      margin: 0 7px 0 0;
+    }
+    .img {
+      @include border-radius(2px);
+      padding: 5px;
+      background: #FFF;
+      margin: 0 0 10px 0;
+      border: 1px solid $grayLighter;
+      img {
+        background: #999;
+        width: 165px;
+      }
+    }
+  }
+  p {
+    margin: 0 0 10px 10px;
+  }
+  ul {
+    margin: 0 0 10px 10px;
+  }
+  .menu {
+    margin: 0px;
+    a {
+      display: block;
+      padding: 7px 10px;
+      border-top: 1px solid #EEEEEE;
+      font-size: 16px;
+      position: relative;
+
+      i {
+        display: none;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        margin-top: -7px;
+      }
+      &.first {
+        border-top: none;
+      }
+      &:hover,
+      &.on {
+        i {
+          display: block;
+        }
+      }
+      &.on {
+        color: $linkColorHover;
+        background: #FFF;
+        cursor: default;
+      }
+    }
+  }
+  .sidebar-talk-form {
+    input {
+      width: 168px;
+      margin: 0 0 10px 10px;
+    }
+  }
+  .sidebar-footer {
+    padding-bottom: 10px;
+    a {
+      margin-left: 10px;
+    }
+  }
+}

@@ -9,19 +9,11 @@
 $auth_width:  841px;
 $auth_height: 490px;
 
-html.coming-soon {
-  background-color: #FFF;
-
-  body {
-    background-color: #FFF;
-  }
-}
-
 #splash {
-  position: absolute;
-  top: 50%; left: 50%;
-  margin: $auth_height/1.8*-1 0 0 $auth_width/1.9*-1;
-  width: $auth_width; height: $auth_height;
+  margin: 30px auto 0 auto;
+  width: $auth_width;
+  height: $auth_height;
+  position: relative;
   background: {
     image: image-url("splash-bg.png");
     repeat: none;
@@ -88,23 +80,6 @@ html.coming-soon {
   }
 }
 
-#coming-soon {
-  @include orange-button(5px, 23px);
-  text-align: center;
-  cursor: default;
-  position: absolute;
-  right: 28px;
-  top: 317px;
-  padding: 10px;
-  width: 286px;
-  z-index: 10;
-  .logo {
-    position: absolute; top: 50%; left: 50%; margin: 100px 0 0 -335px;
-  }
-  #site-launch-cd {
-    font-size: 17px;
-  }
-}
 
 #fb_login {
   position: absolute;

@@ -25,11 +25,56 @@
   </head>
   <body class="<%= params[:controller] %> <%= calculate_time_of_day %>">
 
-    <div id="wrapper" class="<%= params[:action] %>">
-      <%= yield %>
-      <div class='content'></div>
-      <div class='sidebar'></div>
-    </div>
+    <% if not signed_in? %>
+      <%= render 'pages/splash' %>
+    <% elsif !current_user.posted_today? %>
+      <div id="post-splash">
+        <%= image_tag "logo-top.png", :alt => "The Whoot", :class => 'logo' %>
+        <%= render_cell :post, :create %>
+        <%= link_to('Logout', destroy_user_session_path, :method=>'delete', :class => 'logout') %>
+      </div>
+    <% else %>
+      <%= render "shared/header" %>
+
+      <div id="wrapper">
+        <div id="content">
+          <div id="page">
+            <%= yield :feed_filters %>
+            <%= yield :user_header %>
+            <div id="page_content" class="<%= controller.action_name %>">
+              <%= render_cell :post, :create %>
+              <%= yield %>
+              <% if Rails.env.development? %>
+                <%#= debug(params) %>
+                <!--<div id="debug-upload-runtime"></div>-->
+              <% end %>
+            </div>
+          </div>
+
+          <div id="footer">
+            <%= link_to 'Home', root_path %><span>.</span>
+            <%= link_to 'About', about_path %><span>.</span>
+            <%= link_to 'Contact', contact_path %><span>.</span>
+            <%= link_to 'Terms', terms_path %><span>.</span>
+            <%= link_to 'Privacy', privacy_path %><span>.</span>
+            <%= link_to 'Blog', 'http://blog.thewhoot.com' %><span>.</span>
+            <%= link_to 'FAQ', faq_path %>
+            <%# if current_user.role?('admin') %>
+              <%#= link_to 'Admin Area', git_er_done_dashboard_path %>
+            <%# end %>
+
+            <div class="fb-like" id="footer-fb-like" data-href="http://www.facebook.com/pages/Whoot/192579647454740" data-send="false" data-layout="button_count" data-width="125" data-show-faces="true" data-font="verdana"></div>
+            <a href="https://twitter.com/TheWhoot" class="twitter-follow-button" data-width="150px" data-show-count="false">Follow @TheWhoot</a>
+            <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+          </div>
+        </div>
+
+        <%= render_cell :user, :sidebar, current_user %>
+      </div>
+    <% end %>
+
+    <div id="form-submitting">Form submitting...</div>
+    <div class="hide" id="static-data" data-d='<%= static_data %>'></div>
 
     <div id="gradient-bg">&nbsp;</div>
     <% unless calculate_time_of_day == :day %>
@@ -38,8 +83,8 @@
     <div id="city-bg">&nbsp;</div>
 
     <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="/assets/javascripts/jquery1.7.1.js"><\/script>')</script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/assets/javascripts/jquery1.6.4.js"><\/script>')</script>
 
     <script src="http://js.pusher.com/1.11/pusher.min.js"></script>
     <script>window.Pusher || document.write('<script src="/assets/javascripts/pusher-client.min.js"><\/script>')</script>
@@ -105,12 +150,12 @@
 
     <%= yield :js %>
 
-    <% if defined? @this %>
-      <div id='this' data-this='<%= render(template: "#{@this[:group]}/#{@this[:template]}.json.rabl") %>'></div>
-    <% end %>
-    <% if signed_in? %>
-      <% @user = current_user %>
-      <div id='me' data-user='<%= render(template: "users/show_extra.json.rabl") %>'></div>
+    <% if ENV['RAILS_ENV'] != 'production' || (signed_in? && current_user.role?('admin')) %>
+      <div id="slt">
+        Cutoff: <%= Post.cutoff_time %><br />
+        <%= load_time %><br />
+        <%= ENV['RAILS_ENV'] %>
+      </div>
     <% end %>
   </body>
 </html>

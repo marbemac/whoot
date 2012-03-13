@@ -16,8 +16,6 @@ class Comment
   embedded_in :has_comments, polymorphic: true
 
   before_create :current_user_own
-  after_create :clear_caches
-  after_destroy :clear_caches
 
   def set_user_snippet(user)
     self.user_snippet = UserSnippet.new(
@@ -27,10 +25,6 @@ class Comment
             :public_id => user.public_id
     )
     self.user_snippet.id = user.id
-  end
-
-  def clear_caches
-    has_comments.clear_post_cache
   end
 
   def send_notifications(current_user)

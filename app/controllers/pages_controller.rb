@@ -1,6 +1,14 @@
 class PagesController < ApplicationController
   def home
     @title = "Home"
+
+    if !signed_in?
+      template = 'pages/splash'
+    else
+      template = 'pages/home'
+    end
+
+    render template
   end
 
   def about

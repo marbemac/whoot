@@ -20,18 +20,13 @@ gem 'fog' # Cloud support (amazon s3, etc)
 gem 'carrierwave' # File uploads
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'heroku'
-#gem 'resque', :require => 'resque/server' # Background jobs
 gem 'resque', :git => 'https://github.com/hone/resque.git', :branch => 'heroku'
-gem 'resque-scheduler', '2.0.0.e' # scheduled resque jobs
+gem 'resque-scheduler', '2.0.0.g' # scheduled resque jobs
 gem 'resque-loner' # Unique resque jobs
 gem 'hirefireapp' # Heroku web/worker auto scaling hirefireapp.com
 gem "geocoder"
 gem "chronic" # Date/Time management
 gem 'cancan' # authorization
-gem 'formtastic'
-#gem 'state_select'
-#gem 'formtastic_state_select'
-#gem 'activeadmin'
 gem "airbrake" # Exception notification
 gem 'rpm_contrib' # extra instrumentation for the new relic rpm agent
 gem 'newrelic_rpm' # performance / server monitoring
@@ -40,12 +35,16 @@ gem 'dalli' # memcache
 gem 'pusher' # pusher publish/subscribe system
 gem 'mixpanel' # analytics
 gem 'urbanairship' # push notifications
+gem 'backbone-on-rails'
+gem 'rabl'
 
 group :assets do
   gem 'compass', '0.12.alpha.4'
   gem 'sass-rails', '3.2.3'
   gem 'coffee-rails', "3.2.1"
   gem 'uglifier', '>= 1.0.3'
+
+  gem 'anjlab-bootstrap-rails', '>= 2.0', :require => 'bootstrap-rails'
 end
 
 group :production, :staging do

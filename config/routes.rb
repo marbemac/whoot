@@ -3,6 +3,32 @@ Whoot::Application.routes.draw do
   # redirect to www.example.com if user goes to example.com
   match '(*any)' => redirect { |p, req| req.url.sub('www.', '') }, :constraints => { :host => /^www\./ }
 
+  scope 'api' do
+    scope 'posts' do
+      get 'feed' => 'api_posts#feed'
+      post '' => 'api_posts#create'
+    end
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   # Posts
   scope 'posts' do
     get 'map' => 'posts#map', :as => :post_map

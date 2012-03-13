@@ -1,0 +1,62 @@
+// Links
+$linkColor: #0084B4;
+
+// Colors
+$blue: #205EB0;
+$blueDarker: #1650A1;
+$green: #90C12D;
+$greenDarker: #7CAE19;
+$grayDark: #444;
+
+// Grid
+$gridColumnWidth: 70px;
+$gridGutterWidth: 10px;
+
+// Tooltips
+$zindexTooltip: 10000;
+
+// import original bootstrap
+@import "bootstrap";
+
+body { padding-top: 60px; }
+
+//@import "responsive";
+
+
+// Overrides
+
+// Buttons
+.btn-success {
+  @include button-background($green, $greenDarker);
+}
+
+// Dropdowns
+.dropdown-menu {
+  &.right {
+    left: auto;
+    right: 0px;
+  }
+  li > a:hover,
+  .active > a,
+  .active > a:hover {
+    background-color: $blue;
+  }
+}
+
+.navbar {
+  .dropdown-menu {
+    &:after {
+      left: auto;
+      right: 10px;
+    }
+    &:before {
+      left: auto;
+      right: 9px;
+    }
+  }
+}
+
+// Forms
+form {
+  margin: 0;
+}

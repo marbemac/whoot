@@ -1,0 +1,88 @@
+#post-form {
+  @include border-radius(3px);
+  width: 415px;
+  background: #FFF;
+
+  #post-form-content,
+  #post-form-venue {
+    padding: 8px;
+    width: 361px;
+  }
+  #post-form-content {
+    margin: 25px 0 8px 0;
+  }
+  .submit {
+    float: left;
+    margin: 0 10px 0 0;
+  }
+  .bottom-options {
+    margin-top: 15px;
+    .btn {
+      font-size: 12px;
+    }
+  }
+}
+
+.posts {
+  .new {
+    .top {
+      text-align: center;
+      margin: 0 0 50px 0;
+    }
+    .logo {
+    }
+    .logout {
+      color: #FFF;
+      font-weight: bold;
+      margin: 0 0 0 60px;
+    }
+    #post-form {
+      margin: 0 auto 0 auto;
+    }
+  }
+}
+
+#posts-feed {
+  .feed-sidebar {
+    border-right: 1px solid #e3e3e3;
+    width: 130px;
+    padding: 0;
+    margin: 10px 0 10px 10px;
+    min-height: 450px;
+    float: left;
+
+    .menu {
+      border-bottom: 1px solid #e3e3e3;
+      padding: 0 0 5px 0;
+
+      a {
+        display: block;
+        padding: 5px 10px 5px 0;
+        font-size: 15px;
+        position: relative;
+
+        i {
+          display: none;
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          margin-top: -6px;
+        }
+        &:hover,
+        &.on {
+          i {
+            display: block;
+          }
+        }
+        &.on {
+          color: $linkColorHover;
+          cursor: default;
+        }
+      }
+    }
+  }
+  .feed-content {
+    width: 545px;
+    float: left;
+  }
+}

@@ -21,9 +21,6 @@ class List
   validates :name, :length => { :in => 2..30 }
   attr_accessible :name
 
-  after_create :clear_caches
-  after_destroy :clear_caches
-
   def in_list?(user_id)
     list_users.include? user_id
   end
@@ -40,10 +37,6 @@ class List
       self.list_users.delete user.id
       self.list_users_count -= 1
     end
-  end
-
-  def clear_caches
-
   end
 
 end

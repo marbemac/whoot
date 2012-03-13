@@ -1,22 +1,6 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!
 
-  def update_feed_display
-    if session[:feed_filters][:display].include? params[:value]
-      session[:feed_filters][:display].delete(params[:value])
-    else
-      session[:feed_filters][:display] << params[:value]
-    end
-
-    render json: {:replace_target => '#page_content', :content => render_cell(:post, :feed), :event => 'updated_feed_filters'}
-  end
-
-  def update_feed_sort
-    session[:feed_filters][:sort][:target] = params[:value]
-
-    render json: {:replace_target => '#page_content', :content => render_cell(:post, :feed)}
-  end
-
   def show
     @post = NormalPost.find(params[:id])
     @voters = User.where(:_id.in => @post.voters)
@@ -29,17 +13,11 @@ class PostsController < ApplicationController
   end
 
   def new
-    if signed_in? && current_user.posted_today?
-      redirect_to root_path
-    end
-  end
-
-  def edit
-    @post = Post.find(params[:id])
   end
 
   def create
     @post = Post.current_post(current_user)
+    params[:post][:tag] = params[:post][:tag][:name]
     if @post
       @post.attributes = params[:post]
       @post.venue = nil if @post.address_original.blank? && params[:post][:venue][:address_string].blank?
@@ -73,21 +51,30 @@ class PostsController < ApplicationController
     end
   end
 
-  def update
-    @post = Post.find(params[:id])
 
-    if @post.update_attributes(params[:post])
-      head :ok
+
+
+
+
+
+
+
+
+
+  def update_feed_display
+    if session[:feed_filters][:display].include? params[:value]
+      session[:feed_filters][:display].delete(params[:value])
     else
-      render json: @post.errors, status: :unprocessable_entity
+      session[:feed_filters][:display] << params[:value]
     end
+
+    render json: {:replace_target => '#page_content', :content => render_cell(:post, :feed), :event => 'updated_feed_filters'}
   end
 
-  def destroy
-    @post = Post.find(params[:id])
-    @post.destroy
+  def update_feed_sort
+    session[:feed_filters][:sort][:target] = params[:value]
 
-    head :ok
+    render json: {:replace_target => '#page_content', :content => render_cell(:post, :feed)}
   end
 
   def map

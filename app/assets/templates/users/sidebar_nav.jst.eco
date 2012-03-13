@@ -1,0 +1,38 @@
+<div class="user-panel">
+  <img src='' />
+  <h4><%= "#{@user.get('first_name')} #{@user.get('last_name')}" %></h4>
+  <div class='actions'></div>
+</div>
+
+<ul class='menu unstyled'>
+  <li>
+    <a class='first' href="/">
+      Notifications
+    </a>
+  </li>
+  <li>
+    <a class='<%= 'on' if @page == 'user_feed' %>' href="/">
+      My Feed
+    </a>
+  </li>
+  <li>
+    <a class=' <%= 'on' if @page == 'like_feed' %>' href="<%= "/#{@user.get('id')}/followers" %>">
+      Followers
+    </a>
+  </li>
+  <li>
+    <a class='<%= 'on' if @page == 'user_followers' %>' href="<%= "/#{@user.get('id')}/following" %>">
+      Following
+    </a>
+  </li>
+  <li>
+    <a class='<%= 'on' if @page == 'settings' %>' href="<%= "/settings" %>">
+      Settings
+    </a>
+  </li>
+  <li>
+    <a href="<%= "/users/sign_out" %>">
+      Logout
+    </a>
+  </li>
+</ul>
