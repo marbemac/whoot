@@ -37,6 +37,7 @@ class User
   field :pings_sent_today, :default => 0
   field :votes_count, :default => 0
   field :invited_emails, :default => []
+  field :invited_phones, :default => []
   field :last_invite_time
   field :device_token
   field :device_type
@@ -308,6 +309,10 @@ class User
     invited_emails.include? email
   end
 
+  def invited_phone?(phone)
+    invited_phones.include? phone
+  end
+
   def add_invited_email(email)
     email.strip!
     unless email =~ /^([^\s]+)((?:[-a-z0-9]\.)[a-z]{2,})$/i
@@ -329,13 +334,19 @@ class User
     end
   end
 
+  def add_invited_phone(phone)
+    phone.strip!
+    unless invited_phone?(phone)
+      self.invited_phones << phone
+    end
+  end
+
   def get_social_connect provider
     social_connects.each do |social|
       return social if social.provider == provider
     end
     nil
   end
-
 
   def facebook
     connection = social_connects.detect{|connection| connection.provider == 'facebook'}
