@@ -90,6 +90,8 @@ Whoot::Application.routes.draw do
       get 'users/:id/following' => 'users#following_users', :defaults => { :format => :api }
       get 'users/:id/followers' => 'users#followers', :defaults => { :format => :api }
       get 'users/:id' => 'users#show', :defaults => { :format => :api }
+      post 'invites/phone_numbers' => 'invites#invite_phone_numbers', :defaults => { :format => :api }
+      get 'invites/show_invite_screen' => 'invites#show_invite_screen', :defaults => { :format => :api }
     end
   end
 

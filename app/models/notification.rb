@@ -237,7 +237,7 @@ class Notification
           notification = {
             :schedule_for => [10.seconds.from_now],
             :device_tokens => [device_token],
-            :aps => {:alert => message, :badge => "+1"}
+            :aps => {:alert => message}
           }
       end
 

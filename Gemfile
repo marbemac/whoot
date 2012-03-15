@@ -35,7 +35,7 @@ gem 'formtastic'
 gem "airbrake" # Exception notification
 gem 'rpm_contrib' # extra instrumentation for the new relic rpm agent
 gem 'newrelic_rpm' # performance / server monitoring
-gem 'soulmate' # Redis based autocomplete storage
+gem 'soulmate', '0.1.1' # Redis based autocomplete storage
 gem 'dalli' # memcache
 gem 'pusher' # pusher publish/subscribe system
 gem 'mixpanel' # analytics
