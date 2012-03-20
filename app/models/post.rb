@@ -84,7 +84,7 @@ class Post
       end
 
       if tag
-        event.tag = tag
+        event.tag = tag.name
       end
 
       event.created_at = Time.now
