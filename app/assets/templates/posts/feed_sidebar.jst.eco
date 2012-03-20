@@ -10,7 +10,23 @@
   </li>
 </ul>
 <div class='posts-sidebar'>
-
+  <h4>Filters</h4>
+  <div class="big_out btn">
+    Partying
+    <div class="num-friends">3</div>
+  </div>
+  <div class="low_out btn">
+    Relaxing Out
+    <div class="num-friends">12</div>
+  </div>
+  <div class="low_in btn">
+    Staying In
+    <div class="num-friends">8</div>
+  </div>
+  <div class="working btn">
+    Working
+    <div class="num-friends">2</div>
+  </div>
 </div>
 <div class='map-sidebar'>
 

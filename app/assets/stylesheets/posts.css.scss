@@ -43,12 +43,6 @@
 }
 
 #posts-feed {
-  .post-feed-location {
-    margin-top: 15px;
-  }
-  h4 {
-    margin: 0 0 8px 7px;
-  }
   #feed-sidebar {
     border-right: 1px solid #e3e3e3;
     width: 130px;
@@ -57,6 +51,11 @@
     min-height: 450px;
     float: left;
 
+    h4 {
+      font-weight: normal;
+      font-size: 15px;
+      padding: 0 0 5px;
+    }
     .menu {
       border-bottom: 1px solid #e3e3e3;
       padding: 0 0 5px 0;
@@ -86,11 +85,34 @@
         }
       }
     }
+    .posts-sidebar {
+      border-bottom: 1px solid #E3E3E3;
+      padding: 10px 0;
+
+      .btn {
+        margin-bottom: 5px;
+        position: relative;
+        padding: 3px 7px;
+        text-align: left;
+        width: 104px;
+      }
+      .num-friends {
+        position: absolute;
+        right: 9px;
+        top: 3px;
+      }
+    }
   }
   .feed-content {
     width: 535px;
     float: right;
 
+    .post-feed-location {
+      margin-top: 15px;
+    }
+    h4 {
+      margin: 0 0 8px 7px;
+    }
     ul {
       border-left: 5px solid;
       &.big_out { border-color: $post-big_out-color }
@@ -138,26 +160,27 @@
         .scoreC {
           position: absolute;
           right: 7px;
+          padding: 2px 33px 2px 7px;
+
           font-weight: bold;
           overflow: hidden;
           whitespace: nowrap;
-          div {
-            float: right;
+          .icon {
+            position: absolute;
+            right: 7px;
           }
         }
         .comments_count {
-          top: 24px;
-          padding: 2px 7px;
+          top: 25px;
           .icon {
-            margin: 2px 0 0 10px;
+            top: 4px;
           }
         }
         .scoreC {
-          top: 3px;
-          padding: 2px 7px;
+          top: 4px;
           cursor: pointer;
           .icon {
-            margin: 1px 0 0 10px;
+            top: 3px;
           }
           &:hover {
             background-color: $list-odd-color;
