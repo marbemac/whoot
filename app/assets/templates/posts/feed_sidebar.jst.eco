@@ -1,6 +1,6 @@
 <ul class='menu unstyled'>
   <li>
-    <a href='#'>Posts Feed<i class="icon icon-chevron-right"></i></a>
+    <a href='#' class="on">Posts Feed<i class="icon icon-chevron-right"></i></a>
   </li>
   <li>
     <a href='#'>Map<i class="icon icon-chevron-right"></i></a>
