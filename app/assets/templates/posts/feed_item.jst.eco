@@ -1,4 +1,4 @@
-<img src="#"/>
+<img src="<%= @post.get('user').get('images').cropped.small %>"/>
 
 <div class="name">
   <%= @post.get('user').get('first_name') + " " + @post.get('user').get('last_name') %>
@@ -15,5 +15,5 @@
 
 <div class="scoreC">
   <span class="votes">0</span>
-  <div class="default loop-1616"></div>
+  <div class="icon default loop-1616"></div>
 </div>
