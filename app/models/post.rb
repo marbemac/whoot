@@ -5,7 +5,6 @@ class Post
   field :status, :default => 'Active'
   field :current, :default => true
   field :night_type
-  field :tag
   field :comment_count, :default => 0
   field :votes, :default => 0
   field :address_original
@@ -30,6 +29,7 @@ class Post
 
   embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
   embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
+  embeds_one :tag, :as => :taggable, :class_name => 'TagSnippet'
   embeds_one :user_snippet, :as => :user_assignable, :class_name => 'UserSnippet'
   embeds_many :voters, :as => :user_assignable, :class_name => 'UserSnippet'
   embeds_many :post_events, :class_name => 'PostEvent'
@@ -42,11 +42,11 @@ class Post
 
   after_create :set_user_post_snippet, :reset_pings_sent
   before_save :set_venue_snippet, :update_post_event
-  after_save :set_location_snippet, :set_user_location
+  after_save :set_location_snippet, :set_user_location, :process_tag
 
   def max_characters
-    if !tag.blank? && tag.length > 40
-      errors.add(:tags, "You can only use 40 characters for your tag! You tag has #{tag.length} characters.")
+    if tag && !tag.name.blank? && tag.name.length > 40
+      errors.add(:tags, "You can only use 40 characters for your tag! You tag has #{tag.name.length} characters.")
     end
   end
 
@@ -73,7 +73,7 @@ class Post
   end
 
   def update_post_event
-    if !persisted? || (persisted? && (night_type_changed? || address_original_changed? || (tag && tag_changed?) || (venue && venue.name_changed?)))
+    if !persisted? || (persisted? && (night_type_changed? || address_original_changed? || (tag && tag.name_changed?) || (venue && venue.name_changed?)))
       event = PostChangeEvent.new(:night_type => night_type)
       if has_venue?
         if venue
@@ -84,7 +84,7 @@ class Post
       end
 
       if tag
-        event.tag = tag
+        event.tag = tag.name
       end
 
       event.created_at = Time.now
@@ -260,8 +260,8 @@ class Post
 
   def tweet_text
     text = "I'm #{night_type_short} tonight"
-    if tag && !tag.blank?
-      text += " - #{tag}"
+    if tag && !tag.name.blank?
+      text += " - #{tag.name}"
     end
     if has_venue?
       text += " (#{venue_pretty_name})"
@@ -292,6 +292,24 @@ class Post
       }
     end
     data
+  end
+
+  def process_tag
+    if self.valid? && tag && !tag.name.blank?
+      if tag.name_changed?
+        found = Tag.where(:slug => tag.name.to_url).first
+        if found
+          found.score += 1
+          found.save
+        else
+          found = user.tags.create(name: tag.name)
+        end
+        tag.id = found.id
+      end
+      tag
+    else
+      self.tag = nil
+    end
   end
 
   def reset_pings_sent
@@ -341,7 +359,7 @@ class Post
                 :created_at => post.created_at,
                 :night_type => post.night_type,
                 :created_by => UserSnippet.convert_for_api(post.user_snippet),
-                :tag => tag,
+                :tag => Tag.convert_for_api(post.tag),
                 :venue => Venue.convert_for_api(post.venue),
                 :voters => post.voters.map{|v| UserSnippet.convert_for_api(v)}
         }

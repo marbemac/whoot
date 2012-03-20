@@ -6,6 +6,12 @@ class ApiPostsController < ApplicationController
   def create
     @post = Post.current_post(current_user)
 
+    if params[:tag]
+      params[:tag] = {
+              :name => params[:tag]
+      }
+    end
+
     if @post
       @post.attributes = params
     else
