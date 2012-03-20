@@ -9,7 +9,7 @@ window.Whoot =
   Routers: {}
   init: ->
     @App =  new Whoot.Views.App()
-
+    @Header = new Whoot.Views.Header(model: Whoot.App.current_user)
     @Router = new Whoot.Router()
     Backbone.history.start(pushState: true)
 

@@ -1,0 +1,1 @@
+<%= if @model.get('following') == true then 'Unfollow' else 'Follow' %>

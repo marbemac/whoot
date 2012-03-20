@@ -1,3 +1,3 @@
 class Whoot.Collections.PostsFeed extends Backbone.Collection
-  url: '/api/posts/feed'
+  url: '/api/v2/posts/feed'
   model: Whoot.Models.Post

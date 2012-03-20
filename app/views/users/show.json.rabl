@@ -11,10 +11,6 @@ node(:id) do |user|
   user.id.to_s
 end
 
-node(:url) do |user|
-  user_url user
-end
-
 node(:images) do |user|
   {
           #:original => user.image_url(0, 0, 'fit', 'current', true),
