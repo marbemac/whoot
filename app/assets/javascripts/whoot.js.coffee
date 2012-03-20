@@ -30,7 +30,6 @@ jQuery ->
     if data.redirect
       window.location = data.redirect
 
-  # Global error function
   window.globalError = (jqXHR, target=null) ->
     data = $.parseJSON(jqXHR.responseText)
 
@@ -41,10 +40,14 @@ jQuery ->
       when 422
         if target && data && data.errors
           target.find('.alert-error').remove()
-          errors = $('<div/>').addClass('alert alert-error').prepend('<a class="close" data-dismiss="alert">x</a>')
-          for key,error of data.errors
-            errors.append("<div>#{error}</div>")
-          target.find('.errors').prepend(errors)
+          errors_container = $('<div/>').addClass('alert alert-error').prepend('<a class="close" data-dismiss="alert">x</a>')
+          for key,errors of data.errors
+            if errors instanceof Array
+              for error in errors
+                errors_container.append("<div>#{error}</div>")
+            else
+              errors_container.append("<div>#{errors}</div>")
+          target.find('.errors').prepend(errors_container)
 
   # Use gritter to create 'growl' notifications.
   # @param bool persistent Are the growl notifications persistent or do they fade after time?

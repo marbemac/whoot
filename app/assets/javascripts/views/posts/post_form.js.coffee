@@ -44,14 +44,15 @@ class Whoot.Views.PostForm extends Backbone.View
       type: 'POST'
       data: attributes
       beforeSend: ->
-        $(self.el).find('.submit').attr('disabled', 'disabled')
+        $(self.el).find('.submit').button('loading')
       success: (data) ->
+        $(self.el).find('.submit').button('reset')
         globalSuccess(data, $(self.el))
       error: (jqXHR, textStatus, errorThrown) ->
-        $(self.el).find('.submit').removeAttr('disabled')
-        globalError(textStatus, $(self.el))
+        $(self.el).find('.submit').button('reset')
+        globalError(jqXHR, $(self.el))
       complete: ->
-        $(self.el).find('.submit').removeAttr('disabled')
+        $(self.el).find('.submit').button('reset')
 
   destroyForm: ->
     $(@el).modal('hide')

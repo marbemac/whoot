@@ -25,7 +25,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <input type='submit' value='Submit Post' class="submit btn btn-warning" />
+    <input type='submit' value='Submit Post' class="submit btn btn-warning" data-loading-text="Submitting..." autocomplete='off' />
     <% if @modal: %>
       <span class="cancel btn">Cancel</span>
     <% end %>
