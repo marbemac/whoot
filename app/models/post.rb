@@ -260,8 +260,8 @@ class Post
 
   def tweet_text
     text = "I'm #{night_type_short} tonight"
-    if tag && !tag.blank?
-      text += " - #{tag}"
+    if tag && !tag.name.blank?
+      text += " - #{tag.name}"
     end
     if has_venue?
       text += " (#{venue_pretty_name})"
@@ -359,7 +359,7 @@ class Post
                 :created_at => post.created_at,
                 :night_type => post.night_type,
                 :created_by => UserSnippet.convert_for_api(post.user_snippet),
-                :tag => tag,
+                :tag => Tag.convert_for_api(post.tag),
                 :venue => Venue.convert_for_api(post.venue),
                 :voters => post.voters.map{|v| UserSnippet.convert_for_api(v)}
         }
