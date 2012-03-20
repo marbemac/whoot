@@ -7,34 +7,22 @@
 */
 
 /*
- * qTip
- */
-
-.ui-tooltip,
-.qtip
-{
-  font-size: 13px;
-  line-height: 1.125em;
-}
-
-/*
  * gritter
  */
 
 .gritter-item {
   @include single-box-shadow(#999, 1px, 1px, 3px);
-  @include opacity(.85);
   @include border-radius(3px);
   padding: 7px 11px 5px 11px;
   border: 1px solid transparent;
   background: black;
 
   &:hover {
-    @include opacity(1);
     border: 1px solid #FFF;
   }
   p {
     font-size: 14px;
+    cursor: default;
   }
 }
 .gritter-close {
@@ -43,6 +31,7 @@
 }
 .gritter-title {
   padding-bottom: 4px;
+  cursor: default;
 }
 .gritter-red {
   .gritter-item {

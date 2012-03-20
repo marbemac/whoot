@@ -1,5 +1,5 @@
 class Whoot.Collections.Posts extends Backbone.Collection
-  url: '/api/posts'
+  url: '/api/v2/posts'
   model: Whoot.Models.Post
 
   findOrCreate: (id, data=null) ->

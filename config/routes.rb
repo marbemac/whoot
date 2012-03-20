@@ -4,13 +4,61 @@ Whoot::Application.routes.draw do
   match '(*any)' => redirect { |p, req| req.url.sub('www.', '') }, :constraints => { :host => /^www\./ }
 
   scope 'api' do
-    scope 'posts' do
-      get 'feed' => 'api_posts#feed'
-      post '' => 'api_posts#create'
+    scope 'v2' do
+      scope 'posts' do
+        get 'feed' => 'api_posts#feed'
+        post '' => 'api_posts#create'
+      end
+
+      scope 'users' do
+        scope 'follows' do
+          post '' => 'api_follows#create', :type => 'User'
+          delete '' => 'api_follows#destroy', :type => 'User'
+        end
+
+        get 'following_users' => 'api_users#following_users'
+        get 'followers' => 'api_users#followers'
+      end
+    end
+
+    scope 'v1' do
+      get 'generate_token' => 'api#generate_token', :as => :mobile_generate_token, :defaults => { :format => :api }
+      post 'set_device_token' => 'api#set_device_token', :as => :set_device_token, :defaults => { :format => :api }
+      get 'posts' => 'api#posts', :defaults => { :format => :api }
+      post 'posts' => 'posts#create', :defaults => { :format => :api }
+      get 'posts/:id/comments' => 'api#comments', :defaults => { :format => :api }
+      post 'posts/comments' => 'comments#create', :defaults => { :format => :api }
+      get 'posts/:id/votes' => 'api#votes', :defaults => { :format => :api }
+      post 'posts/votes' => 'votes#create', :defaults => { :format => :api }
+      post 'follow' => 'follows#create', :defaults => { :format => :api }
+      delete 'follow' => 'follows#destroy', :defaults => { :format => :api }
+      post 'ping' => 'pings#create', :defaults => { :format => :api }
+      get 'undecided' => 'api#undecided', :defaults => { :format => :api }
+      get 'facebook-friends' => 'api#facebook_friends', :defaults => { :format => :api }
+      get 'users/me' => 'api#me', :defaults => { :format => :api }
+      get 'users/:id/following' => 'users#following_users', :defaults => { :format => :api }
+      get 'users/:id/followers' => 'users#followers', :defaults => { :format => :api }
+      get 'users/:id' => 'users#show', :defaults => { :format => :api }
+      post 'invites/phone_numbers' => 'invites#invite_phone_numbers', :defaults => { :format => :api }
+      get 'invites/show_invite_screen' => 'invites#show_invite_screen', :defaults => { :format => :api }
     end
   end
 
 
+  scope "/users" do
+    #put "/picture" => "users#picture_update", :as => :user_picture_update
+    #get ':id/settings' => 'users#settings', :as => :user_settings
+    #put ':id/settings' => 'users#settings_update', :as => :user_settings_update
+    get ':id/picture' => 'users#default_picture', :as => :user_default_picture
+    put '/location' => 'users#change_location', :as => :user_change_location
+  end
+
+  get ':id/following' => 'users#show', :as => :user_following_users
+  get ':id/followers' => 'users#show', :as => :user_followers
+
+  #ActiveAdmin.routes(self)
+  resources :users, :only => :show
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
 
 
@@ -95,47 +143,6 @@ Whoot::Application.routes.draw do
 
   # Twitter
   post 'twitter/tweet' => 'users#tweet', :as => :tweet_post
-
-  # API
-  scope 'api' do
-    scope 'v1' do
-      get 'generate_token' => 'api#generate_token', :as => :mobile_generate_token, :defaults => { :format => :api }
-      post 'set_device_token' => 'api#set_device_token', :as => :set_device_token, :defaults => { :format => :api }
-      get 'posts' => 'api#posts', :defaults => { :format => :api }
-      post 'posts' => 'posts#create', :defaults => { :format => :api }
-      get 'posts/:id/comments' => 'api#comments', :defaults => { :format => :api }
-      post 'posts/comments' => 'comments#create', :defaults => { :format => :api }
-      get 'posts/:id/votes' => 'api#votes', :defaults => { :format => :api }
-      post 'posts/votes' => 'votes#create', :defaults => { :format => :api }
-      post 'follow' => 'follows#create', :defaults => { :format => :api }
-      delete 'follow' => 'follows#destroy', :defaults => { :format => :api }
-      post 'ping' => 'pings#create', :defaults => { :format => :api }
-      get 'undecided' => 'api#undecided', :defaults => { :format => :api }
-      get 'facebook-friends' => 'api#facebook_friends', :defaults => { :format => :api }
-      get 'users/me' => 'api#me', :defaults => { :format => :api }
-      get 'users/:id/following' => 'users#following_users', :defaults => { :format => :api }
-      get 'users/:id/followers' => 'users#followers', :defaults => { :format => :api }
-      get 'users/:id' => 'users#show', :defaults => { :format => :api }
-      post 'invites/phone_numbers' => 'invites#invite_phone_numbers', :defaults => { :format => :api }
-      get 'invites/show_invite_screen' => 'invites#show_invite_screen', :defaults => { :format => :api }
-    end
-  end
-
-  scope "/users" do
-    get 'ac' => 'users#autocomplete', :as => :user_autocomplete
-    get ':id/following' => 'users#following_users', :as => :user_following_users
-    get ':id/followers' => 'users#followers', :as => :user_followers
-    put "/picture" => "users#picture_update", :as => :user_picture_update
-    get ':id/settings' => 'users#settings', :as => :user_settings
-    put ':id/settings' => 'users#settings_update', :as => :user_settings_update
-    get ':id/hover' => 'users#hover' , :as => :user_hover
-    get ':id/picture' => 'users#default_picture', :as => :user_default_picture
-    put '/location' => 'users#change_location', :as => :user_change_location
-  end
-
-  #ActiveAdmin.routes(self)
-  resources :users, :only => :show
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   # pages
   get 'about' => 'pages#about', :as => :about

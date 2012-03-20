@@ -5,19 +5,12 @@ class UsersController < ApplicationController
   caches_action :default_picture, :cache_path => Proc.new { |c| "#{c.params[:id].split('-')[0]}-#{c.params[:d][0]}-#{c.params[:d][1]}-#{c.params[:s]}" }
 
   def show
-    @user = User.find_by_encoded_id(params[:id])
-    unless @user
-      redirect_to root_path
-    else
-      if params[:format] == :api
-        response = {:json => {:status => 'ok', :data => User.convert_for_api(@user, current_user)}}
-        render response
-      end
+    @user = params[:id] && params[:id] != "0" ? User.find(params[:id]) : current_user
 
-      @title = "#{@user.fullname}" if @user
-      @current_post = Post.current_post(@user)
-      @posts = Post.where('user_snippet._id' => @user.id).order_by([[:created_at, :desc]]).limit(50)
-    end
+    not_found("User not found") unless @user
+    @title = @user.username
+    @description = "Everything #{@user.username} on The Whoot."
+    @this = {:group => 'users', :template => 'show'}
   end
 
   def default_picture

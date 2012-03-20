@@ -1,0 +1,6 @@
+<a href="/<%= @user.get('id') %>" class='ulink' data-id='<%= @user.get('id') %>'>
+  <img src='<%= @user.get('images').cropped.small %>' />
+  <h5><%= @user.fullname() %></h5>
+</a>
+<div class='follow-c'></div>
+<div class='ping-c'></div>

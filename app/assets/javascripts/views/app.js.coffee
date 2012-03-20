@@ -10,12 +10,53 @@ class Whoot.Views.App extends Backbone.View
     @Posts = new Whoot.Collections.Posts
     @PostsFeed = new Whoot.Collections.PostsFeed
 
+    # The global screens & sidebars
+    @screens = {}
+    @sidebars = {}
+
     # Pusher subscription tracking
     @subscriptions = {}
     @event_subscriptions = {}
 
     # set the current user
     @current_user = if $('#me').length > 0 then @Users.findOrCreate($('#me').data('user').id, $('#me').data('user')) else null
+
+  newScreen: (name, id) =>
+    @screens["#{name}_#{id}"] = {
+      'sidebar': null,
+      'components': []
+    }
+
+  findScreen: (name, id) =>
+    @screens["#{name}_#{id}"]
+
+  findSidebar: (type, id) =>
+    @sidebars["#{type}_#{id}"]
+
+  createSidebar: (type, id, model) =>
+    sidebar = new Whoot.Views.UserSidebar(model: model)
+    @sidebars["#{type}_#{id}"] = sidebar
+
+  renderScreen: (name, id) =>
+    screen = @screens["#{name}_#{id}"]
+
+    if screen['sidebar']
+      screen['sidebar'].page = name
+      screen['sidebar'].render()
+
+    for component in screen['components']
+      component.render()
+
+  showScreen: (name, id) =>
+    screen = @screens["#{name}_#{id}"]
+
+    if screen['sidebar']
+      $(screen['sidebar'].el).show()
+
+    for component in screen['components']
+      $(component.el).show()
+
+
 
   # HANDLE PUSHER SUBSCRIPTIONS
   get_subscription: (id) =>
