@@ -5,6 +5,7 @@ class Whoot.Views.PostForm extends Backbone.View
   events:
       "submit form": "createPost"
       "click .cancel": "destroyForm"
+      "click .btn-group .btn": "buttonColor"
 
   initialize: ->
     @collection = new Whoot.Collections.Posts()
@@ -56,3 +57,8 @@ class Whoot.Views.PostForm extends Backbone.View
 
   destroyForm: ->
     $(@el).modal('hide')
+
+  buttonColor: (e) ->
+    console.log($(e.target).data('val'))
+    $(e.target).addClass($(e.target).data('val'))
+    $(e.target).siblings().removeClass('big_out low_out low_in working')

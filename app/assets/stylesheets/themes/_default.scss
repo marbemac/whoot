@@ -5,13 +5,33 @@
     Description:
         Default theme variables.
 */
-
-$grayLightest: #F9F9F9;
-
-$post-working-color: #009966;
-$post-low_in-color: #996699;
-$post-low_out-color: #FF9900;
-$post-big_out-color: #CC3300;
+$post-big_out-color: $red;
+$post-low_out-color: $orange;
+$post-low_in-color: $purple;
+$post-working-color: $green;
 
 $list-odd-color: $grayLightest;
 $list-hover-color: $grayLighter;
+
+.btn {
+  text-shadow: none;
+}
+
+.btn.big_out,
+.btn.low_out,
+.btn.low_in,
+.btn.working {
+  color: $white;
+}
+.btn.big_out {
+  @include button-background($red, $redDark);
+}
+.btn.low_out {
+  @include button-background($orange, $orangeDark);
+}
+.btn.low_in {
+  @include button-background($purple, $purpleDark);
+}
+.btn.working {
+  @include button-background($green, $greenDark);
+}
