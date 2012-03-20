@@ -30,13 +30,13 @@ gem 'cancan' # authorization
 gem "airbrake" # Exception notification
 gem 'rpm_contrib' # extra instrumentation for the new relic rpm agent
 gem 'newrelic_rpm' # performance / server monitoring
-gem 'soulmate', '0.1.1' # Redis based autocomplete storage
+gem 'soulmate', :git => 'git://github.com/seatgeek/soulmate.git' # Redis based autocomplete storage
 gem 'dalli' # memcache
 gem 'pusher' # pusher publish/subscribe system
 gem 'mixpanel' # analytics
 gem 'urbanairship' # push notifications
 gem 'backbone-on-rails'
-gem 'rabl'
+gem 'rabl', "0.6.0"
 
 group :assets do
   gem 'compass', '0.12.alpha.4'
