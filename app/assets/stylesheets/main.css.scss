@@ -19,6 +19,45 @@ body {
   }
 }
 
+h1 {
+  font-size: 26px;
+  line-height: 30px;
+}
+h2 {
+  font-size: 22px;
+  line-height: 26px;
+}
+h3 {
+  font-size: 18px;
+  line-height: 22px;
+}
+h4 {
+  font-size: 16px;
+  line-height: 20px;
+}
+h5 {
+  font-size: 14px;
+  line-height: 18px;
+}
+h6 {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $grayDark;
+  a {
+    color: $grayDark;
+    cursor: pointer;
+    &:hover {
+      color: $grayDark;
+    }
+    &:hover.tlink {
+      color: $greenDarker;
+    }
+  }
+}
+
 #wrapper {
   @include clearfix();
   width: 960px;
@@ -130,19 +169,22 @@ ul,ol,p {
     padding: 10px 10px 10px 70px;
     position: relative;
     border-bottom: 1px solid #EEEEEE;
+    height: 50px;
 
     img {
       @include border-radius(3px);
       position: absolute;
-      top: 7px;
+      top: 10px;
       left: 10px;
       width: 50px;
       height: 50px;
     }
     h4 {
       margin: 0 0 3px 0;
+      height: 50px;
       cursor: default;
-      padding: 14px 0 10px 0;
+      display: table-cell;
+      vertical-align: middle;
     }
     .score-pts {
       font-size: 13px;

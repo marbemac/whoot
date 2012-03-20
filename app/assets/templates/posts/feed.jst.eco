@@ -1,22 +1,3 @@
-<div class='feed-sidebar'>
-  <ul class='menu unstyled'>
-    <li>
-      <a href='#'>Posts Feed<i class="icon icon-chevron-right"></i></a>
-    </li>
-    <li>
-      <a href='#'>Map<i class="icon icon-chevron-right"></i></a>
-    </li>
-    <li>
-      <a href='#'>Undecided<i class="icon icon-chevron-right"></i></a>
-    </li>
-  </ul>
-  <div class='posts-sidebar'>
-
-  </div>
-  <div class='map-sidebar'>
-
-  </div>
-</div>
 <div class='feed-content posts'></div>
 <div class='feed-content map'></div>
 <div class='feed-content undecided'></div>

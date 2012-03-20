@@ -12,6 +12,9 @@ class Whoot.Views.PostsFeed extends Backbone.View
     @postsContainer = $(@el).find('.posts')
     $('#wrapper .content').addClass('on').html(@el)
 
+    sidebar = new Whoot.Views.PostFeedSidebar()
+    $(@el).prepend(sidebar.render())
+
     for post in @collection.models
       @addPost(post)
       console.log(post)

@@ -43,7 +43,13 @@
 }
 
 #posts-feed {
-  .feed-sidebar {
+  .post-feed-location {
+    margin-top: 15px;
+  }
+  h4 {
+    margin: 0 0 8px 7px;
+  }
+  #feed-sidebar {
     border-right: 1px solid #e3e3e3;
     width: 130px;
     padding: 0;
@@ -82,8 +88,8 @@
     }
   }
   .feed-content {
-    width: 545px;
-    float: left;
+    width: 535px;
+    float: right;
 
     ul {
       border-left: 5px solid;
@@ -93,13 +99,16 @@
       &.working { border-color: $post-working-color }
 
       padding: 0 0 0 2px;
-      margin: 0 0 0 10px;
+      margin: 0 0 0 0px;
       li {
         position: relative;
         height: 50px;
         margin-bottom: 1px;
         &.odd {
           background-color: $list-odd-color;
+        }
+        &:hover {
+          background-color: $list-hover-color;
         }
         img {
           position: absolute;
@@ -110,37 +119,48 @@
           display: block;
           background-color: #999;
         }
-        .name {
-          margin-left: 60px;
-        }
         .name,
         .tag {
           position: relative;
           font-size: 16px;
           padding-top: 16px;
+          float: left;
+        }
+        .name {
+          margin-left: 60px;
+          width: 140px;
+          padding-right: 10px;
+        }
+        .tag {
+          width: 245px;
         }
         .comments_count,
         .scoreC {
           position: absolute;
           right: 7px;
           font-weight: bold;
+          overflow: hidden;
+          whitespace: nowrap;
           div {
             float: right;
           }
-
         }
         .comments_count {
-          top: 3px;
-          padding: 2px;
+          top: 24px;
+          padding: 2px 7px;
           .icon {
             margin: 2px 0 0 10px;
           }
         }
         .scoreC {
-          top: 24px;
-          padding: 2px;
+          top: 3px;
+          padding: 2px 7px;
+          cursor: pointer;
           .icon {
             margin: 1px 0 0 10px;
+          }
+          &:hover {
+            background-color: $list-odd-color;
           }
         }
       }
