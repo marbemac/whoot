@@ -4,11 +4,11 @@ class PostSnippet
   field :night_type
   field :created_at, :type => Time
   field :comment_id
-  field :tag
 
   embedded_in :post_assignable, polymorphic: true
 
   embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
+  embeds_one :tag, :as => :taggable, :class_name => 'TagSnippet'
 
   class << self
     def conver_for_api(snippet)
