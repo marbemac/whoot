@@ -108,7 +108,6 @@ $auth_height: 490px;
 }
 
 #auth-login {
-  @include opacity(.85);
   @include border-radius(4px);
   position: fixed;
   bottom: 10px;
@@ -118,7 +117,6 @@ $auth_height: 490px;
 }
 
 #auth-register {
-  @include opacity(.85);
   @include border-radius(4px);
   position: fixed;
   bottom: 200px;

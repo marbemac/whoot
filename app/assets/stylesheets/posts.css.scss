@@ -84,5 +84,39 @@
   .feed-content {
     width: 545px;
     float: left;
+
+    ul {
+      border-left: 5px solid;
+      &.big_out { border-color: $post-big_out-color }
+      &.low_out { border-color: $post-low_out-color }
+      &.low_in { border-color: $post-low_in-color }
+      &.working { border-color: $post-working-color }
+
+      padding: 0 0 0 2px;
+      margin: 0 0 0 10px;
+      li {
+        position: relative;
+        height: 50px;
+        margin-bottom: 1px;
+        img {
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          height: 50px;
+          width: 50px;
+          display: block;
+          background-color: #999;
+        }
+        .name {
+          margin-left: 60px;
+        }
+        .name,
+        .tag {
+          position: relative;
+          font-size: 16px;
+          padding-top: 16px;
+        }
+      }
+    }
   }
 }

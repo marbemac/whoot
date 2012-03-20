@@ -14,7 +14,7 @@ class Whoot.Views.PostsFeed extends Backbone.View
 
     for post in @collection.models
       @addPost(post)
-
+      console.log(post)
     @
 
   addLocation: (id, name) =>
