@@ -14,7 +14,6 @@ gem 'twitter' # twitter api support
 gem "omniauth"
 gem "omniauth-facebook"
 gem 'omniauth-twitter'
-gem 'cells', '3.8.0' # Components
 gem 'yajl-ruby' # json processing
 gem 'fog' # Cloud support (amazon s3, etc)
 gem 'carrierwave' # File uploads
