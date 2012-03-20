@@ -5,7 +5,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
 require "sprockets/railtie"
-require "compass"
+require 'coffee_script'
 require "sass-rails"
 require 'uri'
 require 'open-uri'
@@ -35,7 +35,6 @@ module Whoot
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-    config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 

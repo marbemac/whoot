@@ -11,6 +11,14 @@ node(:id) do |user|
   user.id.to_s
 end
 
+node(:posted_today) do |user|
+  if user.class.name == 'User'
+    user.posted_today?
+  else
+    nil
+  end
+end
+
 node(:images) do |user|
   {
           #:original => user.image_url(0, 0, 'fit', 'current', true),
