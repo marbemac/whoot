@@ -4,22 +4,6 @@ $(function() {
    * SPLASH PAGE
    */
 
-  // show the hidden login form on ctrl+L
-  $(document).keypress(function(e) {
-    var $code = e.which ? e.which : e.keyCode;
-    if (e.ctrlKey && ($code == 108 || $code == 12)) {
-      $('#auth-login').fadeToggle(300);
-      return false;
-    }
-    else if (e.ctrlKey && ($code == 99 || $code == 3)) {
-      $('#auth-register').fadeToggle(300);
-      return false;
-    }
-    else if (e.ctrlKey && ($code == 101 || $code == 5)) {
-      window.location = document.URL + '?_switch_user=_exit';
-    }
-  });
-
   $("#site-launch-cd").countdown({
     "date": "february 16, 2012 00:00:00",
     "fx": "fade"

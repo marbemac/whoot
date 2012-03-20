@@ -1,1 +1,19 @@
-<%= @post.get('night_type') %>
+<img src="#"/>
+
+<div class="name">
+  <%= @post.get('user').get('first_name') + " " + @post.get('user').get('last_name') %>
+</div>
+
+<div class="tag">
+  <%= @post.get('tag').name %>
+</div>
+
+<div class="comments_count">
+  <span><%= @post.get('comment_count') %></span>
+  <div class="icon comment-grey-1614"></div>
+</div>
+
+<div class="scoreC">
+  <span class="votes">0</span>
+  <div class="default loop-1616"></div>
+</div>

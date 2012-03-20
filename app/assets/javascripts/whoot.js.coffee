@@ -71,3 +71,15 @@ jQuery ->
         # the manual_close param determined if they closed it by clicking the "x"
       # (function | optional) function called after it closes
       after_close: ->
+
+  # show the hidden login form on ctrl+L
+  $(document).keypress (e) ->
+    $code = if e.which then e.which else e.keyCode
+    if e.ctrlKey && ($code == 108 || $code == 12)
+      $('#auth-login').fadeToggle(300)
+      return false
+    else if e.ctrlKey && ($code == 99 || $code == 3)
+      $('#auth-register').fadeToggle(300)
+      return false
+    else if e.ctrlKey && ($code == 101 || $code == 5)
+      window.location = document.URL + '?_switch_user=_exit'
