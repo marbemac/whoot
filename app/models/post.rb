@@ -42,7 +42,7 @@ class Post
 
   after_create :set_user_post_snippet, :reset_pings_sent
   before_save :set_venue_snippet, :update_post_event
-  after_save :set_location_snippet, :set_user_location
+  after_save :set_location_snippet, :set_user_location, :process_tag
 
   def max_characters
     if tag && !tag.name.blank? && tag.name.length > 40
@@ -292,6 +292,24 @@ class Post
       }
     end
     data
+  end
+
+  def process_tag
+    if self.valid? && tag && !tag.name.blank?
+      if tag.name_changed?
+        found = Tag.where(:slug => tag.name.to_url).first
+        if found
+          found.score += 1
+          found.save
+        else
+          found = user.tags.create(name: tag.name)
+        end
+        tag.id = found.id
+      end
+      tag
+    else
+      self.tag = nil
+    end
   end
 
   def reset_pings_sent
