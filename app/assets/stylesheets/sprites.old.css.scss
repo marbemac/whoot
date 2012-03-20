@@ -1,0 +1,88 @@
+/*
+    Document   : _sprite
+    Created on : May 6, 2011
+    Author     : Marc MacLeod (marbemac@gmail.com
+    Description:
+        Sprite definitions.
+*/
+
+@import "icon/*.png";
+
+.comment-grey-1614 {
+  @include icon-sprite(comment_grey_16x14);
+  width: 16px;
+  height: 14px;
+}
+.map-pin-small {
+  @include icon-sprite(map_pin_stroke_12x12);
+  width: 12px;
+  height: 12px;
+}
+.loop-1616 {
+  @include icon-sprite(loop_icon_16x16);
+  width: 16px; height: 16px;
+}
+
+//.handle-small { @include icon-sprite(handle-small); }
+//.arrow-small {
+//  @include icon-sprite(arrow-small);
+//  width: 12px;
+//  height: 12px;
+//}
+//
+//.check-working { @include icon-sprite(check-working); }
+//.check-low_in { @include icon-sprite(check-low_in); }
+//.check-low_out { @include icon-sprite(check-low_out); }
+//.check-big_out { @include icon-sprite(check-big_out); }
+//
+//.check-working,
+//.check-low_in,
+//.check-low_out,
+//.check-big_out {
+//    width: 16px;
+//    height: 13px;
+//}
+//
+//.arrow-o-r-2424 {
+//    @include icon-sprite(arrow_orange_right_24x24);
+//    width: 24px; height: 24px;
+//}
+//.fb-icon {
+//    @include icon-sprite(fb);
+//    width: 20px;
+//    height: 20px;
+//}
+//.arrow-r-2424 {
+//    @include icon-sprite(arrow_grey_right_24x24);
+//    width: 24px; height: 24px;
+//}
+//
+//.minus-r-164 {
+//  @include icon-sprite(minus_red_16x4);
+//  width: 16px; height: 4px;
+//}
+//.arrow-fat-down {
+//  @include icon-sprite(arrow-fat-down);
+//  width: 100px;
+//  height: 8px;
+//}
+//.arrow-fat-up {
+//  @include icon-sprite(arrow-fat-up);
+//  width: 100px;
+//  height: 8px;
+//}
+//.twitter-bird-small {
+//  @include icon-sprite(twitter_bird_small);
+//  width: 18px;
+//  height: 12px;
+//}
+//.user-small {
+//  @include icon-sprite(user_12x16);
+//  width: 12px;
+//  height: 16px;
+//}
+//.phone-small {
+//  @include icon-sprite(iphone_9x12);
+//  width: 9px;
+//  height: 12px;
+//}
