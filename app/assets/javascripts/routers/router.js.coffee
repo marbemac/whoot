@@ -3,6 +3,7 @@ class Whoot.Router extends Backbone.Router
     'posts/new': 'postNew'
     ':id/followers': 'userFollowers'
     ':id/following': 'userFollowingUsers'
+    ':id': 'userActivity'
     '': 'postsFeed'
 
   initialize: ->
@@ -42,10 +43,13 @@ class Whoot.Router extends Backbone.Router
     else
       screen = Whoot.App.newScreen('user_followers', id)
 
-      sidebar = Whoot.App.findSidebar('user', id)
+      sidebar = Whoot.App.findSidebar('user', 0)
       unless sidebar
-        sidebar = Whoot.App.createSidebar('user', id, user)
+        sidebar = Whoot.App.createSidebar('user', 0, Whoot.App.current_user)
       screen['sidebar'] = sidebar
+
+      head = new Whoot.Views.UserHeader(model: user)
+      screen['components'].push(head)
 
       collection = new Whoot.Collections.UserFollowers()
       feed = new Whoot.Views.UserList(collection: collection, model: user)
@@ -66,10 +70,13 @@ class Whoot.Router extends Backbone.Router
     else
       screen = Whoot.App.newScreen('user_following_users', id)
 
-      sidebar = Whoot.App.findSidebar('user', id)
+      sidebar = Whoot.App.findSidebar('user', 0)
       unless sidebar
-        sidebar = Whoot.App.createSidebar('user', id, user)
+        sidebar = Whoot.App.createSidebar('user', 0, Whoot.App.current_user)
       screen['sidebar'] = sidebar
+
+      head = new Whoot.Views.UserHeader(model: user)
+      screen['components'].push(head)
 
       collection = new Whoot.Collections.UserFollowingUsers()
       feed = new Whoot.Views.UserList(collection: collection, model: user)
@@ -81,6 +88,33 @@ class Whoot.Router extends Backbone.Router
       collection.id = id
       collection.page = 1
       collection.fetch({data: {id: id}})
+
+  userActivity: (id) ->
+    user = Whoot.App.Users.findOrCreate(id, new Whoot.Models.User($('#this').data('this')))
+
+    if Whoot.App.findScreen('user_activity', id)
+      Whoot.App.showScreen('user_activity', id)
+    else
+      screen = Whoot.App.newScreen('user_activity', id)
+
+      sidebar = Whoot.App.findSidebar('user', 0)
+      unless sidebar
+        sidebar = Whoot.App.createSidebar('user', 0, Whoot.App.current_user)
+      screen['sidebar'] = sidebar
+
+      head = new Whoot.Views.UserHeader(model: user)
+      screen['components'].push(head)
+
+      collection = new Whoot.Collections.UserActivity()
+      feed = new Whoot.Views.UserActivity(collection: collection, model: user)
+      feed.pageTitle = "#{user.fullname()}'s Posts"
+      screen['components'].push(feed)
+
+      Whoot.App.renderScreen('user_activity', id)
+
+#      collection.id = id
+#      collection.page = 1
+#      collection.fetch({data: {id: id}})
 
   #######
   # POSTS

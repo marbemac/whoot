@@ -6,8 +6,8 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$top-color},endColorstr=#{$bottom-color});
 }
 
-$suggestionWidth: 490px;
-$inputWidth: 600px;
+$suggestionWidth: 290px;
+$inputWidth: 400px;
 $soulmateWidth: $inputWidth - 21px;
 
 #soulmate {

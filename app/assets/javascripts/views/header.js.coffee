@@ -9,3 +9,6 @@ class Whoot.Views.Header extends Backbone.View
 
   render: =>
     $(@el).html(@template())
+
+    view = new Whoot.Views.UserSearchInput()
+    $(@el).append(view.render().el)

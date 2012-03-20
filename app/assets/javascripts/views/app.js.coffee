@@ -44,8 +44,10 @@ class Whoot.Views.App extends Backbone.View
       screen['sidebar'].page = name
       screen['sidebar'].render()
 
+    target = $('#wrapper .content').show()
+
     for component in screen['components']
-      component.render()
+      target.append(component.render().el)
 
   showScreen: (name, id) =>
     screen = @screens["#{name}_#{id}"]

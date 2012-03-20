@@ -1,0 +1,14 @@
+<h1><%= @user.fullname() %></h1>
+<img src='<%= @user.get('images').cropped.large %>' class='profile-image' />
+<div class='follow-c'></div>
+<ul class='unstyled'>
+  <li>
+    <a href="/<%= @user.get('id') %>">Activity</a>
+  </li>
+  <li>
+    <a href="/<%= @user.get('id') %>/followers">Followers</a>
+  </li>
+  <li>
+    <a href="/<%= @user.get('id') %>/following">Following</a>
+  </li>
+</ul>

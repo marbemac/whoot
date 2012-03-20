@@ -1,3 +1,2 @@
-<section>
-  <ul class='unstyled'></ul>
-</section>
+<h2><%= @title %></h2>
+<ul class='unstyled'></ul>

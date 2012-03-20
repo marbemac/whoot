@@ -42,6 +42,19 @@
   }
 }
 
+#user-header {
+  position: relative;
+  padding: 0 0 0 215px;
+  height: 200px;
+
+  .profile-image {
+    width: 200px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
+}
+
 
 
 //#authenticate_box {  }

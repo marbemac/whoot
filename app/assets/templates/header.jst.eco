@@ -1,1 +1,3 @@
-<img class='logo' src='/assets/images/header-logo.png' />
+<a href="/" class='logo'>
+  <img src='/assets/images/header-logo.png' />
+</a>

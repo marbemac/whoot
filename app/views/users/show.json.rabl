@@ -1,7 +1,7 @@
 object @user
 attributes :first_name,
            :last_name,
-           :following_count,
+           :following_users_count,
            :followers_count,
            :unread_notification_count,
            :public_id,

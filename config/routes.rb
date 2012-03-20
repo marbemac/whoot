@@ -61,6 +61,25 @@ Whoot::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
 
+  # Resque admin
+  mount Resque::Server, :at => "/resque"
+
+  # Soulmate api
+  mount Soulmate::Server, :at => "/autocomplete"
+
+  get ':id' => 'users#show'
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -134,12 +153,6 @@ Whoot::Application.routes.draw do
   # Tags
   put 'tags/:id/make_trendable' => 'tags#make_trendable', :as => :tag_make_trendable
   put 'tags/:id/make_stopword' => 'tags#make_stopword', :as => :tag_make_stopword
-
-  # Resque admin
-  mount Resque::Server, :at => "/resque"
-
-  # Soulmate api
-  mount Soulmate::Server, :at => "/soul-data"
 
   # Twitter
   post 'twitter/tweet' => 'users#tweet', :as => :tweet_post

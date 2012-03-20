@@ -10,7 +10,6 @@ class Whoot.Views.PostsFeed extends Backbone.View
   render: =>
     $(@el).html(@template())
     @postsContainer = $(@el).find('.posts')
-    $('#wrapper .content').addClass('on').html(@el)
 
     sidebar = new Whoot.Views.PostFeedSidebar()
     $(@el).prepend(sidebar.render())
@@ -24,7 +23,7 @@ class Whoot.Views.PostsFeed extends Backbone.View
     view = new Whoot.Views.PostsFeedLocation()
     view.id = id
     view.name = name
-    console.log @postsContainer
+
     @postsContainer.append(view.render().el)
     @location_organized[id] = view
 
