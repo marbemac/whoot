@@ -17,7 +17,7 @@ class PostSnippet
           :id => snippet.id,
           :night_type => snippet.night_type,
           :created_at => snippet.created_at,
-          :tag => tag,
+          :tag => Tag.convert_for_api(snippet.tag),
           :venue => Venue.convert_for_api(snippet.venue)
         }
       else
