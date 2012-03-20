@@ -14,7 +14,6 @@ gem 'twitter' # twitter api support
 gem "omniauth"
 gem "omniauth-facebook"
 gem 'omniauth-twitter'
-gem 'cells', '3.8.0' # Components
 gem 'yajl-ruby' # json processing
 gem 'fog' # Cloud support (amazon s3, etc)
 gem 'carrierwave' # File uploads
@@ -39,10 +38,14 @@ gem 'backbone-on-rails'
 gem 'rabl', "0.6.0"
 
 group :assets do
-  gem 'compass', '0.12.alpha.4'
   gem 'sass-rails', '3.2.3'
   gem 'coffee-rails', "3.2.1"
-  gem 'uglifier', '>= 1.0.3'
+  gem 'compass-rails'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  #gem 'therubyrhino'
+
+  gem 'closure-compiler'
 
   gem 'anjlab-bootstrap-rails', '>= 2.0', :require => 'bootstrap-rails'
 end

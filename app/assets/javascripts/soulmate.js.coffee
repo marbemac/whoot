@@ -199,6 +199,7 @@ class Soulmate
       click: (event) ->
         event.preventDefault()
         that.suggestions.selectFocused()
+        that.hideContainer()
 
         # Refocus the input field so it remains active after clicking a suggestion.
         that.input.focus()
@@ -212,9 +213,14 @@ class Soulmate
       )
 
   repositionContainer: ->
+    left = @input.offset().left - 10
+
+    if left + 400 > $(window).width()
+      left -= (left + 400) - $(window).width()
+
     @container.css
       top: @input.offset().top + @input.height() + 15
-      left: @input.offset().left - 10
+      left: left
 
   handleKeydown: (event) =>
     killEvent = true

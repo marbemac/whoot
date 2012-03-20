@@ -1,7 +1,7 @@
 class Whoot.Views.UserList extends Backbone.View
   template: JST['users/list']
-  tagName: 'div'
-  className: 'content-tile user-list'
+  tagName: 'section'
+  className: 'user-list'
 
   initialize: ->
     @collection.on('reset', @render)
@@ -11,9 +11,7 @@ class Whoot.Views.UserList extends Backbone.View
     #@.page = 1
 
   render: =>
-    $(@el).html(@template())
-    $('#wrapper .content').html(@el).show()
-    $(@el).find('section').prepend("<h2>#{@pageTitle}</h2>")
+    $(@el).html(@template(title: @pageTitle))
 
     if @collection.models.length == 0
       $(@el).find('section').append("<div class='none'>Hmm, there's nothing to show here</div>")
