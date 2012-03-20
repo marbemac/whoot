@@ -44,6 +44,12 @@ Whoot::Application.routes.draw do
     end
   end
 
+  # Users
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks",
+                                       :registrations => :registrations,
+                                       :confirmations => :confirmations }
+  #omniauth passthrough (https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview)
+  get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
 
   scope "/users" do
     #put "/picture" => "users#picture_update", :as => :user_picture_update
@@ -55,11 +61,6 @@ Whoot::Application.routes.draw do
 
   get ':id/following' => 'users#show', :as => :user_following_users
   get ':id/followers' => 'users#show', :as => :user_followers
-
-  #ActiveAdmin.routes(self)
-  resources :users, :only => :show
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
-
 
   # Resque admin
   mount Resque::Server, :at => "/resque"
