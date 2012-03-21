@@ -16,7 +16,7 @@
     </a>
   </li>
   <li>
-    <a class='<%= 'on' if @page == 'user_activity' %>' href="<%= "/#{@user.get('id')}/activity" %>">
+    <a class='<%= 'on' if @page == 'user_activity' %>' href="<%= "/#{@user.get('id')}" %>">
       My Activity
     </a>
   </li>
