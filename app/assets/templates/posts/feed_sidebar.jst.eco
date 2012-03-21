@@ -1,12 +1,12 @@
 <ul class='menu unstyled'>
   <li>
-    <a href='#' class="on">Posts Feed<i class="icon icon-chevron-right"></i></a>
+    <a href='#' id="posts-feed-btn" class="on">Posts Feed<i class="icon icon-chevron-right"></i></a>
   </li>
   <li>
     <a href='#'>Map<i class="icon icon-chevron-right"></i></a>
   </li>
   <li>
-    <a href='#'>Undecided<i class="icon icon-chevron-right"></i></a>
+    <a href='#' id="undecided-feed-btn">Undecided<i class="icon icon-chevron-right"></i></a>
   </li>
 </ul>
 <div class='posts-sidebar'>

@@ -1,9 +1,6 @@
 class Whoot.Views.PostsFeed extends Backbone.View
   id: 'posts-feed'
 
-  events:
-    'click .posts-sidebar .btn': 'togglePostType'
-
   initialize: ->
     @collection.on('reset', @render)
     @location_organized = {}
@@ -31,10 +28,6 @@ class Whoot.Views.PostsFeed extends Backbone.View
       @addLocation(post.get('location')._id, "#{post.get('location').city}, #{post.get('location').state_code}")
 
     @location_organized[post.get('location')._id].appendPost(post)
-
-  togglePostType: (e) =>
-    $("ul.#{$(e.currentTarget).data('type')}").toggle 300
-    $(e.currentTarget).toggleClass($(e.currentTarget).data('type'))
 
   resetPostCount: =>
     $('.posts-sidebar .btn[data-type="big_out"] div').text($('ul.big_out li').length)

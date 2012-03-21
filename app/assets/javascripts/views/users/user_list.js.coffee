@@ -1,6 +1,5 @@
 class Whoot.Views.UserList extends Backbone.View
   template: JST['users/list']
-  tagName: 'section'
   className: 'user-list'
 
   initialize: ->

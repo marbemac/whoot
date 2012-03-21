@@ -18,6 +18,7 @@ Whoot::Application.routes.draw do
 
         get 'following_users' => 'api_users#following_users'
         get 'followers' => 'api_users#followers'
+        get 'undecided' => 'api_users#undecided'
       end
     end
 
@@ -45,9 +46,7 @@ Whoot::Application.routes.draw do
   end
 
   # Users
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks",
-                                       :registrations => :registrations,
-                                       :confirmations => :confirmations }
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   #omniauth passthrough (https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview)
   get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
 
@@ -68,7 +67,7 @@ Whoot::Application.routes.draw do
   # Soulmate api
   mount Soulmate::Server, :at => "/autocomplete"
 
-  get ':id' => 'users#show'
+  get ':id' => 'users#show', :as => :user
 
 
 

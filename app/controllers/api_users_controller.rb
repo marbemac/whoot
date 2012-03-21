@@ -25,4 +25,11 @@ class ApiUsersController < ApplicationController
     render 'users/list'
   end
 
+  def undecided
+    not_found("User not found") unless current_user
+
+    @users = User.undecided(current_user).order_by([[:first_name, :asc], [:last_name, :desc]])
+
+    render 'users/list'
+  end
 end

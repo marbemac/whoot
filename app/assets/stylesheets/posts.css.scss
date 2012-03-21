@@ -106,9 +106,10 @@
   #posts-feed {
     width: 535px;
     float: right;
+    padding-top: 14px;
 
     .post-feed-location {
-      margin-top: 15px;
+      margin-bottom: 15px;
     }
     h4 {
       margin: 0 0 8px 7px;
@@ -189,6 +190,14 @@
           }
         }
       }
+    }
+  }
+  .user-list {
+    width: 539px;
+    float: right;
+    padding-top: 14px;
+    h4 {
+      margin: 0 0 8px 7px;
     }
   }
 }
