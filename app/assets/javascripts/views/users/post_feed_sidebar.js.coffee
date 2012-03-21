@@ -6,3 +6,5 @@ class Whoot.Views.PostFeedSidebar extends Backbone.View
 
   render: ->
     $(@el).html(@template())
+
+    @

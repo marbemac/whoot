@@ -1,6 +1,4 @@
 class Whoot.Views.PostsFeed extends Backbone.View
-  template: JST['posts/feed']
-  tagName: 'section'
   id: 'posts-feed'
 
   initialize: ->
@@ -8,15 +6,8 @@ class Whoot.Views.PostsFeed extends Backbone.View
     @location_organized = {}
 
   render: =>
-    $(@el).html(@template())
-    @postsContainer = $(@el).find('.posts')
-
-    sidebar = new Whoot.Views.PostFeedSidebar()
-    $(@el).prepend(sidebar.render())
-
     for post in @collection.models
       @addPost(post)
-      console.log(post)
     @
 
   addLocation: (id, name) =>
@@ -24,7 +15,7 @@ class Whoot.Views.PostsFeed extends Backbone.View
     view.id = id
     view.name = name
 
-    @postsContainer.append(view.render().el)
+    $(@el).append(view.render().el)
     @location_organized[id] = view
 
   addPost: (post) =>

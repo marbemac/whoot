@@ -28,12 +28,10 @@ class Whoot.Router extends Backbone.Router
         sidebar = Whoot.App.createSidebar('user', id, user)
       screen['sidebar'] = sidebar
 
-      feed = new Whoot.Views.PostsFeed(collection: Whoot.App.PostsFeed)
+      feed = new Whoot.Views.MyFeed()
       screen['components'].push(feed)
 
       Whoot.App.renderScreen('user_feed', id)
-
-      Whoot.App.PostsFeed.fetch()
 
   userFollowers: (id) ->
     user = Whoot.App.Users.findOrCreate(id, new Whoot.Models.User($('#this').data('this')))
