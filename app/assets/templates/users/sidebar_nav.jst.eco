@@ -6,13 +6,18 @@
 
 <ul class='menu unstyled'>
   <li>
-    <a class='first' href="/">
+    <a class='first' href="#">
       <%= @user.get('unread_notification_count') %> Notifications
     </a>
   </li>
   <li>
     <a class='<%= 'on' if @page == 'user_feed' %>' href="/">
       My Feed
+    </a>
+  </li>
+  <li>
+    <a class='<%= 'on' if @page == 'user_activity' %>' href="<%= "/#{@user.get('id')}" %>">
+      My Activity
     </a>
   </li>
   <li>
@@ -26,7 +31,7 @@
     </a>
   </li>
   <li>
-    <a class='<%= 'on' if @page == 'settings' %>' href="<%= "/settings" %>">
+    <a class='<%= 'on' if @page == 'settings' %>' href="<%= "#" %>">
       Settings
     </a>
   </li>

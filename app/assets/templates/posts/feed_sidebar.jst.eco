@@ -11,21 +11,21 @@
 </ul>
 <div class='posts-sidebar'>
   <h4>Filters</h4>
-  <div class="big_out btn">
+  <div class="big_out btn" data-type='big_out'>
     Partying
-    <div class="num-friends">3</div>
+    <div class="num-friends"></div>
   </div>
-  <div class="low_out btn">
+  <div class="low_out btn" data-type='low_out'>
     Relaxing Out
-    <div class="num-friends">12</div>
+    <div class="num-friends"></div>
   </div>
-  <div class="low_in btn">
+  <div class="low_in btn" data-type='low_in'>
     Staying In
-    <div class="num-friends">8</div>
+    <div class="num-friends"></div>
   </div>
-  <div class="working btn">
+  <div class="working btn" data-type='working'>
     Working
-    <div class="num-friends">2</div>
+    <div class="num-friends"></div>
   </div>
 </div>
 <div class='map-sidebar'>

@@ -115,6 +115,8 @@
     }
     ul {
       border-left: 5px solid;
+      display: none;
+
       &.big_out { border-color: $post-big_out-color }
       &.low_out { border-color: $post-low_out-color }
       &.low_in { border-color: $post-low_in-color }
