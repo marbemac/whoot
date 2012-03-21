@@ -4,9 +4,11 @@
   <%= @post.get('user').get('first_name') + " " + @post.get('user').get('last_name') %>
 </div>
 
-<div class="tag">
-  <%= @post.get('tag').name %>
-</div>
+<% if @post.get('tag'): %>
+  <div class="tag">
+    <%= @post.get('tag').name %>
+  </div>
+<% end %>
 
 <div class="comments_count">
   <span><%= @post.get('comment_count') %></span>
