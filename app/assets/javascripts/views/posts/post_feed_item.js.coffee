@@ -7,4 +7,7 @@ class Whoot.Views.PostFeedItem extends Backbone.View
   render: =>
     $(@el).html(@template(post: @model))
 
+    if Whoot.App.current_user != @model.get('user')
+      loop_in = new Whoot.Views.LoopInButton(model: @model)
+      $(@el).find('.top').append(loop_in.render().el)
     @

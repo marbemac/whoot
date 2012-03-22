@@ -10,10 +10,10 @@ class ApiFollowsController < ApplicationController
         current_user.save
         target.save
 
-        response = build_ajax_response(:ok, nil, "You're following #{target.first_name}", nil, { })
+        response = build_ajax_response(:ok, nil, "You're now following #{target.first_name}", nil, { })
         status = 201
       else
-        response = build_ajax_response(:error, nil, "You're already following that!")
+        response = build_ajax_response(:error, nil, "You're already following #{target.first_name}!")
         status = 401
       end
     else
@@ -31,10 +31,10 @@ class ApiFollowsController < ApplicationController
         current_user.save
         target.save
 
-        response = build_ajax_response(:ok, nil, nil, nil, { })
-        status = 201
+        response = build_ajax_response(:ok, nil, "You're no longer following #{target.first_name}!", nil, { })
+        status = 200
        else
-        response = build_ajax_response(:error, nil, "You're not following that!")
+        response = build_ajax_response(:error, nil, "You're not following #{target.first_name}!")
         status = 401
       end
     else

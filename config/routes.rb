@@ -8,6 +8,11 @@ Whoot::Application.routes.draw do
       scope 'posts' do
         get 'feed' => 'api_posts#feed'
         post '' => 'api_posts#create'
+
+        scope 'loop_ins' do
+          post '' => 'api_loop_ins#create', :type => 'User'
+          delete '' => 'api_loop_ins#destroy', :type => 'User'
+        end
       end
 
       scope 'users' do

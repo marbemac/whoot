@@ -7,6 +7,14 @@ attributes :tag,
            :address_original,
            :location
 
+node(:id) do |post|
+  post.id.to_s
+end
+
 child :user_snippet => :user do |post|
+  extends "users/show"
+end
+
+child :voters => :loop_ins do |post|
   extends "users/show"
 end
