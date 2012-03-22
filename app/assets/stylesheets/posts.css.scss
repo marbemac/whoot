@@ -127,13 +127,20 @@
       margin: 0 0 0 0px;
       li {
         position: relative;
-        height: 50px;
         margin-bottom: 1px;
-        &.odd {
-          background-color: $list-odd-color;
+        .top {
+          height: 50px;
         }
-        &:hover {
-          background-color: $list-hover-color;
+        &.odd {
+          .top {
+            background-color: $list-odd-color;
+          }
+        }
+        &:hover,
+        &.on {
+          .top {
+            background-color: $list-hover-color;
+          }
         }
         img {
           position: absolute;
@@ -186,8 +193,17 @@
             top: 3px;
           }
           &:hover {
-            background-color: $list-odd-color;
+            background-color: $white;
           }
+        }
+        .details {
+          position: relative;
+          margin-left: 50px;
+          background-color: $white;
+          border-color: $list-hover-color;
+          border-width: 8px;
+          border-style: none solid solid;
+          padding: 5px;
         }
       }
     }
