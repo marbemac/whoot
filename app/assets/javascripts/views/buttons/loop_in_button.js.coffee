@@ -7,12 +7,14 @@ class Whoot.Views.LoopInButton extends Backbone.View
 
   initialize: ->
     unless @model.get('looped_in')
-      @model.set('looped_in', @model.looped_in)
+      @model.set('looped_in', @model.is_looped_in())
 
     @model.bind('change:looped_in', @render)
 
   render: =>
     $(@el).html(@template(model: @model))
+    $(@el).addClass('mine disabled') if @model.get('user') == Whoot.App.current_user
+    $(@el).addClass('disabled') if @model.get('looped_in') == true
 
     @
 

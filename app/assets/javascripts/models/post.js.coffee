@@ -6,7 +6,7 @@ class Whoot.Models.Post extends Backbone.Model
   parse: (resp, xhr) ->
     Whoot.App.Posts.findOrCreate(resp.id, resp)
 
-  looped_in: ->
+  is_looped_in: ->
     _.any(@get('loop_ins'), (loop_in) ->
-      loop_in._id == LL.App.current_user.get('id')
+      loop_in.id == Whoot.App.current_user.get('id')
     )

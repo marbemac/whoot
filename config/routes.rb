@@ -72,6 +72,9 @@ Whoot::Application.routes.draw do
   # Soulmate api
   mount Soulmate::Server, :at => "/autocomplete"
 
+  # Invites
+  resources :invites, :only => [:create, :index]
+
   get ':id' => 'users#show', :as => :user
 
 
@@ -121,9 +124,6 @@ Whoot::Application.routes.draw do
   post   'follow' => 'follows#create', :as => :user_follow_create
   delete 'follow' => 'follows#destroy', :as => :user_follow_destroy
   get    'venue/:id/attending/following' => 'venues#attending_venue_map', :as => :attending_venue_map
-
-  # Invites
-  resources :invites, :only => [:create, :index]
 
   # Notifications
   get    'notifications/my' => 'notifications#my_notifications', :as => :my_notifications

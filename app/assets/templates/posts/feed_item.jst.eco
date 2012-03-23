@@ -18,5 +18,13 @@
 </div>
 
 <div class="details hide">
-  DETAILS!
+  <div class="comments">
+    Comments
+  </div>
+  <div class="loop-ins">
+    <h4>Loop Ins</h4>
+    <% for user in @post.get('loop_ins'): %>
+      <%= user.first_name + " " + user.last_name %>
+    <% end %>
+  </div>
 </div>

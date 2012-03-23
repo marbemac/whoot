@@ -1,2 +1,2 @@
-<span class="votes">0</span>
-<div class="icon default loop-1616"></div>
+<span class="votes"><%= @model.get('votes') %></span>
+<div class="icon loop-1616"></div>

@@ -41,8 +41,8 @@ class Post
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
   after_create :set_user_post_snippet, :reset_pings_sent
-  before_save :set_venue_snippet, :update_post_event
-  after_save :set_location_snippet, :set_user_location, :process_tag
+  before_save :set_venue_snippet, :update_post_event, :set_user_location, :set_location_snippet
+  after_save :process_tag
 
   def max_characters
     if tag && !tag.name.blank? && tag.name.length > 40
@@ -65,10 +65,8 @@ class Post
   end
 
   def set_location_snippet
-    if user.location
-      self.location = LocationSnippet.new(
-        user.location.attributes
-      )
+    if user.location && user.location != location
+      self.location = user.location
     end
   end
 

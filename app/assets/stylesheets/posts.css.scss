@@ -169,7 +169,7 @@
         .comments_count,
         .loop-in-btn {
           position: absolute;
-          right: 7px;
+          right: 1px;
           padding: 2px 33px 2px 7px;
 
           font-weight: bold;
@@ -192,9 +192,13 @@
           .icon {
             top: 3px;
           }
-          &:hover {
-            background-color: $white;
+          &:hover { background-color: $white; }
+          &.disabled {
+            cursor: default;
+            .icon { @include opacity(50); }
+            &:hover { background-color: transparent; }
           }
+          &.mine .icon { @include opacity(100) }
         }
         .details {
           position: relative;
@@ -203,7 +207,11 @@
           border-color: $list-hover-color;
           border-width: 8px;
           border-style: none solid solid;
-          padding: 5px;
+          padding: 10px;
+
+          .loop-ins {
+
+          }
         }
       }
     }

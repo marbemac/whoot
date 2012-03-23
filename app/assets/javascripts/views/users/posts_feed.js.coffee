@@ -39,5 +39,4 @@ class Whoot.Views.PostsFeed extends Backbone.View
     $('.posts-sidebar .btn[data-type="working"] div').text($('ul.working li').length)
 
   toggleDetails: (e) ->
-    console.log('foo')
     $(e.target).closest('li').toggleClass('on').find('.details').slideToggle(300)
