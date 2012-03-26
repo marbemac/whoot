@@ -24,7 +24,7 @@
   <div class="loop-ins">
     <h4>Loop Ins</h4>
     <% for user in @post.get('loop_ins'): %>
-      <%= user.first_name + " " + user.last_name %>
+      <%= user.fullname %>
     <% end %>
   </div>
 </div>
