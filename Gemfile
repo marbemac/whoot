@@ -30,6 +30,7 @@ gem 'urbanairship' # push notifications
 gem 'backbone-on-rails'
 gem 'rabl', "0.6.0"
 gem 'capistrano'
+gem 'rake'
 
 group :assets do
   gem 'sass-rails', '3.2.3'
