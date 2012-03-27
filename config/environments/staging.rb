@@ -20,6 +20,9 @@ Whoot::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # use the closure library to minify js
+  config.assets.js_compressor = :closure
+  
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
 

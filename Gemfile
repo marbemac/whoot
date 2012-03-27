@@ -1,7 +1,7 @@
 require 'rbconfig'
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.3.rc1'
 gem 'execjs'
 gem 'jquery-rails'
 gem 'mongoid' # MongoDB
@@ -29,6 +29,7 @@ gem 'mixpanel' # analytics
 gem 'urbanairship' # push notifications
 gem 'backbone-on-rails'
 gem 'rabl', "0.6.0"
+gem 'capistrano'
 
 group :assets do
   gem 'sass-rails', '3.2.3'
