@@ -1,7 +1,7 @@
 require 'torquebox-capistrano-support'
 require "bundler/capistrano"
 
-server "50.116.50.229", :web, :app, primary: true
+server "50.116.50.229", :web, :app, :primary => true
 
 set :torquebox_home,    '/usr/local/rvm/gems/jruby-1.6.7/gems/torquebox-server-2.0.0.cr1-java'
 set :jboss_home,        '/usr/local/rvm/gems/jruby-1.6.7/gems/torquebox-server-2.0.0.cr1-java/jboss'
@@ -30,7 +30,7 @@ namespace :deploy do
   #   end
   # end
 
-  task :setup_config, roles: :app do
+  task :setup_config, :roles => :app do
     sudo "ln -nfs #{current_path}/config/nginx.production.conf /etc/nginx/sites-enabled/#{application}"
     # sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}"
     run "mkdir -p #{shared_path}/config"
@@ -39,13 +39,13 @@ namespace :deploy do
   end
   after "deploy:setup", "deploy:setup_config"
 
-  task :symlink_config, roles: :app do
+  task :symlink_config, :roles => :app do
     # run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
   after "deploy:finalize_update", "deploy:symlink_config"
 
   desc "Make sure local git is in sync with remote."
-  task :check_revision, roles: :web do
+  task :check_revision, :roles => :web do
     unless `git rev-parse HEAD` == `git rev-parse origin/master`
       puts "WARNING: HEAD is not the same as origin/master"
       puts "Run `git push` to sync changes."
