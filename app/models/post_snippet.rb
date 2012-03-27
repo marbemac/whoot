@@ -5,7 +5,7 @@ class PostSnippet
   field :created_at, :type => Time
   field :comment_id
 
-  embedded_in :post_assignable, polymorphic: true
+  embedded_in :post_assignable, :polymorphic => true
 
   embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
   embeds_one :tag, :as => :taggable, :class_name => 'TagSnippet'

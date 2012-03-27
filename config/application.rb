@@ -10,8 +10,17 @@ require "sass-rails"
 require 'uri'
 require 'open-uri'
 require 'chronic'
-require 'resque-loner'
-require 'yajl'
+
+require 'openssl'
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+
+if PLATFORM == 'java'
+  require 'json/pure'
+else
+  require 'yajl'
+end
+
+require 'RMagick'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -53,8 +62,13 @@ module Whoot
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # Enable threaded mode
+    config.threadsafe!
+
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
+
+    config.cache_store = :torque_box_store
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]

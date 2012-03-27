@@ -77,7 +77,7 @@ class User
   embeds_many :social_connects
   embeds_many :schools, :class_name => 'School'
   embeds_one :current_post, :as => :post_assignable, :class_name => 'PostSnippet'
-  embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
+  embeds_one :location, :as => :has_location, :class_name => 'LocationSnippet'
   embeds_one :settings, :class_name => 'UserSettings'
   has_many :tags
   has_many :lists
@@ -115,16 +115,16 @@ class User
       found_location = City.near(my_location).first
     end
     unless defined?(found_location) && found_location
-      found_location = City.where(name: "New York City").first
+      found_location = City.where(:name => "New York City").first
     end
     set_location(found_location)
   end
 
   def set_location(new_location)
     snippet = LocationSnippet.new(
-            city: new_location.name,
-            state_code: new_location.state_code,
-            coordinates: new_location.coordinates
+            :city => new_location.name,
+            :state_code => new_location.state_code,
+            :coordinates => new_location.coordinates
     )
     snippet.id = new_location.id
     self.location = snippet
@@ -244,7 +244,7 @@ class User
       self.following_users << user.id
       self.following_users_count += 1
       user.followers_count += 1
-      Resque.enqueue(SmUserFollowUser, id.to_s, user.id.to_s)
+      # Resque.enqueue(SmUserFollowUser, id.to_s, user.id.to_s)
 
       user.race_score += 1 if created_at > Chronic.parse('March 1, 2012')
       true
@@ -267,7 +267,7 @@ class User
       self.following_users.delete(user.id)
       self.following_users_count -= 1
       user.followers_count -= 1
-      Resque.enqueue(SmUserUnfollowUser, id.to_s, user.id.to_s)
+      # Resque.enqueue(User, id.to_s, user.id.to_s)
 
       user.race_score -= 1 if created_at > Chronic.parse('March 1, 2012')
       true
@@ -376,12 +376,12 @@ class User
 
   def add_to_soulmate
     if new_record?
-      Resque.enqueue(SmCreateUser, id.to_s)
+      # Resque.enqueue(SmCreateUser, id.to_s)
     end
   end
 
   def remove_from_soulmate
-    Resque.enqueue(SmDestroyUser, id.to_s)
+    # Resque.enqueue(SmDestroyUser, id.to_s)
   end
 
   def encoded_id
@@ -389,7 +389,7 @@ class User
   end
 
   def notify_friends
-    Resque.enqueue_in(1.minutes, NotifyFriends, id.to_s)
+    # Resque.enqueue_in(1.minutes, NotifyFriends, id.to_s)
   end
 
   # Basic data for mixpanel
@@ -481,8 +481,8 @@ class User
           gender = nil
         end
         user = User.new(
-                first_name: extra["first_name"], last_name: extra["last_name"],
-                gender: gender, email: info["email"], password: Devise.friendly_token[0,20]
+                :first_name => extra["first_name"], :last_name => extra["last_name"],
+                :gender => gender, :email => info["email"], :password => Devise.friendly_token[0,20]
         )
         user.birthday = Chronic.parse(extra["birthday"]) if extra["birthday"]
         user.social_connects << SocialConnect.new(:uid => omniauth["uid"], :provider => omniauth['provider'], :token => omniauth['credentials']['token'])

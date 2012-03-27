@@ -10,7 +10,7 @@ puts 'EMPTY THE MONGODB DATABASE'
 
 # LOCATIONS
 city = City.create(
-        name: "New York City",
-        state_code: "NY",
-        coordinates: [40.714623,-74.006605]
+        :name => "New York City",
+        :state_code => "NY",
+        :coordinates => [40.714623,-74.006605]
 )

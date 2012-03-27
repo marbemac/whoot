@@ -13,7 +13,7 @@ class Notification
   field :user_id
   field :triggered_by_emailed, :default => []
   field :triggered_by_pushed, :default => []
-  embeds_many :triggered_by, as: :user_assignable, :class_name => 'UserSnippet'
+  embeds_many :triggered_by, :as => :user_assignable, :class_name => 'UserSnippet'
   embeds_one :object, :as => :post_assignable, :class_name => 'PostSnippet'
   embeds_one :object_user, :as => :user_assignable, :class_name => 'UserSnippet'
 
@@ -189,7 +189,7 @@ class Notification
               notification.save
             end
           else
-            Resque.enqueue_in(30.minutes, SendUserNotification, target_user.id.to_s)
+            # Resque.enqueue_in(30.minutes, SendUserNotification, target_user.id.to_s)
           end
         end
       end

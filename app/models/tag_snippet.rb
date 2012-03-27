@@ -3,6 +3,6 @@ class TagSnippet
 
   field :name
 
-  embedded_in :taggable, polymorphic: true
+  embedded_in :taggable, :polymorphic => true
 
 end

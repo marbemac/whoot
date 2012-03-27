@@ -17,7 +17,7 @@ module ImageHelper
         url = version.image_url
       else
         # Queue up to process and save this image size for future requests
-        Resque.enqueue(ImageProcessor, object.class.to_s, object.id.to_s, image.id.to_s, dimensions, style)
+        # Resque.enqueue(ImageProcessor, object.class.to_s, object.id.to_s, image.id.to_s, dimensions, style)
         url = image.original.first.image_url
       end
     else

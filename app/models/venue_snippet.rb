@@ -6,7 +6,7 @@ class VenueSnippet
   field :coordinates, :type => Array
 
   embeds_one :address, :as => :has_address, :class_name => 'Address'
-  embedded_in :has_venue, polymorphic: true
+  embedded_in :has_venue, :polymorphic => true
 
   attr_accessor :address_string
 

@@ -13,7 +13,7 @@ class Comment
   attr_accessible :content
 
   embeds_one :user_snippet, :as => :user_assignable, :class_name => 'UserSnippet'
-  embedded_in :has_comments, polymorphic: true
+  embedded_in :has_comments, :polymorphic => true
 
   before_create :current_user_own
 

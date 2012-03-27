@@ -7,7 +7,7 @@ class UserSnippet
   field :last_name
   field :public_id
 
-  embedded_in :user_assignable, polymorphic: true
+  embedded_in :user_assignable, :polymorphic => true
 
   # Return the users username instead of their ID
   def to_param

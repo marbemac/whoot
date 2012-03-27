@@ -67,10 +67,10 @@ Whoot::Application.routes.draw do
   get ':id/followers' => 'users#show', :as => :user_followers
 
   # Resque admin
-  mount Resque::Server, :at => "/resque"
+  # mount Resque::Server, :at => "/resque"
 
   # Soulmate api
-  mount Soulmate::Server, :at => "/autocomplete"
+  # mount Soulmate::Server, :at => "/autocomplete"
 
   # Invites
   resources :invites, :only => [:create, :index]

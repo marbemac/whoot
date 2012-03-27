@@ -28,7 +28,7 @@ class Post
   #index [["location.coordinates", Mongo::GEO2D]], :min => -180, :max => 180
 
   embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
-  embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
+  embeds_one :location, :as => :has_location, :class_name => 'LocationSnippet'
   embeds_one :tag, :as => :taggable, :class_name => 'TagSnippet'
   embeds_one :user_snippet, :as => :user_assignable, :class_name => 'UserSnippet'
   embeds_many :voters, :as => :user_assignable, :class_name => 'UserSnippet'
@@ -128,10 +128,10 @@ class Post
 
       if target_venue
         self.venue = VenueSnippet.new(
-                name: target_venue.name,
-                address: target_venue.address,
-                public_id: target_venue.public_id,
-                coordinates: target_venue.coordinates
+                :name => target_venue.name,
+                :address => target_venue.address,
+                :public_id => target_venue.public_id,
+                :coordinates => target_venue.coordinates
         )
         self.venue.id = target_venue.id
       elsif !venue || !venue.address
@@ -181,9 +181,9 @@ class Post
       city = City.near(venue.coordinates.reverse).first
       if city && city.id != user.location.id
         snippet = LocationSnippet.new(
-                city: city.name,
-                state_code: city.state_code,
-                coordinates: city.coordinates
+                :city => city.name,
+                :state_code => city.state_code,
+                :coordinates => city.coordinates
         )
         snippet.id = city.id
         user.location = snippet
@@ -300,7 +300,7 @@ class Post
           found.score += 1
           found.save
         else
-          found = user.tags.create(name: tag.name)
+          found = user.tags.create(:name => tag.name)
         end
         tag.id = found.id
       end

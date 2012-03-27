@@ -7,7 +7,7 @@ class LocationSnippet
   field :school_id
   field :coordinates, :type => Array
 
-  embedded_in :has_location, polymorphic: true
+  embedded_in :has_location, :polymorphic => true
 
   def full
     "#{city}, #{state_code}"

@@ -43,12 +43,7 @@ class Venue
     end
   end
 
-  index (
-          [
-                  [:coordinates, Mongo::GEO2D, :min => -180, :max => 180],
-                  [ :popularity, Mongo::DESCENDING ]
-          ]
-  )
+  index ([[ :coordinates, Mongo::GEO2D, :min => -180, :max => 180 ], [ :popularity, Mongo::DESCENDING ]])
   index (
           [
                   [:_id, Mongo::ASCENDING],

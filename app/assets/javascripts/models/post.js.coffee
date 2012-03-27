@@ -5,7 +5,7 @@ class Whoot.Models.Post extends Backbone.Model
 
     loop_ins = []
     for u in @get('loop_ins')
-      loop_ins.push(Whoot.App.Users.findOrCreate(u.id, u)
+      loop_ins.push(Whoot.App.Users.findOrCreate(u.id, u))
 
     @set('loop_ins', loop_ins)
 

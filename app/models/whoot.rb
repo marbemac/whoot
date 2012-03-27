@@ -83,7 +83,7 @@ module Whoot #:nodoc:
     extend ActiveSupport::Concern
 
     included do
-      embeds_many :images, as: :image_assignable, :class_name => 'ImageSnippet'
+      embeds_many :images, :as => :image_assignable, :class_name => 'ImageSnippet'
 
       attr_accessible :asset_image
       attr_accessor :asset_image

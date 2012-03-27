@@ -35,11 +35,11 @@ class Tag
   end
 
   def add_to_soulmate
-    Resque.enqueue(SmCreateTag, id.to_s)
+    # Resque.enqueue(SmCreateTag, id.to_s)
   end
 
   def remove_from_soulmate
-    Resque.enqueue(SmDestroyTag, id.to_s)
+    # Resque.enqueue(SmDestroyTag, id.to_s)
   end
 
   class << self

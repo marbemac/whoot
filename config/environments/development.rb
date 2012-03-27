@@ -1,4 +1,5 @@
 require 'pusher'
+require 'pry'
 
 Pusher.app_id = 11500
 Pusher.key = '0312037e2a21f4279d40'

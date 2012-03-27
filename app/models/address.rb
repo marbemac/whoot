@@ -7,6 +7,6 @@ class Address
   field :zipcode
   field :country
 
-  embedded_in :has_address, polymorphic: true
+  embedded_in :has_address, :polymorphic => true
 
 end
