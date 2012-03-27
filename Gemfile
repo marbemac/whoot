@@ -93,5 +93,6 @@ platforms :jruby do
   gem 'bson'
   gem 'rmagick4j' # Image manipulation (put rmagick at the bottom because it's a little bitch about everything) #McM: lol
   gem "torquebox-rake-support", '2.0.0.cr1'
+  gem 'torquebox-capistrano-support', '2.0.0.cr1'	
   gem "torquebox", '2.0.0.cr1'
 end
