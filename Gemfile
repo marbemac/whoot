@@ -4,6 +4,8 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.2'
 gem 'execjs'
 gem 'jquery-rails'
+gem 'rack'
+gem 'rack-contrib'
 gem 'bson_ext'
 gem 'mongoid' # MongoDB
 gem 'mongoid_slug' # Automatic MongoDB slugs
@@ -16,20 +18,19 @@ gem "omniauth-facebook"
 gem 'omniauth-twitter'
 gem 'yajl-ruby' # json processing
 gem 'fog' # Cloud support (amazon s3, etc)
-gem 'carrierwave' # File uploads
+gem 'carrierwave', '0.6.0' # File uploads
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'heroku'
-gem 'resque', :git => 'https://github.com/hone/resque.git', :branch => 'heroku'
-gem 'resque-scheduler', '2.0.0.g' # scheduled resque jobs
+gem 'resque', '1.20.0'#, :git => 'https://github.com/hone/resque.git', :branch => 'heroku'
+gem 'resque-scheduler', '2.0.0.h' # scheduled resque jobs
 gem 'resque-loner' # Unique resque jobs
-gem 'hirefireapp' # Heroku web/worker auto scaling hirefireapp.com
 gem "geocoder"
 gem "chronic" # Date/Time management
 gem 'cancan' # authorization
 gem "airbrake" # Exception notification
 gem 'rpm_contrib' # extra instrumentation for the new relic rpm agent
 gem 'newrelic_rpm' # performance / server monitoring
-gem 'soulmate', :git => 'git://github.com/seatgeek/soulmate.git' # Redis based autocomplete storage
+gem 'soulmate', '0.1.2'#:git => 'git://github.com/seatgeek/soulmate.git' # Redis based autocomplete storage
 gem 'dalli' # memcache
 gem 'pusher' # pusher publish/subscribe system
 gem 'mixpanel' # analytics

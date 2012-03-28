@@ -5,17 +5,17 @@
 #  args:
 #  description: "This job calls the scout executable to send log data to scout."
 
-recalculate_venue_pop:
-  every: 10m
-  class: RecalculateVenuePopularity
-  #args: 'hour'
-  description: "This job recalculates venue popularities"
-
-recalculate_tag_pop:
-  every: 10m
-  class: RecalculateTagPopularity
-  #args: 'hour'
-  description: "This job recalculates tag popularities"
+#recalculate_venue_pop:
+#  every: 10m
+#  class: RecalculateVenuePopularity
+#  #args: 'hour'
+#  description: "This job recalculates venue popularities"
+#
+#recalculate_tag_pop:
+#  every: 10m
+#  class: RecalculateTagPopularity
+#  #args: 'hour'
+#  description: "This job recalculates tag popularities"
 
 send_daily_reminder:
   cron: 0 16 * * * America/New_York

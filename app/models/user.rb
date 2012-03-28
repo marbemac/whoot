@@ -9,17 +9,29 @@ class User
   include SoulmateHelper
   include Rails.application.routes.url_helpers
 
-
   # Include default devise modules. Others available are:
-  # :encryptable, :confirmable, :lockable, :timeoutable
+  # :recoverable, :rememberable, :encryptable, :confirmable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :omniauthable
+         :trackable, :validatable, :token_authenticatable, :omniauthable
+
+  ## Database authenticatable
+  field :email,              :type => String, :null => false
+  field :encrypted_password, :type => String, :null => false
+
+  ## Trackable
+  field :sign_in_count,      :type => Integer
+  field :current_sign_in_at, :type => Time
+  field :last_sign_in_at,    :type => Time
+  field :current_sign_in_ip, :type => String
+  field :last_sign_in_ip,    :type => String
+
+  # Token authenticatable
+  field :authentication_token, :type => String
 
   field :username
+  slug :username
   field :first_name
   field :last_name
-
-  slug :username
 
   field :gender
   field :status, :default => 'Active'

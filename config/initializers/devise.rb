@@ -15,6 +15,8 @@ Devise.setup do |config|
   # available as additional gems.
   require 'devise/orm/mongoid'
 
+  config.apply_schema = false #https://github.com/plataformatec/devise/wiki/How-To:-Upgrade-to-Devise-2.0-migration-schema-style
+
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
   # just :email. You can configure it to use [:username, :subdomain], so for
