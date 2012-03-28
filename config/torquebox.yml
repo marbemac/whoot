@@ -1,0 +1,26 @@
+ruby:
+  version: 1.9
+  compile_mode: jit
+  debug: false
+  interactive: false #debugger
+  profile_api: false
+
+web:
+  rackup: config.ru
+  host: localhost
+  static: public
+  session-timeout: 30m
+
+environment:
+  RAILS_ENV: production
+  RACK_ENV: production
+  BUNDLE_WITHOUT: "development:test"
+  MONGOID_DATABASE: heroku_app1680692
+  MONGOID_HOST: dbh79.mongolab.com
+  MONGOID_PASSWORD: PuU3Qb4HGt5s
+  MONGOID_PORT: 27797
+  MONGOID_USERNAME: production_mars
+  S3_KEY: AKIAIQDM2Y5J44SJILXA
+  S3_SECRET: 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
+  FACEBOOK_APP_ID: 224248554281682
+  FACEBOOK_APP_SECRET: 3b506fd0f596fa72567b8379095f1647
