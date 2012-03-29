@@ -21,6 +21,16 @@ node(:posted_today) do |user|
   end
 end
 
+node (:pings_today) do |user|
+  if user.class.name == 'User'
+    if user.pings_today_date && user.pings_today_date >= Post.cutoff_time
+      user.pings_today
+    else
+      []
+    end
+  end
+end
+
 node(:images) do |user|
   {
           #:original => user.image_url(0, 0, 'fit', 'current', true),

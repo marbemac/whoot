@@ -21,6 +21,10 @@ Whoot::Application.routes.draw do
           delete '' => 'api_follows#destroy', :type => 'User'
         end
 
+        scope 'pings' do
+          post '' => 'api_pings#create', :type => 'User'
+        end
+
         get 'following_users' => 'api_users#following_users'
         get 'followers' => 'api_users#followers'
         get 'undecided' => 'api_users#undecided'
