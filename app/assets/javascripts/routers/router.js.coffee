@@ -57,6 +57,8 @@ class Whoot.Router extends Backbone.Router
 
       Whoot.App.renderScreen('user_followers', id)
 
+      $(feed.el).wrap('<section />')
+
       collection.id = id
       collection.page = 1
       collection.fetch({data: {id: id}})
@@ -127,6 +129,7 @@ class Whoot.Router extends Backbone.Router
       Whoot.App.renderScreen('user_settings', 0)
 
       new Whoot.Views.UserSettings()
+      $(feed.el).wrap('<section />')
 
 #      collection.id = id
 #      collection.page = 1
@@ -137,7 +140,7 @@ class Whoot.Router extends Backbone.Router
   #######
 
   postNew: ->
-    form = new Whoot.Views.PostForm()
+    form = new Whoot.Views.PostForm(model: Whoot.App.current_user)
     form.header = 'Post First. No Freeloaders!'
     $('#wrapper').append(form.render().el)
 

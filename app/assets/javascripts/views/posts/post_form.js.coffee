@@ -15,10 +15,11 @@ class Whoot.Views.PostForm extends Backbone.View
     @modal = false
     @initial_text = ''
     @header = 'Update Your Post'
+    @buttonText = 'Submit Post'
     @placeholder_text = 'What do you want to talk about?'
 
   render: ->
-    $(@el).html(@template(header: @header, initial_text: @initial_text, placeholder_text: @placeholder_text))
+    $(@el).html(@template(user: @model, header: @header, buttonText: @buttonText, initial_text: @initial_text, placeholder_text: @placeholder_text))
 
     # setTimeout to wait for the modal animation so that the autocomplete can position itself correctly
     self = @
@@ -28,7 +29,7 @@ class Whoot.Views.PostForm extends Backbone.View
       $(@el).modal()
 
     # Venue google autocomplete
-    autocomplete = new google.maps.places.Autocomplete($(@el).find('#post-form-venue').get()[0])
+    autocomplete = new google.maps.places.Autocomplete($(self.el).find('#post-form-venue').get()[0])
     google.maps.event.addListener autocomplete, 'place_changed', ->
       place = autocomplete.getPlace()
       $(self.el).find('#post-form-venue-address').val(place.formatted_address)

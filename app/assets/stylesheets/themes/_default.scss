@@ -35,3 +35,48 @@ $list-hover-color: $grayLighter;
 .btn.working {
   @include button-background($green, $greenDark);
 }
+
+// Overrides
+
+// Google autocomplete
+.pac-container {
+  z-index: 5000 !important;
+}
+
+// Buttons
+.btn-warning {
+  &.gray {
+    @include button-background(#CCC, #AAA);
+  }
+}
+
+// Dropdowns
+.dropdown-menu {
+  &.right {
+    left: auto;
+    right: 0px;
+  }
+  li > a:hover,
+  .active > a,
+  .active > a:hover {
+    background-color: $blue;
+  }
+}
+
+.navbar {
+  .dropdown-menu {
+    &:after {
+      left: auto;
+      right: 10px;
+    }
+    &:before {
+      left: auto;
+      right: 9px;
+    }
+  }
+}
+
+// Forms
+form {
+  margin: 0;
+}

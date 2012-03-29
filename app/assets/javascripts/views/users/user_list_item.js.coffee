@@ -12,4 +12,8 @@ class Whoot.Views.UserListItem extends Backbone.View
       follow = new Whoot.Views.FollowButton(model: @model)
       $(@el).find('.follow-c').html(follow.render().el)
 
+    if Whoot.App.current_user != @model
+      ping = new Whoot.Views.PingButton(model: @model)
+      $(@el).find('.ping-c').html(ping.render().el)
+
     @

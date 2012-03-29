@@ -22,6 +22,10 @@ Whoot::Application.routes.draw do
         end
 
         put '' => 'users#update'
+        scope 'pings' do
+          post '' => 'api_pings#create', :type => 'User'
+        end
+
         get 'following_users' => 'api_users#following_users'
         get 'followers' => 'api_users#followers'
         get 'undecided' => 'api_users#undecided'

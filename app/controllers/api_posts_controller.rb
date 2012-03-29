@@ -21,6 +21,7 @@ class ApiPostsController < ApplicationController
 
     if @post
       @post.attributes = params
+      @post.venue = nil if @post.address_original.blank? && params[:venue][:address_string].blank?
     else
       @post = Post.new(params)
       @post.set_user_snippet(current_user)

@@ -6,7 +6,8 @@ attributes :first_name,
            :unread_notification_count,
            :public_id,
            :slug,
-           :location
+           :location,
+           :current_post
 
 node(:id) do |user|
   user.id.to_s
@@ -17,6 +18,16 @@ node(:posted_today) do |user|
     user.posted_today?
   else
     nil
+  end
+end
+
+node (:pings_today) do |user|
+  if user.class.name == 'User'
+    if user.pings_today_date && user.pings_today_date >= Post.cutoff_time
+      user.pings_today
+    else
+      []
+    end
   end
 end
 

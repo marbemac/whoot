@@ -304,7 +304,7 @@ class User
   end
 
   def posted_today?
-    current_post && current_post.created_at >= Post.cutoff_time
+    current_post && current_post.created_at && current_post.created_at >= Post.cutoff_time
   end
 
   def gender_pronoun
