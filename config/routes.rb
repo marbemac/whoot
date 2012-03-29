@@ -21,6 +21,7 @@ Whoot::Application.routes.draw do
           delete '' => 'api_follows#destroy', :type => 'User'
         end
 
+        put '' => 'users#update'
         get 'following_users' => 'api_users#following_users'
         get 'followers' => 'api_users#followers'
         get 'undecided' => 'api_users#undecided'
@@ -51,14 +52,13 @@ Whoot::Application.routes.draw do
   end
 
   # Users
+  get 'settings' => 'users#settings', :as => :user_settings
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   #omniauth passthrough (https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview)
   get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
 
   scope "/users" do
-    #put "/picture" => "users#picture_update", :as => :user_picture_update
-    #get ':id/settings' => 'users#settings', :as => :user_settings
-    #put ':id/settings' => 'users#settings_update', :as => :user_settings_update
+    put "/picture" => "users#picture_update", :as => :user_picture_update
     get ':id/picture' => 'users#default_picture', :as => :user_default_picture
     put '/location' => 'users#change_location', :as => :user_change_location
   end

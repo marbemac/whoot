@@ -31,7 +31,7 @@
     </a>
   </li>
   <li>
-    <a class='<%= 'on' if @page == 'settings' %>' href="<%= "#" %>">
+    <a class='<%= 'on' if @page == 'user_settings' %>' href="<%= "/settings" %>">
       Settings
     </a>
   </li>

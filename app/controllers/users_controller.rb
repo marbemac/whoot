@@ -90,8 +90,8 @@ class UsersController < ApplicationController
   end
 
   def settings
-    @user = User.find_by_encoded_id(params[:id])
-    if !signed_in? || current_user.id != @user.id
+    @user = current_user
+    unless signed_in?
       redirect_to :root
     end
     @locations = City.order_by([[:state_code, :asc], [:city, :asc]]).all
@@ -122,4 +122,14 @@ class UsersController < ApplicationController
     render :json => build_ajax_response(:ok, root_path, 'Tweet Successful!')
   end
 
+  def update
+    current_user.settings.email_comment = (params[:email_comment] == "true") if params[:email_comment]
+    current_user.settings.email_mention = (params[:email_ping] == "true") if params[:email_mention]
+    current_user.settings.email_follow = (params[:email_follow] == "true") if params[:email_follow]
+    current_user.settings.email_follow = (params[:email_daily] == "true") if params[:email_follow]
+
+    current_user.save
+
+    render :nothing => true, status: 200
+  end
 end

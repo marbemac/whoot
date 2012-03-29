@@ -44,13 +44,74 @@
 
 #user-header {
   position: relative;
-  padding: 0 0 0 215px;
+  padding: 0 0 0 170px;
   height: 150px;
 
+  h1 {
+    margin: 10px 20px 0 0;
+    float: left;
+  }
+  .location {
+    font-style: italic;
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  .follow-c {
+    position: absolute;
+    right: 20px;
+    top: 12px;
+  }
   .profile-image {
+    @include single-box-shadow(rgba(34, 25, 25, 0.4), 0px, 1px, 2px);
     width: 150px;
+    height: 150px;
     position: absolute;
     left: 0px;
     top: 0px;
+  }
+  ul {
+    position: relative;
+    top: 10px;
+    clear: left;
+    li {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+  }
+}
+
+#user-settings {
+  section {
+    @include clearfix();
+    padding: 10px;
+  }
+  h3 {
+  }
+  .lower-header {
+    margin-top: 15px;
+  }
+  .email-settings {
+    font-size: 16px;
+    .email-note {
+      font-size: 12px;
+      margin: 0 0 5px;
+    }
+    .field {
+      position: relative;
+      padding: 10px 0;
+
+      .btn-group,
+      .s-btn {
+        position: absolute;
+        right: 0px;
+        top: 50%;
+        margin-top: -14px;
+      }
+    }
+  }
+  .note {
+    float: right;
+    font-size: 13px;
+    margin: 5px 0 10px;
   }
 }

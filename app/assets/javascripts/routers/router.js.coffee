@@ -1,6 +1,7 @@
 class Whoot.Router extends Backbone.Router
   routes:
     'posts/new': 'postNew'
+    'settings': 'userSettings'
     ':id/followers': 'userFollowers'
     ':id/following': 'userFollowingUsers'
     ':id': 'userActivity'
@@ -109,6 +110,23 @@ class Whoot.Router extends Backbone.Router
       screen['components'].push(feed)
 
       Whoot.App.renderScreen('user_activity', id)
+
+  userSettings: ->
+    user = Whoot.App.current_user
+
+    if Whoot.App.findScreen('user_settings', 0)
+      Whoot.App.showScreen('user_settings', 0)
+    else
+      screen = Whoot.App.newScreen('user_settings', 0)
+
+      sidebar = Whoot.App.findSidebar('user', 0)
+      unless sidebar
+        sidebar = Whoot.App.createSidebar('user', 0, Whoot.App.current_user)
+      screen['sidebar'] = sidebar
+
+      Whoot.App.renderScreen('user_settings', 0)
+
+      new Whoot.Views.UserSettings()
 
 #      collection.id = id
 #      collection.page = 1

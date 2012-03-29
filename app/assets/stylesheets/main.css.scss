@@ -164,7 +164,6 @@ ul,ol,p {
       @include clearfix();
       @include border-radius(3px);
       background: $white;
-      border: 1px solid #E6E6E6;
       margin: 10px;
     }
   }

@@ -18,6 +18,7 @@
 //= require soulmate
 //= require jquery.gritter
 //= require jquery.timer
+//= require plupload/plupload.full
 //
 //
 // require jquery_ujs
@@ -27,7 +28,6 @@
 // require whoot.preload
 // require jquery-ui.min
 // require amplify
-// require plupload/plupload.full
 // require jquery.jcountdown1.4
 // require jquery.colorbox
 // require jquery.timer
