@@ -1,5 +1,5 @@
 <div class="user-panel">
-  <img src='<%= @user.get('images').cropped.small %>' />
+  <img src='<%= @user.get('images').square %>' />
   <h4><%= "#{@user.get('first_name')} #{@user.get('last_name')}" %></h4>
   <div class='actions'></div>
 </div>
