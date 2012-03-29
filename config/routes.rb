@@ -82,7 +82,14 @@ Whoot::Application.routes.draw do
 
   get ':id' => 'users#show', :as => :user
 
-
+  # Pages
+  scope 'pages' do
+    get 'about' => 'pages#about', :as => :about
+    get 'contact' => 'pages#contact', :as => :contact
+    get 'terms' => 'pages#terms', :as => :terms
+    get 'privacy' => 'pages#privacy', :as => :privacy
+    get 'faq' => 'pages#faq', :as => :faq
+  end
 
 
 
@@ -166,13 +173,6 @@ Whoot::Application.routes.draw do
 
   # Twitter
   post 'twitter/tweet' => 'users#tweet', :as => :tweet_post
-
-  # pages
-  get 'about' => 'pages#about', :as => :about
-  get 'contact' => 'pages#contact', :as => :contact
-  get 'terms' => 'pages#terms', :as => :terms
-  get 'privacy' => 'pages#privacy', :as => :privacy
-  get 'faq' => 'pages#faq', :as => :faq
 
   root :to => "pages#home"
 

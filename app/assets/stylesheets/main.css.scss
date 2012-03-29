@@ -312,3 +312,21 @@ ul,ol,p {
     }
   }
 }
+.static {
+  padding: 10px 20px;
+
+  h3 {
+    margin: 10px 0 5px 0;
+  }
+  h4 {
+    margin-top: 10px;
+  }
+  span {
+    font-weight: bold;
+  }
+  p {
+    font-size: 15px;
+    line-height: 18px;
+    padding: 5px 0;
+  }
+}

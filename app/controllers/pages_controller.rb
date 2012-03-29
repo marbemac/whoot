@@ -28,6 +28,6 @@ class PagesController < ApplicationController
   end
 
   def faq
-    @title = "Terms"
+    @title = "FAQ"
   end
 end
