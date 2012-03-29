@@ -371,6 +371,14 @@ class User
     end
   end
 
+  # facebook user id
+  def fuid
+    facebook = get_social_connect('facebook')
+    if facebook
+      facebook.uid
+    end
+  end
+
   def twitter
     provider = get_social_connect('twitter')
     if provider

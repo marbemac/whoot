@@ -6,6 +6,7 @@ class UserSnippet
   field :first_name
   field :last_name
   field :public_id
+  field :fuid
 
   embedded_in :user_assignable, polymorphic: true
 
@@ -29,7 +30,8 @@ class UserSnippet
               :username => snippet.username,
               :first_name => snippet.first_name,
               :last_name => snippet.last_name,
-              :public_id => snippet.encoded_id
+              :public_id => snippet.encoded_id,
+              :fuid => snippet.fuid
       }
     end
   end

@@ -1,4 +1,4 @@
-<img src='<%= @user.get('images').cropped.large %>' class='profile-image' />
+<img src='<%= @user.get('images').large %>' class='profile-image' />
 <h1><%= @user.fullname() %></h1>
 <div class="location"><%= @user.get('location').city %></div>
 <div class='follow-c'></div>

@@ -22,7 +22,8 @@ class Comment
             :username => user.username,
             :first_name => user.first_name,
             :last_name => user.last_name,
-            :public_id => user.public_id
+            :public_id => user.public_id,
+            :fuid => user.fuid
     )
     self.user_snippet.id = user.id
   end

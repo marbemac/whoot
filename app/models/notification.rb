@@ -144,7 +144,8 @@ class Notification
               :username => object_user.username,
               :first_name => object_user.first_name,
               :last_name => object_user.last_name,
-              :public_id => object_user.public_id
+              :public_id => object_user.public_id,
+              :fuid => object_user.fuid
           )
           notification.object_user.id = object_user.id
         end

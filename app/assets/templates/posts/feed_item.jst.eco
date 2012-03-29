@@ -1,5 +1,5 @@
 <div class="top">
-  <img src="<%= @post.get('user').get('images').cropped.small %>"/>
+  <img src="<%= @post.get('user').get('images').square %>"/>
 
   <div class="name">
     <%= @post.get('user').get('first_name') + " " + @post.get('user').get('last_name') %>

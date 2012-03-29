@@ -6,6 +6,14 @@ development:
   raise_not_found_error: false
   autocreate_indexes: true
 
+#development:
+#  host: dbh79.mongolab.com
+#  port: 27797
+#  username: production_mars
+#  password: PuU3Qb4HGt5s
+#  database: heroku_app1680692
+#  raise_not_found_error: false
+
 test:
   host: localhost
   database: whoot_test
