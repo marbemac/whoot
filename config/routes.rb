@@ -26,6 +26,7 @@ Whoot::Application.routes.draw do
           post '' => 'api_pings#create', :type => 'User'
         end
 
+        put '/location' => 'users#change_location'
         get 'following_users' => 'api_users#following_users'
         get 'followers' => 'api_users#followers'
         get 'undecided' => 'api_users#undecided'
