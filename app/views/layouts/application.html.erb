@@ -25,8 +25,9 @@
 
     <div id="wrapper" class="<%= params[:action] %>">
       <header></header>
+      <%= yield %>
       <div class='content'>
-        <%= yield %>
+        <%= yield :content %>
       </div>
       <div class='sidebar'></div>
     </div>

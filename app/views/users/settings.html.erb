@@ -2,58 +2,60 @@
   <%= render "users/image_upload_js" %>
 <% end %>
 
-<div id="user-settings">
-  <div class="upload" id="user_uploadB">Change Profile Image</div>
-
-  <div class="clear"></div>
-
-  <section>
-    <h3>My Location</h3>
-    <select id='my-location' data-url='<%= user_change_location_path %>' autocomplete='off'>
-      <% @locations.each do |location| %>
-        <option value='<%= location.id %>' <%= 'selected' if location.id == @user.location.id %>><%= location.fullname %></option>
-      <% end %>
-    </select>
-  </section>
-
-  <section class="email-settings">
-    <h3>Emails / Push Notifications</h3>
-
-    <div class="email-note">Note: if you have The Whoot app for iPhone or Android, you will be notified through the apps instead of email.</div>
-
-    <div class="field">
-      <div class="setting-text">When someone follows me</div>
-      <div class="btn-group">
-        <div class="btn radio-btn <%= "btn-info" if @user.settings.email_follow %>" name="email_follow" data-value="true">On</div>
-        <div class="btn radio-btn <%= "btn-info" unless @user.settings.email_follow %>" name="email_follow" data-value="false">Off</div>
-      </div>
-    </div>
-
-    <div class="field">
-      <div class="setting-text">When someone pings me</div>
-      <div class="btn-group">
-        <div class="btn radio-btn <%= "btn-info" if @user.settings.email_ping %>" name="email_ping" data-value="true">On</div>
-        <div class="btn radio-btn <%= "btn-info" unless @user.settings.email_ping %>" name="email_ping" data-value="false">Off</div>
-      </div>
-    </div>
-
-    <div class="field">
-      <div class="setting-text">When someone comments on something I said</div>
-      <div class="btn-group">
-        <div class="btn radio-btn <%= "btn-info" if @user.settings.email_comment %>" name="email_comment" data-value="true">On</div>
-        <div class="btn radio-btn <%= "btn-info" unless @user.settings.email_comment %>" name="email_comment" data-value="false">Off</div>
-      </div>
-    </div>
-
-    <%# if @user.device_token %>
-      <h3 class="lower-header">Daily Reminder</h3>
+<% content_for :content do %>
+  <div id="user-settings">
+    <div class="upload" id="user_uploadB">Change Profile Image</div>
+  
+    <div class="clear"></div>
+  
+    <section class="location-settings">
+      <h3>My Location</h3>
+      <select id='my-location' data-url='<%= user_change_location_path %>' autocomplete='off'>
+        <% @locations.each do |location| %>
+          <option value='<%= location.id %>' <%= 'selected' if location.id == @user.location.id %>><%= location.fullname %></option>
+        <% end %>
+      </select>
+    </section>
+  
+    <section class="email-settings">
+      <h3>Emails / Push Notifications</h3>
+  
+      <div class="email-note">Note: if you have The Whoot app for iPhone or Android, you will be notified through the apps instead of email.</div>
+  
       <div class="field">
-        <div class="setting-text">Send me a daily app notification reminding me to post</div>
+        <div class="setting-text">When someone follows me</div>
         <div class="btn-group">
-          <div class="btn radio-btn <%= "btn-info" if @user.settings.email_daily %>" name="email_daily" data-value="true">On</div>
-          <div class="btn radio-btn <%= "btn-info" unless @user.settings.email_daily %>" name="email_daily" data-value="false">Off</div>
+          <div class="btn radio-btn <%= "btn-info" if @user.settings.email_follow %>" name="email_follow" data-value="true">On</div>
+          <div class="btn radio-btn <%= "btn-info" unless @user.settings.email_follow %>" name="email_follow" data-value="false">Off</div>
         </div>
       </div>
-    <%# end %>
-  </section>
-</div>
+  
+      <div class="field">
+        <div class="setting-text">When someone pings me</div>
+        <div class="btn-group">
+          <div class="btn radio-btn <%= "btn-info" if @user.settings.email_ping %>" name="email_ping" data-value="true">On</div>
+          <div class="btn radio-btn <%= "btn-info" unless @user.settings.email_ping %>" name="email_ping" data-value="false">Off</div>
+        </div>
+      </div>
+  
+      <div class="field">
+        <div class="setting-text">When someone comments on something I said</div>
+        <div class="btn-group">
+          <div class="btn radio-btn <%= "btn-info" if @user.settings.email_comment %>" name="email_comment" data-value="true">On</div>
+          <div class="btn radio-btn <%= "btn-info" unless @user.settings.email_comment %>" name="email_comment" data-value="false">Off</div>
+        </div>
+      </div>
+  
+      <%# if @user.device_token %>
+        <h3 class="lower-header">Daily Reminder</h3>
+        <div class="field">
+          <div class="setting-text">Send me a daily app notification reminding me to post</div>
+          <div class="btn-group">
+            <div class="btn radio-btn <%= "btn-info" if @user.settings.email_daily %>" name="email_daily" data-value="true">On</div>
+            <div class="btn radio-btn <%= "btn-info" unless @user.settings.email_daily %>" name="email_daily" data-value="false">Off</div>
+          </div>
+        </div>
+      <%# end %>
+    </section>
+  </div>
+<% end %>
