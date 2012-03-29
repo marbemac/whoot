@@ -187,6 +187,7 @@ ul,ol,p {
     border: 1px solid #E6E6E6;
     margin: 10px;
     > h4 {
+      @include single-text-shadow(#DDD, 0, 1px);
       margin: 10px 0 7px 10px;
       font-weight: normal;
       cursor: default;
@@ -207,6 +208,7 @@ ul,ol,p {
       height: 50px;
     }
     h4 {
+      @include single-text-shadow(#DDD, 0, 1px);
       margin: 0 0 3px 0;
       height: 50px;
       cursor: default;
