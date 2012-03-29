@@ -7,6 +7,11 @@
 */
 
 .user-list {
+  h2 {
+    @include single-text-shadow(#DDD, 0, 1px);
+    margin: 10px 0 20px 10px;
+    cursor: default;
+  }
   li {
     height: 50px;
     margin: 5px 10px;
@@ -46,15 +51,20 @@
   position: relative;
   padding: 0 0 0 170px;
   height: 150px;
+  overflow: hidden;
 
   h1 {
+    @include single-text-shadow(#DDD, 0, 1px);
     margin: 10px 20px 0 0;
     float: left;
+    cursor: default;
   }
   .location {
+    @include single-text-shadow(#DDD, 0, 1px);
     font-style: italic;
     font-size: 16px;
-    margin-top: 16px;
+    margin-top: 17px;
+    cursor: default;
   }
   .follow-c {
     position: absolute;
@@ -64,7 +74,6 @@
   .profile-image {
     @include single-box-shadow(rgba(34, 25, 25, 0.4), 0px, 1px, 2px);
     width: 150px;
-    height: 150px;
     position: absolute;
     left: 0px;
     top: 0px;

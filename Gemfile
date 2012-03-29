@@ -46,7 +46,7 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   #gem 'therubyrhino'
 
-  gem 'closure-compiler'
+  gem 'uglifier'
 
   gem 'anjlab-bootstrap-rails', '>= 2.0', :require => 'bootstrap-rails'
 end
