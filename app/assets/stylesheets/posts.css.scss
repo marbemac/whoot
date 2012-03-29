@@ -233,3 +233,32 @@
     }
   }
 }
+
+#post-map {
+  height: 650px;
+
+  #map-canvas {
+    height: 650px;
+  }
+}
+
+.post-map-info-window {
+  ul {
+    margin: 15px 0 0 0;
+
+    li {
+      position: relative;
+      height: 30px;
+      padding: 0 10px 0 40px;
+
+      img {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+      .name {
+        line-height: 30px;
+      }
+    }
+  }
+}

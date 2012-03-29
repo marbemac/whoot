@@ -6,6 +6,7 @@ attributes :first_name,
            :unread_notification_count,
            :public_id,
            :slug,
+           :location,
            :current_post
 
 node(:id) do |user|

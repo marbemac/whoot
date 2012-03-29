@@ -209,7 +209,7 @@ class Post
   def set_user_post_snippet
     post_snippet = PostSnippet.new(
             :night_type => night_type,
-            :created_at => created_at
+            :created_at => created_at ? created_at : Time.now
     )
     post_snippet.address_original = address_original
     post_snippet.tag = tag

@@ -1,0 +1,20 @@
+<% if @venueData.venue.name: %>
+  <div class="name"><%= @venueData.venue.name %></div>
+<% end %>
+
+<div class="address">
+  <% if @venueData.venue.address.street: %>
+    <%= @venueData.venue.address.street %>
+  <% else: %>
+    <%= "#{@venueData.venue.address.city}, #{@venueData.venue.address.state_code}" %>
+  <% end %>
+</div>
+
+<ul class='users unstyled'>
+  <% for post in @venueData.posts: %>
+    <li>
+      <img src='<%= post.get('user').get('images').cropped.tiny %>' />
+      <div class='name'><%= post.get('user').fullname() %></div>
+    </li>
+  <% end %>
+</ul>

@@ -3,10 +3,10 @@
     <a href='#' id="posts-feed-btn" class="on">Posts Feed<i class="icon icon-chevron-right"></i></a>
   </li>
   <li>
-    <a href='#'>Map<i class="icon icon-chevron-right"></i></a>
+    <a href='#' id='map-feed-btn'>Map<i class="icon icon-chevron-right"></i></a>
   </li>
   <li>
-    <a href='#' id="undecided-feed-btn">Undecided<i class="icon icon-chevron-right"></i></a>
+    <a href='#' id="undecided-feed-btn">Ping Users<i class="icon icon-chevron-right"></i></a>
   </li>
 </ul>
 <div class='posts-sidebar'>

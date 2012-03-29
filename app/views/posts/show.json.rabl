@@ -5,6 +5,7 @@ attributes :tag,
            :comment_count,
            :votes,
            :address_original,
+           :venue,
            :location
 
 node(:id) do |post|
