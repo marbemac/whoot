@@ -72,3 +72,15 @@ class Whoot.Views.App extends Backbone.View
 
   subscribe_event: (id, event) =>
     @event_subscriptions["#{id}_#{event}"] = true
+
+  # HELPERS
+  night_verb: (type) ->
+    switch type
+      when 'working'
+        'Working'
+      when 'low_in'
+        'Staying In'
+      when 'low_out'
+        'Relaxing Out'
+      when 'big_out'
+        'Partying'

@@ -2,7 +2,7 @@ class Whoot.Views.PostsFeed extends Backbone.View
   id: 'posts-feed'
 
   events:
-    'click li': 'toggleDetails'
+    'click li .top': 'toggleDetails'
 
   initialize: ->
     @collection.on('reset', @render)
@@ -13,8 +13,6 @@ class Whoot.Views.PostsFeed extends Backbone.View
       @addPost(post)
 
     @organizeLocations()
-
-#    @resetPostCount()
 
     @
 
@@ -66,4 +64,9 @@ class Whoot.Views.PostsFeed extends Backbone.View
     $('.posts-sidebar .btn[data-type="working"] div').text($('ul.working li').length)
 
   toggleDetails: (e) ->
-    $(e.target).closest('li').toggleClass('on').find('.details').slideToggle(300)
+    target = $(e.target)
+
+    if target.is('a') || target.hasClass('icon')
+      return
+
+    $(e.currentTarget).parent().toggleClass('on').find('.details').slideToggle(200)

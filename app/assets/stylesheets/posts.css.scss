@@ -126,7 +126,10 @@
       color: $post-low_out-color;
       cursor: pointer;
     }
-    ul {
+    ul.big_out,
+    ul.low_out,
+    ul.low_in,
+    ul.working{
       border-left: 5px solid;
       display: none;
 
@@ -154,65 +157,67 @@
             background-color: $list-hover-color;
           }
         }
-        img {
-          position: absolute;
-          left: 0px;
-          top: 0px;
-          height: 50px;
-          width: 50px;
-          display: block;
-          background-color: #999;
-        }
-        .name,
-        .tag {
-          position: relative;
-          font-size: 16px;
-          padding-top: 16px;
-          float: left;
-        }
-        .name {
-          margin-left: 60px;
-          width: 140px;
-          padding-right: 10px;
-        }
-        .tag {
-          width: 245px;
-        }
-        .comments_count,
-        .loop-in-btn {
-          position: absolute;
-          right: 1px;
-          padding: 2px 33px 2px 7px;
-
-          font-weight: bold;
-          overflow: hidden;
-          whitespace: nowrap;
-          .icon {
+        .top {
+          img {
             position: absolute;
-            right: 7px;
+            left: 0px;
+            top: 0px;
+            height: 50px;
+            width: 50px;
+            display: block;
+            background-color: #999;
           }
-        }
-        .comments_count {
-          top: 25px;
-          .icon {
+          .name,
+          .tag {
+            position: relative;
+            font-size: 16px;
+            display: table-cell;
+            height: 50px;
+            vertical-align: middle;
+          }
+          .name {
+            width: 140px;
+            padding: 0 10px 0 60px;
+          }
+          .tag {
+            width: 245px;
+          }
+          .comments_count,
+          .loop-in-btn {
+            position: absolute;
+            right: 1px;
+            padding: 2px 33px 2px 7px;
+            font-weight: bold;
+            overflow: hidden;
+            whitespace: nowrap;
+            .icon {
+              position: absolute;
+              right: 7px;
+            }
+          }
+          .comments_count {
+            top: 25px;
+            .icon {
+              top: 4px;
+            }
+          }
+          .loop-in-btn {
             top: 4px;
+            cursor: pointer;
+            .icon {
+              top: 3px;
+            }
+            &:hover { background-color: $white; }
+            &.disabled {
+              cursor: default;
+              .icon { @include opacity(50); }
+              &:hover { background-color: transparent; }
+            }
+            &.mine .icon { @include opacity(100) }
           }
-        }
-        .loop-in-btn {
-          top: 4px;
-          cursor: pointer;
-          .icon {
-            top: 3px;
-          }
-          &:hover { background-color: $white; }
-          &.disabled {
-            cursor: default;
-            .icon { @include opacity(50); }
-            &:hover { background-color: transparent; }
-          }
-          &.mine .icon { @include opacity(100) }
         }
         .details {
+          @include clearfix();
           position: relative;
           margin-left: 50px;
           background-color: $white;
@@ -221,8 +226,60 @@
           border-style: none solid solid;
           padding: 10px;
 
-          .loop-ins {
+          textarea {
+            width: 270px;
+            height: 40px;
+            resize: none;
+            margin: 0 0 15px 0;
+          }
+          .left {
+            float: left;
+            width: 300px;
 
+            .errors {
+              width: 280px;
+            }
+            li {
+              min-height: 30px;
+              padding: 0 0 5px 40px;
+              position: relative;
+
+              img {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                height: 30px;
+                width: 30px;
+              }
+              .content {
+                font-size: 13px;
+                a {
+                  font-weight: bold;
+                  color: #444;
+                }
+                .big_out { color: $post-big_out-color; }
+                .low_out { color: $post-low_out-color; }
+                .low_in { color: $post-low_in-color; }
+                .working { color: $post-working-color; }
+              }
+              .when {
+                font-size: 11px;
+              }
+            }
+          }
+          .right {
+            float: left;
+            width: 135px;
+            h4 {
+              margin: 0 0 5px 0;
+            }
+            .none {
+              font-style: italic;
+            }
+            a {
+              display: block;
+              margin: 0 10px 5px 0;
+            }
           }
         }
       }

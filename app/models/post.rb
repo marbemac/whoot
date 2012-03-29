@@ -155,6 +155,7 @@ class Post
       snippet.id = user.id
       self.voters << snippet
       event = PostLoopEvent.new(:user_snippet => snippet)
+      event.id = user.id
       self.post_events << event
       self.user.votes_count += 1
       self.user.save

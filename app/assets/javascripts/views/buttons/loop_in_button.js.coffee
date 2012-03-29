@@ -19,6 +19,7 @@ class Whoot.Views.LoopInButton extends Backbone.View
     @
 
   updateLoopIn: =>
+    console.log 'clicked'
     return if $(@el).hasClass('disabled')
 
     self = @

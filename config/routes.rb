@@ -30,6 +30,10 @@ Whoot::Application.routes.draw do
         get 'followers' => 'api_users#followers'
         get 'undecided' => 'api_users#undecided'
       end
+
+      scope 'comments' do
+        post '' => 'api_comments#create', :as => :comments_create
+      end
     end
 
     scope 'v1' do

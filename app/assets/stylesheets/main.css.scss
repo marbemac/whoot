@@ -148,7 +148,7 @@ ul,ol,p {
 }
 
 #wrapper {
-  .content {
+  > .content {
     @include border-radius(5px);
     display: none;
     width: 710px;
@@ -184,7 +184,6 @@ ul,ol,p {
   section {
     @include border-radius(3px);
     background: $grayLightest;
-    border: 1px solid #E6E6E6;
     margin: 10px;
     > h4 {
       @include single-text-shadow(#DDD, 0, 1px);

@@ -39,7 +39,6 @@ class Whoot.Views.PostForm extends Backbone.View
     @
 
   createPost: (e) ->
-    console.log e
     e.preventDefault()
 
     attributes = {}

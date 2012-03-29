@@ -4,6 +4,8 @@ class PostEvent
 
   embedded_in :post
 
+  embeds_one :user_snippet, :as => :user_assignable, :class_name => 'UserSnippet'
+
   def comment?
     self._type == "PostCommentEvent"
   end

@@ -2,7 +2,9 @@
   <img src="<%= @post.get('user').get('images').square %>"/>
 
   <div class="name">
-    <%= @post.get('user').get('first_name') + " " + @post.get('user').get('last_name') %>
+    <a href="/<%= @post.get('user').get('id') %>">
+      <%= @post.get('user').get('first_name') + " " + @post.get('user').get('last_name') %>
+    </a>
   </div>
 
   <% if @post.get('tag'): %>
@@ -18,13 +20,15 @@
 </div>
 
 <div class="details hide">
-  <div class="comments">
-    Comments
+  <div class="left">
+    <form>
+      <div class='errors'></div>
+      <textarea placeholder="Type a comment and press enter..." autocomplete=""></textarea>
+    </form>
+    <ul class='events unstyled'></ul>
   </div>
-  <div class="loop-ins">
+  <div class="right">
     <h4>Loop Ins</h4>
-    <% for user in @post.get('loop_ins'): %>
-      <%= user.fullname %>
-    <% end %>
+    <div class="none">No Loop Ins</div>
   </div>
 </div>

@@ -32,7 +32,7 @@ jQuery ->
 
   window.globalError = (jqXHR, target=null) ->
     data = $.parseJSON(jqXHR.responseText)
-
+    console.log target
     if data.flash
       createGrowl false, data.flash, 'Error', 'red'
 

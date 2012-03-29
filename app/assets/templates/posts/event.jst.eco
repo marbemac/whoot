@@ -1,0 +1,14 @@
+<img src='<%= if @event.user then @event.user.images.square else @post.get('user').get('images').square %>' />
+<div class='content'>
+  <div class='what'>
+    <a href="/<%= if @event.user then @event.user.id else @post.get('user').get('id') %>"><%= if @event.user then @event.user.first_name else @post.get('user').get('first_name') %></a>
+    <% if @event.type == 'PostChangeEvent': %>
+      is <span class='<%= @event.night_type %>'><%= Whoot.App.night_verb(@event.night_type) %></span>
+    <% else if @event.type == 'PostCommentEvent': %>
+      <%= @event.comment.content %>
+    <% else if @event.type == 'PostLoopEvent': %>
+      looped in
+    <% end %>
+  </div>
+  <div class='when'><%= @event.created_at_pretty %></div>
+</div>

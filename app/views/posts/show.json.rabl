@@ -16,6 +16,10 @@ child :user_snippet => :user do |post|
   extends "users/show"
 end
 
+child :post_events => :events do |post|
+  extends "posts/post_event"
+end
+
 child :voters => :loop_ins do |post|
   extends "users/show"
 end

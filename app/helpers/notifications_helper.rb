@@ -27,7 +27,7 @@ module NotificationsHelper
     end
   end
 
-  def pretty_time(time)
+  def pretty_day(time)
     a = (Chronic.parse('today at 11:59pm')-time).to_i
 
     case a
