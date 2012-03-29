@@ -68,7 +68,6 @@ GEM
       ffi (~> 1.0.6)
     chronic (0.6.7)
     chunky_png (1.2.5)
-    closure-compiler (1.1.6)
     coderay (1.0.5)
     coffee-rails (3.2.1)
       coffee-script (>= 2.2.0)
@@ -85,7 +84,7 @@ GEM
     compass-rails (1.0.1)
       compass (~> 0.12.0)
     daemons (1.1.8)
-    dalli (1.1.5)
+    dalli (2.0.1)
     database_cleaner (0.7.2)
     devise (2.0.4)
       bcrypt-ruby (~> 3.0)
@@ -145,7 +144,7 @@ GEM
       netrc (~> 0.7.1)
       rest-client (~> 1.6.1)
       rubyzip
-    heroku_san (2.1.1)
+    heroku_san (2.1.2)
       heroku (>= 2)
       rake
     hike (1.2.1)
@@ -193,7 +192,7 @@ GEM
       net-ssh (>= 1.99.1)
     net-ssh (2.3.0)
     netrc (0.7.1)
-    newrelic_rpm (3.3.2.1)
+    newrelic_rpm (3.3.3)
     nokogiri (1.5.2)
     oauth (0.4.5)
     oauth2 (0.5.2)
@@ -210,7 +209,7 @@ GEM
     omniauth-oauth2 (1.0.0)
       oauth2 (~> 0.5.0)
       omniauth (~> 1.0)
-    omniauth-twitter (0.0.8)
+    omniauth-twitter (0.0.9)
       omniauth-oauth (~> 1.0)
     orm_adapter (0.0.7)
     polyglot (0.3.3)
@@ -332,7 +331,7 @@ GEM
       sinatra (>= 1.0)
       soulmate
       vegas (>= 0.1.0)
-    spork (1.0.0rc2)
+    spork (1.0.0rc1)
     sprockets (2.1.2)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -353,6 +352,9 @@ GEM
       multi_json (~> 1.0)
       simple_oauth (~> 0.1)
     tzinfo (0.3.32)
+    uglifier (1.2.4)
+      execjs (>= 0.3.0)
+      multi_json (>= 1.0.2)
     urbanairship (2.0.0)
       json
     vegas (0.1.11)
@@ -376,7 +378,6 @@ DEPENDENCIES
   carrierwave (= 0.6.0)
   carrierwave-mongoid
   chronic
-  closure-compiler
   coffee-rails (= 3.2.1)
   compass-rails
   dalli
@@ -426,5 +427,6 @@ DEPENDENCIES
   spork (> 0.9.0.rc)
   thin
   twitter
+  uglifier
   urbanairship
   yajl-ruby
