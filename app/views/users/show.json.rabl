@@ -5,7 +5,8 @@ attributes :first_name,
            :followers_count,
            :unread_notification_count,
            :public_id,
-           :slug
+           :slug,
+           :current_post
 
 node(:id) do |user|
   user.id.to_s

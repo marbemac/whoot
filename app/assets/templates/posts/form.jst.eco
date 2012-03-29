@@ -8,26 +8,26 @@
   <div class="modal-body">
     <div class='errors'></div>
     <div class="btn-group" data-toggle="buttons-radio">
-      <div class='btn btn-large night-type' data-on='btn-info' data-val='working'>Working</div>
-      <div class='btn btn-large night-type' data-on='btn-success' data-val='low_in'>Staying In</div>
-      <div class='btn btn-large night-type' data-on='btn-warning' data-val='low_out'>Relaxing Out</div>
-      <div class='btn btn-large night-type' data-on='btn-danger' data-val='big_out'>Partying</div>
+      <div class='btn btn-large night-type <%= if @user.get('current_post') && @user.get('current_post').night_type == 'working' then 'active working' else '' %>' data-on='btn-info' data-val='working'>Working</div>
+      <div class='btn btn-large night-type <%= if @user.get('current_post') && @user.get('current_post').night_type == 'low_in' then 'active low_in' else '' %>' data-on='btn-success' data-val='low_in'>Staying In</div>
+      <div class='btn btn-large night-type <%= if @user.get('current_post') && @user.get('current_post').night_type == 'low_out' then 'active low_out' else '' %>' data-on='btn-warning' data-val='low_out'>Relaxing Out</div>
+      <div class='btn btn-large night-type <%= if @user.get('current_post') && @user.get('current_post').night_type == 'big_out' then 'active big_out' else '' %>' data-on='btn-danger' data-val='big_out'>Partying</div>
     </div>
     <div>
-      <input type='text' id="post-form-content" spellcheck="false" autocomplete="off" name="tag" placeholder="Tag your night (optional). 40 character max." value="<%= @initial_text %>">
+      <input type='text' id="post-form-content" spellcheck="false" autocomplete="off" name="tag" placeholder="Tag your night (optional). 40 character max." value="<%= if @user.get('current_post') && @user.get('current_post').tag then @user.get('current_post').tag.name else '' %>">
     </div>
     <div>
-      <input type='text' id="post-form-venue" spellcheck="false" autocomplete="off" name="venue_address_original" placeholder="Add Venue (optional). Please choose from suggested results." value="<%= @initial_text %>">
+      <input type='text' id="post-form-venue" spellcheck="false" autocomplete="off" name="venue_address_original" placeholder="Add Venue (optional). Please choose from suggested results." value="<%= if @user.get('current_post') then @user.get('current_post').address_original else '' %>">
       <input type='hidden' id="post-form-venue-address" spellcheck="false" autocomplete="off" name="venue_address_string">
       <input type='hidden' id="post-form-venue-name" spellcheck="false" autocomplete="off" name="venue_name">
     </div>
-    <div class='bottom-options'>
-      <div class='btn suggestions' data-toggle='button'>I'm Open to Suggestions</div>
-      <div class='btn twitter' data-toggle='button'>Post to Twitter</div>
-    </div>
+    <!--<div class='bottom-options'>-->
+      <!--<div class='btn suggestions' data-toggle='button'>I'm Open to Suggestions</div>-->
+      <!--<div class='btn twitter' data-toggle='button'>Post to Twitter</div>-->
+    <!--</div>-->
   </div>
   <div class="modal-footer">
-    <div class="submit btn btn-warning" data-loading-text="Submitting...">Submit Post</div>
+    <div class="submit btn btn-warning" data-loading-text="Submitting..."><%= @buttonText %></div>
     <% if @modal: %>
       <span class="cancel btn">Cancel</span>
     <% end %>

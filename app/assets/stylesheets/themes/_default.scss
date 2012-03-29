@@ -35,3 +35,10 @@ $list-hover-color: $grayLighter;
 .btn.working {
   @include button-background($green, $greenDark);
 }
+
+// Overrides
+
+// Google autocomplete
+.pac-container {
+  z-index: 5000 !important;
+}

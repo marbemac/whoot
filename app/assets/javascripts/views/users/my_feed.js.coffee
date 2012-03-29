@@ -46,3 +46,9 @@ class Whoot.Views.MyFeed extends Backbone.View
     $('#posts-feed, .user-list').hide()
 
   updatePost: =>
+    form = new Whoot.Views.PostForm(model: Whoot.App.current_user)
+    form.header = 'Update Your Post'
+    form.buttonText = 'Update'
+    form.modal = true
+    console.log Whoot.App.current_user
+    form.render()

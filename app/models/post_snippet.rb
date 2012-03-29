@@ -2,6 +2,7 @@ class PostSnippet
   include Mongoid::Document
 
   field :night_type
+  field :address_original
   field :created_at, :type => Time
   field :comment_id
 

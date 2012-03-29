@@ -40,8 +40,8 @@ class Post
   attr_accessor :user_id, :address_placeholder
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
-  after_create :set_user_post_snippet, :reset_pings_sent
-  before_save :set_venue_snippet, :update_post_event, :set_user_location, :set_location_snippet
+  after_create :send_ping_updates, :reset_pings_sent
+  before_save :set_venue_snippet, :update_post_event, :set_user_location, :set_location_snippet, :set_user_post_snippet
   after_save :process_tag
 
   def max_characters
@@ -192,7 +192,7 @@ class Post
     end
   end
 
-  def set_user_post_snippet
+  def send_ping_updates
     # Send emails to the users that pinged this user
     unless user.posted_today? || !user.pings_today_date || user.pings_today_date <= Post.cutoff_time
       users = User.where(:_id.in => user.pings_today)
@@ -204,10 +204,14 @@ class Post
         end
       end
     end
+  end
+
+  def set_user_post_snippet
     post_snippet = PostSnippet.new(
             :night_type => night_type,
             :created_at => created_at
     )
+    post_snippet.address_original = address_original
     post_snippet.tag = tag
     post_snippet.venue = venue
     user.current_post = post_snippet

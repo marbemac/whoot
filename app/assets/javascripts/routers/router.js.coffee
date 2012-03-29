@@ -119,7 +119,7 @@ class Whoot.Router extends Backbone.Router
   #######
 
   postNew: ->
-    form = new Whoot.Views.PostForm()
+    form = new Whoot.Views.PostForm(model: Whoot.App.current_user)
     form.header = 'Post First. No Freeloaders!'
     $('#wrapper').append(form.render().el)
 
