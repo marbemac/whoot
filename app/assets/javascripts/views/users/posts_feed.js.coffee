@@ -27,10 +27,15 @@ class Whoot.Views.PostsFeed extends Backbone.View
   addPost: (post) =>
     return unless post.get('location')
 
-    unless @location_organized[post.get('location')._id]
-      @addLocation(post.get('location')._id, "#{post.get('location').city}, #{post.get('location').state_code}")
+    if post.get('user').id == Whoot.App.current_user.id
+      @addLocation(Whoot.App.current_user.id, "My Post")
+      id = Whoot.App.current_user.id
+    else
+      id = @location_organized[post.get('location')._id]
+      unless @location_organized[post.get('location')._id]
+        @addLocation(post.get('location')._id, "#{post.get('location').city}, #{post.get('location').state_code}")
 
-    @location_organized[post.get('location')._id].appendPost(post)
+    @location_organized[id].appendPost(post)
 
   resetPostCount: =>
     $('.posts-sidebar .btn[data-type="big_out"] div').text($('ul.big_out li').length)

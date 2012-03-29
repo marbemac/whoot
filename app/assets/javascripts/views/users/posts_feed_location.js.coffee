@@ -11,7 +11,7 @@ class Whoot.Views.PostsFeedLocation extends Backbone.View
     @count = 0
 
   render: =>
-    $(@el).html(@template(name: @name))
+    $(@el).html(@template(id: @id, name: @name))
 
     @
 

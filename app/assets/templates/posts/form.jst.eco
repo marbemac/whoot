@@ -14,10 +14,12 @@
       <div class='btn btn-large night-type' data-on='btn-danger' data-val='big_out'>Partying</div>
     </div>
     <div>
-      <input id="post-form-content" spellcheck="false" autocomplete="off" name="tag" placeholder="Tag your night (optional). 40 character max." value="<%= @initial_text %>">
+      <input type='text' id="post-form-content" spellcheck="false" autocomplete="off" name="tag" placeholder="Tag your night (optional). 40 character max." value="<%= @initial_text %>">
     </div>
     <div>
-      <input id="post-form-venue" spellcheck="false" autocomplete="off" name="address_original" placeholder="Add Venue (optional). Please choose from suggested results." value="<%= @initial_text %>">
+      <input type='text' id="post-form-venue" spellcheck="false" autocomplete="off" name="venue_address_original" placeholder="Add Venue (optional). Please choose from suggested results." value="<%= @initial_text %>">
+      <input type='hidden' id="post-form-venue-address" spellcheck="false" autocomplete="off" name="venue_address_string">
+      <input type='hidden' id="post-form-venue-name" spellcheck="false" autocomplete="off" name="venue_name">
     </div>
     <div class='bottom-options'>
       <div class='btn suggestions' data-toggle='button'>I'm Open to Suggestions</div>
@@ -25,7 +27,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <input type='submit' value='Submit Post' class="submit btn btn-warning" data-loading-text="Submitting..." autocomplete='off' />
+    <div class="submit btn btn-warning" data-loading-text="Submitting...">Submit Post</div>
     <% if @modal: %>
       <span class="cancel btn">Cancel</span>
     <% end %>

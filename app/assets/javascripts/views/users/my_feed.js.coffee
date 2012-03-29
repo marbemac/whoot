@@ -5,6 +5,7 @@ class Whoot.Views.MyFeed extends Backbone.View
   events:
     'click #posts-feed-btn': 'renderPosts'
     'click #undecided-feed-btn': 'renderUndecided'
+    'click #update-post': 'updatePost'
 
   initialize: ->
     @postsLoaded = false
@@ -43,3 +44,5 @@ class Whoot.Views.MyFeed extends Backbone.View
   menuOff: =>
     $('#posts-feed-btn, #undecided-feed-btn').removeClass('on')
     $('#posts-feed, .user-list').hide()
+
+  updatePost: =>

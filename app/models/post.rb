@@ -36,7 +36,7 @@ class Post
 
   validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing out, or partying)" }
   validate :max_characters
-  attr_accessible :night_type, :tag, :address_original
+  attr_accessible :night_type, :tag, :address_original, :venue
   attr_accessor :user_id, :address_placeholder
   belongs_to :user, :foreign_key => 'user_snippet.id'
 

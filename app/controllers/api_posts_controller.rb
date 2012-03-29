@@ -12,6 +12,13 @@ class ApiPostsController < ApplicationController
       }
     end
 
+    if params[:venue_address]
+      params[:venue] = {
+              :address_string => params[:venue_address],
+              :name => params[:venue_name]
+      }
+    end
+
     if @post
       @post.attributes = params
     else

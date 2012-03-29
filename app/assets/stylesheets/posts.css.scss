@@ -110,9 +110,17 @@
 
     .post-feed-location {
       margin-bottom: 15px;
+      position: relative;
     }
     h4 {
       margin: 0 0 8px 7px;
+    }
+    #update-post {
+      position: absolute;
+      top: 1px;
+      left: 90px;
+      color: $post-low_out-color;
+      cursor: pointer;
     }
     ul {
       border-left: 5px solid;
