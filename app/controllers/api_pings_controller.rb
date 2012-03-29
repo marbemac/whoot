@@ -23,15 +23,15 @@ class ApiPingsController < ApplicationController
             status = 200
           end
         else
-          response = build_ajax_response(:error, nil, "You have already pinged this user today!", nil, {:message => "You have already pinged this user today!"})
+          response = build_ajax_response(:error, nil, "You have already pinged this user today!")
           status = 404
         end
       else
-        response = build_ajax_response(:error, nil, "You have used all #{Ping.max_per_day} pings today!", nil, {:message => "You have used all #{Ping.max_per_day} pings today!"})
+        response = build_ajax_response(:error, nil, "You have used all #{Ping.max_per_day} pings today!")
         status = 404
       end
     else
-      response = build_ajax_response(:error, nil, 'Target user not found!', nil, {:message => 'Target user not found!'})
+      response = build_ajax_response(:error, nil, 'Target user not found!', nil)
       status = 404
     end
 

@@ -56,6 +56,8 @@ class Whoot.Router extends Backbone.Router
 
       Whoot.App.renderScreen('user_followers', id)
 
+      $(feed.el).wrap('<section />')
+
       collection.id = id
       collection.page = 1
       collection.fetch({data: {id: id}})
@@ -109,6 +111,8 @@ class Whoot.Router extends Backbone.Router
       screen['components'].push(feed)
 
       Whoot.App.renderScreen('user_activity', id)
+
+      $(feed.el).wrap('<section />')
 
 #      collection.id = id
 #      collection.page = 1
