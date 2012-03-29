@@ -1,12 +1,5 @@
-<% content_for :js do %>
-  <%= render "users/image_upload_js" %>
-<% end %>
-
 <% content_for :content do %>
   <div id="user-settings">
-    <div class="upload" id="user_uploadB">Change Profile Image</div>
-  
-    <div class="clear"></div>
   
     <section class="location-settings">
       <h3>My Location</h3>
@@ -46,7 +39,7 @@
         </div>
       </div>
   
-      <%# if @user.device_token %>
+      <% if @user.device_token %>
         <h3 class="lower-header">Daily Reminder</h3>
         <div class="field">
           <div class="setting-text">Send me a daily app notification reminding me to post</div>
@@ -55,7 +48,7 @@
             <div class="btn radio-btn <%= "btn-info" unless @user.settings.email_daily %>" name="email_daily" data-value="false">Off</div>
           </div>
         </div>
-      <%# end %>
+      <% end %>
     </section>
   </div>
 <% end %>

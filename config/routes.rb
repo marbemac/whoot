@@ -26,6 +26,7 @@ Whoot::Application.routes.draw do
           post '' => 'api_pings#create', :type => 'User'
         end
 
+        put '/location' => 'users#change_location'
         get 'following_users' => 'api_users#following_users'
         get 'followers' => 'api_users#followers'
         get 'undecided' => 'api_users#undecided'
@@ -85,7 +86,14 @@ Whoot::Application.routes.draw do
 
   get ':id' => 'users#show', :as => :user
 
-
+  # Pages
+  scope 'pages' do
+    get 'about' => 'pages#about', :as => :about
+    get 'contact' => 'pages#contact', :as => :contact
+    get 'terms' => 'pages#terms', :as => :terms
+    get 'privacy' => 'pages#privacy', :as => :privacy
+    get 'faq' => 'pages#faq', :as => :faq
+  end
 
 
 
@@ -169,13 +177,6 @@ Whoot::Application.routes.draw do
 
   # Twitter
   post 'twitter/tweet' => 'users#tweet', :as => :tweet_post
-
-  # pages
-  get 'about' => 'pages#about', :as => :about
-  get 'contact' => 'pages#contact', :as => :contact
-  get 'terms' => 'pages#terms', :as => :terms
-  get 'privacy' => 'pages#privacy', :as => :privacy
-  get 'faq' => 'pages#faq', :as => :faq
 
   root :to => "pages#home"
 

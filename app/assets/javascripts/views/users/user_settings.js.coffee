@@ -30,20 +30,12 @@ class Whoot.Views.UserSettings extends Backbone.View
 
   updateLocation: (e) =>
     button = $(e.target)
-
-    console.log(e)
+    self = @
 
     $.ajax
-      url: '/api/v2/users'
+      url: '/api/v2/users/location'
       type: 'put'
       dataType: 'json'
-      data: data
-      beforeSend: ->
-        button.oneTime 500, 'loading', ->
-          button.button('loading')
-      complete: ->
-        button.stopTime 'loading'
-        button.button('reset')
-        button.toggleClass('btn-info')
-        button.siblings().removeClass('btn-info')
-
+      data: { id: button.val() }
+#      success: (data) ->
+#        globalSuccess(data, $(self.el))

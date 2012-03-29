@@ -110,7 +110,7 @@ class UsersController < ApplicationController
       current_user.save
     end
 
-    response = { :status => :ok, :redirect => request.referer }
+    response = build_ajax_response(:ok, nil, "Location changed to #{location.name}")
     render json: response, status: :created
   end
 

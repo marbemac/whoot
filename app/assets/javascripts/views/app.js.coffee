@@ -34,7 +34,11 @@ class Whoot.Views.App extends Backbone.View
     @sidebars["#{type}_#{id}"]
 
   createSidebar: (type, id, model) =>
-    sidebar = new Whoot.Views.UserSidebar(model: model)
+    switch type
+      when 'user'
+        sidebar = new Whoot.Views.UserSidebar(model: model)
+      when 'static'
+        sidebar = new Whoot.Views.StaticPageSidebar()
     @sidebars["#{type}_#{id}"] = sidebar
 
   renderScreen: (name, id) =>
@@ -43,6 +47,7 @@ class Whoot.Views.App extends Backbone.View
     if screen['sidebar']
       screen['sidebar'].page = name
       screen['sidebar'].render()
+      $(screen['sidebar'].el).show()
 
     target = $('#wrapper .content').show()
 

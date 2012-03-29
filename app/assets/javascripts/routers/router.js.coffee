@@ -2,6 +2,7 @@ class Whoot.Router extends Backbone.Router
   routes:
     'posts/new': 'postNew'
     'settings': 'userSettings'
+    'pages/:name': 'staticPage'
     ':id/followers': 'userFollowers'
     ':id/following': 'userFollowingUsers'
     ':id': 'userActivity'
@@ -137,6 +138,22 @@ class Whoot.Router extends Backbone.Router
 #      collection.page = 1
 #      collection.fetch({data: {id: id}})
 
+  staticPage: (name) ->
+    if Whoot.App.findScreen('static_page', 0)
+      Whoot.App.showScreen('static_page', 0)
+    else
+      screen = Whoot.App.newScreen('static_page', 0)
+
+      sidebar = Whoot.App.findSidebar('static', 0)
+      unless sidebar
+        sidebar = Whoot.App.createSidebar('static', 0, Whoot.App.current_user)
+      sidebar.page = name
+      screen['sidebar'] = sidebar
+
+      Whoot.App.renderScreen('static_page', 0)
+
+      Whoot.Header.render()
+
   #######
   # POSTS
   #######
@@ -155,5 +172,3 @@ class Whoot.Router extends Backbone.Router
 #    _gaq.push(['_trackPageview', "/#{url}"])
 
   splashPage: ->
-
-  staticPage: (name) ->

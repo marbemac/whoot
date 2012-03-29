@@ -18,7 +18,6 @@
 //= require soulmate
 //= require jquery.gritter
 //= require jquery.timer
-//= require plupload/plupload.full
 //
 //
 // require jquery_ujs
