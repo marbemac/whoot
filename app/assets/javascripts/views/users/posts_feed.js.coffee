@@ -6,23 +6,45 @@ class Whoot.Views.PostsFeed extends Backbone.View
 
   initialize: ->
     @collection.on('reset', @render)
-    @location_organized = {}
+    @location_organized = []
 
   render: =>
     for post in @collection.models
       @addPost(post)
 
-    @resetPostCount()
+    @organizeLocations()
+
+#    @resetPostCount()
 
     @
+
+  organizeLocations: =>
+    organized = []
+
+    myLocation = _.find(@location_organized, (location) -> location.id == Whoot.App.current_user.get('location')._id)
+    if myLocation
+      $(@el).prepend(myLocation.view.el)
+
+    me = _.find(@location_organized, (location) -> location.id == Whoot.App.current_user.get('id'))
+    if me
+      $(@el).prepend(me.view.el)
 
   addLocation: (id, name) =>
     view = new Whoot.Views.PostsFeedLocation()
     view.id = id
     view.name = name
 
-    $(@el).append(view.render().el)
-    @location_organized[id] = view
+    location = {
+      id: id
+      view: view
+    }
+
+    $(@el).append(location.view.render().el)
+
+    @location_organized.push location
+
+  findLocation: (id) =>
+    _.find(@location_organized, (location) -> location.id == id)
 
   addPost: (post) =>
     return unless post.get('location')
@@ -31,11 +53,11 @@ class Whoot.Views.PostsFeed extends Backbone.View
       @addLocation(Whoot.App.current_user.id, "My Post")
       id = Whoot.App.current_user.id
     else
-      id = @location_organized[post.get('location')._id]
-      unless @location_organized[post.get('location')._id]
+      id = post.get('location')._id
+      unless @findLocation(post.get('location')._id)
         @addLocation(post.get('location')._id, "#{post.get('location').city}, #{post.get('location').state_code}")
 
-    @location_organized[id].appendPost(post)
+    @findLocation(id).view.appendPost(post)
 
   resetPostCount: =>
     $('.posts-sidebar .btn[data-type="big_out"] div').text($('ul.big_out li').length)
