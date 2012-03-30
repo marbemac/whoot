@@ -44,6 +44,9 @@ class ApiPostsController < ApplicationController
       #        'Format' => @post.entry_point
       #}
       #@mixpanel.track_event("Post Create", current_user.mixpanel_data.merge!(mixpanel_data))
+      if !params[:tweet].blank? && current_user.twitter
+        current_user.twitter.update(@post.tweet_text)
+      end
 
       response = build_ajax_response(:ok, redirect, 'Posted! Redirecting...')
       render json: response, :status => 201
