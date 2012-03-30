@@ -13,7 +13,7 @@
 <ul class='users unstyled'>
   <% for post in @venueData.posts: %>
     <li>
-      <img src='<%= post.get('user').get('images').cropped.square %>' />
+      <img src='<%= post.get('user').get('images').square %>' />
       <div class='name'><%= post.get('user').fullname() %></div>
     </li>
   <% end %>
