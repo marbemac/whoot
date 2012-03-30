@@ -25,7 +25,7 @@ class Whoot.Views.UserActivity extends Backbone.View
     if odd
       $(view.el).addClass('odd')
 
-    $(@el).append(view.render().el)
+    $(@el).prepend(view.render().el)
     $(view.el).wrap($('<ul/>').addClass("#{post.get('night_type')} unstyled"))
 
     @
