@@ -4,7 +4,8 @@
   background: #FFF;
 
   #post-form-content,
-  #post-form-venue {
+  #post-form-venue,
+  #post-form-tweet {
     padding: 8px;
     width: 361px;
   }
@@ -16,10 +17,13 @@
     margin: 0 10px 0 0;
   }
   .bottom-options {
-    margin-top: 15px;
+    margin: 5px 0 0px;
     .btn {
       font-size: 12px;
     }
+  }
+  #post-form-tweet {
+    margin: 10px 0 0 0;
   }
 }
 

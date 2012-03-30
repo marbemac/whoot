@@ -8,6 +8,7 @@ class Whoot.Views.PostForm extends Backbone.View
       "click .cancel": "destroyForm"
       "click .btn-group .btn": "buttonColor"
       "change #post-form-venue": "checkVenueClear"
+      "click .tweet-btn": "tweet"
 
   initialize: ->
     @collection = new Whoot.Collections.Posts()
@@ -47,8 +48,8 @@ class Whoot.Views.PostForm extends Backbone.View
     attributes['address_original'] = $(@el).find('#post-form-venue').val()
     attributes['venue_address'] = $(@el).find('#post-form-venue-address').val()
     attributes['venue_name'] = $(@el).find('#post-form-venue-name').val()
+    attributes['tweet'] = $(@el).find('#post-form-tweet').val()
     attributes['suggest'] = if $(@el).find('.suggestions.active').length > 0 then true else false
-    attributes['twitter'] = if $(@el).find('.twitter.active').length > 0 then true else false
 
     self = @
 
@@ -82,3 +83,15 @@ class Whoot.Views.PostForm extends Backbone.View
   checkVenueClear: (e) =>
     if $.trim($(@el).find('#post-form-venue').val()) == ''
       $(@el).find('#post-form-venue-address,#post-form-venue-name').val('')
+
+  tweet: (e) =>
+    if $('#post-form-tweet:visible').length > 0
+      $('#post-form-tweet').text("").hide()
+    else
+      text = "I'm " + $('.night-type.active').text() + " tonight"
+
+      text = text + " - " + $('#post-form-content').val() unless $('#post-form-content').val() == ""
+      text = text + " (@ #{$('#post-form-venue').val()})" unless $('#post-form-venue').val() == ""
+      text += ". What's everyone else up to? @TheWhoot TheWhoot.com"
+
+      $('#post-form-tweet').text(text).show()

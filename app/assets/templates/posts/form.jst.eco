@@ -21,10 +21,17 @@
       <input type='hidden' id="post-form-venue-address" spellcheck="false" autocomplete="off" name="venue_address_string">
       <input type='hidden' id="post-form-venue-name" spellcheck="false" autocomplete="off" name="venue_name">
     </div>
-    <!--<div class='bottom-options'>-->
+    <div class='bottom-options'>
       <!--<div class='btn suggestions' data-toggle='button'>I'm Open to Suggestions</div>-->
-      <!--<div class='btn twitter' data-toggle='button'>Post to Twitter</div>-->
-    <!--</div>-->
+      <% if @user.get('twitter_connected'): %>
+        <div class='btn tweet-btn' data-toggle='button'>Post to Twitter</div>
+      <% else: %>
+        <a class="btn" href="/users/auth/twitter">Connect Twitter</a>
+      <% end %>
+    </div>
+    <div>
+      <textarea class="hide" rows="3" id="post-form-tweet" autocomplete="off" name="tweet"></textarea>
+    </div>
   </div>
   <div class="modal-footer">
     <div class="submit btn btn-warning" data-loading-text="Submitting..."><%= @buttonText %></div>
