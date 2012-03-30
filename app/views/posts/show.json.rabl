@@ -6,10 +6,19 @@ attributes :tag,
            :votes,
            :address_original,
            :venue,
-           :location
+           :location,
+           :created_at
 
 node(:id) do |post|
   post.id.to_s
+end
+
+node(:created_at_pretty) do |post|
+  pretty_time(post.created_at)
+end
+
+node(:created_at_day) do |post|
+  pretty_day(post.created_at)
 end
 
 child :user_snippet => :user do |post|

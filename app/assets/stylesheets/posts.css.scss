@@ -114,179 +114,11 @@
     float: right;
     padding-top: 14px;
 
-    .post-feed-location {
-      margin-bottom: 15px;
-      position: relative;
-    }
-    h4 {
-      @include single-text-shadow(#DDD, 0, 1px);
-      margin: 0 0 8px 7px;
-      cursor: default;
-    }
-    #update-post {
-      position: absolute;
-      top: 1px;
-      left: 90px;
-      color: $post-low_out-color;
-      cursor: pointer;
-    }
     ul.big_out,
     ul.low_out,
     ul.low_in,
     ul.working{
-      border-left: 5px solid;
       display: none;
-
-      &.big_out { border-color: $post-big_out-color }
-      &.low_out { border-color: $post-low_out-color }
-      &.low_in { border-color: $post-low_in-color }
-      &.working { border-color: $post-working-color }
-
-      padding: 0 0 0 2px;
-      margin: 0 0 0 0px;
-      li {
-        position: relative;
-        margin-bottom: 1px;
-        .top {
-          height: 50px;
-        }
-        &.odd {
-          .top {
-            background-color: $list-odd-color;
-          }
-        }
-        &:hover,
-        &.on {
-          .top {
-            background-color: $list-hover-color;
-          }
-        }
-        .top {
-          img {
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            height: 50px;
-            width: 50px;
-            display: block;
-            background-color: #999;
-          }
-          .name,
-          .tag {
-            position: relative;
-            font-size: 16px;
-            display: table-cell;
-            height: 50px;
-            vertical-align: middle;
-          }
-          .name {
-            width: 140px;
-            padding: 0 10px 0 60px;
-          }
-          .tag {
-            width: 245px;
-          }
-          .comments_count,
-          .loop-in-btn {
-            position: absolute;
-            right: 1px;
-            padding: 2px 33px 2px 7px;
-            font-weight: bold;
-            overflow: hidden;
-            whitespace: nowrap;
-            .icon {
-              position: absolute;
-              right: 7px;
-            }
-          }
-          .comments_count {
-            top: 25px;
-            .icon {
-              top: 4px;
-            }
-          }
-          .loop-in-btn {
-            top: 4px;
-            cursor: pointer;
-            .icon {
-              top: 3px;
-            }
-            &:hover { background-color: $white; }
-            &.disabled {
-              cursor: default;
-              .icon { @include opacity(50); }
-              &:hover { background-color: transparent; }
-            }
-            &.mine .icon { @include opacity(100) }
-          }
-        }
-        .details {
-          @include clearfix();
-          position: relative;
-          margin-left: 50px;
-          background-color: $white;
-          border-color: $list-hover-color;
-          border-width: 8px;
-          border-style: none solid solid;
-          padding: 10px;
-
-          textarea {
-            width: 270px;
-            height: 40px;
-            resize: none;
-            margin: 0 0 15px 0;
-          }
-          .left {
-            float: left;
-            width: 300px;
-
-            .errors {
-              width: 280px;
-            }
-            li {
-              min-height: 30px;
-              padding: 0 0 5px 40px;
-              position: relative;
-
-              img {
-                position: absolute;
-                top: 0px;
-                left: 0px;
-                height: 30px;
-                width: 30px;
-              }
-              .content {
-                font-size: 13px;
-                a {
-                  font-weight: bold;
-                  color: #444;
-                }
-                .big_out { color: $post-big_out-color; }
-                .low_out { color: $post-low_out-color; }
-                .low_in { color: $post-low_in-color; }
-                .working { color: $post-working-color; }
-              }
-              .when {
-                font-size: 11px;
-              }
-            }
-          }
-          .right {
-            float: left;
-            width: 135px;
-            h4 {
-              margin: 0 0 5px 0;
-            }
-            .none {
-              font-style: italic;
-            }
-            a {
-              display: block;
-              margin: 0 10px 5px 0;
-            }
-          }
-        }
-      }
     }
   }
   .user-list {
@@ -295,6 +127,197 @@
     padding-top: 14px;
     h4 {
       margin: 0 0 8px 7px;
+    }
+  }
+}
+
+#posts-feed {
+  .post-feed-location {
+    margin-bottom: 15px;
+    position: relative;
+  }
+  h4 {
+    @include single-text-shadow(#DDD, 0, 1px);
+    margin: 0 0 8px 7px;
+    cursor: default;
+  }
+  #update-post {
+    position: absolute;
+    top: 1px;
+    left: 90px;
+    color: $post-low_out-color;
+    cursor: pointer;
+  }
+  ul.big_out,
+  ul.low_out,
+  ul.low_in,
+  ul.working{
+    border-left: 5px solid;
+
+    &.big_out { border-color: $post-big_out-color }
+    &.low_out { border-color: $post-low_out-color }
+    &.low_in { border-color: $post-low_in-color }
+    &.working { border-color: $post-working-color }
+
+    padding: 0 0 0 2px;
+    margin: 0 0 0 0px;
+    li {
+      position: relative;
+      margin-bottom: 1px;
+      .top {
+        height: 50px;
+        .date {
+          display: table-cell;
+          height: 50px;
+          vertical-align: middle;
+          padding: 0 0 0 10px;
+          cursor: default;
+          width: 115px;
+        }
+        &.show-date {
+          .name {
+            padding-left: 20px;
+          }
+        }
+      }
+      &.odd {
+        .top {
+          background-color: $list-odd-color;
+        }
+      }
+      &:hover,
+      &.on {
+        .top {
+          background-color: $list-hover-color;
+        }
+      }
+      .top {
+        img {
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          height: 50px;
+          width: 50px;
+          display: block;
+          background-color: #999;
+        }
+        .name,
+        .tag {
+          position: relative;
+          font-size: 16px;
+          display: table-cell;
+          height: 50px;
+          vertical-align: middle;
+        }
+        .name {
+          width: 140px;
+          padding: 0 10px 0 60px;
+        }
+        .tag {
+          width: 245px;
+          font-size: 13px;
+          cursor: default;
+        }
+        .comments_count,
+        .loop-in-btn {
+          position: absolute;
+          right: 1px;
+          padding: 2px 33px 2px 7px;
+          font-weight: bold;
+          overflow: hidden;
+          whitespace: nowrap;
+          .icon {
+            position: absolute;
+            right: 7px;
+          }
+        }
+        .comments_count {
+          top: 25px;
+          .icon {
+            top: 4px;
+          }
+        }
+        .loop-in-btn {
+          top: 4px;
+          cursor: pointer;
+          .icon {
+            top: 3px;
+          }
+          &:hover { background-color: $white; }
+          &.disabled {
+            cursor: default;
+            .icon { @include opacity(50); }
+            &:hover { background-color: transparent; }
+          }
+          &.mine .icon { @include opacity(100) }
+        }
+      }
+      .details {
+        @include clearfix();
+        position: relative;
+        margin-left: 50px;
+        background-color: $white;
+        border-color: $list-hover-color;
+        border-width: 8px;
+        border-style: none solid solid;
+        padding: 10px;
+
+        textarea {
+          width: 270px;
+          height: 40px;
+          resize: none;
+          margin: 0 0 15px 0;
+        }
+        .left {
+          float: left;
+          width: 300px;
+
+          .errors {
+            width: 280px;
+          }
+          li {
+            min-height: 30px;
+            padding: 0 0 5px 40px;
+            position: relative;
+
+            img {
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              height: 30px;
+              width: 30px;
+            }
+            .content {
+              font-size: 13px;
+              a {
+                font-weight: bold;
+                color: #444;
+              }
+              .big_out { color: $post-big_out-color; }
+              .low_out { color: $post-low_out-color; }
+              .low_in { color: $post-low_in-color; }
+              .working { color: $post-working-color; }
+            }
+            .when {
+              font-size: 11px;
+            }
+          }
+        }
+        .right {
+          float: left;
+          width: 135px;
+          h4 {
+            margin: 0 0 5px 0;
+          }
+          .none {
+            font-style: italic;
+          }
+          a {
+            display: block;
+            margin: 0 10px 5px 0;
+          }
+        }
+      }
     }
   }
 }

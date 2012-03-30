@@ -111,8 +111,8 @@ class Whoot.Router extends Backbone.Router
 
       collection = new Whoot.Collections.UserActivity()
       feed = new Whoot.Views.UserActivity(collection: collection, model: user)
-      feed.pageTitle = "#{user.fullname()}'s Posts"
       screen['components'].push(feed)
+      collection.fetch({data: {id: id}})
 
       Whoot.App.renderScreen('user_activity', id)
 

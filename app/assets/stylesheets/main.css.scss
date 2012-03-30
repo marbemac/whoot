@@ -75,7 +75,7 @@ header {
     left: 20px;
   }
   .user-search {
-    @include border-radius(4px);
+    @include border-radius(2px);
     position: absolute;
     top: 17px;
     right: 10px;
@@ -84,7 +84,9 @@ header {
     height: 34px;
 
     input {
-      @include border-radius(3px);
+      @include single-box-shadow(rgba(34, 25, 25, 0.4), 0px, 1px, 2px);
+      @include border-radius(0px);
+      border: none;
       font-size: 15px;
       padding: 7px 9px;
       width: 190px;
@@ -149,7 +151,7 @@ ul,ol,p {
 
 #wrapper {
   > .content {
-    @include border-radius(5px);
+    @include border-radius(2px);
     display: none;
     width: 710px;
     margin: 0 10px 0 10px;
@@ -162,7 +164,7 @@ ul,ol,p {
 
     section {
       @include clearfix();
-      @include border-radius(3px);
+      @include single-box-shadow(rgba(34, 25, 25, 0.4), 0px, 1px, 2px);
       background: $white;
       margin: 10px;
     }
@@ -170,7 +172,7 @@ ul,ol,p {
 }
 
 .sidebar {
-  @include border-radius(5px);
+  @include border-radius(2px);
   display: none;
   width: 220px;
   margin: 0 10px 0 0;
@@ -182,12 +184,12 @@ ul,ol,p {
   }
 
   section {
-    @include border-radius(3px);
+    @include single-box-shadow(rgba(34, 25, 25, 0.4), 0px, 1px, 2px);
     background: $grayLightest;
     margin: 10px;
     > h4 {
       @include single-text-shadow(#DDD, 0, 1px);
-      margin: 10px 0 7px 10px;
+      padding: 10px 0 7px 10px;
       font-weight: normal;
       cursor: default;
     }

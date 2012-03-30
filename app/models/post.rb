@@ -244,7 +244,15 @@ class Post
     comment = Comment.new(data)
     comment.set_user_snippet(user)
     if comment.valid?
-      event = PostCommentEvent.new(:comment => comment)
+      snippet = UserSnippet.new(
+              :username => user.username,
+              :first_name => user.first_name,
+              :last_name => user.last_name,
+              :public_id => user.public_id,
+              :fuid => user.fuid
+      )
+      snippet.id = user.id
+      event = PostCommentEvent.new(:user_snippet => snippet, :comment => comment)
       event.id = comment.id
       self.post_events << event
       self.comment_count += 1
