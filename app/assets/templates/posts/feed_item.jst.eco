@@ -1,5 +1,9 @@
-<div class="top">
-  <img src="<%= @post.get('user').get('images').square %>"/>
+<div class="top <%= if @showDate then 'show-date' else '' %>">
+  <% if @showDate: %>
+    <div class='date'><%= @post.get('created_at_day') %></div>
+  <% else: %>
+    <img src="<%= @post.get('user').get('images').square %>"/>
+  <% end %>
 
   <div class="name">
     <a href="/<%= @post.get('user').get('id') %>">
@@ -23,7 +27,9 @@
   <div class="left">
     <form>
       <div class='errors'></div>
-      <textarea placeholder="Type a comment and press enter..." autocomplete=""></textarea>
+      <% unless @showDate && @post.get('created_at_day') != 'Today': %>
+        <textarea placeholder="Type a comment and press enter..." autocomplete=""></textarea>
+      <% end %>
     </form>
     <ul class='events unstyled'></ul>
   </div>

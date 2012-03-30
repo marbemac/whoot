@@ -32,4 +32,11 @@ class ApiUsersController < ApplicationController
 
     render 'users/list'
   end
+
+  def posts
+    not_found("User not found") unless current_user
+
+    @posts = Post.where("user_snippet._id" => current_user.id).limit(20)
+    render 'posts/feed'
+  end
 end

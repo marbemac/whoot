@@ -4,9 +4,11 @@ class Whoot.Views.PostFeedItem extends Backbone.View
 
   events:
     "keypress textarea": "createComment"
+    'click .top': 'toggleDetails'
 
   initialize: ->
     self = @
+    showDate = false
 
     # Subscribe to pusher loop ins
     channel = Whoot.App.get_subscription(@model.get('user').get('id'))
@@ -31,10 +33,11 @@ class Whoot.Views.PostFeedItem extends Backbone.View
       Whoot.App.subscribe_event(@model.get('user').get('id'), 'loop_in')
 
   render: =>
-    $(@el).html(@template(post: @model))
+    $(@el).html(@template(post: @model, showDate: @showDate))
 
-    loop_in = new Whoot.Views.LoopInButton(model: @model)
-    $(@el).find('.top').append(loop_in.render().el)
+    unless @showDate && @model.get('created_at_day') != 'Today'
+      loop_in = new Whoot.Views.LoopInButton(model: @model)
+      $(@el).find('.top').append(loop_in.render().el)
 
     for event in @model.get('events')
       @prependEvent(event)
@@ -78,3 +81,11 @@ class Whoot.Views.PostFeedItem extends Backbone.View
           globalError(jqXHR, input.parents('form:first'))
         complete: ->
           input.removeAttr('disabled')
+
+  toggleDetails: (e) ->
+    target = $(e.target)
+
+    if target.is('a') || target.hasClass('icon')
+      return
+
+    $(e.currentTarget).parent().toggleClass('on').find('.details').slideToggle(200)
