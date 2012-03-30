@@ -1,0 +1,51 @@
+#user-notifications {
+  @include single-box-shadow(rgba(34, 25, 25, 0.4), -2px, 0px, 2px);
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 220px;
+  background: #F3F3F3;
+  border-left: 1px solid #666;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: none;
+
+  h4 {
+    @include single-text-shadow(#DDD, 0, 1px);
+    margin: 10px;
+    cursor: default;
+  }
+  li {
+    margin: 10px;
+    padding: 5px 5px 5px 45px;
+    border-bottom: 1px solid #E3E3E3;
+    position: relative;
+
+    &.unread {
+      /*background: #E9E9E9;*/
+    }
+    img {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      margin-top: -15px;
+    }
+    .content {
+      font-size: 12px;
+      cursor: default;
+      a {
+        font-weight: bold;
+        color: #444;
+      }
+    }
+    .time {
+      font-size: 10px;
+      color: #999;
+      cursor: default;
+    }
+
+  }
+}

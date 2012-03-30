@@ -15,6 +15,7 @@
 //= require_tree ./views
 //= require_tree ./routers
 //= require bootstrap
+//= require jquery-ui
 //= require soulmate
 //= require jquery.gritter
 //= require jquery.timer

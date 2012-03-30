@@ -9,7 +9,7 @@ class Whoot.Collections.Users extends Backbone.Collection
     model = new Whoot.Models.User(data) unless model
 
     unless model
-      model = new LL.Models.Post
+      model = new LL.Models.User
       model.fetch({data: {id: id}})
 
     @add(model)

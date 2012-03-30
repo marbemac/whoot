@@ -1,0 +1,9 @@
+<img src='<%= @notification.get('triggered_by').images.square %>' />
+<% if @notification.get('type') == 'comment': %>
+  <div class='content'>
+    <a href="/<%= if @notification.get('triggered_by').id %>"><%= @notification.get('triggered_by').first_name %></a> commented on your post
+  </div>
+<% end %>
+<div class='time'>
+  <%= @notification.get('created_at_pretty') %> ago
+</div>

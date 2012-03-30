@@ -26,6 +26,7 @@ Whoot::Application.routes.draw do
           post '' => 'api_pings#create', :type => 'User'
         end
 
+        get 'notifications' => 'api_users#notifications'
         put 'location' => 'users#change_location'
         get 'posts' => 'api_users#posts'
         get 'following_users' => 'api_users#following_users'
