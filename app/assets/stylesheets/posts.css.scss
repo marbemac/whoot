@@ -172,10 +172,11 @@
           vertical-align: middle;
           padding: 0 0 0 10px;
           cursor: default;
+          width: 115px;
         }
         &.show-date {
           .name {
-            padding-left: 120px;
+            padding-left: 20px;
           }
         }
       }
