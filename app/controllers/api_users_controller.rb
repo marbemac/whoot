@@ -39,4 +39,11 @@ class ApiUsersController < ApplicationController
     @posts = Post.where("user_snippet._id" => current_user.id).limit(20)
     render 'posts/feed'
   end
+
+  def notifications
+    not_found("User not found") unless current_user
+
+    @notifications = Notification.where(:user_id => current_user.id).order_by(:created_at, :desc)
+    render 'users/notifications'
+  end
 end

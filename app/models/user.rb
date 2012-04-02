@@ -43,6 +43,7 @@ class User
   field :following_users, :default => []
   field :followers_count, :type => Integer, :default => 0
   field :unread_notification_count, :type => Integer, :default => 0
+  field :last_notified, :type => Time # last time the user was notified via email / push
   field :pings_today_date
   field :pings_today, :default => []
   field :pings_count, :type => Integer, :default => 0

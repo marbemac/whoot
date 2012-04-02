@@ -6,7 +6,7 @@
 
 <ul class='menu unstyled'>
   <li>
-    <a class='first' href="#">
+    <a class='first notifications' href="#">
       <%= @user.get('unread_notification_count') %> Notifications
     </a>
   </li>

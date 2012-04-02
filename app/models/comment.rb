@@ -29,7 +29,7 @@ class Comment
   end
 
   def send_notifications(current_user)
-    Notification.add(_parent._parent.user, :comment, true, current_user, nil, nil, true, _parent._parent, _parent._parent.user, self)
+    Notification.add(_parent._parent.user, :comment, true, current_user, nil, _parent._parent, _parent._parent.user, self)
 
     siblings = _parent._parent.comments
 
@@ -37,7 +37,7 @@ class Comment
     siblings.each do |sibling|
       unless _parent._parent.user_snippet.id == sibling.user_snippet.id || sibling.user_snippet.id == current_user.id && used_comments.include?(sibling.user_snippet.id.to_s)
         used_comments << sibling.user_snippet.id.to_s
-        Notification.add(sibling.user, :also, true, current_user, nil, nil, true, _parent._parent, _parent._parent.user, self)
+        Notification.add(sibling.user, :also, true, current_user, nil, _parent._parent, _parent._parent.user, self)
       end
     end
   end

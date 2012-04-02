@@ -1,7 +1,11 @@
 class Whoot.Views.UserSidebar extends Backbone.View
   el: $('.sidebar')
 
+  events:
+    'click .notifications': 'showNotifications'
+
   initialize: ->
+    @notifications = null
 
   render: ->
     $(@el).addClass('user-sidebar on')
@@ -13,3 +17,11 @@ class Whoot.Views.UserSidebar extends Backbone.View
     $(@el).append(static.render().el)
 
     @
+
+  showNotifications: =>
+    if @notifications
+      $(@notifications.el).toggle('slide', {direction:'right', easing: 'easeOutExpo'}, 500)
+    else
+      collection = Whoot.App.Notifications
+      @notifications = new Whoot.Views.UserNotifications(collection: collection)
+      collection.fetch()

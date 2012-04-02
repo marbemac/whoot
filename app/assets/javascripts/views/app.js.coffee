@@ -6,6 +6,7 @@ class Whoot.Views.App extends Backbone.View
 
     # set the global collections
     @Users = new Whoot.Collections.Users
+    @Notifications = new Whoot.Collections.UserNotifications
 
     @Posts = new Whoot.Collections.Posts
     @PostsFeed = new Whoot.Collections.PostsFeed
