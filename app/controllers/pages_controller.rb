@@ -30,4 +30,8 @@ class PagesController < ApplicationController
   def faq
     @title = "FAQ"
   end
+
+  def team
+    @title = "Team"
+  end
 end
