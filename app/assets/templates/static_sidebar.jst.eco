@@ -2,37 +2,42 @@
   <ul class='menu unstyled'>
     <li>
       <a class='first' href="/">
-        Home<i class="icon icon-chevron-right"></i>
+        Home
       </a>
     </li>
     <li>
       <a class='<%= 'on' if @page == 'about' %>' href="/pages/about">
-        About<i class="icon icon-chevron-right"></i>
+        About
+      </a>
+    </li>
+    <li>
+      <a class='<%= 'on' if @page == 'team' %>' href="/pages/team">
+        Team
       </a>
     </li>
     <li>
       <a class='<%= 'on' if @page == 'contact' %>' href="/pages/contact">
-        Contact<i class="icon icon-chevron-right"></i>
+        Contact
       </a>
     </li>
     <li>
       <a class='<%= 'on' if @page == 'terms' %>' href="/pages/terms">
-        Terms<i class="icon icon-chevron-right"></i>
+        Terms
       </a>
     </li>
     <li>
       <a class='<%= 'on' if @page == 'privacy' %>' href="/pages/privacy">
-        Privacy<i class="icon icon-chevron-right"></i>
+        Privacy
       </a>
     </li>
     <li>
       <a target="_blank" href="http://blog.thewhoot.com">
-        Blog<i class="icon icon-chevron-right"></i>
+        Blog
       </a>
     </li>
     <li>
       <a class='<%= 'on' if @page == 'faq' %>' href="/pages/faq">
-        FAQ<i class="icon icon-chevron-right"></i>
+        FAQ
       </a>
     </li>
   </ul>
