@@ -1,7 +1,7 @@
 require 'rbconfig'
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.3'
 gem 'execjs'
 gem 'jquery-rails'
 gem 'rack'
@@ -18,8 +18,6 @@ gem "omniauth-facebook"
 gem 'omniauth-twitter'
 gem 'yajl-ruby' # json processing
 gem 'fog' # Cloud support (amazon s3, etc)
-gem 'carrierwave', '0.6.0' # File uploads
-gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'heroku'
 gem 'resque', '1.20.0'#, :git => 'https://github.com/hone/resque.git', :branch => 'heroku'
 gem 'resque-scheduler', '2.0.0.h' # scheduled resque jobs
@@ -30,13 +28,12 @@ gem 'cancan' # authorization
 gem "airbrake" # Exception notification
 gem 'rpm_contrib' # extra instrumentation for the new relic rpm agent
 gem 'newrelic_rpm' # performance / server monitoring
-gem 'soulmate', '0.1.2'#:git => 'git://github.com/seatgeek/soulmate.git' # Redis based autocomplete storage
+gem 'soulmate', '0.1.3'#:git => 'git://github.com/seatgeek/soulmate.git' # Redis based autocomplete storage
 gem 'dalli' # memcache
 gem 'pusher' # pusher publish/subscribe system
 gem 'mixpanel' # analytics
 gem 'urbanairship' # push notifications
 gem 'backbone-on-rails'
-gem 'rabl', "0.6.0"
 
 group :assets do
   gem 'sass-rails', '3.2.3'

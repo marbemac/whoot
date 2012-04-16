@@ -33,34 +33,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def picture_update
-    image = current_user.images.create(:user_id => current_user.id)
-    version = AssetImage.new(:isOriginal => true)
-    version.id = image.id
-    version.image.store!(params[:image_location])
-    image.versions << version
-    version.save
-    current_user.set_default_image(image.id)
-
-    if current_user.save
-      [30, 50, 65, 150].each do |width|
-        [30, 50, 65, 150].each do |height|
-          ['square', nil].each do |mode|
-            expire_fragment("#{current_user.public_id.to_i}-#{width}-#{height}-#{mode}")
-          end
-        end
-      end
-      ActionController::Base.new.expire_fragment("#{current_user.id.to_s}-undecided")
-    end
-
-    render :json => {:status => 'ok'}
-  end
-
-  def hover
-    @user = User.find_by_slug(params[:id])
-    render :partial => 'hover_tab', :user => @user
-  end
-
   def following_users
     @user = User.find_by_encoded_id(params[:id])
     @title = "#{@user.fullname} following" if @user

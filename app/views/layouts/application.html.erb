@@ -107,11 +107,11 @@
     <%= yield :js %>
 
     <% if defined? @this %>
-      <div id='this' data-this='<%= render(template: "#{@this[:group]}/#{@this[:template]}.json.rabl") %>'></div>
+      <div id='this' data-this="<%= @this.to_json(:user => current_user) %>" data-type="<%= @this.class.name %>"></div>
     <% end %>
     <% if signed_in? %>
-      <% @user = current_user %>
-      <div id='me' data-user='<%= render(template: "users/show_extra.json.rabl") %>'></div>
+      <div id='me' data-user="<%= current_user.to_json(:show_extra => true) %>"></div>
     <% end %>
+
   </body>
 </html>

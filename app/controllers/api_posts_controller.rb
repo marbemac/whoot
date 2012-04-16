@@ -57,8 +57,8 @@ class ApiPostsController < ApplicationController
 
   def feed
     user = params[:user_id] ? User.find(params[:user_id]) : current_user
-    @posts = Post.following_feed(user, true)
-    render 'posts/feed'
+    posts = Post.following_feed(user, true)
+    render :json => posts.map {|p| p.as_json(:user => current_user)}
   end
 
 end

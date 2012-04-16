@@ -16,4 +16,11 @@ class PostCommentEvent < PostEvent
   def api_text
     comment.content
   end
+
+  def as_json
+    {
+            :type => _type,
+            :comment => comment.as_json
+    }
+  end
 end

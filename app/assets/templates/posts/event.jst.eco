@@ -1,4 +1,4 @@
-<img src='<%= if @event.user then @event.user.images.square else @post.get('user').get('images').square %>' />
+<img src='<%= if @event.user then @event.user.images.square else @post.get('user').get('images').square.small %>' />
 <div class='content'>
   <div class='what'>
     <a href="/<%= if @event.user then @event.user.id else @post.get('user').get('id') %>"><%= if @event.user then @event.user.first_name else @post.get('user').get('first_name') %></a>

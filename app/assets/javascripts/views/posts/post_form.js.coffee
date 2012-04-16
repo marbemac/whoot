@@ -73,8 +73,8 @@ class Whoot.Views.PostForm extends Backbone.View
     $(@el).modal('hide')
 
   buttonColor: (e) ->
-    $(e.target).addClass($(e.target).data('val'))
-    $(e.target).siblings().removeClass('big_out low_out low_in working')
+    $(e.target).addClass($(e.target).data('val')).addClass('active')
+    $(e.target).siblings().removeClass('big_out low_out low_in working active')
 
   preventFormSubmission: (e) ->
     e.preventDefault()
