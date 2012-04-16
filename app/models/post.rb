@@ -1,6 +1,7 @@
 class Post
   include Mongoid::Document
   include Mongoid::Timestamps
+  include ModelUtilitiesHelper
 
   field :status, :default => 'Active'
   field :current, :default => true
@@ -150,7 +151,7 @@ class Post
               :first_name => user.first_name,
               :last_name => user.last_name,
               :public_id => user.public_id,
-              :fuid => user.fuid
+              :fbuid => user.fbuid
       )
       snippet.id = user.id
       self.voters << snippet
@@ -226,7 +227,7 @@ class Post
             :first_name => user.first_name,
             :last_name => user.last_name,
             :public_id => user.public_id,
-            :fuid => user.fuid
+            :fbuid => user.fbuid
     )
     self.user_snippet.id = user.id
   end
@@ -249,7 +250,7 @@ class Post
               :first_name => user.first_name,
               :last_name => user.last_name,
               :public_id => user.public_id,
-              :fuid => user.fuid
+              :fbuid => user.fbuid
       )
       snippet.id = user.id
       event = PostCommentEvent.new(:user_snippet => snippet, :comment => comment)
@@ -327,6 +328,27 @@ class Post
 
   def reset_pings_sent
     user.set(:pings_sent_today, 0)
+  end
+
+  def as_json(options={})
+    data = {
+            :id => id.to_s,
+            :tag => tag,
+            :night_type => night_type,
+            :comment_count => comment_count,
+            :loop_in_count => votes,
+            :address_original => address_original,
+            :venue => venue,
+            :location => location,
+            :created_at => created_at,
+            :created_at_pretty => pretty_time(created_at),
+            :created_at_day => pretty_day(created_at),
+            :user => user_snippet.as_json,
+            :events => post_events.map{|e| e.as_json},
+            :loop_ins => voters.map {|v| v.as_json}
+    }
+
+    data
   end
 
   class << self

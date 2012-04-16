@@ -160,30 +160,6 @@ class User
     end
   end
 
-  # Pull image from social media, or gravatar
-  def save_profile_image
-    hash = Digest::MD5.hexdigest(email.downcase)+'.jpeg'
-    facebook = get_social_connect 'facebook'
-
-    image_url = if facebook
-                  "http://graph.facebook.com/#{facebook.uid}/picture?type=large"
-                else
-                  "http://www.gravatar.com/avatar/#{hash}?s=500&d=monsterid"
-                end
-
-    writeOut = open("/tmp/#{hash}", "wb")
-    writeOut.write(open(image_url).read)
-    writeOut.close
-
-    image = self.images.create(:user_id => id)
-    version = AssetImage.new(:isOriginal => true)
-    version.id = image.id
-    version.image.store!("/tmp/#{hash}")
-    image.versions << version
-    version.save
-    self.save
-  end
-
   def send_welcome_email
     UserMailer.welcome_email(self).deliver
   end
@@ -373,7 +349,7 @@ class User
   end
 
   # facebook user id
-  def fuid
+  def fbuid
     facebook = get_social_connect('facebook')
     if facebook
       facebook.uid
@@ -392,6 +368,14 @@ class User
       @twitter ||= Twitter.new
     else
       nil
+    end
+  end
+
+  # twitter user id
+  def twuid
+    twitter = get_social_connect('twitter')
+    if twitter
+      twitter.uid
     end
   end
 
@@ -448,7 +432,49 @@ class User
     end
   end
 
+  def as_json(options={})
+    data = {
+            :id => id.to_s,
+            :public_id => public_id,
+            :slug => username.downcase,
+            :first_name => first_name,
+            :last_name => last_name,
+            :following_users_count => following_users_count,
+            :followers_count => followers_count,
+            :unread_notification_count => unread_notification_count,
+            :location => location,
+            :current_post => current_post,
+            :posted_today => posted_today?,
+            :images => User.json_images(self)
+    }
+
+    if options[:show_extra]
+      data.merge!(
+              :following_users => following_users,
+              :facebook_id => fbuid,
+              :twitter_id => twuid,
+              :roles => roles
+      )
+    end
+
+    data
+  end
+
   class << self
+
+    def json_images(model)
+      {
+        :fit => {
+          :large => model.image_url(:fit, :large),
+          :normal => model.image_url(:fit, :normal),
+          :small => model.image_url(:fit, :small)
+        },
+        :square => {
+          :small => model.image_url(:square, :small)
+        }
+      }
+    end
+
     def find_by_encoded_id(id)
       where(:public_id => id.to_i(36)).first
     end

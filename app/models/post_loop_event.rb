@@ -16,4 +16,12 @@ class PostLoopEvent < PostEvent
   def api_text
     "Looped In"
   end
+
+  def as_json
+    {
+            :type => _type,
+            :content => api_text,
+            :user => user_snippet.as_json
+    }
+  end
 end

@@ -139,7 +139,7 @@ class Notification
               :first_name => triggered_by_user.first_name,
               :last_name => triggered_by_user.last_name,
               :public_id => triggered_by_user.public_id,
-              :fuid => triggered_by_user.fuid
+              :fbuid => triggered_by_user.fbuid
           )
           notification.triggered_by.id = triggered_by_user.id
         end
@@ -158,7 +158,7 @@ class Notification
               :first_name => object_user.first_name,
               :last_name => object_user.last_name,
               :public_id => object_user.public_id,
-              :fuid => object_user.fuid
+              :fbuid => object_user.fbuid
           )
           notification.object_user.id = object_user.id
         end

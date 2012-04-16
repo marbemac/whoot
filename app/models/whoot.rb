@@ -82,78 +82,11 @@ module Whoot #:nodoc:
   module Images
     extend ActiveSupport::Concern
 
-    included do
-      embeds_many :images, as: :image_assignable, :class_name => 'ImageSnippet'
-
-      attr_accessible :asset_image
-      attr_accessor :asset_image
-    end
-
-    def save_images
-      self.images.each do |image|
-        image.versions.each do |version|
-          version.save
-        end
-      end
-    end
-
-    # @example Return the url to the current default image
-
-    # @return AssetImage
-    def default_image
-      self.images.each do |image|
-        return image if image.isDefault?
-      end
-    end
-
-    def add_image_version(image_id, dimensions, style)
-      image = self.images.find(image_id)
-      if image
-        original = image.original.first.image.file
-        new_image = Image.from_blob(original.read).first
-
-        case style
-          when 'square'
-            new_image = new_image.resize_to_fill(dimensions[0], dimensions[1])
-          else
-            new_image = new_image.resize_to_fit(dimensions[0], dimensions[1])
-        end
-
-        upload_type = original.class.name
-        if upload_type.include? 'Fog'
-          filename = original.attributes[:key].split('/')
-          filename = filename[-1]
-        else
-          filename = original.filename
-        end
-
-        tmp_location = "/tmp/d#{dimensions[0]}x#{dimensions[1]}_#{filename}"
-        new_image.write tmp_location
-        version = AssetImage.new(:isOriginal => false, :resizedTo => "#{dimensions[0]}x#{dimensions[1]}", :style => style, :width => new_image.columns, :height => new_image.rows)
-        version.id = image.id
-        version.image.store!(File.open(tmp_location))
-        image.versions << version
-        version.save
-      end
-    end
-
-    def set_default_image(image_id)
-      images.each do |image|
-        if image.id == image_id
-          image.isDefault = true
-        else
-          image.isDefault = false
-        end
-      end
-    end
-
-    def save_original_image
-      if valid? && @asset_image && (@asset_image["image_cache"] != '' || @asset_image["remote_image_url"] != '')
-        # Create/attach the news image
-        image_snippet = ImageSnippet.new
-        image_snippet.user_id = user.id
-        image_snippet.add_uploaded_version(@asset_image, true)
-        self.images << image_snippet
+    def image_url(mode, size=nil)
+      if mode == :square
+        "http://graph.facebook.com/#{fbuid}/picture?type=square"
+      else
+        "http://graph.facebook.com/#{fbuid}/picture?type=#{size}"
       end
     end
   end

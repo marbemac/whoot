@@ -9,9 +9,9 @@ class ApiUsersController < ApplicationController
 
     @title = (current_user.id == @user.id ? 'Your' : @user.fullname + "'s") + " followers"
     @description = "A list of all users who are following " + @user.fullname
-    @users = User.where(:following_users => @user.id).order_by(:slug, :asc)
+    users = User.where(:following_users => @user.id).order_by(:slug, :asc)
 
-    render 'users/list'
+    render :json => users.map {|u| u.as_json}
   end
 
   def following_users
@@ -20,24 +20,20 @@ class ApiUsersController < ApplicationController
 
     @title = "Users " + (current_user.id == @user.id ? 'you are' : @user.fullname+' is') + " following"
     @description = "A list of all users who are being followed by " + @user.fullname
-    @users = User.where(:_id.in => @user.following_users).order_by(:slug, :asc)
-
-    render 'users/list'
+    users = User.where(:_id.in => @user.following_users).order_by(:slug, :asc)
+    render :json => users.map {|u| u.as_json}
   end
 
   def undecided
     not_found("User not found") unless current_user
-
-    @users = User.undecided(current_user).order_by([[:first_name, :asc], [:last_name, :desc]])
-
-    render 'users/list'
+    users = User.undecided(current_user).order_by([[:first_name, :asc], [:last_name, :desc]])
+    render :json => users.map {|u| u.as_json}
   end
 
   def posts
     not_found("User not found") unless current_user
-
-    @posts = Post.where("user_snippet._id" => current_user.id).limit(20)
-    render 'posts/feed'
+    posts = Post.where("user_snippet._id" => current_user.id).limit(20)
+    render :json => posts.map {|p| p.as_json(:user => current_user)}
   end
 
   def notifications

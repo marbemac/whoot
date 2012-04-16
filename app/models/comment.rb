@@ -23,7 +23,7 @@ class Comment
             :first_name => user.first_name,
             :last_name => user.last_name,
             :public_id => user.public_id,
-            :fuid => user.fuid
+            :fbuid => user.fbuid
     )
     self.user_snippet.id = user.id
   end
@@ -64,6 +64,14 @@ class Comment
   def current_user_own
     grant_owner(user_snippet.id)
     grant_permission(has_comments.user_snippet.id, "destroy")
+  end
+
+  def as_json
+    {
+            :id => id.to_s,
+            :content => content,
+            :user => user_snippet.as_json
+    }
   end
 
 end

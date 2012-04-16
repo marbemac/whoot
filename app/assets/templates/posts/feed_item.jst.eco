@@ -2,7 +2,7 @@
   <% if @showDate: %>
     <div class='date'><%= @post.get('created_at_day') %></div>
   <% else: %>
-    <img src="<%= @post.get('user').get('images').square %>"/>
+    <img src="<%= @post.get('user').get('images').square.small %>"/>
   <% end %>
 
   <div class="name">

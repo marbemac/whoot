@@ -34,4 +34,15 @@ class PostChangeEvent < PostEvent
     end
     text
   end
+
+  def as_json
+    {
+            :type => _type,
+            :night_type => night_type,
+            :tag => tag,
+            :venue_name => venue_name,
+            :venue_id => venue_id,
+            :content => api_text
+    }
+  end
 end
