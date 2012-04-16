@@ -55,6 +55,7 @@ class User
   field :device_token
   field :device_type
   field :race_score, :default => 0
+  field :blocked_by, :default => []
 
   auto_increment :public_id
 
@@ -273,7 +274,7 @@ class User
                 :to_user_id => user.id
         )
       end
-      Notification.remove(user, :follow, self, nil, nil)
+      #Notification.remove(user, :follow, self, nil, nil)
       follow.active = false
       follow.save
 
@@ -445,6 +446,14 @@ class User
     found = schools.detect  {|s| s.fb_id ==  data[:fb_id] }
     unless found
       self.schools.new(data)
+    end
+  end
+
+  def block(user)
+    unless self == user
+      self.unfollow_user user
+      user.unfollow_user self
+      self.blocked_by << user.id unless blocked_by.include? user.id
     end
   end
 
