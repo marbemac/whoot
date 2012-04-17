@@ -1,0 +1,5 @@
+<%= @user.fullname() %>
+
+<div class="btn">
+  Unblock User
+</div>

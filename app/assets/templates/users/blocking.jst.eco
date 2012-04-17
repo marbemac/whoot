@@ -1,3 +1,5 @@
+<h3>Blocked Users</h3>
+
 <form>
   <input type="text">
   <input type="hidden" class="blocked_id">
@@ -6,3 +8,7 @@
     <div class="btn btn-success">Block User</div>
   </div>
 </form>
+
+<ul class="unstyled">
+
+</ul>
