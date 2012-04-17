@@ -39,8 +39,8 @@ class ApiUsersController < ApplicationController
   def notifications
     not_found("User not found") unless current_user
 
-    @notifications = Notification.where(:user_id => current_user.id).order_by(:created_at, :desc)
-    render 'users/notifications'
+    notifications = Notification.where(:user_id => current_user.id).order_by(:created_at, :desc)
+    render :json => notifications.map {|n| n.as_json(:user => current_user)}
   end
 
   def change_location
