@@ -4,10 +4,10 @@ class Whoot.Views.UserBlocking extends Backbone.View
   className: 'blocking'
 
   events:
-    "click .btn": "blockUser"
+    "click form.btn-success": "blockUser"
 
   initialize: =>
-    @collection = new Whoot.Collections.BlockedUsers()
+    @collection.on('reset', @render)
 
   render: =>
     $(@el).html(@template())
@@ -26,6 +26,9 @@ class Whoot.Views.UserBlocking extends Backbone.View
         $(self.el).find('input:first').val(term)
         $(self.el).find('.blocked_id').val(data.id)
 
+    for user in @collection.models
+      @appendBlockedUser(user)
+
     @
 
   blockUser: (e) =>
@@ -33,7 +36,7 @@ class Whoot.Views.UserBlocking extends Backbone.View
       url: @collection.url
       dataType: 'json'
       type: 'post'
-      data: { blocked_id: $(@el).find('.blocked_id').val() }
+      data: { id: $(@el).find('.blocked_id').val() }
       beforeSend: ->
         $(self.el).find('.btn-success').addClass('disabled').text('Submitting...')
       success: (data) ->
@@ -41,6 +44,10 @@ class Whoot.Views.UserBlocking extends Backbone.View
         self.destroyForm()
       error: (jqXHR, textStatus, errorThrown) ->
         $(self.el).find('.btn-success').removeClass('disabled').text('Block User')
-        globalError(textStatus, $(self.el))
+        globalError(jqXHR, $(self.el))
       complete: ->
         $(self.el).find('.btn-success').removeClass('disabled').text('Block User')
+
+  appendBlockedUser: (user) =>
+    view = new Whoot.Views.BlockedUser(model: user)
+    $(@el).find('ul').append(view.render().el)

@@ -23,6 +23,8 @@ Whoot::Application.routes.draw do
 
         scope 'blocked' do
           post '' => 'api_users#block_user'
+          get '' => 'api_users#blocked_users'
+          delete '' => 'api_users#unblock_user'
         end
 
         put '' => 'api_users#update'

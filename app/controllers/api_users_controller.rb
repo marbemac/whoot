@@ -66,17 +66,35 @@ class ApiUsersController < ApplicationController
   end
 
   def block_user
-    blocked_user = User.find(params[:blocked_id])
-    blocked_user.block(current_user)
+    blocked_user = User.find(params[:id])
 
-    if blocked_user.save && current_user.save
-      render json: build_ajax_response(:ok, nil, blocked_user.first_name + " is now blocked, and will not see your activity")
+    if blocked_user.block(current_user)
+      if blocked_user.save && current_user.save
+        render json: build_ajax_response(:ok, nil, blocked_user.first_name + " is now blocked, and will not see your activity")
+      else
+        render json: build_ajax_response(:error, nil, "There was an error. Please contact support@thewhoot.com")
+      end
     else
-      render json: build_ajax_response(:error, nil, "There was an error. Please contact support@thewhoot.com")
+      render json: build_ajax_response(:error, nil, "That user is already blocked")
+    end
+  end
+
+  def unblock_user
+    blocked_user = User.find(params[:id])
+
+    if blocked_user.unblock(current_user)
+      if blocked_user.save && current_user.save
+        render json: build_ajax_response(:ok, nil, blocked_user.first_name + " is now unblocked, and may see your activity")
+      else
+        render json: build_ajax_response(:error, nil, "There was an error. Please contact support@thewhoot.com")
+      end
+    else
+      render json: build_ajax_response(:error, nil, "That user is already blocked")
     end
   end
 
   def blocked_users
-
+    users = User.where(:blocked_by => current_user.id)
+    render :json => users.map {|u| u.as_json}
   end
 end

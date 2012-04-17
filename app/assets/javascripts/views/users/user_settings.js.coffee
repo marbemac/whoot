@@ -6,8 +6,12 @@ class Whoot.Views.UserSettings extends Backbone.View
     'change select': 'updateLocation'
 
   initialize: ->
-    blocking = new Whoot.Views.UserBlocking()
-    $(@el).append(blocking.render().el)
+    blocked_users = new Whoot.Collections.BlockedUsers()
+
+    blocking = new Whoot.Views.UserBlocking(collection: blocked_users)
+    $(@el).append(blocking.el)
+
+    blocked_users.fetch()
 
   updateRadioSetting: (e) =>
     button = $(e.target)

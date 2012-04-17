@@ -227,7 +227,7 @@ class User
         )
       end
 
-      Notification.add(user, :follow, (user.settings.email_follow ? true : false), self, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')])
+      #Notification.add(user, :follow, (user.settings.email_follow ? true : false), self, [Chronic.parse('today at 12:01am'), Chronic.parse('today at 11:59pm')])
       follow.active = true
       follow.save
 
@@ -434,10 +434,22 @@ class User
   end
 
   def block(user)
-    unless self == user
+    if blocked_by.include? user.id
+      false
+    else
       self.unfollow_user user
       user.unfollow_user self
-      self.blocked_by << user.id unless blocked_by.include? user.id
+      self.blocked_by << user.id
+      true
+    end
+  end
+
+  def unblock(user)
+    if blocked_by.include? user.id
+      self.blocked_by.delete(user.id)
+      true
+    else
+      false
     end
   end
 
