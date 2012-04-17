@@ -5,12 +5,11 @@ class UsersController < ApplicationController
   caches_action :default_picture, :cache_path => Proc.new { |c| "#{c.params[:id].split('-')[0]}-#{c.params[:d][0]}-#{c.params[:d][1]}-#{c.params[:s]}" }
 
   def show
-    @user = params[:id] && params[:id] != "0" ? User.find(params[:id]) : current_user
+    @this = params[:id] && params[:id] != "0" ? User.find(params[:id]) : current_user
 
-    not_found("User not found") unless @user
-    @title = @user.username
-    @description = "Everything #{@user.username} on The Whoot."
-    @this = {:group => 'users', :template => 'show'}
+    not_found("User not found") unless @this
+    @title = @this.username
+    @description = "Everything #{@this.fullname} on The Whoot."
   end
 
   def default_picture
