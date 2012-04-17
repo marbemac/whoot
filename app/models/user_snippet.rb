@@ -1,6 +1,9 @@
+require "whoot"
+
 # Embeddable user snippet that holds useful (denormalized) user info
 class UserSnippet
   include Mongoid::Document
+  include Whoot::Images
 
   field :username
   field :first_name
@@ -28,7 +31,8 @@ class UserSnippet
             :id => id.to_s,
             :first_name => first_name,
             :last_name => last_name,
-            :fbuid => fbuid
+            :fbuid => fbuid,
+            :images => User.json_images(self)
     }
   end
 
