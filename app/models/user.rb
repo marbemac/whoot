@@ -54,7 +54,6 @@ class User
   field :last_invite_time
   field :device_token
   field :device_type
-  field :race_score, :default => 0
 
   auto_increment :public_id
 
