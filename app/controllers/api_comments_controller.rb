@@ -8,7 +8,7 @@ class ApiCommentsController < ApplicationController
       if @comment.valid?
         @comment.send_notifications(current_user)
         @post_event = post.post_events.detect{|e| e.id == @comment.id}
-        Pusher[post.user_snippet.id.to_s].trigger('post_event', render_to_string(:template => 'posts/post_event'))
+        Pusher[post.user_snippet.id.to_s].trigger('post_event', @post_event.as_json)
 
         response = build_ajax_response(:ok)
         status = 201

@@ -10,6 +10,10 @@ class UsersController < ApplicationController
     not_found("User not found") unless @this
     @title = @this.username
     @description = "Everything #{@this.fullname} on The Whoot."
+
+    if current_user.blocked_by.include?(@this.id)
+      redirect_to root_path
+    end
   end
 
   def default_picture
@@ -33,31 +37,31 @@ class UsersController < ApplicationController
   end
 
   def following_users
-    @user = User.find_by_encoded_id(params[:id])
-    @title = "#{@user.fullname} following" if @user
-    @following_users = User.where(:_id.in => @user.following_users).order_by([[:first_name, :asc], [:last_name, :desc]])
-    if params[:format] == :api
-      following = []
-      @following_users.each do |user|
-        following << User.convert_for_api(user, current_user)
-      end
-      response = {:json => {:status => 'ok', :data => following}}
-      render response
-    end
+    #@user = User.find_by_encoded_id(params[:id])
+    #@title = "#{@user.fullname} following" if @user
+    #@following_users = User.where(:_id.in => @user.following_users).order_by([[:first_name, :asc], [:last_name, :desc]])
+    #if params[:format] == :api
+    #  following = []
+    #  @following_users.each do |user|
+    #    following << User.convert_for_api(user, current_user)
+    #  end
+    #  response = {:json => {:status => 'ok', :data => following}}
+    #  render response
+    #end
   end
 
   def followers
-    @user = User.find_by_encoded_id(params[:id])
-    @title = "#{@user.fullname} followers" if @user
-    @followers = User.followers(@user.id)
-    if params[:format] == :api
-      followers = []
-      @followers.each do |user|
-        followers << User.convert_for_api(user, current_user)
-      end
-      response = {:json => {:status => 'ok', :data => followers}}
-      render response
-    end
+    #@user = User.find_by_encoded_id(params[:id])
+    #@title = "#{@user.fullname} followers" if @user
+    #@followers = User.followers(@user.id)
+    #if params[:format] == :api
+    #  followers = []
+    #  @followers.each do |user|
+    #    followers << User.convert_for_api(user, current_user)
+    #  end
+    #  response = {:json => {:status => 'ok', :data => followers}}
+    #  render response
+    #end
   end
 
   def settings

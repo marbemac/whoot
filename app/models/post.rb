@@ -330,7 +330,7 @@ class Post
     user.set(:pings_sent_today, 0)
   end
 
-  def as_json(options={})
+  def as_json(current_user, options={})
     data = {
             :id => id.to_s,
             :tag => tag,
@@ -344,7 +344,7 @@ class Post
             :created_at_pretty => pretty_time(created_at),
             :created_at_day => pretty_day(created_at),
             :user => user_snippet.as_json,
-            :events => post_events.map{|e| e.as_json},
+            :events => post_events.map{|e| e.as_json unless e.user_snippet && current_user.blocked_by.include?(e.user_snippet.id) }.compact,
             :loop_ins => voters.map {|v| v.as_json}
     }
 

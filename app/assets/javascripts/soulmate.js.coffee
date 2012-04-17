@@ -47,11 +47,15 @@ class Suggestion
     @element().removeClass( 'focus' )
 
   render: (callback) ->
-    """
-      <li id="#{@id}" class="soulmate-suggestion">
-        #{callback( @term, @data, @type, @index, @id)}
-      </li>
-    """
+    term = callback( @term, @data, @type, @index, @id)
+    if term
+      """
+        <li id="#{@id}" class="soulmate-suggestion">
+          #{term}
+        </li>
+      """
+    else
+      ""
 
   element: ->
     $('#' + @id)

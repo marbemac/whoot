@@ -4,7 +4,7 @@ class Whoot.Views.UserBlocking extends Backbone.View
   className: 'blocking'
 
   events:
-    "click form.btn-success": "blockUser"
+    "click form .btn-success": "blockUser"
 
   initialize: =>
     @collection.on('reset', @render)
@@ -41,7 +41,6 @@ class Whoot.Views.UserBlocking extends Backbone.View
         $(self.el).find('.btn-success').addClass('disabled').text('Submitting...')
       success: (data) ->
         $(self.el).find('.btn-success').removeClass('disabled').text('Block User')
-        self.destroyForm()
       error: (jqXHR, textStatus, errorThrown) ->
         $(self.el).find('.btn-success').removeClass('disabled').text('Block User')
         globalError(jqXHR, $(self.el))

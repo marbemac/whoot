@@ -11,7 +11,7 @@ class ApiUsersController < ApplicationController
     @description = "A list of all users who are following " + @user.fullname
     users = User.where(:following_users => @user.id).order_by(:slug, :asc)
 
-    render :json => users.map {|u| u.as_json}
+    render :json => users.map {|u| u.as_json unless current_user.blocked_by.include?(u.id)}.compact
   end
 
   def following_users
@@ -30,10 +30,11 @@ class ApiUsersController < ApplicationController
     render :json => users.map {|u| u.as_json}
   end
 
-  def posts
-    not_found("User not found") unless current_user
-    posts = Post.where("user_snippet._id" => current_user.id).limit(20)
-    render :json => posts.map {|p| p.as_json(:user => current_user)}
+  def activity
+    user = User.find(params[:id])
+    not_found("User not found") unless user
+    posts = Post.where("user_snippet._id" => user.id).limit(20)
+    render :json => posts.map {|p| p.as_json(user)}
   end
 
   def notifications

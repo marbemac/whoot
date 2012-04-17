@@ -16,9 +16,10 @@ class Whoot.Views.UserSearchInput extends Backbone.View
       allowNew:       false,
       selectFirst:    true,
       renderCallback: (term, data, type) ->
-        console.log term
-        console.log data
-        term
+        if _.include(Whoot.App.current_user.get('blocked_by'), data.id)
+          null
+        else
+          term
       selectCallback: (term, data, type) ->
         window.location = "/#{data.id}"
 

@@ -20,7 +20,8 @@ class PostCommentEvent < PostEvent
   def as_json
     {
             :type => _type,
-            :comment => comment.as_json
+            :comment => comment.as_json,
+            :user => user_snippet.as_json
     }
   end
 end
