@@ -21,13 +21,17 @@ Whoot::Application.routes.draw do
           delete '' => 'api_follows#destroy', :type => 'User'
         end
 
-        put '' => 'users#update'
+        scope 'blocked' do
+          post '' => 'api_users#block_user'
+        end
+
+        put '' => 'api_users#update'
         scope 'pings' do
           post '' => 'api_pings#create', :type => 'User'
         end
 
         get 'notifications' => 'api_users#notifications'
-        put 'location' => 'users#change_location'
+        put 'location' => 'api_users#change_location'
         get 'posts' => 'api_users#posts'
         get 'following_users' => 'api_users#following_users'
         get 'followers' => 'api_users#followers'

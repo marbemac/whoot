@@ -1,7 +1,7 @@
 namespace :soulmate do
 
   desc "Rebuild master users, following users, and master venues soulmate data."
-  task :all => [:rebuild_users, :rebuild_users_following, :rebuild_tags]
+  task :all => [:rebuild_users, :rebuild_users_following]
 
   desc "Rebuild the master users soulmate."
   task :rebuild_users => :environment do
@@ -43,20 +43,20 @@ namespace :soulmate do
     print "Loading #{following_processed} followed users spread across #{user_processed} users into soulmate.\n"
   end
 
-  desc "Rebuild tags"
-  task :rebuild_tags => :environment do
-    include SoulmateHelper
-
-    tags = Tag.all
-
-    soulmate_data = Array.new
-    tags.each do |tag|
-      soulmate_data << tag_nugget(tag)
-    end
-    Soulmate::Loader.new("tag").load(soulmate_data)
-
-    print "Loading #{soulmate_data.length} tags into soulmate.\n"
-  end
+  #desc "Rebuild tags"
+  #task :rebuild_tags => :environment do
+  #  include SoulmateHelper
+  #
+  #  tags = Tag.all
+  #
+  #  soulmate_data = Array.new
+  #  tags.each do |tag|
+  #    soulmate_data << tag_nugget(tag)
+  #  end
+  #  Soulmate::Loader.new("tag").load(soulmate_data)
+  #
+  #  print "Loading #{soulmate_data.length} tags into soulmate.\n"
+  #end
 
   #desc "Rebuild the master venue soulmate database."
   #task :rebuild_venues => :environment do

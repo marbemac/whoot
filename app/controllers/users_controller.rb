@@ -75,33 +75,11 @@ class UsersController < ApplicationController
     render :json => {:status => 'ok', :event => 'settings_updated', :target => '.setting-'+params[:setting], :toggle_classes => ['setB', 'unsetB']}, :status => 201
   end
 
-  def change_location
-    location = City.find(params[:id])
-    if location
-      current_user.set_location(location)
-      current_user.save
-    end
-
-    response = build_ajax_response(:ok, nil, "Location changed to #{location.name}")
-    render json: response, status: :created
-  end
-
   def tweet
     if params[:tweet_content]
       current_user.twitter.update(params[:tweet_content])
     end
 
     render :json => build_ajax_response(:ok, root_path, 'Tweet Successful!')
-  end
-
-  def update
-    current_user.settings.email_comment = (params[:email_comment] == "true") if params[:email_comment]
-    current_user.settings.email_mention = (params[:email_ping] == "true") if params[:email_mention]
-    current_user.settings.email_follow = (params[:email_follow] == "true") if params[:email_follow]
-    current_user.settings.email_follow = (params[:email_daily] == "true") if params[:email_follow]
-
-    current_user.save
-
-    render :nothing => true, status: 200
   end
 end

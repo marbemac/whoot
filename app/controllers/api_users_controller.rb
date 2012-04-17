@@ -42,4 +42,41 @@ class ApiUsersController < ApplicationController
     @notifications = Notification.where(:user_id => current_user.id).order_by(:created_at, :desc)
     render 'users/notifications'
   end
+
+  def change_location
+    location = City.find(params[:id])
+    if location
+      current_user.set_location(location)
+      current_user.save
+    end
+
+    response = build_ajax_response(:ok, nil, "Location changed to #{location.name}")
+    render json: response, status: :created
+  end
+
+  def update
+    current_user.settings.email_comment = (params[:email_comment] == "true") if params[:email_comment]
+    current_user.settings.email_mention = (params[:email_ping] == "true") if params[:email_mention]
+    current_user.settings.email_follow = (params[:email_follow] == "true") if params[:email_follow]
+    current_user.settings.email_follow = (params[:email_daily] == "true") if params[:email_follow]
+
+    current_user.save
+
+    render :nothing => true, status: 200
+  end
+
+  def block_user
+    blocked_user = User.find(params[:blocked_id])
+    blocked_user.block(current_user)
+
+    if blocked_user.save && current_user.save
+      render json: build_ajax_response(:ok, nil, blocked_user.first_name + " is now blocked, and will not see your activity")
+    else
+      render json: build_ajax_response(:error, nil, "There was an error. Please contact support@thewhoot.com")
+    end
+  end
+
+  def blocked_users
+
+  end
 end
