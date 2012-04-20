@@ -71,12 +71,12 @@ class ApiUsersController < ApplicationController
 
     if blocked_user.block(current_user)
       if blocked_user.save && current_user.save
-        render json: build_ajax_response(:ok, nil, blocked_user.first_name + " is now blocked, and will not see your activity")
+        render json: build_ajax_response(:ok, nil, blocked_user.first_name + " is now blocked, and will not see your activity"), status: 201
       else
-        render json: build_ajax_response(:error, nil, "There was an error. Please contact support@thewhoot.com")
+        render json: build_ajax_response(:error, nil, "There was an error. Please contact support@thewhoot.com"), status: 400
       end
     else
-      render json: build_ajax_response(:error, nil, "That user is already blocked")
+      render json: build_ajax_response(:error, nil, "That user is already blocked"), status: 422
     end
   end
 
@@ -85,12 +85,12 @@ class ApiUsersController < ApplicationController
 
     if blocked_user.unblock(current_user)
       if blocked_user.save && current_user.save
-        render json: build_ajax_response(:ok, nil, blocked_user.first_name + " is now unblocked, and may see your activity")
+        render json: build_ajax_response(:ok, nil, blocked_user.first_name + " is now unblocked, and may see your activity"), status: 200
       else
-        render json: build_ajax_response(:error, nil, "There was an error. Please contact support@thewhoot.com")
+        render json: build_ajax_response(:error, nil, "There was an error. Please contact support@thewhoot.com"), status: 400
       end
     else
-      render json: build_ajax_response(:error, nil, "That user is already blocked")
+      render json: build_ajax_response(:error, nil, "That user is already blocked"), status: 422
     end
   end
 
