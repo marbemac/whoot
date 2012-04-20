@@ -1,6 +1,7 @@
 class Notification
   include Mongoid::Document
   include Mongoid::Timestamps
+  include ModelUtilitiesHelper
 
   field :active, :default => true
   field :message
@@ -70,16 +71,16 @@ class Notification
     string
   end
 
-  def notification_text(count)
+  def notification_text
     case type.to_sym
       when :follow
-        count > 1 ? 'are following you' : 'is following you'
-      when :also # also signifies that someone has also responded to something your responded to
-        "also commented on #{object_user.first_name}'s post".html_safe
+        'is following you'
       when :comment
-        "commented on your post".html_safe
+        "commented on #{object_user.first_name}'s post"
+      when :also # also signifies that someone has also responded to something your responded to
+        "also commented on #{object_user.first_name}'s post"
       else
-        "did something weird... this is a mistake and the Limelight team has been notified to fix it!"
+        "did something weird... this is a mistake and The Whoot team has been notified to fix it!"
     end
   end
 
@@ -91,6 +92,23 @@ class Notification
         self.triggered_by_emailed << user.id
       end
     end
+  end
+
+  def as_json(options={})
+    {
+            :id => id.to_s,
+            :read => read,
+            :user_id => user_id.to_s,
+            :message => message,
+            :type => type,
+            :sentence => notification_text,
+            :created_at => created_at,
+            :created_at_pretty => pretty_time(created_at),
+            :created_at_day => pretty_day(created_at),
+            :triggered_by => triggered_by.as_json,
+            :object => object.as_json,
+            :object_user => object_user.as_json
+    }
   end
 
   class << self

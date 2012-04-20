@@ -1,15 +1,32 @@
 class PostSnippet
   include Mongoid::Document
+  include Mongoid::Timestamps
+  include ModelUtilitiesHelper
 
   field :night_type
   field :address_original
-  field :created_at, :type => Time
   field :comment_id
 
   embedded_in :post_assignable, polymorphic: true
 
   embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
   embeds_one :tag, :as => :taggable, :class_name => 'TagSnippet'
+
+  def as_json(options={})
+    data = {
+            :id => id.to_s,
+            :tag => tag,
+            :night_type => night_type,
+            :address_original => address_original,
+            :venue => venue,
+            :created_at => created_at,
+            :created_at_pretty => pretty_time(created_at),
+            :created_at_day => pretty_day(created_at),
+            :comment_id => comment_id
+    }
+
+    data
+  end
 
   class << self
     def conver_for_api(snippet)
