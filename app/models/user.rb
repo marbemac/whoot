@@ -454,6 +454,10 @@ class User
     end
   end
 
+  def hidden?(user)
+    blocked_by.include?(user.id) || user.blocked_by.include?(id)
+  end
+
   def as_json(options={})
     data = {
             :id => id.to_s,
