@@ -11,6 +11,8 @@ class Whoot.Views.BlockedUser extends Backbone.View
     @
 
   unblockUser: (e) =>
+    self = @
+
     $.ajax
       url: '/api/v2/users/blocked'
       dataType: 'json'
@@ -20,7 +22,7 @@ class Whoot.Views.BlockedUser extends Backbone.View
         $(self.el).find('.btn-success').addClass('disabled').text('Submitting...')
       success: (data) ->
         $(self.el).find('.btn-success').removeClass('disabled').text('Unblock User')
-        self.destroyForm()
+        $(self).remove()
       error: (jqXHR, textStatus, errorThrown) ->
         $(self.el).find('.btn-success').removeClass('disabled').text('Unblock User')
         globalError(textStatus, $(self.el))

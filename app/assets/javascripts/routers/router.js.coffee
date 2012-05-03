@@ -133,7 +133,7 @@ class Whoot.Router extends Backbone.Router
       Whoot.App.renderScreen('user_settings', 0)
 
       new Whoot.Views.UserSettings()
-      $(feed.el).wrap('<section />')
+#      $(feed.el).wrap('<section />')
 
 #      collection.id = id
 #      collection.page = 1

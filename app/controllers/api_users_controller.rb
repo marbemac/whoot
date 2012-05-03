@@ -71,6 +71,7 @@ class ApiUsersController < ApplicationController
     current_user.settings.email_ping = (params[:email_ping] == "true") if params[:email_ping]
     current_user.settings.email_follow = (params[:email_follow] == "true") if params[:email_follow]
     current_user.settings.email_daily = (params[:email_daily] == "true") if params[:email_daily]
+    current_user.unread_notification_count = params[:unread_notification_count] if params[:unread_notification_count]
 
     current_user.save
 

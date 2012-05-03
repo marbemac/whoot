@@ -6,8 +6,8 @@
 
 <ul class='menu unstyled'>
   <li>
-    <a class='first notifications' href="#">
-      <%= @user.get('unread_notification_count') %> Notifications
+    <a href="#" class='first notifications'>
+      <span><%= @user.get('unread_notification_count') %></span> Notifications
     </a>
   </li>
   <li>

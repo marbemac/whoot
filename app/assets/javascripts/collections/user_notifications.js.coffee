@@ -1,7 +1,7 @@
 class Whoot.Collections.UserNotifications extends Backbone.Collection
+  url: '/api/v2/users/notifications'
   model: Whoot.Models.Notification
-  url: =>
-    "/api/v2/users/#{@id}/notifications"
+
   findOrCreate: (id, data=null) ->
     model = @get(id)
 

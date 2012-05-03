@@ -1,4 +1,4 @@
 class Whoot.Collections.UserActivity extends Backbone.Collection
   model: Whoot.Models.Post
   url: =>
-    "/api/v2/users/#{@id}/activitys"
+    "/api/v2/users/#{@id}/activity"
