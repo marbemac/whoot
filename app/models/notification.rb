@@ -75,8 +75,10 @@ class Notification
     case type.to_sym
       when :follow
         'is following you'
+      when :loop
+        'looped into your night'
       when :comment
-        "commented on #{object_user.first_name}'s post"
+        "commented on your post"
       when :also # also signifies that someone has also responded to something your responded to
         "also commented on #{object_user.first_name}'s post"
       else
@@ -168,6 +170,7 @@ class Notification
           )
           notification.object.id = object.id
           notification.object.comment_id = comment.id if comment
+          notification.object.save
         end
 
         if object_user
@@ -183,8 +186,6 @@ class Notification
 
         notification.notify = notify
       end
-
-      Pusher["#{target_user.id.to_s}_private"].trigger('notification', notification.to_json)
 
       if notification.save
         if new_notification
@@ -205,15 +206,14 @@ class Notification
 
           target_user.save
         end
+
+        notification
       end
     end
 
-    def remove(target_user, type, triggered_by_user=nil, date_range_aggregate=nil, object=nil, comment=nil)
+    def remove(target_user, type, triggered_by_user=nil, object=nil, comment=nil)
       # find the notification
       notification = Notification.where(:user_id => target_user.id)
-      if date_range_aggregate
-        notification = notification.where(:created_at.gte => date_range_aggregate[0], :created_at.lte => date_range_aggregate[1])
-      end
       if object
         notification = notification.where('object._id' => object.id)
         if comment
@@ -226,15 +226,10 @@ class Notification
       notification = notification.where(:type => type).first
 
       if notification
-        notification.triggered_by.where(:_id => triggered_by_user.id).delete_all
-        if notification.triggered_by.length == 0
-          unless notification.read
-            target_user.unread_notification_count -= 1
-          end
-          notification.destroy
-        else
-          notification.save
+        unless notification.read
+          target_user.unread_notification_count = target_user.unread_notification_count.to_i - 1
         end
+        notification.destroy
       end
     end
 

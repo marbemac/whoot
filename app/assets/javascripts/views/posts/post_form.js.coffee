@@ -9,6 +9,7 @@ class Whoot.Views.PostForm extends Backbone.View
       "click .btn-group .btn": "buttonColor"
       "change #post-form-venue": "checkVenueClear"
       "click .tweet-btn": "tweet"
+      "click .suggestions": "toggleSuggestions"
 
   initialize: ->
     @collection = new Whoot.Collections.Posts()
@@ -49,7 +50,7 @@ class Whoot.Views.PostForm extends Backbone.View
     attributes['venue_address'] = $(@el).find('#post-form-venue-address').val()
     attributes['venue_name'] = $(@el).find('#post-form-venue-name').val()
     attributes['tweet'] = $(@el).find('#post-form-tweet').val()
-    attributes['suggest'] = if $(@el).find('.suggestions.active').length > 0 then true else false
+    attributes['suggestions'] = if $(@el).find('.suggestions.active').length > 0 then true else false
 
     self = @
 
@@ -95,3 +96,6 @@ class Whoot.Views.PostForm extends Backbone.View
       text += ". What's everyone else up to? @TheWhoot TheWhoot.com"
 
       $('#post-form-tweet').text(text).show()
+
+  toggleSuggestions: (e) =>
+    $(e.currentTarget).toggleClass('active')

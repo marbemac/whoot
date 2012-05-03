@@ -68,7 +68,11 @@ class Whoot.Views.App extends Backbone.View
 
   # HANDLE PUSHER SUBSCRIPTIONS
   get_subscription: (id) =>
-    @subscriptions[id]
+    if @subscriptions[id]
+      @subscriptions[id]
+    else
+      @subscribe(id)
+      @subscriptions[id]
 
   subscribe: (id) =>
     @subscriptions[id] = pusher.subscribe(id)

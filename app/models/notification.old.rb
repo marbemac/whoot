@@ -1,4 +1,4 @@
-class Notification
+class NotificationOld
   include Mongoid::Document
   include Mongoid::Paranoia
   include Mongoid::Timestamps

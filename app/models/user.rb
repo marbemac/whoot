@@ -469,7 +469,7 @@ class User
             :followers_count => followers_count,
             :unread_notification_count => unread_notification_count,
             :location => location,
-            :current_post => current_post,
+            :current_post => current_post && current_post.created_at >= Post.cutoff_time ? current_post : nil,
             :posted_today => posted_today?,
             :images => User.json_images(self),
             :blocked_by => blocked_by

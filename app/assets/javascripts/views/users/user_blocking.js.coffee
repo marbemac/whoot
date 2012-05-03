@@ -32,6 +32,8 @@ class Whoot.Views.UserBlocking extends Backbone.View
     @
 
   blockUser: (e) =>
+    self = @
+
     $.ajax
       url: @collection.url
       dataType: 'json'
@@ -41,6 +43,8 @@ class Whoot.Views.UserBlocking extends Backbone.View
         $(self.el).find('.btn-success').addClass('disabled').text('Submitting...')
       success: (data) ->
         $(self.el).find('.btn-success').removeClass('disabled').text('Block User')
+        globalSuccess(data, $(self.el))
+        $(self.el).find('input[type="text"]').val('')
       error: (jqXHR, textStatus, errorThrown) ->
         $(self.el).find('.btn-success').removeClass('disabled').text('Block User')
         globalError(jqXHR, $(self.el))
