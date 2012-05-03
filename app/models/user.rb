@@ -432,6 +432,8 @@ class User
     end
   end
 
+  # BLOCKING
+
   def block(user)
     if blocked_by.include? user.id
       false
@@ -465,7 +467,8 @@ class User
             :location => location,
             :current_post => current_post && current_post.created_at >= Post.cutoff_time ? current_post : nil,
             :posted_today => posted_today?,
-            :images => User.json_images(self)
+            :images => User.json_images(self),
+            :blocked_by => blocked_by
     }
 
     if options[:show_extra]

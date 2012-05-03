@@ -36,7 +36,7 @@ Whoot::Application.routes.draw do
         get 'undecided' => 'api_users#undecided'
         get ':id/notifications' => 'api_users#notifications'
         put ':id/location' => 'api_users#change_location'
-        get ':id/posts' => 'api_users#posts'
+        get ':id/activity' => 'api_users#activity'
         get ':id/following_users' => 'api_users#following_users'
         get ':id/followers' => 'api_users#followers'
         get ':id' => 'api_user#show'

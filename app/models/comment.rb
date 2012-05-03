@@ -70,7 +70,6 @@ class Comment
     {
             :id => id.to_s,
             :content => content,
-            :user => user_snippet.as_json
     }
   end
 

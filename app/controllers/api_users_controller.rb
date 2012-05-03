@@ -22,7 +22,7 @@ class ApiUsersController < ApplicationController
     @description = "A list of all users who are following " + @user.fullname
     users = User.where(:following_users => @user.id).order_by(:slug, :asc)
 
-    render :json => users.map {|u| u.as_json}
+    render :json => users.map {|u| u.as_json unless current_user.blocked_by.include?(u.id)}.compact
   end
 
   def following_users
@@ -41,10 +41,11 @@ class ApiUsersController < ApplicationController
     render :json => users.map {|u| u.as_json}
   end
 
-  def posts
-    not_found("User not found") unless current_user
-    posts = Post.where("user_snippet._id" => current_user.id).limit(20)
-    render :json => posts.map {|p| p.as_json(:user => current_user)}
+  def activity
+    user = User.find(params[:id])
+    not_found("User not found") unless user
+    posts = Post.where("user_snippet._id" => user.id).limit(20)
+    render :json => posts.map {|p| p.as_json(user)}
   end
 
   def notifications
@@ -81,12 +82,12 @@ class ApiUsersController < ApplicationController
 
     if blocked_user.block(current_user)
       if blocked_user.save && current_user.save
-        render json: build_ajax_response(:ok, nil, blocked_user.first_name + " is now blocked, and will not see your activity")
+        render json: build_ajax_response(:ok, nil, blocked_user.first_name + " is now blocked, and will not see your activity"), status: 201
       else
-        render json: build_ajax_response(:error, nil, "There was an error. Please contact support@thewhoot.com")
+        render json: build_ajax_response(:error, nil, "There was an error. Please contact support@thewhoot.com"), status: 400
       end
     else
-      render json: build_ajax_response(:error, nil, "That user is already blocked")
+      render json: build_ajax_response(:error, nil, "That user is already blocked"), status: 422
     end
   end
 
@@ -95,12 +96,12 @@ class ApiUsersController < ApplicationController
 
     if blocked_user.unblock(current_user)
       if blocked_user.save && current_user.save
-        render json: build_ajax_response(:ok, nil, blocked_user.first_name + " is now unblocked, and may see your activity")
+        render json: build_ajax_response(:ok, nil, blocked_user.first_name + " is now unblocked, and may see your activity"), status: 200
       else
-        render json: build_ajax_response(:error, nil, "There was an error. Please contact support@thewhoot.com")
+        render json: build_ajax_response(:error, nil, "There was an error. Please contact support@thewhoot.com"), status: 400
       end
     else
-      render json: build_ajax_response(:error, nil, "That user is already blocked")
+      render json: build_ajax_response(:error, nil, "That user is already blocked"), status: 422
     end
   end
 
