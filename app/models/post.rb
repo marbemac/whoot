@@ -10,6 +10,7 @@ class Post
   field :votes, :default => 0
   field :address_original
   field :entry_point
+  field :suggestions
 
   index(
           [
@@ -37,7 +38,7 @@ class Post
 
   validates :night_type, :inclusion => { :in => ["working", "low_in", "low_out", "big_out"], :message => "Please select a post type below! (working, staying in, relaxing out, or partying)" }
   validate :max_characters
-  attr_accessible :night_type, :tag, :address_original, :venue
+  attr_accessible :night_type, :tag, :address_original, :venue, :suggestions
   attr_accessor :user_id, :address_placeholder
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
@@ -343,6 +344,7 @@ class Post
             :created_at => created_at,
             :created_at_pretty => pretty_time(created_at),
             :created_at_day => pretty_day(created_at),
+            :suggestions => suggestions,
             :user => user_snippet.as_json,
             :events => post_events.map{|e| e.as_json},
             :loop_ins => voters.map {|v| v.as_json}

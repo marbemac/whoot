@@ -3,6 +3,17 @@ class ApiUsersController < ApplicationController
 
   respond_to :json
 
+  def show
+    user = User.find(params[:id])
+    not_found("User not found") unless user
+
+    render :json => user
+  end
+
+  def me
+    render :json => current_user
+  end
+
   def followers
     @user = User.find(params[:id])
     not_found("User not found") unless @user
@@ -56,9 +67,9 @@ class ApiUsersController < ApplicationController
 
   def update
     current_user.settings.email_comment = (params[:email_comment] == "true") if params[:email_comment]
-    current_user.settings.email_mention = (params[:email_ping] == "true") if params[:email_mention]
+    current_user.settings.email_ping = (params[:email_ping] == "true") if params[:email_ping]
     current_user.settings.email_follow = (params[:email_follow] == "true") if params[:email_follow]
-    current_user.settings.email_follow = (params[:email_daily] == "true") if params[:email_follow]
+    current_user.settings.email_daily = (params[:email_daily] == "true") if params[:email_daily]
 
     current_user.save
 

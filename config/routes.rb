@@ -32,12 +32,14 @@ Whoot::Application.routes.draw do
           post '' => 'api_pings#create', :type => 'User'
         end
 
-        get 'notifications' => 'api_users#notifications'
-        put 'location' => 'api_users#change_location'
-        get 'posts' => 'api_users#posts'
-        get 'following_users' => 'api_users#following_users'
-        get 'followers' => 'api_users#followers'
+        get 'me' => 'api_users#me'
         get 'undecided' => 'api_users#undecided'
+        get ':id/notifications' => 'api_users#notifications'
+        put ':id/location' => 'api_users#change_location'
+        get ':id/posts' => 'api_users#posts'
+        get ':id/following_users' => 'api_users#following_users'
+        get ':id/followers' => 'api_users#followers'
+        get ':id' => 'api_user#show'
       end
 
       scope 'comments' do

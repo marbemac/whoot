@@ -22,8 +22,8 @@
       <input type='hidden' id="post-form-venue-name" spellcheck="false" autocomplete="off" name="venue_name">
     </div>
     <div class='bottom-options'>
-      <!--<div class='btn suggestions' data-toggle='button'>I'm Open to Suggestions</div>-->
-      <% if @user.get('twitter_connected'): %>
+      <div class='btn suggestions' data-toggle='button'>I'm Open to Suggestions</div>
+      <% if @user.get('twitter_id'): %>
         <div class='btn tweet-btn' data-toggle='button'>Post to Twitter</div>
       <% else: %>
         <a class="btn" href="/users/auth/twitter">Connect Twitter</a>
