@@ -15,9 +15,11 @@ class ApiLoopInsController < ApplicationController
         Pusher[target_post.user_snippet.id.to_s].trigger('post_event', @post_event.as_json)
 
         target_user = User.find(target_post.user_snippet.id)
-        if target_user.device_token
-          Notification.send_push_notification(target_user.device_token, target_user.device_type, "#{current_user.fullname} looped into your night.")
+        notification = Notification.add(target_user, :loop, true, current_user)
+        if notification
+          Pusher["#{target_user.id.to_s}_private"].trigger('new_notification', notification.to_json)
         end
+
         response = build_ajax_response(:ok, nil, "You looped into #{target_user.first_name}'s night", nil, { })
         status = 201
       else
@@ -37,6 +39,7 @@ class ApiLoopInsController < ApplicationController
     if target_post
       target_post.remove_voter(current_user)
       target_post.save
+      Notification.remove(target_post.user, :loop, current_user)
       response = build_ajax_response(:ok, nil, "You looped out", nil, { })
       status = 200
     else

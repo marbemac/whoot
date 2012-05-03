@@ -75,8 +75,10 @@ class Notification
     case type.to_sym
       when :follow
         'is following you'
+      when :loop
+        'looped into your night'
       when :comment
-        "commented on #{object_user.first_name}'s post"
+        "commented on your post"
       when :also # also signifies that someone has also responded to something your responded to
         "also commented on #{object_user.first_name}'s post"
       else
@@ -168,6 +170,7 @@ class Notification
           )
           notification.object.id = object.id
           notification.object.comment_id = comment.id if comment
+          notification.object.save
         end
 
         if object_user
