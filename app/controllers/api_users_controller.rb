@@ -22,7 +22,7 @@ class ApiUsersController < ApplicationController
     @description = "A list of all users who are following " + @user.fullname
     users = User.where(:following_users => @user.id).order_by(:slug, :asc)
 
-    render :json => users.map {|u| u.as_json unless current_user.blocked_by.include?(u.id)}.compact
+    render :json => users.map {|u| u.as_json unless current_user.hidden?(u)}.compact
   end
 
   def following_users
@@ -32,7 +32,7 @@ class ApiUsersController < ApplicationController
     @title = "Users " + (current_user.id == @user.id ? 'you are' : @user.fullname+' is') + " following"
     @description = "A list of all users who are being followed by " + @user.fullname
     users = User.where(:_id.in => @user.following_users).order_by(:slug, :asc)
-    render :json => users.map {|u| u.as_json}
+    render :json => users.map {|u| u.as_json unless current_user.hidden?(u)}.compact
   end
 
   def undecided

@@ -13,7 +13,8 @@ class Whoot.Views.UserList extends Backbone.View
     $(@el).html(@template(title: @pageTitle))
 
     if @collection.models.length == 0
-      $(@el).find('section').append("<div class='none'>Hmm, there's nothing to show here</div>")
+      console.log(@collection.models.length)
+      $(@el).append("<div class='none'>Hmm, there's nothing to show here</div>")
     else
       for user,i in @collection.models
         @appendUser(user, i%2)
