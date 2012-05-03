@@ -85,7 +85,7 @@ class Whoot.Views.PostFeedItem extends Backbone.View
   toggleDetails: (e) ->
     target = $(e.target)
 
-    if target.is('a') || target.hasClass('icon')
+    if target.is('a') || target.hasClass('btn')
       return
 
     $(e.currentTarget).parent().toggleClass('on').find('.details').slideToggle(200)

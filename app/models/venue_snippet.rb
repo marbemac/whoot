@@ -47,4 +47,15 @@ class VenueSnippet
     self.coordinates = string.split(' ')
   end
 
+  def as_json
+    {
+            :id => id.to_s,
+            :address => address,
+            :full_address => full_address,
+            :coordinates => coordinates,
+            :name => name,
+            :pretty_name => pretty_name
+    }
+  end
+
 end

@@ -1,2 +1,15 @@
-<span class="votes"><%= @model.get('votes') %></span>
-<div class="icon loop-1616"></div>
+<span class="count">
+  <%= @model.get('loop_in_count') %>
+</span>
+
+<% if @model.get('user') == Whoot.App.current_user: %>
+  <div class='mine'>Looped In</div>
+<% else: %>
+  <div class='btn'>
+    <% if @model.get('looped_in') == true: %>
+      Loop Out
+    <% else: %>
+      Loop In
+    <% end %>
+  </div>
+<% end %>

@@ -156,11 +156,19 @@ class Post
       )
       snippet.id = user.id
       self.voters << snippet
-      event = PostLoopEvent.new(:user_snippet => snippet)
-      event.id = user.id
-      self.post_events << event
-      self.user.votes_count += 1
-      self.user.save
+      #event = PostLoopEvent.new(:user_snippet => snippet)
+      #event.id = user.id
+      #self.post_events << event
+      #self.user.votes_count += 1
+      #self.user.save
+    end
+  end
+
+  def remove_voter(user)
+    if has_voter?(user)
+      self.votes -= 1
+      voter = self.voters.find(user.id)
+      voter.delete
     end
   end
 
@@ -215,6 +223,7 @@ class Post
             :night_type => night_type,
             :created_at => created_at ? created_at : Time.now
     )
+    post_snippet.suggestions = suggestions
     post_snippet.address_original = address_original
     post_snippet.tag = tag
     post_snippet.venue = venue
@@ -336,10 +345,12 @@ class Post
             :id => id.to_s,
             :tag => tag,
             :night_type => night_type,
+            :night_type_noun => night_type_noun,
+            :night_type_short => night_type_short,
             :comment_count => comment_count,
             :loop_in_count => votes,
             :address_original => address_original,
-            :venue => venue,
+            :venue => venue.as_json,
             :location => location,
             :created_at => created_at,
             :created_at_pretty => pretty_time(created_at),

@@ -22,7 +22,7 @@
       <input type='hidden' id="post-form-venue-name" spellcheck="false" autocomplete="off" name="venue_name">
     </div>
     <div class='bottom-options'>
-      <div class='btn suggestions' data-toggle='button'>I'm Open to Suggestions</div>
+      <div class='btn suggestions <%= "active" if @user.get('current_post').suggestions == 'true' %>' data-toggle='button'>I'm Open to Suggestions</div>
       <% if @user.get('twitter_id'): %>
         <div class='btn tweet-btn' data-toggle='button'>Post to Twitter</div>
       <% else: %>

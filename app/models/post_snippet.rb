@@ -6,6 +6,7 @@ class PostSnippet
   field :night_type
   field :address_original
   field :comment_id
+  field :suggestions
 
   embedded_in :post_assignable, polymorphic: true
 
@@ -22,7 +23,8 @@ class PostSnippet
             :created_at => created_at,
             :created_at_pretty => pretty_time(created_at),
             :created_at_day => pretty_day(created_at),
-            :comment_id => comment_id
+            :comment_id => comment_id,
+            :suggestions => suggestions
     }
 
     data

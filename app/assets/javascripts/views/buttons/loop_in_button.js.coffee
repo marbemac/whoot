@@ -13,13 +13,10 @@ class Whoot.Views.LoopInButton extends Backbone.View
 
   render: =>
     $(@el).html(@template(model: @model))
-    $(@el).addClass('mine disabled') if @model.get('user') == Whoot.App.current_user
-    $(@el).addClass('disabled') if @model.get('looped_in') == true
 
     @
 
   updateLoopIn: =>
-    console.log 'clicked'
     return if $(@el).hasClass('disabled')
 
     self = @
@@ -30,6 +27,11 @@ class Whoot.Views.LoopInButton extends Backbone.View
       beforeSend: ->
         $(self.el).addClass('disabled')
       success: (data) ->
+        if self.model.get('looped_in')
+          self.model.set('loop_in_count', self.model.get('loop_in_count') - 1)
+        else
+          self.model.set('loop_in_count', self.model.get('loop_in_count') + 1)
+
         self.model.set('looped_in', !self.model.get('looped_in'))
       error: (jqXHR, textStatus, errorThrown) ->
         $(self.el).removeClass('disabled')

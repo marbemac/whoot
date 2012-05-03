@@ -154,10 +154,38 @@
   ul.working{
     border-left: 5px solid;
 
-    &.big_out { border-color: $post-big_out-color }
-    &.low_out { border-color: $post-low_out-color }
-    &.low_in { border-color: $post-low_in-color }
-    &.working { border-color: $post-working-color }
+    &.big_out {
+      border-color: $post-big_out-color;
+      .name {
+        .type {
+          color: $post-big_out-color;
+        }
+      }
+    }
+    &.low_out {
+      border-color: $post-low_out-color;
+      .name {
+        .type {
+          color: $post-low_out-color;
+        }
+      }
+    }
+    &.low_in {
+      border-color: $post-low_in-color;
+      .name {
+        .type {
+          color: $post-low_in-color;
+        }
+      }
+    }
+    &.working {
+      border-color: $post-working-color;
+      .name {
+        .type {
+          color: $post-working-color;
+        }
+      }
+    }
 
     padding: 0 0 0 2px;
     margin: 0 0 0 0px;
@@ -204,52 +232,55 @@
         .name,
         .tag {
           position: relative;
-          font-size: 16px;
-          display: table-cell;
-          height: 50px;
-          vertical-align: middle;
+          font-size: 14px;
         }
         .name {
-          width: 140px;
-          padding: 0 10px 0 60px;
+          padding: 6px 0 0 65px;
+          a {
+            font-weight: bold;
+            color: #444;
+          }
+          .type {
+            font-weight: bold;
+          }
         }
         .tag {
-          width: 245px;
-          font-size: 13px;
-          cursor: default;
+          padding: 0 10px 0 65px;
         }
         .comments_count,
         .loop-in-btn {
           position: absolute;
-          right: 1px;
-          padding: 2px 33px 2px 7px;
-          font-weight: bold;
-          overflow: hidden;
-          whitespace: nowrap;
-          .icon {
+          right: 3px;
+          .btn {
+            @include border-radius(0px);
+            font-size: 11px;
+            padding: 1px 8px;
+            width: 50px;
+          }
+          .count {
+            font-weight: bold;
             position: absolute;
-            right: 7px;
+            top: 2px;
+            right: 75px;
+            cursor: default;
+          }
+          .mine {
+            font-size: 11px;
+            position: relative;
+            top: 2px;
+            width: 58px;
+            cursor: default;
           }
         }
         .comments_count {
-          top: 25px;
+          top: 24px;
           .icon {
             top: 4px;
           }
         }
         .loop-in-btn {
-          top: 4px;
+          top: 3px;
           cursor: pointer;
-          .icon {
-            top: 3px;
-          }
-          &:hover { background-color: $white; }
-          &.disabled {
-            cursor: default;
-            .icon { @include opacity(50); }
-            &:hover { background-color: transparent; }
-          }
-          &.mine .icon { @include opacity(100) }
         }
       }
       .details {

@@ -12,7 +12,7 @@ class ApiPostsController < ApplicationController
       }
     end
 
-    if params[:venue_address]
+    if params[:venue_address] && !params[:venue_address].blank?
       params[:venue] = {
               :address_string => params[:venue_address],
               :name => params[:venue_name]

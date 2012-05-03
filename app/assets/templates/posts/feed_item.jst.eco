@@ -7,19 +7,32 @@
 
   <div class="name">
     <a href="/<%= @post.get('user').get('id') %>">
-      <%= @post.get('user').get('first_name') + " " + @post.get('user').get('last_name') %>
+      <%= @post.get('user').get('first_name') %>
     </a>
+    is
+    <span class="type"><%= @post.get('night_type_short') %></span>
+    <% if @post.get('suggestions') == 'true': %>
+      and open to suggestions
+    <% end %>
   </div>
 
-  <% if @post.get('tag'): %>
-    <div class="tag">
+  <div class='tag'>
+    <% if @post.get('tag'): %>
       <%= @post.get('tag').name %>
-    </div>
-  <% end %>
+    <% end %>
+    <% if @post.get('address_original'): %>
+      @
+      <% if @post.get('venue'): %>
+        <%= @post.get('venue').pretty_name %>
+      <% else: %>
+        <%= @post.get('address_original') %>
+      <% end %>
+    <% end %>
+  </div>
 
   <div class="comments_count">
-    <span><%= @post.get('comment_count') %></span>
-    <div class="icon comment-grey-1614"></div>
+    <span class='count'><%= @post.get('comment_count') %></span>
+    <div class='btn'>Comment</div>
   </div>
 </div>
 

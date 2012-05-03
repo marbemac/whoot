@@ -11,8 +11,8 @@ class ApiLoopInsController < ApplicationController
       if target_post.save
         #Pusher["#{target_post.user_snippet.id.to_s}_private"].trigger('notification', {:content => "#{current_user.fullname} looped in to your night."})
         @user = current_user
-        @post_event = target_post.post_events.detect{|e| e.id == current_user.id && e._type == 'PostLoopEvent'}
-        Pusher[target_post.user_snippet.id.to_s].trigger('post_event', @post_event.as_json)
+        #@post_event = target_post.post_events.detect{|e| e.id == current_user.id && e._type == 'PostLoopEvent'}
+        #Pusher[target_post.user_snippet.id.to_s].trigger('post_event', @post_event.as_json)
 
         target_user = User.find(target_post.user_snippet.id)
         notification = Notification.add(target_user, :loop, true, current_user)
