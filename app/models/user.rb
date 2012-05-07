@@ -106,7 +106,7 @@ class User
   attr_accessor :current_ip
 
   before_create :generate_username, :set_settings, :set_location_snippet
-  after_create :save_profile_image, :send_welcome_email, :update_invites, :notify_friends
+  after_create :send_welcome_email, :update_invites, :notify_friends
   before_destroy :remove_from_soulmate
   before_save :add_to_soulmate
 

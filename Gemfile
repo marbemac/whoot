@@ -11,7 +11,7 @@ gem 'mongoid' # MongoDB
 gem 'mongoid_slug' # Automatic MongoDB slugs
 gem 'mongoid_auto_inc' # Auto incrementing fields in mongoid
 gem 'devise' # Authentication
-gem 'koala' # facebook graph api support
+gem 'koala', '1.4.1' # facebook graph api support
 gem 'twitter' # twitter api support
 gem "omniauth"
 gem "omniauth-facebook"
