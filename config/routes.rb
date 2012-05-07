@@ -45,6 +45,14 @@ Whoot::Application.routes.draw do
       scope 'comments' do
         post '' => 'api_comments#create', :as => :comments_create
       end
+
+      scope 'invites' do
+        post 'phone_numbers' => 'invites#invite_phone_numbers', :defaults => { :format => :api }
+        get 'show_invite_screen' => 'invites#show_invite_screen', :defaults => { :format => :api }
+      end
+
+      get 'generate_token' => 'api#generate_token', :as => :mobile_generate_token, :defaults => { :format => :api }
+      post 'set_device_token' => 'api#set_device_token', :as => :set_device_token, :defaults => { :format => :api }
     end
 
     scope 'v1' do

@@ -21,7 +21,7 @@ class ApiController < ApplicationController
       user = User.find_by_omniauth(omniauth, signed_in_resource=nil, @mixpanel, 'api')
       user.reset_authentication_token!
 
-      token = {:status => :ok, :token => user.authentication_token, :public_id => user.encoded_id }
+      token = {:status => :ok, :token => user.authentication_token, :public_id => user.encoded_id, :user => user.as_json }
     else
       token = {:status => :error, :token => nil}
     end
