@@ -6,44 +6,44 @@ Whoot::Application.routes.draw do
   scope 'api' do
     scope 'v2' do
       scope 'posts' do
-        get 'feed' => 'api_posts#feed'
-        post '' => 'api_posts#create'
+        get 'feed' => 'api_posts#feed', :defaults => { :format => :api }
+        post '' => 'api_posts#create', :defaults => { :format => :api }
 
         scope 'loop_ins' do
-          post '' => 'api_loop_ins#create', :type => 'User'
-          delete '' => 'api_loop_ins#destroy', :type => 'User'
+          post '' => 'api_loop_ins#create', :type => 'User', :defaults => { :format => :api }
+          delete '' => 'api_loop_ins#destroy', :type => 'User', :defaults => { :format => :api }
         end
       end
 
       scope 'users' do
         scope 'follows' do
-          post '' => 'api_follows#create', :type => 'User'
-          delete '' => 'api_follows#destroy', :type => 'User'
+          post '' => 'api_follows#create', :type => 'User', :defaults => { :format => :api }
+          delete '' => 'api_follows#destroy', :type => 'User', :defaults => { :format => :api }
         end
 
         scope 'blocked' do
-          post '' => 'api_users#block_user'
-          get '' => 'api_users#blocked_users'
-          delete '' => 'api_users#unblock_user'
+          post '' => 'api_users#block_user', :defaults => { :format => :api }
+          get '' => 'api_users#blocked_users', :defaults => { :format => :api }
+          delete '' => 'api_users#unblock_user', :defaults => { :format => :api }
         end
 
-        put '' => 'api_users#update'
+        put '' => 'api_users#update', :defaults => { :format => :api }
         scope 'pings' do
-          post '' => 'api_pings#create', :type => 'User'
+          post '' => 'api_pings#create', :type => 'User', :defaults => { :format => :api }
         end
 
-        get 'me' => 'api_users#me'
-        get 'undecided' => 'api_users#undecided'
-        get 'notifications' => 'api_users#notifications'
-        put ':id/location' => 'api_users#change_location'
-        get ':id/activity' => 'api_users#activity'
-        get ':id/following_users' => 'api_users#following_users'
-        get ':id/followers' => 'api_users#followers'
-        get ':id' => 'api_user#show'
+        get 'me' => 'api_users#me', :defaults => { :format => :api }
+        get 'undecided' => 'api_users#undecided', :defaults => { :format => :api }
+        get 'notifications' => 'api_users#notifications', :defaults => { :format => :api }
+        put ':id/location' => 'api_users#change_location', :defaults => { :format => :api }
+        get ':id/activity' => 'api_users#activity', :defaults => { :format => :api }
+        get ':id/following_users' => 'api_users#following_users', :defaults => { :format => :api }
+        get ':id/followers' => 'api_users#followers', :defaults => { :format => :api }
+        get ':id' => 'api_user#show', :defaults => { :format => :api }
       end
 
       scope 'comments' do
-        post '' => 'api_comments#create', :as => :comments_create
+        post '' => 'api_comments#create', :as => :comments_create, :defaults => { :format => :api }
       end
 
       scope 'invites' do
