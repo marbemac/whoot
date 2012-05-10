@@ -110,4 +110,58 @@ class ApiUsersController < ApplicationController
     users = User.where(:blocked_by => current_user.id)
     render :json => users.map {|u| u.as_json}
   end
+
+  def analytics
+    tmp_data = {
+            :social_network => {
+                    :post_breakdown => {
+                            :working => {
+                                    :now => 34.8,
+                                    :change => 10.4
+                            },
+                            :low_in => {
+                                    :now => 12.2,
+                                    :change => -3.5
+                            },
+                            :low_out => {
+                                    :now => 23,
+                                    :change => 0
+                            },
+                            :big_out => {
+                                    :now => 30,
+                                    :change => 3
+                            }
+                    },
+                    :sex_breakdown => {
+                            :female => 34,
+                            :male => 58
+                    }
+            },
+            :city => {
+                    :post_breakdown => {
+                            :working => {
+                                    :now => 34.8,
+                                    :change => 10.4
+                            },
+                            :low_in => {
+                                    :now => 12.2,
+                                    :change => -3.5
+                            },
+                            :low_out => {
+                                    :now => 23,
+                                    :change => 0
+                            },
+                            :big_out => {
+                                    :now => 30,
+                                    :change => 3
+                            }
+                    },
+                    :sex_breakdown => {
+                            :female => 34,
+                            :male => 58
+                    }
+            }
+    }
+    render :json => tmp_data
+  end
 end
