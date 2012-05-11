@@ -7,6 +7,7 @@ class Whoot.Views.MyFeed extends Backbone.View
     'click #map-feed-btn': 'renderMap'
     'click #undecided-feed-btn': 'renderUndecided'
     'click #update-post': 'updatePost'
+    'click #shout': 'shout'
 
   initialize: ->
     @feed = null
@@ -66,5 +67,8 @@ class Whoot.Views.MyFeed extends Backbone.View
     form.header = 'Update Your Post'
     form.buttonText = 'Update'
     form.modal = true
-    console.log Whoot.App.current_user
+    form.render()
+
+  shout: =>
+    form = new Whoot.Views.ShoutForm(model: Whoot.App.current_user)
     form.render()

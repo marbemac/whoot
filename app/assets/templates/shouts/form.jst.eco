@@ -1,0 +1,18 @@
+<form>
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Create a Shout!</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+      A shout is a short message that is sent to all of your followers in your city that are open to suggestions.
+      You only get 1 shout per night so use wisely!
+    </p>
+    <div class='errors'></div>
+    <input type='text' id="shout-content" spellcheck="false" autocomplete="off" name="tag" placeholder="Shout something... 40 character max.">
+  </div>
+  <div class="modal-footer">
+    <div class="submit btn btn-warning" data-loading-text="Submitting...">Shout!</div>
+    <span class="cancel btn">Cancel</span>
+  </div>
+</form>

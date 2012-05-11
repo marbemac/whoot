@@ -11,6 +11,7 @@ class Post
   field :address_original
   field :entry_point
   field :suggestions
+  field :shouted, :default => false
 
   index(
           [

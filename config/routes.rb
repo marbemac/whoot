@@ -51,6 +51,10 @@ Whoot::Application.routes.draw do
         get 'show_invite_screen' => 'invites#show_invite_screen', :defaults => { :format => :api }
       end
 
+      scope 'shouts' do
+        post '' => 'shouts#create', :defaults => { :format => :api }
+      end
+
       get 'analytics' => 'api_users#analytics', :as => :analytics, :defaults => { :format => :api }
       get 'generate_token' => 'api#generate_token', :as => :mobile_generate_token, :defaults => { :format => :api }
       post 'set_device_token' => 'api#set_device_token', :as => :set_device_token, :defaults => { :format => :api }

@@ -160,6 +160,14 @@ class ApiUsersController < ApplicationController
                             :female => 34,
                             :male => 58
                     }
+            },
+            :me => {
+                    :tonight => {
+                            :working => 25,
+                            :low_in => 25,
+                            :low_out => 25,
+                            :big_out => 25
+                    }
             }
     }
     render :json => tmp_data

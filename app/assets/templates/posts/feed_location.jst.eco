@@ -1,6 +1,7 @@
 <h4><%= @name %></h4>
 <% if @id == Whoot.App.current_user.id: %>
   <div id='update-post'>Update My Post</div>
+  <div id='shout'>Shout!</div>
 <% end %>
 <ul class='big_out unstyled'></ul>
 <ul class='low_out unstyled'></ul>

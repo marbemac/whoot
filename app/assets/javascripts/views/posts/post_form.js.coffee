@@ -20,7 +20,7 @@ class Whoot.Views.PostForm extends Backbone.View
     @buttonText = 'Submit Post'
     @placeholder_text = 'What do you want to talk about?'
 
-  render: ->
+  render: =>
     $(@el).html(@template(user: @model, header: @header, buttonText: @buttonText, initial_text: @initial_text, placeholder_text: @placeholder_text))
 
     # setTimeout to wait for the modal animation so that the autocomplete can position itself correctly
@@ -40,7 +40,7 @@ class Whoot.Views.PostForm extends Backbone.View
 
     @
 
-  createPost: (e) ->
+  createPost: (e) =>
     e.preventDefault()
 
     attributes = {}
@@ -70,7 +70,7 @@ class Whoot.Views.PostForm extends Backbone.View
       complete: ->
         $(self.el).find('.submit').button('reset')
 
-  destroyForm: ->
+  destroyForm: =>
     $(@el).modal('hide')
 
   buttonColor: (e) ->
