@@ -21,7 +21,10 @@ class PostLoopEvent < PostEvent
     {
             :type => _type,
             :content => api_text,
-            :user => user_snippet.as_json
+            :user => user_snippet.as_json,
+            :created_at => created_at,
+            :created_at_pretty => pretty_time(created_at),
+            :created_at_day => pretty_day(created_at)
     }
   end
 end

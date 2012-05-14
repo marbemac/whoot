@@ -17,7 +17,6 @@ gem "omniauth"
 gem "omniauth-facebook"
 gem 'omniauth-twitter'
 gem 'yajl-ruby' # json processing
-gem 'fog' # Cloud support (amazon s3, etc)
 gem 'heroku'
 gem 'resque', '1.20.0'#, :git => 'https://github.com/hone/resque.git', :branch => 'heroku'
 gem 'resque-scheduler', '2.0.0.h' # scheduled resque jobs
@@ -26,8 +25,9 @@ gem "geocoder"
 gem "chronic" # Date/Time management
 gem 'cancan' # authorization
 gem "airbrake" # Exception notification
-gem 'rpm_contrib' # extra instrumentation for the new relic rpm agent
-gem 'newrelic_rpm' # performance / server monitoring
+gem 'rpm_contrib', '2.1.9' # extra instrumentation for the new relic rpm agent
+gem 'newrelic-redis', '1.2.0' # new relic redis instrumentation
+gem 'newrelic-faraday'
 gem 'soulmate', '0.1.3'#:git => 'git://github.com/seatgeek/soulmate.git' # Redis based autocomplete storage
 gem 'dalli' # memcache
 gem 'pusher' # pusher publish/subscribe system

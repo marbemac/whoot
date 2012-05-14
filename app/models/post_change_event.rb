@@ -42,7 +42,10 @@ class PostChangeEvent < PostEvent
             :tag => tag,
             :venue_name => venue_name,
             :venue_id => venue_id,
-            :content => api_text
+            :content => api_text,
+            :created_at => created_at,
+            :created_at_pretty => pretty_time(created_at),
+            :created_at_day => pretty_day(created_at)
     }
   end
 end

@@ -1,6 +1,7 @@
 class PostEvent
   include Mongoid::Document
   include Mongoid::Timestamps::Created
+  include ModelUtilitiesHelper
 
   embedded_in :post
 
