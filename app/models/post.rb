@@ -125,7 +125,7 @@ class Post
           target_venue = Venue.new(venue.attributes)
           target_venue.address_string = venue.address_string
           target_venue.user_id = user.id
-          target_venue.save!
+          target_venue.save
         end
       end
 
@@ -190,7 +190,7 @@ class Post
   end
 
   def set_user_location
-    if !address_original.blank? && address_original_changed? && venue
+    if !address_original.blank? && address_original_changed? && venue && venue.coordinates
       city = City.near(venue.coordinates.reverse).first
       if city && city.id != user.location.id
         snippet = LocationSnippet.new(

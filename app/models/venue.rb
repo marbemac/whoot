@@ -77,7 +77,7 @@ class Venue
     if name_changed?
       updates["venue.name"] = self.name
     end
-    if address_string_changed?
+    if address_string_changed? && address
       updates["venue.address.street"] = self.address.street
       updates["venue.address.city"] = self.address.city
       updates["venue.address.state_code"] = self.address.state_code
