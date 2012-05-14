@@ -8,6 +8,9 @@
   <li>
     <a href='#' id="undecided-feed-btn">Ping Users<i class="icon icon-chevron-right"></i></a>
   </li>
+  <li>
+    <a href='#' id="analytics-feed-btn">Social Analytics<i class="icon icon-chevron-right"></i></a>
+  </li>
 </ul>
 <div class='posts-sidebar'>
   <h4>Filters</h4>
