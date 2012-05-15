@@ -11,6 +11,7 @@ class Post
   field :address_original
   field :entry_point
   field :suggestions
+  field :tag
   field :shouted, :default => false
 
   index(
@@ -32,7 +33,6 @@ class Post
 
   embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
   embeds_one :location, as: :has_location, :class_name => 'LocationSnippet'
-  embeds_one :tag, :as => :taggable, :class_name => 'TagSnippet'
   embeds_one :user_snippet, :as => :user_assignable, :class_name => 'UserSnippet'
   embeds_many :voters, :as => :user_assignable, :class_name => 'UserSnippet'
   embeds_many :post_events, :class_name => 'PostEvent'
@@ -45,11 +45,10 @@ class Post
 
   after_create :send_ping_updates, :reset_pings_sent
   before_save :set_venue_snippet, :update_post_event, :set_user_location, :set_location_snippet, :set_user_post_snippet
-  after_save :process_tag
 
   def max_characters
-    if tag && !tag.name.blank? && tag.name.length > 40
-      errors.add(:tags, "You can only use 40 characters for your tag! You tag has #{tag.name.length} characters.")
+    if tag && !tag? && tag.length > 40
+      errors.add(:tags, "You can only use 40 characters for your tag! You tag has #{tag.length} characters.")
     end
   end
 
@@ -74,7 +73,7 @@ class Post
   end
 
   def update_post_event
-    if !persisted? || (persisted? && (night_type_changed? || address_original_changed? || (tag && tag.name_changed?) || (venue && venue.name_changed?)))
+    if !persisted? || (persisted? && (night_type_changed? || address_original_changed? || (tag_changed?) || (venue && venue.name_changed?)))
       event = PostChangeEvent.new(:night_type => night_type)
       if has_venue?
         if venue
@@ -84,9 +83,8 @@ class Post
         event.venue_name = venue_pretty_name
       end
 
-      if tag
-        event.tag = tag.name
-      end
+
+      event.tag = tag if tag
 
       event.created_at = Time.now
       self.post_events << event
@@ -130,18 +128,20 @@ class Post
       end
 
       if target_venue
-        self.venue = VenueSnippet.new(
-                name: target_venue.name,
-                address: target_venue.address,
-                public_id: target_venue.public_id,
-                coordinates: target_venue.coordinates
-        )
-        self.venue.id = target_venue.id
-      elsif !venue || !venue.address
         self.venue = nil
+        new_venue = VenueSnippet.new(
+                :name => target_venue.name,
+                :public_id => target_venue.public_id,
+                :coordinates => target_venue.coordinates
+        )
+        new_venue.address = target_venue.address
+        new_venue.id = target_venue.id
+        self.venue = new_venue
+      elsif !venue || !venue.address
+        #self.venue = nil
       end
     else
-      self.venue = nil
+      #self.venue = nil
     end
   end
 
@@ -285,8 +285,8 @@ class Post
 
   def tweet_text
     text = "I'm #{night_type_short} tonight"
-    if tag && !tag.name.blank?
-      text += " - #{tag.name}"
+    if tag && !tag.blank?
+      text += " - #{tag}"
     end
     if has_venue?
       text += " (#{venue_pretty_name})"
@@ -317,24 +317,6 @@ class Post
       }
     end
     data
-  end
-
-  def process_tag
-    if self.valid? && tag && !tag.name.blank?
-      if tag.name_changed?
-        found = Tag.where(:slug => tag.name.to_url).first
-        if found
-          found.score += 1
-          found.save
-        else
-          found = user.tags.create(name: tag.name)
-        end
-        tag.id = found.id
-      end
-      tag
-    else
-      self.tag = nil
-    end
   end
 
   def reset_pings_sent
@@ -408,7 +390,7 @@ class Post
                 :created_at => post.created_at,
                 :night_type => post.night_type,
                 :created_by => UserSnippet.convert_for_api(post.user_snippet),
-                :tag => Tag.convert_for_api(post.tag),
+                :tag => post.tag ? {:id => nil, :name => post.tag} : nil,
                 :venue => Venue.convert_for_api(post.venue),
                 :voters => post.voters.map{|v| UserSnippet.convert_for_api(v)}
         }

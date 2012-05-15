@@ -102,7 +102,7 @@ Whoot::Application.routes.draw do
   mount Resque::Server, :at => "/resque"
 
   # Soulmate api
-  mount Soulmate::Server, :at => "/autocomplete"
+  mount Soulmate::Server, :at => "/soul-data"
 
   # Invites
   resources :invites, :only => [:create, :index]

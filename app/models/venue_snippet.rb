@@ -23,9 +23,21 @@ class VenueSnippet
 
   def pretty_name
     if name.blank?
-      full_address
+      pretty_address
     else
       name
+    end
+  end
+
+  def pretty_address
+    if address
+      if address.street
+        address.street
+      elsif address.city
+        address.city
+      elsif address.state_code
+        address.state_code
+      end
     end
   end
 

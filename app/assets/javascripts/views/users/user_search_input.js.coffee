@@ -9,7 +9,7 @@ class Whoot.Views.UserSearchInput extends Backbone.View
     $(@el).html(@template())
 
     $(@el).find('input').soulmate
-      url:            '/autocomplete/search',
+      url:            '/soul-data/search',
       types:          ['user'],
       minQueryLength: 2,
       maxResults:     10,

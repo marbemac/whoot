@@ -6,12 +6,6 @@ class ApiPostsController < ApplicationController
   def create
     @post = Post.current_post(current_user)
 
-    if params[:tag]
-      params[:tag] = {
-              :name => params[:tag]
-      }
-    end
-
     if params[:venue_address] && !params[:venue_address].blank?
       params[:venue] = {
               :address_string => params[:venue_address],
@@ -21,7 +15,7 @@ class ApiPostsController < ApplicationController
 
     if @post
       @post.attributes = params
-      @post.venue = nil if @post.address_original.blank? && params[:venue_address].blank?
+      #@post.venue = nil if @post.address_original.blank? && params[:venue_address].blank?
     else
       @post = Post.new(params)
       @post.set_user_snippet(current_user)

@@ -18,6 +18,10 @@ class PostsController < ApplicationController
   def create
     @post = Post.current_post(current_user)
 
+    if params[:post][:tag] && params[:post][:tag][:name]
+      params[:tag] = params[:post][:tag][:name]
+    end
+
     if @post
       @post.attributes = params[:post]
       @post.venue = nil if @post.address_original.blank? && params[:post][:venue][:address_string].blank?

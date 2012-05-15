@@ -14,7 +14,7 @@
       <div class='btn btn-large night-type <%= if @user.get('current_post') && @user.get('current_post').night_type == 'big_out' then 'active big_out' else '' %>' data-on='btn-danger' data-val='big_out'>Partying</div>
     </div>
     <div>
-      <input type='text' id="post-form-content" spellcheck="false" autocomplete="off" name="tag" placeholder="Tag your night (optional). 40 character max." value="<%= if @user.get('current_post') && @user.get('current_post').tag then @user.get('current_post').tag.name else '' %>">
+      <input type='text' id="post-form-content" spellcheck="false" autocomplete="off" name="tag" placeholder="Tag your night (optional). 40 character max." value="<%= if @user.get('current_post') && @user.get('current_post').tag then @user.get('current_post').tag else '' %>">
     </div>
     <div>
       <input type='text' id="post-form-venue" spellcheck="false" autocomplete="off" name="venue_address_original" placeholder="Add Venue (optional). Please choose from suggested results." value="<%= if @user.get('current_post') then @user.get('current_post').address_original else '' %>">

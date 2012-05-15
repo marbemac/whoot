@@ -97,17 +97,17 @@ class Venue
 
   def check_duplicate
     if coordinates
-      found = Venue.where(:coordinates => coordinates[0], :coordinates => coordinates[1], :_id.ne => id).first
-      if found
-        Post.where("venue._id" => id).update_all(
-                "venue._id" => found.id,
-                "venue.address" => found.address,
-                "venue.public_id" => found.public_id,
-                "venue.coordinates" => found.coordinates
-        )
-        found.save
-        self.delete
-      end
+      #found = Venue.where(:coordinates => coordinates[0], :coordinates => coordinates[1], :_id.ne => id).first
+      #if found
+      #  Post.where("venue._id" => id).update_all(
+      #          "venue._id" => found.id,
+      #          "venue.address" => found.address, # THIS HAS AN ERROR. Cannot update with an embedded doc.
+      #          "venue.public_id" => found.public_id,
+      #          "venue.coordinates" => found.coordinates
+      #  )
+      #  found.save
+      #  self.delete
+      #end
     end
   end
 
@@ -116,9 +116,21 @@ class Venue
 
   def pretty_name
     if name.blank?
-      full_address
+      pretty_address
     else
       name
+    end
+  end
+
+  def pretty_address
+    if address
+      if address.street
+        address.street
+      elsif address.city
+        address.city
+      elsif address.state_code
+        address.state_code
+      end
     end
   end
 

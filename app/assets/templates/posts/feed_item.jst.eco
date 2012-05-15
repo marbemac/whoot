@@ -18,7 +18,7 @@
 
   <div class='tag'>
     <% if @post.get('tag'): %>
-      <%= @post.get('tag').name %>
+      <%= @post.get('tag') %>
     <% end %>
     <% if @post.get('address_original'): %>
       @

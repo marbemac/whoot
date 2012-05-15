@@ -7,11 +7,11 @@ class PostSnippet
   field :address_original
   field :comment_id
   field :suggestions
+  field :tag
 
   embedded_in :post_assignable, polymorphic: true
 
   embeds_one :venue, :as => :has_venue, :class_name => 'VenueSnippet'
-  embeds_one :tag, :as => :taggable, :class_name => 'TagSnippet'
 
   def as_json(options={})
     data = {
@@ -37,7 +37,7 @@ class PostSnippet
           :id => snippet.id,
           :night_type => snippet.night_type,
           :created_at => snippet.created_at,
-          :tag => Tag.convert_for_api(snippet.tag),
+          :tag => snippet.tag ? {:id => nil, :name => snippet.tag} : nil,
           :venue => Venue.convert_for_api(snippet.venue)
         }
       else
