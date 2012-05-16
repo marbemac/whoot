@@ -83,10 +83,10 @@ class Post
         event.venue_name = venue_pretty_name
       end
 
-
       event.tag = tag if tag
 
       event.created_at = Time.now
+      self.created_at = Time.now
       self.post_events << event
     end
   end
@@ -213,7 +213,7 @@ class Post
         if to_user.device_token
           Notification.send_push_notification(to_user.device_token, to_user.device_type, "#{user.first_name} posted what #{user.gender_pronoun}'s up to tonight!")
         else
-          PingMailer.pinged_user_posted(user, to_user).deliver
+          PingMailer.pinged_user_posted(user.id.to_s, to_user.id.to_s).deliver
         end
       end
     end
@@ -228,6 +228,8 @@ class Post
     post_snippet.address_original = address_original
     post_snippet.tag = tag
     post_snippet.venue = venue
+    post_snippet.comment_count = comment_count
+    post_snippet.loop_in_count = votes
     user.current_post = post_snippet
     user.save
   end

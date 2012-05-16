@@ -98,11 +98,17 @@ Whoot::Application.routes.draw do
   get ':id/following' => 'users#show', :as => :user_following_users
   get ':id/followers' => 'users#show', :as => :user_followers
 
+  resque_constraint = lambda do |request|
+    request.env['warden'].authenticate? and request.env['warden'].user.role?('admin')
+  end
+
   # Resque admin
-  mount Resque::Server, :at => "/resque"
+  constraints resque_constraint do
+    mount Resque::Server, :at => "admin/resque"
+  end
 
   # Soulmate api
-  mount Soulmate::Server, :at => "/soul-data"
+  mount Soulmate::Server, :at => "soul-data"
 
   # Invites
   resources :invites, :only => [:create, :index]

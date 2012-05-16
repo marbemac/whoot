@@ -161,7 +161,7 @@ class User
   end
 
   def send_welcome_email
-    UserMailer.welcome_email(self).deliver
+    UserMailer.welcome_email(id.to_s).deliver
   end
 
   def update_invites

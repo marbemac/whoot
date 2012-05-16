@@ -7,6 +7,8 @@ class PostSnippet
   field :address_original
   field :comment_id
   field :suggestions
+  field :comment_count, :default => 0
+  field :loop_in_count, :default => 0
   field :tag
 
   embedded_in :post_assignable, polymorphic: true
@@ -24,7 +26,9 @@ class PostSnippet
             :created_at_pretty => pretty_time(created_at),
             :created_at_day => pretty_day(created_at),
             :comment_id => comment_id,
-            :suggestions => suggestions
+            :suggestions => suggestions,
+            :comment_count => comment_count,
+            :loop_in_count => loop_in_count
     }
 
     data

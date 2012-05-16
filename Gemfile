@@ -21,6 +21,7 @@ gem 'heroku'
 gem 'resque', '1.20.0'#, :git => 'https://github.com/hone/resque.git', :branch => 'heroku'
 gem 'resque-scheduler', '2.0.0.h' # scheduled resque jobs
 gem 'resque-loner' # Unique resque jobs
+gem 'resque_mailer'
 gem "geocoder"
 gem "chronic" # Date/Time management
 gem 'cancan' # authorization

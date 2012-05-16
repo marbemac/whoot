@@ -16,7 +16,7 @@ class InvitesController < ApplicationController
     email = params[:invite][:email]
     current_user.add_invited_email email
     if current_user.errors.empty? && current_user.save
-      UserMailer.invite_email(current_user, email).deliver
+      UserMailer.invite_email(current_user.id.to_s, email).deliver
       render json: { :flash => {:type => :success, :message => "Friend successfully invited!"}, :event => 'user_invited' }, status: :created
     else
       render json: { :status => :error, :errors => current_user.errors}, status: :unprocessable_entity
