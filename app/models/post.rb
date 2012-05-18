@@ -230,6 +230,7 @@ class Post
     post_snippet.venue = venue
     post_snippet.comment_count = comment_count
     post_snippet.loop_in_count = votes
+    post_snippet.id = id
     user.current_post = post_snippet
     user.save
   end

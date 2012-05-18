@@ -114,7 +114,8 @@ class User
 
   # Return the users slug instead of their ID
   def to_param
-    "#{encoded_id}-#{fullname.parameterize}"
+    #"#{encoded_id}-#{fullname.parameterize}"
+    id.to_us
   end
 
   def generate_username

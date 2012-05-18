@@ -15,8 +15,6 @@ Devise.setup do |config|
   # available as additional gems.
   require 'devise/orm/mongoid'
 
-  config.apply_schema = false #https://github.com/plataformatec/devise/wiki/How-To:-Upgrade-to-Devise-2.0-migration-schema-style
-
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
   # just :email. You can configure it to use [:username, :subdomain], so for
@@ -94,10 +92,6 @@ Devise.setup do |config|
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false
-
-  # If true, uses the password salt as remember token. This should be turned
-  # to false if you are not using database authenticatable.
-  config.use_salt_as_remember_token = true
 
   # Options to be passed to the created cookie. For instance, you can set
   # :secure => true in order to force SSL only cookies.

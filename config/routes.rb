@@ -39,7 +39,7 @@ Whoot::Application.routes.draw do
         get ':id/activity' => 'api_users#activity', :defaults => { :format => :api }
         get ':id/following_users' => 'api_users#following_users', :defaults => { :format => :api }
         get ':id/followers' => 'api_users#followers', :defaults => { :format => :api }
-        get ':id' => 'api_user#show', :defaults => { :format => :api }
+        get ':id' => 'api_users#show', :defaults => { :format => :api }
       end
 
       scope 'comments' do

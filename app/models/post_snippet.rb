@@ -25,7 +25,6 @@ class PostSnippet
             :created_at => created_at,
             :created_at_pretty => pretty_time(created_at),
             :created_at_day => pretty_day(created_at),
-            :comment_id => comment_id,
             :suggestions => suggestions,
             :comment_count => comment_count,
             :loop_in_count => loop_in_count
