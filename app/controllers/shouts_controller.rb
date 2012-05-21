@@ -4,6 +4,7 @@ class ShoutsController < ApplicationController
   respond_to :json
 
   def create
+    post.shouted = true
     render :json => {:foo => :bar}, :status => :created
   end
 

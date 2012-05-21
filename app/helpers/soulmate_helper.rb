@@ -6,7 +6,8 @@ module SoulmateHelper
               'score' => 0,
               'data' => {
                       'url' => user_path(user),
-                      'location' => (user.location ? user.location.full : 'Outer Space, Unknown')
+                      'location' => (user.location ? user.location.full : 'Outer Space, Unknown'),
+                      'images' => User.json_images(user)
               }
     }
 

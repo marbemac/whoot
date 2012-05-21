@@ -115,7 +115,7 @@ class User
   # Return the users slug instead of their ID
   def to_param
     #"#{encoded_id}-#{fullname.parameterize}"
-    id.to_us
+    id.to_s
   end
 
   def generate_username
@@ -236,7 +236,6 @@ class User
       user.followers_count += 1
       Resque.enqueue(SmUserFollowUser, id.to_s, user.id.to_s)
 
-      user.race_score += 1 if created_at > Chronic.parse('March 1, 2012')
       true
     end
   end
@@ -259,7 +258,6 @@ class User
       user.followers_count -= 1
       Resque.enqueue(SmUserUnfollowUser, id.to_s, user.id.to_s)
 
-      user.race_score -= 1 if created_at > Chronic.parse('March 1, 2012')
       true
     end
   end
