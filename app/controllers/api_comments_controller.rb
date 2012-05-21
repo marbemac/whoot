@@ -11,12 +11,10 @@ class ApiCommentsController < ApplicationController
         Pusher[post.user_snippet.id.to_s].trigger('post_event', @post_event.as_json)
 
         if post.user.id != current_user.id
-          notification = Notification.add(post.user, :comment, true, current_user)
-          if notification
-            Pusher["#{post.user.id.to_s}_private"].trigger('new_notification', notification.to_json)
-          end
+          post.add_voter(current_user)
         end
 
+        post.save
         response = build_ajax_response(:ok)
         status = 201
       else

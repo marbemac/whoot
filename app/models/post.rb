@@ -271,7 +271,6 @@ class Post
       event.id = comment.id
       self.post_events << event
       self.comment_count += 1
-      save
     end
     comment
   end

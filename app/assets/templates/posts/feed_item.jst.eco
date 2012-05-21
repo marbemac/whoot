@@ -32,7 +32,7 @@
 
   <div class="comments_count">
     <span class='count'><%= @post.get('comment_count') %></span>
-    <div class='btn'>Comment</div>
+    <div class='btn comment-btn'>Comment</div>
   </div>
 </div>
 

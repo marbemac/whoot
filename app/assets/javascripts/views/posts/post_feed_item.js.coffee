@@ -5,6 +5,7 @@ class Whoot.Views.PostFeedItem extends Backbone.View
   events:
     "keypress textarea": "createComment"
     'click .top': 'toggleDetails'
+    'click .comment-btn': 'toggleDetails'
 
   initialize: ->
     self = @
@@ -82,10 +83,13 @@ class Whoot.Views.PostFeedItem extends Backbone.View
         complete: ->
           input.removeAttr('disabled')
 
-  toggleDetails: (e) ->
+  toggleDetails: (e) =>
     target = $(e.target)
 
-    if target.is('a') || target.hasClass('btn')
+    if target.is('a') || (target.hasClass('btn') && !target.hasClass('comment-btn'))
       return
 
     $(e.currentTarget).parent().toggleClass('on').find('.details').slideToggle(200)
+
+    if target.hasClass('comment-btn')
+      $(@el).find('textarea').focus()

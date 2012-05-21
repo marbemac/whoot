@@ -125,90 +125,91 @@ Whoot::Application.routes.draw do
     get 'team' => 'pages#team', :as => :team
   end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  # Posts
-  scope 'posts' do
-    get 'map' => 'posts#map', :as => :post_map
-    get 'ajax' => 'posts#ajax', :as => :posts_ajax
-  end
-  resources :posts
-
-  # Venues
-  get 'venues/ac' => 'venues#autocomplete', :as => :venue_autocomplete
-  get 'venues/:id/attending' => 'venues#attending', :as => :venue_attending
-  resources :venues
-
-  # Feed filters
-  put 'feed/display' => 'posts#update_feed_display', :as => :feed_display
-  put 'feed/sort' => 'posts#update_feed_sort', :as => :feed_sort
-
-  # Following
-  post   'follow' => 'follows#create', :as => :user_follow_create
-  delete 'follow' => 'follows#destroy', :as => :user_follow_destroy
-  get    'venue/:id/attending/following' => 'venues#attending_venue_map', :as => :attending_venue_map
-
-  # Notifications
-  get    'notifications/my' => 'notifications#my_notifications', :as => :my_notifications
-
-  # Pinging
-  post   'ping' => 'pings#create', :as => :ping_create
-
-  # Lists
-  post 'lists/:id/users' => 'lists#add_user', :as => :list_add_user
-  delete 'lists/:id/users' => 'lists#remove_user', :as => :list_remove_user
-  resources :lists
-
-  # Voting
-  post   'vote' => 'votes#create', :as => :vote_create
-  delete 'vote' => 'votes#destroy', :as => :vote_destroy
-  scope 'votes' do
-    get 'ajax' => 'votes#ajax', :as => :votes_ajax
-  end
-
-  # Comments
-  scope 'comments' do
-    get 'ajax' => 'comments#ajax', :as => :comments_ajax
-  end
-  resources :comments, :only => [:create, :destroy]
-
-  # Uploads
-  match "/upload" => "uploads#create", :as => :upload_tmp
-
-  # Testing
-  get 'testing' => 'testing#test', :as => :test
-
-  # Tags
-  put 'tags/:id/make_trendable' => 'tags#make_trendable', :as => :tag_make_trendable
-  put 'tags/:id/make_stopword' => 'tags#make_stopword', :as => :tag_make_stopword
-
-  # Twitter
-  post 'twitter/tweet' => 'users#tweet', :as => :tweet_post
-
   root :to => "pages#home"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ## Posts
+  #scope 'posts' do
+  #  get 'map' => 'posts#map', :as => :post_map
+  #  get 'ajax' => 'posts#ajax', :as => :posts_ajax
+  #end
+  #resources :posts
+  #
+  ## Venues
+  #get 'venues/ac' => 'venues#autocomplete', :as => :venue_autocomplete
+  #get 'venues/:id/attending' => 'venues#attending', :as => :venue_attending
+  #resources :venues
+  #
+  ## Feed filters
+  #put 'feed/display' => 'posts#update_feed_display', :as => :feed_display
+  #put 'feed/sort' => 'posts#update_feed_sort', :as => :feed_sort
+  #
+  ## Following
+  #post   'follow' => 'follows#create', :as => :user_follow_create
+  #delete 'follow' => 'follows#destroy', :as => :user_follow_destroy
+  #get    'venue/:id/attending/following' => 'venues#attending_venue_map', :as => :attending_venue_map
+  #
+  ## Notifications
+  #get    'notifications/my' => 'notifications#my_notifications', :as => :my_notifications
+  #
+  ## Pinging
+  #post   'ping' => 'pings#create', :as => :ping_create
+  #
+  ## Lists
+  #post 'lists/:id/users' => 'lists#add_user', :as => :list_add_user
+  #delete 'lists/:id/users' => 'lists#remove_user', :as => :list_remove_user
+  #resources :lists
+  #
+  ## Voting
+  #post   'vote' => 'votes#create', :as => :vote_create
+  #delete 'vote' => 'votes#destroy', :as => :vote_destroy
+  #scope 'votes' do
+  #  get 'ajax' => 'votes#ajax', :as => :votes_ajax
+  #end
+  #
+  ## Comments
+  #scope 'comments' do
+  #  get 'ajax' => 'comments#ajax', :as => :comments_ajax
+  #end
+  #resources :comments, :only => [:create, :destroy]
+  #
+  ## Uploads
+  #match "/upload" => "uploads#create", :as => :upload_tmp
+  #
+  ## Testing
+  #get 'testing' => 'testing#test', :as => :test
+  #
+  ## Tags
+  #put 'tags/:id/make_trendable' => 'tags#make_trendable', :as => :tag_make_trendable
+  #put 'tags/:id/make_stopword' => 'tags#make_stopword', :as => :tag_make_stopword
+  #
+  ## Twitter
+  #post 'twitter/tweet' => 'users#tweet', :as => :tweet_post
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

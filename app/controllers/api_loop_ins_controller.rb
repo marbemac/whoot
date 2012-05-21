@@ -40,7 +40,7 @@ class ApiLoopInsController < ApplicationController
       target_post.remove_voter(current_user)
       target_post.save
       Notification.remove(target_post.user, :loop, current_user)
-      response = build_ajax_response(:ok, nil, "You looped out", nil, { })
+      response = build_ajax_response(:ok, nil, "You looped out")
       status = 200
     else
       response = build_ajax_response(:error, nil, 'Target post not found!')

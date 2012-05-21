@@ -22,6 +22,7 @@ class Whoot.Views.BlockedUser extends Backbone.View
         $(self.el).find('.btn-success').addClass('disabled').text('Submitting...')
       success: (data) ->
         $(self.el).find('.btn-success').removeClass('disabled').text('Unblock User')
+        globalSuccess(data, $(self.el))
         $(self).remove()
       error: (jqXHR, textStatus, errorThrown) ->
         $(self.el).find('.btn-success').removeClass('disabled').text('Unblock User')

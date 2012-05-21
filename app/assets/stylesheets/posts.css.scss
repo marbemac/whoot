@@ -202,16 +202,15 @@
       .top {
         height: 50px;
         .date {
-          display: table-cell;
-          height: 50px;
-          vertical-align: middle;
-          padding: 0 0 0 10px;
+          position: absolute;
+          top: 14px;
+          left: 10px;
           cursor: default;
-          width: 115px;
         }
         &.show-date {
-          .name {
-            padding-left: 20px;
+          .name,
+          .tag {
+            padding-left: 120px;
           }
         }
       }

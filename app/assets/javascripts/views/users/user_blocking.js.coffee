@@ -14,7 +14,7 @@ class Whoot.Views.UserBlocking extends Backbone.View
     self = @
 
     $(@el).find('input:first').soulmate
-      url:            '/autocomplete/search',
+      url:            '/soul-data/search',
       types:          ['user'],
       minQueryLength: 2,
       maxResults:     10,
