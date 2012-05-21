@@ -194,7 +194,7 @@ class Notification
           if notification.notify
             # TODO: Only send one every 5 minutes
             if target_user.device_token  # pushing notification
-              if Notification.send_push_notification(target_user.device_token, target_user.device_type, "#{triggered_by_user.fullname} #{notification.notification_text(1)}")
+              if Notification.send_push_notification(target_user.device_token, target_user.device_type, "#{triggered_by_user.fullname} #{notification.notification_text}")
                 target_user.last_notified = Time.now
                 notification.pushed = true
                 notification.save

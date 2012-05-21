@@ -185,7 +185,7 @@ class NotificationOld
         end
         if notification.notify
           if target_user.device_token
-            if Notification.send_push_notification(target_user.device_token, target_user.device_type, "#{triggered_by_user.fullname} #{notification.notification_text(1)}")
+            if Notification.send_push_notification(target_user.device_token, target_user.device_type, "#{triggered_by_user.fullname} #{notification.notification_text}")
               notification.pushed = true
               notification.save
             end
