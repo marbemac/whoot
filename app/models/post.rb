@@ -325,6 +325,25 @@ class Post
     user.set(:pings_sent_today, 0)
   end
 
+  def shout(shout_text, user)
+    if shouted
+      false
+    else
+      snippet = UserSnippet.new(
+          :username => user.username,
+          :first_name => user.first_name,
+          :last_name => user.last_name,
+          :public_id => user.public_id,
+          :fbuid => user.fbuid
+      )
+      snippet.id = user.id
+      event = PostShoutEvent.new(:user_snippet => snippet, :content => shout_text)
+      self.post_events << event
+      self.shouted = true
+      event
+    end
+  end
+
   def as_json(current_user, options={})
     data = {
             :id => id.to_s,
