@@ -1,0 +1,16 @@
+<%
+   if Rails.env.development?
+     base = 'http://localhost:3002'
+   elsif Rails.env.staging?
+     base = 'http://staging.thewhoot.com'
+   else
+     base = 'http://www.thewhoot.com'
+   end
+%>
+
+<p>
+  <%= @shouter.first_name %> shouted: "<%= @content %>".
+  Click <a href="<%= base + user_path(@shouter) %>">here</a> to join the discussion!
+</p>
+
+<p>You are receiving this message because you're following <%= @shouter.first_name %>, and you checked the "Receive Shouts" box on your post</p>

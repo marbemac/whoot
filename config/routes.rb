@@ -7,6 +7,7 @@ Whoot::Application.routes.draw do
     scope 'v2' do
       scope 'posts' do
         get 'feed' => 'api_posts#feed', :defaults => { :format => :api }
+        get ':id' => 'api_posts#show', :defaults => { :format => :api }
         post '' => 'api_posts#create', :defaults => { :format => :api }
 
         scope 'loop_ins' do
@@ -113,6 +114,9 @@ Whoot::Application.routes.draw do
   # Invites
   resources :invites, :only => [:create, :index]
 
+  # Posts
+  resources :posts, :only => [:new]
+
   get ':id' => 'users#show', :as => :user
 
   # Pages
@@ -158,7 +162,6 @@ Whoot::Application.routes.draw do
   #  get 'map' => 'posts#map', :as => :post_map
   #  get 'ajax' => 'posts#ajax', :as => :posts_ajax
   #end
-  #resources :posts
   #
   ## Venues
   #get 'venues/ac' => 'venues#autocomplete', :as => :venue_autocomplete

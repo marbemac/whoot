@@ -6,6 +6,8 @@
       is <span class='<%= @event.night_type %>'><%= Whoot.App.night_verb(@event.night_type) %></span>
     <% else if @event.type == 'PostCommentEvent': %>
       <%= @event.comment.content %>
+    <% else if @event.type == 'PostShoutEvent': %>
+      <span class="shouted">shouted</span> "<%= @event.content %>"
     <% else if @event.type == 'PostLoopEvent': %>
       looped in
     <% end %>

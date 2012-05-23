@@ -108,8 +108,8 @@ class Notification
             :created_at_pretty => pretty_time(created_at),
             :created_at_day => pretty_day(created_at),
             :triggered_by => triggered_by.as_json,
-            :object => object.as_json,
-            :object_user => object_user.as_json
+            :object => object ? object.as_json : nil,
+            :object_user => object_user ? object_user.as_json : nil
     }
   end
 
