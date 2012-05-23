@@ -9,7 +9,7 @@ class ShoutsController < ApplicationController
     event = post.shout(params[:content], current_user)
     if event
       if post.save
-        SendShoutEmail.perform(current_user.id, params[:content])
+        Resque.enqueue(SendShoutEmail, current_user.id.to_s, params[:content])
         response = build_ajax_response(:ok, nil, "Your shout has been sent!")
       else
         response = build_ajax_response(:error, nil, "Your shout could not be posted", event.errors)
@@ -22,5 +22,4 @@ class ShoutsController < ApplicationController
 
     render :json => response, :status => status
   end
-
 end
