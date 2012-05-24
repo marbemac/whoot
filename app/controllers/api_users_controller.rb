@@ -44,8 +44,7 @@ class ApiUsersController < ApplicationController
   def activity
     user = User.find(params[:id])
     not_found("User not found") unless user
-    posts = Post.where("user_snippet._id" => user.id).order_by(:created_at, :asc).limit(20)
-    foo = posts.to_a
+    posts = Post.where("user_snippet._id" => user.id).order_by(:created_at, :desc).limit(20)
     render :json => posts.map {|p| p.as_json(user)}
   end
 
