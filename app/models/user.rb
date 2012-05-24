@@ -471,7 +471,8 @@ class User
             :current_post => current_post && current_post.created_at >= Post.cutoff_time ? current_post : nil,
             :posted_today => posted_today?,
             :images => User.json_images(self),
-            :blocked_by => blocked_by
+            :blocked_by => blocked_by,
+            :pings_today => pings_today
     }
 
     if options[:show_extra]
