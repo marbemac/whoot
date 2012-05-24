@@ -472,7 +472,7 @@ class User
             :posted_today => posted_today?,
             :images => User.json_images(self),
             :blocked_by => blocked_by,
-            :pings_today => pings_today
+            :pings_today => pings_today_date && pings_today_date >= Post.cutoff_time ? pings_today : []
     }
 
     if options[:show_extra]
