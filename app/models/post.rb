@@ -413,7 +413,8 @@ class Post
                 :created_by => UserSnippet.convert_for_api(post.user_snippet),
                 :tag => post.tag ? {:id => nil, :name => post.tag} : nil,
                 :venue => Venue.convert_for_api(post.venue),
-                :voters => post.voters.map{|v| UserSnippet.convert_for_api(v)}
+                :voters => post.voters.map{|v| UserSnippet.convert_for_api(v)},
+                :shouted => shouted
         }
       else
         nil
