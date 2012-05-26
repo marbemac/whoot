@@ -43,5 +43,7 @@ class Whoot.Views.UserSettings extends Backbone.View
       type: 'put'
       dataType: 'json'
       data: { id: button.val() }
-#      success: (data) ->
-#        globalSuccess(data, $(self.el))
+      success: (data) ->
+        globalSuccess(data, $(self.el))
+      error: (jqXHR, textStatus, errorThrown) ->
+        globalError(jqXHR)

@@ -29,6 +29,8 @@ Whoot::Application.routes.draw do
         end
 
         put '' => 'api_users#update', :defaults => { :format => :api }
+        put 'location' => 'api_users#change_location', :defaults => { :format => :api }, :as => :user_change_location
+
         scope 'pings' do
           post '' => 'api_pings#create', :type => 'User', :defaults => { :format => :api }
         end
@@ -36,7 +38,6 @@ Whoot::Application.routes.draw do
         get 'me' => 'api_users#me', :defaults => { :format => :api }
         get 'undecided' => 'api_users#undecided', :defaults => { :format => :api }
         get 'notifications' => 'api_users#notifications', :defaults => { :format => :api }
-        put ':id/location' => 'api_users#change_location', :defaults => { :format => :api }
         get ':id/activity' => 'api_users#activity', :defaults => { :format => :api }
         get ':id/following_users' => 'api_users#following_users', :defaults => { :format => :api }
         get ':id/followers' => 'api_users#followers', :defaults => { :format => :api }
@@ -94,7 +95,7 @@ Whoot::Application.routes.draw do
   scope "/users" do
     put "/picture" => "users#picture_update", :as => :user_picture_update
     get ':id/picture' => 'users#default_picture', :as => :user_default_picture
-    put '/location' => 'users#change_location', :as => :user_change_location
+    put '/location' => 'users#change_location'
   end
 
   get ':id/following' => 'users#show', :as => :user_following_users
