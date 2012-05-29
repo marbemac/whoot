@@ -480,7 +480,9 @@ class User
               :following_users => following_users,
               :facebook_id => fbuid,
               :twitter_id => twuid,
-              :roles => roles
+              :roles => roles,
+              :settings => settings.as_json
+
       )
     end
 

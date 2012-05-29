@@ -119,6 +119,9 @@ Whoot::Application.routes.draw do
   # Posts
   resources :posts, :only => [:new]
 
+  # Testing
+  get 'testing' => 'testing#test', :as => :test
+
   get ':id' => 'users#show', :as => :user
 
   # Pages
@@ -205,9 +208,6 @@ Whoot::Application.routes.draw do
   #
   ## Uploads
   #match "/upload" => "uploads#create", :as => :upload_tmp
-  #
-  ## Testing
-  #get 'testing' => 'testing#test', :as => :test
   #
   ## Tags
   #put 'tags/:id/make_trendable' => 'tags#make_trendable', :as => :tag_make_trendable

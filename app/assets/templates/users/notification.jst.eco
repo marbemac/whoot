@@ -1,6 +1,11 @@
-<img src='<%= @notification.get('triggered_by').get('images').square.small %>' />
+<% unless @notification.get('type') == "ping": %>
+  <img src='<%= @notification.get('triggered_by').get('images').square.small %>' />
+<% end %>
+
 <div class='content'>
-  <a class="ulink" href="/<%= @notification.get('triggered_by').get('id') %>"><%= @notification.get('triggered_by').fullname() %></a>
+  <% unless @notification.get('type') == "ping": %>
+    <a class="ulink" href="/<%= @notification.get('triggered_by').get('id') %>"><%= @notification.get('triggered_by').fullname() %></a>
+  <% end %>
   <%= @notification.get('sentence') %>
 </div>
 <div class='time'>

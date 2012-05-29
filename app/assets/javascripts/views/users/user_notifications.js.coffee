@@ -11,6 +11,7 @@ class Whoot.Views.UserNotifications extends Backbone.View
     @count = 0
 
   render: =>
+    console.log('foobar')
 
     if ($('#user-notifications').length == 0)
       $(@el).html(@template())

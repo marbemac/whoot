@@ -11,7 +11,7 @@ class ApiUsersController < ApplicationController
   end
 
   def me
-    render :json => current_user
+    render :json => current_user.as_json(:show_extra => true)
   end
 
   def followers
@@ -69,6 +69,7 @@ class ApiUsersController < ApplicationController
   def update
     current_user.settings.email_comment = (params[:email_comment] == "true") if params[:email_comment]
     current_user.settings.email_ping = (params[:email_ping] == "true") if params[:email_ping]
+    current_user.settings.email_loop = (params[:email_loop] == "true") if params[:email_loop]
     current_user.settings.email_follow = (params[:email_follow] == "true") if params[:email_follow]
     current_user.settings.email_daily = (params[:email_daily] == "true") if params[:email_daily]
     if params[:unread_notification_count]

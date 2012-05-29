@@ -26,7 +26,7 @@ class Whoot.Views.UserSidebar extends Backbone.View
         self.model.set('unread_notification_count', self.model.get('unread_notification_count') + 1)
         if self.notifications
           notification = self.notifications.collection.findOrCreate(data.id, new Whoot.Models.Notification(data))
-        createGrowl(false, "#{data.triggered_by.first_name} #{data.sentence}", 'Notification', 'green')
+        createGrowl(false, data.full_text, 'Notification', 'green')
 
       Whoot.App.subscribe_event("#{self.model.get('id')}_private", 'new_notification')
 

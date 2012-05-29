@@ -1,11 +1,6 @@
+
 <%= @user.first_name %>, there’s been a lot going on since you last logged in. We have a few notifications for you!
 
 <% @notifications.each do |notification| %>
-  <% if notification.type == 'follow' %>
-    - You have <%= pluralize(notification.triggered_users_notify_count.to_i, 'new follower') %>! Login to view them.
-  <% elsif notification.type == 'comment' %>
-    - You have <%= pluralize(notification.triggered_users_notify_count.to_i, 'new comment') %> on your post!
-  <% elsif notification.type == 'also' %>
-    - <%= pluralize(notification.triggered_users_notify_count.to_i, 'person') %> also commented on <%= notification.object_user.first_name %>'s post!
-  <% end %>
+  - <%= notification.full_text %>
 <% end %>

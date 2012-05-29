@@ -30,6 +30,14 @@
           <div class="btn radio-btn <%= "btn-info" unless @user.settings.email_ping %>" name="email_ping" data-value="false">Off</div>
         </div>
       </div>
+
+      <div class="field">
+        <div class="setting-text">When someone loops in to my night</div>
+        <div class="btn-group">
+          <div class="btn radio-btn <%= "btn-info" if @user.settings.email_loop %>" name="email_loop" data-value="true">On</div>
+          <div class="btn radio-btn <%= "btn-info" unless @user.settings.email_loop %>" name="email_loop" data-value="false">Off</div>
+        </div>
+      </div>
   
       <div class="field">
         <div class="setting-text">When someone comments on something I said</div>

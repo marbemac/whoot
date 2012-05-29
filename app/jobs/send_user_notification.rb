@@ -4,9 +4,7 @@ class SendUserNotification
   def self.perform(user_id)
     user = User.find(user_id)
     if user
-      types = []
-      types << 'follow' if user.settings.email_follow
-      types << 'comment' if user.settings.email_comment
+      types = user.settings.notification_types
       unless types.empty?
         notifications = Notification.where(
                 :user_id => user.id,
@@ -20,7 +18,7 @@ class SendUserNotification
           NotificationMailer.new_notifications(user, notifications).deliver
           # Set each notification to emailed
           notifications.each do |notification|
-            notification.set_emailed
+            notification.emailed = true
             notification.save
           end
         end

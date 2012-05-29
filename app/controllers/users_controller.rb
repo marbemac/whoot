@@ -72,11 +72,12 @@ class UsersController < ApplicationController
     @locations = City.order_by([[:state_code, :asc], [:city, :asc]]).all
   end
 
-  def settings_update
-    current_user.toggle_setting(params[:setting])
-    current_user.save
-    render :json => {:status => 'ok', :event => 'settings_updated', :target => '.setting-'+params[:setting], :toggle_classes => ['setB', 'unsetB']}, :status => 201
-  end
+  # BETA REMOVE?
+  #def settings_update
+  #  current_user.toggle_setting(params[:setting])
+  #  current_user.save
+  #  render :json => {:status => 'ok', :event => 'settings_updated', :target => '.setting-'+params[:setting], :toggle_classes => ['setB', 'unsetB']}, :status => 201
+  #end
 
   def tweet
     if params[:tweet_content]

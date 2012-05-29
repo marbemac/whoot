@@ -33,21 +33,22 @@ class Notification
 
   belongs_to :user
 
-  def add_triggered_by(triggered_by_user)
-    found = triggered_by.detect {|u| u.id == triggered_by_user.id}
-    self.set_emailed.delete(triggered_by_user.id)
-    unless found
-      self.triggered_by.create(
-              :_id => triggered_by_user.id,
-              :username => triggered_by_user.username,
-              :first_name => triggered_by_user.first_name,
-              :last_name => triggered_by_user.last_name,
-              :public_id => triggered_by_user.public_id
-      )
-      return true
-    end
-    false
-  end
+  # BETA REMOVE
+  #def add_triggered_by(triggered_by_user)
+  #  found = triggered_by.detect {|u| u.id == triggered_by_user.id}
+  #  self.set_emailed.delete(triggered_by_user.id)
+  #  unless found
+  #    self.triggered_by.create(
+  #            :_id => triggered_by_user.id,
+  #            :username => triggered_by_user.username,
+  #            :first_name => triggered_by_user.first_name,
+  #            :last_name => triggered_by_user.last_name,
+  #            :public_id => triggered_by_user.public_id
+  #    )
+  #    return true
+  #  end
+  #  false
+  #end
 
   def triggered_users_notify_count
     users_count = 0
@@ -81,20 +82,31 @@ class Notification
         "commented on your post"
       when :also # also signifies that someone has also responded to something your responded to
         "also commented on #{object_user.first_name}'s post"
+      when :ping
+        "Someone pinged you"
       else
         "did something weird... this is a mistake and The Whoot team has been notified to fix it!"
     end
   end
 
-  def set_emailed
-    self.emailed = true
-    # Set each triggered to emailed
-    self.triggered_by.each do |user|
-      unless triggered_by_emailed.include? user.id
-        self.triggered_by_emailed << user.id
-      end
+  def full_text
+    if type.to_sym == :ping
+      "Someone pinged you"
+    else
+      "#{triggered_by.fullname} #{notification_text}"
     end
   end
+
+  # BETA REMOVE
+  #def set_emailed
+  #  self.emailed = true
+  #  # Set each triggered to emailed
+  #  self.triggered_by.each do |user|
+  #    unless triggered_by_emailed.include? user.id
+  #      self.triggered_by_emailed << user.id
+  #    end
+  #  end
+  #end
 
   def as_json(options={})
     {
@@ -104,10 +116,11 @@ class Notification
             :message => message,
             :type => type,
             :sentence => notification_text,
+            :full_text => full_text,
             :created_at => created_at,
             :created_at_pretty => pretty_time(created_at),
             :created_at_day => pretty_day(created_at),
-            :triggered_by => triggered_by.as_json,
+            :triggered_by => type.to_sym == :ping ? nil : triggered_by.as_json,
             :object => object ? object.as_json : nil,
             :object_user => object_user ? object_user.as_json : nil
     }
@@ -118,7 +131,7 @@ class Notification
     # Creates and optionally sends a notification for a user
     # target_user = the user object we are adding the notification for
     # type = the type of notification (string)
-    # notify = bool wether to send the notification or not via email and/or push message
+    # notify = bool whether to send the notification or not via email and/or push message
     # triggered_by_user = the user object that triggered this notification, if there is one
     # message = optional message
     # object = optional object this notification is attached to
@@ -191,16 +204,21 @@ class Notification
         if new_notification
           target_user.unread_notification_count += 1
 
-          if notification.notify
-            # TODO: Only send one every 5 minutes
+          if notification.notify && target_user.settings.notification_types.include?(type.to_s)
             if target_user.device_token  # pushing notification
-              if Notification.send_push_notification(target_user.device_token, target_user.device_type, "#{triggered_by_user.fullname} #{notification.notification_text}")
+              #TODO: Only send one every 5 minutes
+              msg = notification.type.to_s == "ping" ? "Someone pinged you on The Whoot! Login and post to let them know what you're up to tonight." : notification.full_text
+              if Notification.send_push_notification(target_user.device_token, target_user.device_type, msg)
                 target_user.last_notified = Time.now
                 notification.pushed = true
                 notification.save
               end
             else # emailing notification
-              Resque.enqueue_in(30.minutes, SendUserNotification, target_user.id.to_s)
+              if notification.type.to_s == "ping"
+                PingMailer.new_ping(target_user.id.to_s).deliver
+              else
+                Resque.enqueue_in(5.minutes, SendUserNotification, target_user.id.to_s)
+              end
             end
           end
 

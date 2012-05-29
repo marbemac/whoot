@@ -3,17 +3,7 @@
 </p>
 
 <% @notifications.each do |notification| %>
-  <% if notification.type.to_s == 'follow' %>
-    <p>
-      - You have <%= pluralize(notification.triggered_by.length.to_i, 'new follower') %>! Login to view them.
-    </p>
-  <% elsif notification.type.to_s == 'comment' %>
-    <p>
-      - You have <%= pluralize(notification.triggered_by.length.to_i, 'new comment') %> on your post!
-    </p>
-  <% elsif notification.type.to_s == 'also' %>
-    <p>
-      - <%= pluralize(notification.triggered_by.length.to_i, 'person') %> also commented on <%= notification.object_user.first_name %>'s post!
-    </p>  
-  <% end %>
+  <p>
+    - <%= notification.full_text %>
+  </p>
 <% end %>
