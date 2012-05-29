@@ -67,11 +67,11 @@ class ApiUsersController < ApplicationController
   end
 
   def update
-    current_user.settings.email_comment = (params[:email_comment] == "true") if params[:email_comment]
-    current_user.settings.email_ping = (params[:email_ping] == "true") if params[:email_ping]
-    current_user.settings.email_loop = (params[:email_loop] == "true") if params[:email_loop]
-    current_user.settings.email_follow = (params[:email_follow] == "true") if params[:email_follow]
-    current_user.settings.email_daily = (params[:email_daily] == "true") if params[:email_daily]
+    current_user.settings.email_comment = %w(true 1).include?(params[:email_comment]) if params[:email_comment]
+    current_user.settings.email_ping = %w(true 1).include?(params[:email_ping]) if params[:email_ping]
+    current_user.settings.email_loop = %w(true 1).include?(params[:email_loop]) if params[:email_loop]
+    current_user.settings.email_follow = %w(true 1).include?(params[:email_follow]) if params[:email_follow]
+    current_user.settings.email_daily = %w(true 1).include?(params[:email_daily]) if params[:email_daily]
     if params[:unread_notification_count]
       current_user.unread_notification_count = params[:unread_notification_count]
       if current_user.unread_notification_count == 0
