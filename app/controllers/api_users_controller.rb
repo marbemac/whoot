@@ -81,7 +81,7 @@ class ApiUsersController < ApplicationController
 
     current_user.save
 
-    render :nothing => true, status: 200
+    render :json => current_user.as_json(:show_extra => true), status: 200
   end
 
   def block_user

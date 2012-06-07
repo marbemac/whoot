@@ -1,7 +1,9 @@
-require 'rbconfig'
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.3'
+ruby '1.9.3'
+
+gem 'bundler', '1.2.0.pre.1'
+gem 'rails', '3.2.5'
 gem 'execjs'
 gem 'jquery-rails'
 gem 'rack'
@@ -11,7 +13,7 @@ gem 'mongoid' # MongoDB
 gem 'mongoid_slug' # Automatic MongoDB slugs
 gem 'mongoid_auto_inc' # Auto incrementing fields in mongoid
 gem 'devise' # Authentication
-gem 'koala', '1.4.1' # facebook graph api support
+gem 'koala', '1.5' # facebook graph api support
 gem 'twitter' # twitter api support
 gem "omniauth"
 gem "omniauth-facebook"
@@ -37,8 +39,8 @@ gem 'urbanairship' # push notifications
 gem 'backbone-on-rails'
 
 group :assets do
-  gem 'sass-rails', '3.2.3'
-  gem 'coffee-rails', "3.2.1"
+  gem 'sass-rails', '~> 3.2.3'
+  gem 'coffee-rails', "~> 3.2.1"
   gem 'compass-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes

@@ -414,7 +414,7 @@ class Post
                 :tag => post.tag ? {:id => nil, :name => post.tag} : nil,
                 :venue => Venue.convert_for_api(post.venue),
                 :voters => post.voters.map{|v| UserSnippet.convert_for_api(v)},
-                :shouted => shouted
+                :shouted => shouted ? shouted : false
         }
       else
         nil
