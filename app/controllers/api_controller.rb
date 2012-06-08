@@ -105,7 +105,7 @@ class ApiController < ApplicationController
       end
       data = []
       @registeredFriends.each do |friend|
-        data << User.convert_for_api(friend, current_user)
+        data << (params[:version] == :v1 ? User.convert_for_api(friend, current_user) : friend.as_json)
       end
       status = 'ok'
     else
