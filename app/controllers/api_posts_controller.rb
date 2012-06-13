@@ -59,18 +59,25 @@ class ApiPostsController < ApplicationController
     posts = Post.following_feed(user, true)
 
     by_location = {}
+    final = []
     posts.each do |post|
       if post.id == current_user.current_post.id
-        by_location["0"] = { location: post.location }
-        by_location["0"]["posts"] = [post.as_json(current_user)]
+        final = [{ location: post.location, posts: [post.as_json(current_user)] }]
       elsif by_location[post.location.id.to_s]
-        by_location[post.location.id.to_s]["posts"] << [post.as_json(current_user)]
+        by_location[post.location.id.to_s][:posts] << [post.as_json(current_user)]
       else
         by_location[post.location.id.to_s] = { location: post.location }
-        by_location[post.location.id.to_s]["posts"] = [post.as_json(current_user)]
+        by_location[post.location.id.to_s][:posts] = [post.as_json(current_user)]
       end
     end
-    render :json => by_location
+
+    # Insert the current user's city first
+    final << by_location[final[0][:location].id.to_s] if by_location[final[0][:location].id.to_s]
+    by_location.each do |key, value|
+      final << value unless value[:location].id.to_s == final[0][:location].id.to_s
+    end
+
+    render :json => final
   end
 
 end
