@@ -57,7 +57,20 @@ class ApiPostsController < ApplicationController
   def feed
     user = params[:user_id] ? User.find(params[:user_id]) : current_user
     posts = Post.following_feed(user, true)
-    render :json => posts.map {|p| p.as_json(current_user)}
+
+    by_location = {}
+    posts.each do |post|
+      if post.id == current_user.current_post.id
+        by_location["0"] = { location: post.location }
+        by_location["0"]["posts"] = [post.as_json(current_user)]
+      elsif by_location[post.location.id.to_s]
+        by_location[post.location.id.to_s]["posts"] << [post.as_json(current_user)]
+      else
+        by_location[post.location.id.to_s] = { location: post.location }
+        by_location[post.location.id.to_s]["posts"] = [post.as_json(current_user)]
+      end
+    end
+    render :json => by_location
   end
 
 end

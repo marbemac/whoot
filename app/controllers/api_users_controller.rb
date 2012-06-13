@@ -119,60 +119,56 @@ class ApiUsersController < ApplicationController
 
   def analytics
     tmp_data = {
-            :social_network => {
-                    :post_breakdown => {
-                            :working => {
-                                    :now => 34.8,
-                                    :change => 10.4
-                            },
-                            :low_in => {
-                                    :now => 12.2,
-                                    :change => -3.5
-                            },
-                            :low_out => {
-                                    :now => 23,
-                                    :change => 0
-                            },
-                            :big_out => {
-                                    :now => 30,
-                                    :change => 3
-                            }
-                    },
-                    :sex_breakdown => {
-                            :female => 34,
+            :following => {
+                    :working => {
+                            :now => 35,
+                            :change => 10,
+                            :female => 42,
                             :male => 58
+                    },
+                    :low_in => {
+                            :now => 12,
+                            :change => -3,
+                            :female => 29,
+                            :male => 71
+                    },
+                    :low_out => {
+                            :now => 23,
+                            :change => 0,
+                            :female => 48,
+                            :male => 52
+                    },
+                    :big_out => {
+                            :now => 30,
+                            :change => 3,
+                            :female => 63,
+                            :male => 37
                     }
             },
             :city => {
-                    :post_breakdown => {
-                            :working => {
-                                    :now => 34.8,
-                                    :change => 10.4
-                            },
-                            :low_in => {
-                                    :now => 12.2,
-                                    :change => -3.5
-                            },
-                            :low_out => {
-                                    :now => 23,
-                                    :change => 0
-                            },
-                            :big_out => {
-                                    :now => 30,
-                                    :change => 3
-                            }
+                    :working => {
+                            :now => 26,
+                            :change => 6,
+                            :female => 41,
+                            :male => 59
                     },
-                    :sex_breakdown => {
-                            :female => 34,
+                    :low_in => {
+                            :now => 16,
+                            :change => 0,
+                            :female => 42,
                             :male => 58
-                    }
-            },
-            :me => {
-                    :tonight => {
-                            :working => 25,
-                            :low_in => 25,
-                            :low_out => 25,
-                            :big_out => 25
+                    },
+                    :low_out => {
+                            :now => 33,
+                            :change => -12,
+                            :female => 33,
+                            :male => 67
+                    },
+                    :big_out => {
+                            :now => 25,
+                            :change => -9,
+                            :female => 80,
+                            :male => 20
                     }
             }
     }
