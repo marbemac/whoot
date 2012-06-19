@@ -36,7 +36,7 @@ class Whoot.Router extends Backbone.Router
       Whoot.App.renderScreen('user_feed', id)
 
   userFollowers: (id) ->
-    user = Whoot.App.Users.findOrCreate(id, new Whoot.Models.User($('#this').data('this')))
+    user = new Whoot.Models.User($('#this').data('this'))
 
     if Whoot.App.findScreen('user_followers', id)
       Whoot.App.showScreen('user_followers', id)
@@ -65,7 +65,7 @@ class Whoot.Router extends Backbone.Router
       collection.fetch()
 
   userFollowingUsers: (id) ->
-    user = Whoot.App.Users.findOrCreate(id, new Whoot.Models.User($('#this').data('this')))
+    user = new Whoot.Models.User($('#this').data('this'))
 
     if Whoot.App.findScreen('user_following_users', id)
       Whoot.App.showScreen('user_following_users', id)
@@ -94,7 +94,7 @@ class Whoot.Router extends Backbone.Router
       collection.fetch()
 
   userActivity: (id) ->
-    user = Whoot.App.Users.findOrCreate(id, new Whoot.Models.User($('#this').data('this')))
+    user = new Whoot.Models.User($('#this').data('this'))
 
     if Whoot.App.findScreen('user_activity', id)
       Whoot.App.showScreen('user_activity', id)

@@ -20,7 +20,7 @@ class Whoot.Views.PostFeedItem extends Backbone.View
       channel.bind 'post_event', (data) ->
         console.log 'foo'
         if data.type == 'PostLoopEvent'
-          user = Whoot.App.Users.findOrCreate(data.user.id, new Whoot.Models.User(data.user))
+          user = new Whoot.Models.User(data.user)
           self.appendLoopIn(user)
           self.model.set('votes', self.model.get('votes')+1)
           $(self.el).find('.votes').text(parseInt($(self.el).find('.votes').text()) + 1)

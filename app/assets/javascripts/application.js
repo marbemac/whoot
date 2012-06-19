@@ -7,7 +7,7 @@
 //= require jquery_ujs
 //= require json2
 //= require underscore
-//= require backbone
+//= require backbone-with-identity-map
 //= require whoot
 //= require_tree ../templates
 //= require_tree ./models

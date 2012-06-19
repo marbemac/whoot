@@ -1,16 +1,13 @@
 class Whoot.Models.Post extends Backbone.Model
 
   initialize: ->
-    @set('user', Whoot.App.Users.findOrCreate(@get('user').id, @get('user')))
+    @set('user', new Whoot.Models.User(@get('user')))
 
     loop_ins = []
     for u in @get('loop_ins')
-      loop_ins.push(Whoot.App.Users.findOrCreate(u.id, u))
+      loop_ins.push(new Whoot.Models.User(u))
 
     @set('loop_ins', loop_ins)
-
-  parse: (resp, xhr) ->
-    Whoot.App.Posts.findOrCreate(resp.id, resp)
 
   is_looped_in: ->
     _.any(@get('loop_ins'), (loop_in) ->

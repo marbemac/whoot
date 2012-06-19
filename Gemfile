@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 ruby '1.9.3'
 
 gem 'bundler', '1.2.0.pre.1'
-gem 'rails', '3.2.5'
+gem 'rails', '3.2.6'
 gem 'execjs'
 gem 'jquery-rails'
 gem 'rack'

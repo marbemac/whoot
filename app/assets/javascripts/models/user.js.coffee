@@ -3,9 +3,6 @@ class Whoot.Models.User extends Backbone.Model
 
   initialize: ->
 
-  parse: (resp, xhr) ->
-    Whoot.App.Users.findOrCreate(resp.id, resp)
-
   following: (model) ->
     _.include(@get('following_users'), model.get('id'))
 

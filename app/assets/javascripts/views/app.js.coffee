@@ -20,7 +20,7 @@ class Whoot.Views.App extends Backbone.View
     @event_subscriptions = {}
 
     # set the current user
-    @current_user = if $('#me').length > 0 then @Users.findOrCreate($('#me').data('user').id, $('#me').data('user')) else null
+    @current_user = if $('#me').length > 0 then new Whoot.Models.User($('#me').data('user')) else null
 
   newScreen: (name, id) =>
     @screens["#{name}_#{id}"] = {
