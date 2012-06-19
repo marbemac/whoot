@@ -29,5 +29,4 @@ class City
   def coordinates_string=(coordinates_string)
     self.coordinates = coordinates_string.split(',')
   end
-
 end

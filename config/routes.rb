@@ -57,6 +57,7 @@ Whoot::Application.routes.draw do
         post '' => 'shouts#create', :defaults => { :format => :api }
       end
 
+      get 'locations' => 'api_locations#index', :defaults => { :format => :api }
       get 'facebook-friends' => 'api#facebook_friends', :defaults => { :format => :api, :version => :v2 }
       get 'analytics' => 'api_users#analytics', :as => :analytics, :defaults => { :format => :api }
       get 'generate_token' => 'api#generate_token', :as => :mobile_generate_token, :defaults => { :format => :api }
