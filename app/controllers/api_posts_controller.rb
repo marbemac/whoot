@@ -72,7 +72,7 @@ class ApiPostsController < ApplicationController
     end
 
     # Insert the current user's city first
-    final << by_location[final[0][:location].id.to_s] if by_location[final[0][:location].id.to_s]
+    final[0][:posts] = final[0][:posts] + by_location[final[0][:location].id.to_s][:posts] if by_location[final[0][:location].id.to_s]
     by_location.each do |key, value|
       final << value unless value[:location].id.to_s == final[0][:location].id.to_s
     end

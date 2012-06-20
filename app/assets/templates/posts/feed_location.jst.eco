@@ -1,5 +1,5 @@
 <h4><%= @name %></h4>
-<% if @id == Whoot.App.current_user.id: %>
+<% if @id == Whoot.App.current_user.get('location')._id: %>
   <div id='update-post'>Update My Post</div>
   <div id='shout'>Shout!</div>
 <% end %>
