@@ -21,6 +21,11 @@ class ApiPostsController < ApplicationController
       @post.set_user_snippet(current_user)
     end
 
+    # If the user did not supply a venue, but we received lat and long, set user location by these
+    if @post.address_original.blank? && params[:lat] && params[:long]
+      @post.set_user_location_by_mobile(params[:lat], params[:long])
+    end
+
     if params[:format] && params[:format] == :api
       @post.entry_point = 'api'
     else
@@ -64,7 +69,7 @@ class ApiPostsController < ApplicationController
       if post.id == current_user.current_post.id
         final = [{ location: post.location, posts: [post.as_json(current_user)] }]
       elsif by_location[post.location.id.to_s]
-        by_location[post.location.id.to_s][:posts] << [post.as_json(current_user)]
+        by_location[post.location.id.to_s][:posts] << post.as_json(current_user)
       else
         by_location[post.location.id.to_s] = { location: post.location }
         by_location[post.location.id.to_s][:posts] = [post.as_json(current_user)]

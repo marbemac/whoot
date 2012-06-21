@@ -98,6 +98,7 @@ class User
   has_many :pings
   has_many :venues
   has_many :posts
+  belongs_to :night_invite
 
   validates :email, :first_name, :last_name, :gender, :presence => true
   validates :gender, :inclusion => { :in => ["m", "f"], :message => "Please enter a valid gender." }

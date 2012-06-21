@@ -25,7 +25,7 @@ jQuery ->
   window.globalSuccess = (data, target=null) ->
 
     if data.flash
-      createGrowl false, data.flash, 'Ok', 'green'
+      createGrowl false, data.flash, 'Success', 'green'
 
     if data.redirect
       window.location = data.redirect

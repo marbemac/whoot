@@ -31,6 +31,7 @@ class Whoot.Views.FollowButton extends Backbone.View
       beforeSend: ->
         $(self.el).addClass('disabled')
       success: (data) ->
+        globalSuccess(data)
         self.model.set('following', !self.model.get('following'))
         if self.model.get('following') then $(self.el).addClass('gray') else $(self.el).removeClass('gray')
       error: (jqXHR, textStatus, errorThrown) ->

@@ -174,4 +174,13 @@ class ApiUsersController < ApplicationController
     }
     render :json => tmp_data
   end
+
+  def night_invite
+    if params[:phone_numbers].empty? && params[:user_ids].empty?
+      render json: build_ajax_response(:error, nil, "Both arrays cannot be blank"), status: 422
+    else
+      night_invite = NightInvite.create(:phone_numbers => params[:phone_numbers], :invited_user_ids => params[:user_ids])
+      render json: build_ajax_response(:ok, nil, "Invite successful"), status: 201
+    end
+  end
 end

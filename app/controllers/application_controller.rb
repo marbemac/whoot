@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  #protect_from_forgery
   before_filter :init, :set_request_type, :set_feed_filters, :set_user_time_zone, :initialize_mixpanel, :require_post#, :prepare_for_mobile
   layout :layout
 

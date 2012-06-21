@@ -28,13 +28,13 @@ Whoot::Application.routes.draw do
           delete '' => 'api_users#unblock_user', :defaults => { :format => :api }
         end
 
-        put '' => 'api_users#update', :defaults => { :format => :api }
-        put 'location' => 'api_users#change_location', :defaults => { :format => :api }, :as => :user_change_location
-
         scope 'pings' do
           post '' => 'api_pings#create', :type => 'User', :defaults => { :format => :api }
         end
 
+        put '' => 'api_users#update', :defaults => { :format => :api }
+        put 'location' => 'api_users#change_location', :defaults => { :format => :api }, :as => :user_change_location
+        post 'night_invites' => 'api_users#night_invite', :defaults => { :format => :api }
         get 'me' => 'api_users#me', :defaults => { :format => :api }
         get 'undecided' => 'api_users#undecided', :defaults => { :format => :api }
         get 'notifications' => 'api_users#notifications', :defaults => { :format => :api }

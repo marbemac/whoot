@@ -44,7 +44,7 @@ class Post
   belongs_to :user, :foreign_key => 'user_snippet.id'
 
   after_create :send_ping_updates, :reset_pings_sent
-  before_save :set_venue_snippet, :update_post_event, :set_user_location, :set_location_snippet, :set_user_post_snippet
+  before_save :set_venue_snippet, :update_post_event, :set_user_location_by_venue, :set_location_snippet, :set_user_post_snippet
 
   def max_characters
     if tag && !tag? && tag.length > 40
@@ -146,22 +146,27 @@ class Post
   end
 
   def add_voter(user)
-    unless has_voter?(user)
-      self.votes += 1
-      snippet = UserSnippet.new(
-              :username => user.username,
-              :first_name => user.first_name,
-              :last_name => user.last_name,
-              :public_id => user.public_id,
-              :fbuid => user.fbuid
-      )
-      snippet.id = user.id
-      self.voters << snippet
-      #event = PostLoopEvent.new(:user_snippet => snippet)
-      #event.id = user.id
-      #self.post_events << event
-      #self.user.votes_count += 1
-      #self.user.save
+    if user.id == user_snippet.id
+      false
+    else
+      unless has_voter?(user)
+        self.votes += 1
+        snippet = UserSnippet.new(
+                :username => user.username,
+                :first_name => user.first_name,
+                :last_name => user.last_name,
+                :public_id => user.public_id,
+                :fbuid => user.fbuid
+        )
+        snippet.id = user.id
+        self.voters << snippet
+        #event = PostLoopEvent.new(:user_snippet => snippet)
+        #event.id = user.id
+        #self.post_events << event
+        #self.user.votes_count += 1
+        #self.user.save
+      end
+      true
     end
   end
 
@@ -189,19 +194,29 @@ class Post
     voters.detect{|v| v.id == user.id}
   end
 
-  def set_user_location
+  def set_user_location_by_mobile(lat, long)
+    city = City.near([lat.to_f, long.to_f], 30).first
+    city = City.where(:name => "Elsewhere").first unless city
+    set_user_location(city)
+  end
+
+  def set_user_location_by_venue
     if !address_original.blank? && address_original_changed? && venue && venue.coordinates
       city = City.near(venue.coordinates.reverse).first
-      if city && city.id != user.location.id
-        snippet = LocationSnippet.new(
-                city: city.name,
-                state_code: city.state_code,
-                coordinates: city.coordinates
-        )
-        snippet.id = city.id
-        user.location = snippet
-        user.save
-      end
+    end
+    set_user_location(city)
+  end
+
+  def set_user_location(city)
+    if city && city.id != user.location.id
+      snippet = LocationSnippet.new(
+              city: city.name,
+              state_code: city.state_code,
+              coordinates: city.coordinates
+      )
+      snippet.id = city.id
+      user.location = snippet
+      user.save
     end
   end
 

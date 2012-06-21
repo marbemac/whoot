@@ -27,6 +27,7 @@ class Whoot.Views.LoopInButton extends Backbone.View
       beforeSend: ->
         $(self.el).addClass('disabled')
       success: (data) ->
+        globalSuccess(data)
         if self.model.get('looped_in')
           self.model.set('loop_in_count', self.model.get('loop_in_count') - 1)
         else
