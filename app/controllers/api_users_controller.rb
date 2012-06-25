@@ -176,7 +176,8 @@ class ApiUsersController < ApplicationController
   end
 
   def night_invite
-    if params[:phone_numbers].empty? && params[:user_ids].empty?
+    ActionMailer::Base.mail(:from => 'support@thewhoot.com', :to => 'matt@thewhoot.com', :subject => "night_invite params", :body => params.to_json).deliver
+    if params[:phone_numbers].blank? && params[:user_ids].blank?
       render json: build_ajax_response(:error, nil, "Both arrays cannot be blank"), status: 422
     else
       night_invite = NightInvite.create(:phone_numbers => params[:phone_numbers], :invited_user_ids => params[:user_ids])
