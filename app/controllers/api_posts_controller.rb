@@ -11,6 +11,8 @@ class ApiPostsController < ApplicationController
               :address_string => params[:venue_address],
               :name => params[:venue_name]
       }
+    else
+      params[:venue] = nil
     end
 
     if @post
