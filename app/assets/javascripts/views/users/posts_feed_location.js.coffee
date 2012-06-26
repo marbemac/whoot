@@ -16,7 +16,7 @@ class Whoot.Views.PostsFeedLocation extends Backbone.View
     @
 
   appendPost: (post) =>
-    target = $(@el).find(".#{post.get('night_type')}")
+    target = $(@el).find("ul.#{post.get('night_type')}")
     target.fadeIn(500)
 
     view = new Whoot.Views.PostFeedItem(model: post)
