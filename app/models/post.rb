@@ -138,10 +138,10 @@ class Post
         new_venue.id = target_venue.id
         self.venue = new_venue
       elsif !venue || !venue.address
-        #self.venue = nil
+        self.venue = nil
       end
     else
-      #self.venue = nil
+      self.venue = nil
     end
   end
 
