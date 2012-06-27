@@ -202,7 +202,8 @@ class Post
 
   def set_user_location_by_venue
     if !address_original.blank? && address_original_changed? && venue && venue.coordinates
-      city = City.near(venue.coordinates.reverse).first
+      city = City.near(venue.coordinates.reverse, 30).first
+      city = City.where(:name => "Elsewhere").first unless city
     end
     set_user_location(city)
   end
@@ -235,19 +236,21 @@ class Post
   end
 
   def set_user_post_snippet
-    post_snippet = PostSnippet.new(
-            :night_type => night_type,
-            :created_at => created_at ? created_at : Time.now
-    )
-    post_snippet.suggestions = suggestions
-    post_snippet.address_original = address_original
-    post_snippet.tag = tag
-    post_snippet.venue = venue
-    post_snippet.comment_count = comment_count
-    post_snippet.loop_in_count = votes
-    post_snippet.id = id
-    user.current_post = post_snippet
-    user.save
+    if created_at >= Post.cutoff_time
+      post_snippet = PostSnippet.new(
+              :night_type => night_type,
+              :created_at => created_at ? created_at : Time.now
+      )
+      post_snippet.suggestions = suggestions
+      post_snippet.address_original = address_original
+      post_snippet.tag = tag
+      post_snippet.venue = venue
+      post_snippet.comment_count = comment_count
+      post_snippet.loop_in_count = votes
+      post_snippet.id = id
+      user.current_post = post_snippet
+      user.save
+    end
   end
 
   def set_user_snippet(user)
