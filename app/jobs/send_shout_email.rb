@@ -11,7 +11,7 @@ class SendShoutEmail
     users.each do |user|
       puts user.fullname
       if user.device_token
-        Notification.send_push_notification(user.device_token, user.device_type, "#{shouter.first_name} shouted: #{content}")
+        Notification.send_push_notification(user.device_token, user.device_type, "#{shouter.first_name} shouted: #{content}", user.unread_notification_count)
       else
         ShoutMailer.shout(shouter, user, content).deliver
       end

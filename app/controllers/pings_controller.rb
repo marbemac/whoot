@@ -9,7 +9,7 @@ class PingsController < ApplicationController
         if target_user.save && current_user.save && target_user.settings.email_ping && !target_user.device_token
           PingMailer.new_ping(target_user).deliver
         elsif target_user.device_token
-          Notification.send_push_notification(target_user.device_token, target_user.device_type, "Someone pinged you on The Whoot! Login and post to let them know what you're up to tonight.")
+          Notification.send_push_notification(target_user.device_token, target_user.device_type, "Someone pinged you on The Whoot! Login and post to let them know what you're up to tonight.", target_user.unread_notification_count)
         end
         if params[:format] == :api
           response = {:json => {:status => 'ok'}}

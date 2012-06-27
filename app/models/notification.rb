@@ -208,7 +208,7 @@ class Notification
             if target_user.device_token  # pushing notification
               #TODO: Only send one every 5 minutes
               msg = notification.type.to_s == "ping" ? "Someone pinged you on The Whoot! Login and post to let them know what you're up to tonight." : notification.full_text
-              if Notification.send_push_notification(target_user.device_token, target_user.device_type, msg)
+              if Notification.send_push_notification(target_user.device_token, target_user.device_type, msg, target_user.unread_notification_count)
                 target_user.last_notified = Time.now
                 notification.pushed = true
                 notification.save
@@ -251,7 +251,7 @@ class Notification
       end
     end
 
-    def send_push_notification(device_token, device_type, message)
+    def send_push_notification(device_token, device_type, message, badge=0)
       case device_type
         when 'Android'
           notification = {
@@ -263,7 +263,8 @@ class Notification
           notification = {
             :schedule_for => [10.seconds.from_now],
             :device_tokens => [device_token],
-            :aps => {:alert => message}
+            :aps => {:alert => message},
+            :badge => badge
           }
       end
 
