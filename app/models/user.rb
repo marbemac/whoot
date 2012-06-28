@@ -219,7 +219,9 @@ class User
   end
 
   def follow_user(user)
-    if !following_users.include?(user.id)
+    if following_users.include?(user.id) || user.id == id
+      false
+    else
       follow = Follow.following(id, user.id)
       unless follow
         follow = Follow.new(

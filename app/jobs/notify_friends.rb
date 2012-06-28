@@ -11,7 +11,7 @@ class NotifyFriends
       registeredFriends.each do |friend|
         if friend.device_token
           message = "Your friend " + user.fullname + " has joined The Whoot! Log in to follow " + user.gender_him_her
-          Notification.send_push_notification(friend.device_token, friend.device_type, message, friend.unread_notification_count)
+          Notification.send_push_notification(friend.device_token, friend.device_type, message, friend.unread_notification_count, user.id)
         end
       end
     end

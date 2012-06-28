@@ -78,4 +78,15 @@ namespace :user do
     end
   end
 
+  #desc "Set correct counts"
+  #task :reset_counts => :environment do
+  #  users = User.where(:status => 'Active')
+  #  users.each do |user|
+  #    user.following_users_count = user.following_users.length
+  #    followers = User.where(:following_users => user.id)
+  #    user.followers_count = followers.length
+  #    user.save
+  #  end
+  #end
+
 end

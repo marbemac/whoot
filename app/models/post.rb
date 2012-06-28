@@ -108,7 +108,7 @@ class Post
       end
       notify_users.each do |u|
         if u.device_token
-          Notification.send_push_notification(u.device_token, u.device_type, text, u.unread_notification_count)
+          Notification.send_push_notification(u.device_token, u.device_type, text, u.unread_notification_count, user_id)
         end
       end
     end
@@ -227,7 +227,7 @@ class Post
       users = User.where(:_id.in => user.pings_today)
       users.each do |to_user|
         if to_user.device_token
-          Notification.send_push_notification(to_user.device_token, to_user.device_type, "#{user.first_name} posted what #{user.gender_pronoun}'s up to tonight!", to_user.unread_notification_count)
+          Notification.send_push_notification(to_user.device_token, to_user.device_type, "#{user.first_name} posted what #{user.gender_pronoun}'s up to tonight!", to_user.unread_notification_count, user.id)
         else
           PingMailer.pinged_user_posted(user.id.to_s, to_user.id.to_s).deliver
         end

@@ -97,6 +97,23 @@ class Notification
     end
   end
 
+  def show_user
+    case type.to_sym
+      when :follow
+        triggered_by.id
+      when :loop
+        user_id
+      when :comment
+        object_user.id
+      when :also
+        object_user.id
+      when :ping
+        nil
+      else
+        nil
+    end
+  end
+
   # BETA REMOVE
   #def set_emailed
   #  self.emailed = true
@@ -122,7 +139,8 @@ class Notification
             :created_at_day => pretty_day(created_at),
             :triggered_by => type.to_sym == :ping ? nil : triggered_by.as_json,
             :object => object ? object.as_json : nil,
-            :object_user => object_user ? object_user.as_json : nil
+            :object_user => object_user ? object_user.as_json : nil,
+            :show_user => show_user
     }
   end
 
@@ -208,7 +226,7 @@ class Notification
             if target_user.device_token  # pushing notification
               #TODO: Only send one every 5 minutes
               msg = notification.type.to_s == "ping" ? "Someone pinged you on The Whoot! Login and post to let them know what you're up to tonight." : notification.full_text
-              if Notification.send_push_notification(target_user.device_token, target_user.device_type, msg, target_user.unread_notification_count)
+              if Notification.send_push_notification(target_user.device_token, target_user.device_type, msg, target_user.unread_notification_count, notification.show_user)
                 target_user.last_notified = Time.now
                 notification.pushed = true
                 notification.save
@@ -251,20 +269,29 @@ class Notification
       end
     end
 
-    def send_push_notification(device_token, device_type, message, badge=0)
+    def send_push_notification(device_token, device_type, message, badge=0, show_user=nil)
       case device_type
         when 'Android'
           notification = {
             :schedule_for => [10.seconds.from_now],
             :apids => [device_token],
-            :android => {:alert => message}
+            :android => {
+                :alert => message,
+                :extra => {
+                    :show_user => show_user
+                }
+            }
           }
         when 'IOS'
           notification = {
             :schedule_for => [10.seconds.from_now],
             :device_tokens => [device_token],
-            :aps => {:alert => message},
-            :badge => badge
+            :aps => {
+                :alert => message,
+                :badge => badge,
+                :sound => "default"
+            },
+            :show_user => show_user
           }
       end
 
