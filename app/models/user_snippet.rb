@@ -10,6 +10,7 @@ class UserSnippet
   field :last_name
   field :public_id
   field :fbuid
+  field :gender
 
   embedded_in :user_assignable, polymorphic: true
 

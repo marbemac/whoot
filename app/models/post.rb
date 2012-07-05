@@ -259,7 +259,8 @@ class Post
             :first_name => user.first_name,
             :last_name => user.last_name,
             :public_id => user.public_id,
-            :fbuid => user.fbuid
+            :fbuid => user.fbuid,
+            :gender => user.gender
     )
     self.user_snippet.id = user.id
   end
@@ -399,6 +400,14 @@ class Post
       )
     end
 
+    def city_feed(user)
+      where(
+              :created_at.gte => Post.cutoff_time,
+              'location._id' => user.location.id,
+              :current => true
+      )
+    end
+
     def list_feed(users)
       where(
               :created_at.gte => Post.cutoff_time,
@@ -417,6 +426,20 @@ class Post
 
     def cutoff_time
       Chronic.parse('today at 5:00am', :now => Chronic.parse('5 hours ago'))
+    end
+
+    def analytics(posts)
+      data = {}
+      [:working, :low_in, :low_out, :big_out].each do |type|
+        typed_posts = posts.where(:night_type => type)
+        data[type] = {
+            :now => (typed_posts.count.to_f / posts.count.to_f * 100).to_i,
+            :change => 0,
+            :male => (typed_posts.where("user_snippet.gender" => "m").count.to_f / posts.count.to_f * 100).to_i,
+            :female => (typed_posts.where("user_snippet.gender" => "f").count.to_f / posts.count.to_f * 100).to_i
+        }
+      end
+      data
     end
 
     def convert_for_api(post)

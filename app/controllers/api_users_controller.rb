@@ -118,61 +118,67 @@ class ApiUsersController < ApplicationController
   end
 
   def analytics
-    tmp_data = {
-            :following => {
-                    :working => {
-                            :now => 35,
-                            :change => 10,
-                            :female => 42,
-                            :male => 58
-                    },
-                    :low_in => {
-                            :now => 12,
-                            :change => -3,
-                            :female => 29,
-                            :male => 71
-                    },
-                    :low_out => {
-                            :now => 23,
-                            :change => 0,
-                            :female => 48,
-                            :male => 52
-                    },
-                    :big_out => {
-                            :now => 30,
-                            :change => 3,
-                            :female => 63,
-                            :male => 37
-                    }
-            },
-            :city => {
-                    :working => {
-                            :now => 26,
-                            :change => 6,
-                            :female => 41,
-                            :male => 59
-                    },
-                    :low_in => {
-                            :now => 16,
-                            :change => 0,
-                            :female => 42,
-                            :male => 58
-                    },
-                    :low_out => {
-                            :now => 33,
-                            :change => -12,
-                            :female => 33,
-                            :male => 67
-                    },
-                    :big_out => {
-                            :now => 25,
-                            :change => -9,
-                            :female => 80,
-                            :male => 20
-                    }
-            }
-    }
-    render :json => tmp_data
+    following = Post.following_feed(current_user, true)
+    city = Post.city_feed(current_user)
+
+    analytics = { :following => Post.analytics(following) }
+    analytics[:city] = Post.analytics(city)
+
+    #tmp_data = {
+    #        :following => {
+    #                :working => {
+    #                        :now => 35,
+    #                        :change => 10,
+    #                        :female => 42,
+    #                        :male => 58
+    #                },
+    #                :low_in => {
+    #                        :now => 12,
+    #                        :change => -3,
+    #                        :female => 29,
+    #                        :male => 71
+    #                },
+    #                :low_out => {
+    #                        :now => 23,
+    #                        :change => 0,
+    #                        :female => 48,
+    #                        :male => 52
+    #                },
+    #                :big_out => {
+    #                        :now => 30,
+    #                        :change => 3,
+    #                        :female => 63,
+    #                        :male => 37
+    #                }
+    #        },
+    #        :city => {
+    #                :working => {
+    #                        :now => 26,
+    #                        :change => 6,
+    #                        :female => 41,
+    #                        :male => 59
+    #                },
+    #                :low_in => {
+    #                        :now => 16,
+    #                        :change => 0,
+    #                        :female => 42,
+    #                        :male => 58
+    #                },
+    #                :low_out => {
+    #                        :now => 33,
+    #                        :change => -12,
+    #                        :female => 33,
+    #                        :male => 67
+    #                },
+    #                :big_out => {
+    #                        :now => 25,
+    #                        :change => -9,
+    #                        :female => 80,
+    #                        :male => 20
+    #                }
+    #        }
+    #}
+    render :json => analytics
   end
 
   def night_invite
