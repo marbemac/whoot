@@ -17,7 +17,7 @@
 #  #args: 'hour'
 #  description: "This job recalculates tag popularities"
 
-send_daily_reminder:
-  cron: 0 16 * * * America/New_York
-  class: SendDailyReminder
-  description: "Sends a daily reminder via push notification or email"
+#send_daily_reminder:
+#  cron: 0 16 * * * America/New_York
+#  class: SendDailyReminder
+#  description: "Sends a daily reminder via push notification or email"
