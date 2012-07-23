@@ -1,7 +1,8 @@
 class TestingController < ApplicationController
 
   def test
-    SendUserNotification.perform("4f832fc7ac8dde47f5000001")
+    sms = Moonshado::Sms.new("12404182338", "test")
+    sms.deliver_sms
   end
 
 end

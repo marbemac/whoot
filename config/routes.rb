@@ -87,6 +87,12 @@ Whoot::Application.routes.draw do
     end
   end
 
+  scope 'm' do
+    scope 'p' do
+      get ':id' => 'mobile#post_show'
+    end
+  end
+
   # Users
   get 'settings' => 'users#settings', :as => :user_settings
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }

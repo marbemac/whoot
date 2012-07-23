@@ -37,6 +37,7 @@ gem 'pusher' # pusher publish/subscribe system
 gem 'mixpanel' # analytics
 gem 'urbanairship' # push notifications
 gem 'backbone-on-rails'
+gem "moonshado-sms", :git => 'git://github.com/moonshado/moonshado-sms.git'
 
 group :assets do
   gem 'sass-rails', '~> 3.2.3'

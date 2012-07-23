@@ -13,7 +13,9 @@
   <body class="<%= params[:controller] %> <%= calculate_time_of_day %>">
     <%= image_tag "logo-top.png", :alt => "The Whoot", :class => 'logo' %>
 
-    <%= yield %>
+    <div class='content'>
+      <%= yield %>
+    </div>
 
     <div id="gradient-bg">&nbsp;</div>
       <% unless calculate_time_of_day == :day %>
