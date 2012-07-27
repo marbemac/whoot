@@ -15,9 +15,9 @@ class BeerCode
 
   def self.generate
     600.times do |i|
-      code = SecureRandom.hex(2)
+      code = (0...5).map{65.+(rand(25)).chr}.join.to_s
       while self.where(:code => code).first
-        code = SecureRandom.hex(2)
+        code = (0...5).map{65.+(rand(25)).chr}.join.to_s
       end
       BeerCode.create(:code => code)
     end
