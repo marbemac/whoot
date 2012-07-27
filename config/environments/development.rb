@@ -55,4 +55,5 @@ Whoot::Application.configure do
           :user_name => 'app1340105@heroku.com',
           :password => '2nczsq6j'
   }
+
 end

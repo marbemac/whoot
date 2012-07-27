@@ -82,6 +82,8 @@ class Notification
         "commented on your post"
       when :also # also signifies that someone has also responded to something your responded to
         "also commented on #{object_user.first_name}'s post"
+      when :invite # also signifies that someone has also responded to something your responded to
+        "invited you to their night tonight"
       when :ping
         "Someone pinged you"
       else
@@ -102,6 +104,8 @@ class Notification
       when :follow
         triggered_by.id
       when :loop
+        user_id
+      when :invite
         user_id
       when :comment
         object_user.id

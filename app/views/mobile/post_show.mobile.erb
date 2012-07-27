@@ -1,0 +1,28 @@
+<h1>
+    <%= @user.first_name %> is <%= @post.night_type_short %> tonight!
+</h1>
+
+<div class='tag'>
+  <% if @post.tag && !@post.tag.blank? %>
+      <%= @post.tag %>
+  <% end %>
+  <% if @post.address_original && !@post.address_original.blank? %>
+      @
+      <% if @post.venue %>
+          <%= @post.venue.pretty_name %>
+          <% else %>
+          <%= @post.address_original %>
+      <% end %>
+  <% end %>
+</div>
+
+<br />
+
+<h2>Get The Whoot to share plans and stay up to date with <%= @user.first_name %>'s plan</h2>
+<br />
+<a href="http://itunes.apple.com/us/app/the-whoot/id497790312?ls=1&mt=8" class='iphone-app' target="_blank">
+  <%= image_tag "iphone-app-store.png", :alt => "Available on the iPhone App Store!" %>
+</a>
+<a href="https://market.android.com/details?id=com.whoot.android&feature=search_result#?t=W251bGwsMSwxLDEsImNvbS53aG9vdC5hbmRyb2lkIl0" class='android-app' target="_blank">
+  <%= image_tag "android-app-store.png", :alt => "Available on the Android App Store!" %>
+</a>
