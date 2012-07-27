@@ -55,6 +55,7 @@ class User
   field :device_token
   field :device_type
   field :blocked_by, :default => []
+  field :my_beer_code
 
   auto_increment :public_id
 
@@ -302,10 +303,6 @@ class User
     invited_emails.include? email
   end
 
-  def invited_phone?(phone)
-    invited_phones.include? phone
-  end
-
   def add_invited_email(email)
     email.strip!
     unless email =~ /^([^\s]+)((?:[-a-z0-9]\.)[a-z]{2,})$/i
@@ -327,10 +324,18 @@ class User
     end
   end
 
+  def invited_phone?(phone)
+    invited_phones.include? phone
+  end
+
   def add_invited_phone(phone)
     phone.strip!
     unless invited_phone?(phone)
       self.invited_phones << phone
+      if invited_phones.length >= 5 && !my_beer_code
+        self.my_beer_code = BeerCode.grab_code
+        UserMailer.beer_code(id.to_s, my_beer_code).deliver
+      end
     end
   end
 
