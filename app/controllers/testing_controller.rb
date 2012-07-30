@@ -3,7 +3,10 @@ class TestingController < ApplicationController
   def test
     authorize! :manage, :all
 
-    @codes = BeerCode.all.asc(:code)
+    SetDayAnalytics.perform()
+
+    @codes = []
+    #@codes = BeerCode.all.asc(:code)
   end
 
 end

@@ -21,3 +21,8 @@
 #  cron: 0 16 * * * America/New_York
 #  class: SendDailyReminder
 #  description: "Sends a daily reminder via push notification or email"
+
+set_day_analytics:
+  cron: 30 4 * * * America/New_York
+  class: SetDayAnalytics
+  description: "Updates the DayAverages collection once a day"

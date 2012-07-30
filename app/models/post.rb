@@ -400,10 +400,10 @@ class Post
       )
     end
 
-    def city_feed(user)
+    def city_feed(location_id)
       where(
               :created_at.gte => Post.cutoff_time,
-              'location._id' => user.location.id,
+              'location._id' => location_id,
               :current => true
       )
     end
@@ -428,16 +428,18 @@ class Post
       Chronic.parse('today at 5:00am', :now => Chronic.parse('5 hours ago'))
     end
 
-    def analytics(posts)
+    def analytics(posts, ints=true)
       data = {}
       [:working, :low_in, :low_out, :big_out].each do |type|
         typed_posts = posts.where(:night_type => type)
+        now = typed_posts.count.to_f / posts.count.to_f * 100
         data[type] = {
-            :now => (typed_posts.count.to_f / posts.count.to_f * 100).to_i,
-            :change => 0,
-            :male => (typed_posts.where("user_snippet.gender" => "m").count.to_f / posts.count.to_f * 100).to_i,
-            :female => (typed_posts.where("user_snippet.gender" => "f").count.to_f / posts.count.to_f * 100).to_i
+            :now => now,
+            :change => DayAnalytic.get_change(type, now),
+            :male => (typed_posts.where("user_snippet.gender" => "m").count.to_f / posts.count.to_f * 100),
+            :female => (typed_posts.where("user_snippet.gender" => "f").count.to_f / posts.count.to_f * 100)
         }
+        data[type].each { |key, value| data[type][key] = value.to_i } if ints
       end
       data
     end
