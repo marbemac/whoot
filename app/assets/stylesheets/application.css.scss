@@ -27,3 +27,10 @@
 @import "users";
 @import "notifications";
 @import "shouts";
+
+.disabled-notice {
+  color: darkred;
+  font-size:  14px;
+  cursor: default;
+  padding: 15px 0;
+}

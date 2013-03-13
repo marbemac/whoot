@@ -1,22 +1,15 @@
-<div id="social_friends">
-  <h3 id="invite_friends" data-uid="{{ app.user.id }}">Invite Your Facebook Friends</h3>
-  <div class="registered">
-    <h3>Follow Friends Already Using The Whoot</h3>
-    <% @registeredFriends.each do |friend| %>
-      <div class="friend">
-        <%= image_tag user_default_picture_path(friend, :d => [50, 50], :s => 'square'), :style => "max-width: 50px;", :alt => '' %>
-        <%= user_link friend %>
-        <%= render "follows/button", :target_user => friend %>
-      </div>
-    <% end %>
+<% content_for :content do %>
 
-    <% if @registeredFriends.length == 0 %>
-      <div class="none">
-        You don't have any Facebook friends on The Whoot yet. Click the button above to invite them!
+    <section id="social_friends">
+      <h3 id="invite_friends" data-uid="{{ app.user.id }}">Invite Your Facebook Friends</h3>
+      <div class="registered">
+        <h3>Follow Friends Already Using The Whoot</h3>
+
+        <div class='disabled-notice'>This feature is disabled for the demo.</div>
+
+        <a href="<%= root_path %>" class="done">Done Following Friends</a>
+        <div class="clear"></div>
       </div>
-    <% end %>
-    <div class="clear"></div>
-    <a href="<%= root_path %>" class="done">Done Following Friends</a>
-    <div class="clear"></div>
-  </div>
-</div>
+    </section>
+
+<% end %>

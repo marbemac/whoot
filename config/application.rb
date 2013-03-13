@@ -67,5 +67,9 @@ module Whoot
 
     config.assets.initialize_on_precompile = false
 
+    Pusher.app_id = ENV['PUSHER_APP_ID'] || '39070'
+    Pusher.key = ENV['PUSHER_KEY'] || '0ac3571b7c8af608332a'
+    Pusher.secret = ENV['PUSHER_SECRET'] || 'e5b101dbf9ce837559aa'
+
   end
 end

@@ -1,9 +1,5 @@
 require 'pusher'
 
-Pusher.app_id = 11500
-Pusher.key = '0312037e2a21f4279d40'
-Pusher.secret = 'b0f6cd50d741b26dabbb'
-
 Whoot::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -50,10 +46,8 @@ Whoot::Application.configure do
           :port => 587,
           :authentication => :plain,
           :enable_starttls_auto => true,
-          #:user_name => ENV['SENDGRID_USERNAME'],
-          #:password => ENV['SENDGRID_PASSWORD']
-          :user_name => 'app1340105@heroku.com',
-          :password => '2nczsq6j'
+          :user_name => 'marbemac',
+          :password => 'giants22'
   }
 
 end

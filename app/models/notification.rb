@@ -299,7 +299,7 @@ class Notification
           }
       end
 
-      Urbanairship.push(notification) if notification
+      #Urbanairship.push(notification) if notification
     end
 
   end
